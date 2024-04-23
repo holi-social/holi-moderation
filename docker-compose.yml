@@ -1,0 +1,104 @@
+version: "3.6"
+services:
+  backend:
+    image: node:21-alpine
+    env_file:
+      - .env
+    environment:
+      DEBUG: "1"
+      PUBSUB_EMULATOR_HOST: "pubsub:8085"
+      PUBSUB_PROJECT_ID: holi-shared
+    ports:
+      - 8087:3000
+    volumes:
+      - ./apps/backend:/code
+      - backend_node_modules:/code/node_modules
+    working_dir: /code
+    entrypoint: "sh -c 'corepack enable yarn && yarn set version stable && yarn install && yarn run start:dev'"
+
+  frontend:
+    image: node:21-alpine
+    ports:
+      - 8089:5173
+      - 5001:5001
+      - 5002:5002
+    volumes:
+      - ./apps/frontend:/code
+      - frontend_node_modules:/code/node_modules
+    working_dir: /code
+    environment:
+      VITE_OKUNA_ADMIN_BASE_URL: "${OKUNA_ADMIN_BASE_URL}"
+    entrypoint: "sh -c 'corepack enable yarn && yarn set version stable && yarn install && yarn run dev'"
+
+  app-db:
+    image: postgres:16
+    restart: always
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./apps/hasura/init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      POSTGRES_USER: ${APP_DB_USER}
+      POSTGRES_PASSWORD: ${APP_DB_PASSWORD}
+      POSTGRES_DB: moderation
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+    ports:
+      - 5433:5432
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  graphql-engine:
+    image: hasura/graphql-engine:v2.38.0
+    ports:
+      - "8080:8080"
+    restart: always
+    environment:
+      ## postgres database to store Hasura metadata
+      HASURA_GRAPHQL_METADATA_DATABASE_URL: postgres://${APP_DB_USER}:${APP_DB_PASSWORD}@app-db:5432/hasura
+      ## enable the console served by server
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "true" # set to "false" to disable console
+      ## enable debugging mode. It is recommended to disable this in production
+      HASURA_GRAPHQL_DEV_MODE: "true"
+      HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
+      ## uncomment next line to run console offline (i.e load console assets from server instead of CDN)
+      # HASURA_GRAPHQL_CONSOLE_ASSETS_DIR: /srv/console-assets
+      ## uncomment next line to set an admin secret
+      # HASURA_GRAPHQL_ADMIN_SECRET: myadminsecretkey
+      HASURA_GRAPHQL_METADATA_DEFAULTS: '{"backend_configs":{"dataconnector":{"athena":{"uri":"http://data-connector-agent:8081/api/v1/athena"},"mariadb":{"uri":"http://data-connector-agent:8081/api/v1/mariadb"},"mysql8":{"uri":"http://data-connector-agent:8081/api/v1/mysql"},"oracle":{"uri":"http://data-connector-agent:8081/api/v1/oracle"},"snowflake":{"uri":"http://data-connector-agent:8081/api/v1/snowflake"}}}}'
+      HASURA_GRAPHQL_EXPERIMENTAL_FEATURES: "naming_convention"
+      ## VARIABLES FOR METADATA CONFIG
+      OKUNA_DATABASE_URL: postgres://${OKUNA_DB_USER}:${OKUNA_DB_PASSWORD}@${OKUNA_DB_HOST}:5432/okuna
+      BACKEND_GRAPHQL_URL: "http://backend:3000/graphql"
+    depends_on:
+      app-db:
+        condition: service_healthy
+      data-connector-agent:
+        condition: service_healthy
+
+  data-connector-agent:
+    image: hasura/graphql-data-connector:v2.38.0
+    restart: always
+    ports:
+      - 8881:8081
+    environment:
+      QUARKUS_LOG_LEVEL: ERROR # FATAL, ERROR, WARN, INFO, DEBUG, TRACE
+      ## https://quarkus.io/guides/opentelemetry#configuration-reference
+      QUARKUS_OPENTELEMETRY_ENABLED: "false"
+      ## QUARKUS_OPENTELEMETRY_TRACER_EXPORTER_OTLP_ENDPOINT: http://jaeger:4317
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081/api/v1/athena/health"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+      start_period: 5s
+
+  pubsub:
+    image: eu.gcr.io/google.com/cloudsdktool/google-cloud-cli:emulators
+    command: "gcloud beta emulators pubsub start --project=holi-shared --host-port=0.0.0.0:8085"
+
+volumes:
+  db_data:
+  backend_node_modules:
+  frontend_node_modules:

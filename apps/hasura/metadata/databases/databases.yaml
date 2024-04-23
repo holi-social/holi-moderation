@@ -1,0 +1,11 @@
+- name: okuna
+  kind: postgres
+  configuration:
+    connection_info:
+      database_url:
+        from_env: OKUNA_DATABASE_URL
+      isolation_level: read-committed
+      use_prepared_statements: false
+  customization:
+    naming_convention: graphql-default
+  tables: "!include okuna/tables/tables.yaml"

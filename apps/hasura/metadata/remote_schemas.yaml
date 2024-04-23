@@ -1,0 +1,29 @@
+- name: moderation API
+  definition:
+    url: '{{BACKEND_GRAPHQL_URL}}'
+    timeout_seconds: 60
+    customization: {}
+  comment: ""
+  remote_relationships:
+    - relationships:
+        - definition:
+            to_source:
+              field_mapping:
+                reporterId: id
+              relationship_type: object
+              source: okuna
+              table:
+                name: openbook_auth_user
+                schema: public
+          name: reporter
+        - definition:
+            to_source:
+              field_mapping:
+                contentId: id
+              relationship_type: object
+              source: okuna
+              table:
+                name: openbook_posts_post
+                schema: public
+          name: reportedPost
+      type_name: Report

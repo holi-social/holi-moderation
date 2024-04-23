@@ -1,0 +1,18 @@
+table:
+  name: openbook_posts_postcomment
+  schema: public
+object_relationships:
+  - name: commenter
+    using:
+      foreign_key_constraint_on: commenter_id
+  - name: parentComment
+    using:
+      foreign_key_constraint_on: parent_comment_id
+array_relationships:
+  - name: childComments
+    using:
+      foreign_key_constraint_on:
+        column: parent_comment_id
+        table:
+          name: openbook_posts_postcomment
+          schema: public

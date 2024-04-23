@@ -1,0 +1,26 @@
+table:
+  name: openbook_auth_user
+  schema: public
+object_relationships:
+  - name: profile
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          name: openbook_auth_userprofile
+          schema: public
+array_relationships:
+  - name: createdSpaces
+    using:
+      foreign_key_constraint_on:
+        column: creator_id
+        table:
+          name: openbook_communities_community
+          schema: public
+  - name: posts
+    using:
+      foreign_key_constraint_on:
+        column: creator_id
+        table:
+          name: openbook_posts_post
+          schema: public

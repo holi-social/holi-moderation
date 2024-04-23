@@ -1,0 +1,10 @@
+table:
+  name: openbook_posts_post
+  schema: public
+object_relationships:
+  - name: author
+    using:
+      foreign_key_constraint_on: creator_id
+  - name: space
+    using:
+      foreign_key_constraint_on: community_id
