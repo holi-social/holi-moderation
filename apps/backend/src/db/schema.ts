@@ -1,9 +1,15 @@
 import { pgEnum, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
 
+/** @todo extract this directly from the GraphQL enum */
 export const contentType = pgEnum('content_type', [
   'POST',
   'COMMENT',
   'CHAT_MESSAGE',
+  'SPACE',
+  'SPACE_TASK',
+  'SPACE_APPOINTMENT',
+  'SPACE_LINK',
+  'USER',
 ]);
 
 export const report = pgTable('reports', {

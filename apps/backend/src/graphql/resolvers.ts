@@ -3,8 +3,8 @@ import { CreateReport, ActionResult, Report, UUID } from './schema';
 import { ModerationDb } from '../db';
 import { eq } from 'drizzle-orm';
 import { report } from '../db/schema';
-import { Publisher } from 'src/pubsub';
-import { UserBannedEvent } from 'src/pubsub/events';
+import { Publisher } from '../pubsub';
+import { UserBannedEvent } from '../pubsub/events';
 
 @Resolver(() => Report)
 export class ReportsResolver {

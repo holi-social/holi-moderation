@@ -28,6 +28,11 @@ export enum ContentType {
   POST = 'POST',
   COMMENT = 'COMMENT',
   CHAT_MESSAGE = 'CHAT_MESSAGE',
+  SPACE = 'SPACE',
+  SPACE_TASK = 'SPACE_TASK',
+  SPACE_APPOINTMENT = 'SPACE_APPOINTMENT',
+  SPACE_LINK = 'SPACE_LINK',
+  USER = 'USER',
 }
 
 registerEnumType(ContentType, { name: 'ContentType' });

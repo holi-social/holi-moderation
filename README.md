@@ -24,3 +24,8 @@ You should be able to reach the following endpoints:
   cd apps/hasura
   hasura metadata export
   ```
+
+- Generate new migrations
+  ```bash
+  docker compose exec backend yarn run migrations:generate
+  ```
