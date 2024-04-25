@@ -64,7 +64,7 @@ export class Report {
 @InputType()
 export class CreateReport extends OmitType(
   Report,
-  ['id'] as const,
+  ['id', 'createdAt', 'updatedAt'] as const,
   InputType,
 ) {}
 
