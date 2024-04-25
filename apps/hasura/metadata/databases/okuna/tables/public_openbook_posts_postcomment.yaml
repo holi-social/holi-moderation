@@ -2,6 +2,9 @@ table:
   name: openbook_posts_postcomment
   schema: public
 object_relationships:
+  - name: commentableType
+    using:
+      foreign_key_constraint_on: commentable_type_id
   - name: commenter
     using:
       foreign_key_constraint_on: commenter_id

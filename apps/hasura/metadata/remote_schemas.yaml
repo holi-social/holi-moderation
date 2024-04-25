@@ -26,4 +26,14 @@
                 name: openbook_posts_post
                 schema: public
           name: reportedPost
+        - definition:
+            to_source:
+              field_mapping:
+                contentId: id
+              relationship_type: object
+              source: okuna
+              table:
+                name: openbook_posts_postcomment
+                schema: public
+          name: reportedComment
       type_name: Report
