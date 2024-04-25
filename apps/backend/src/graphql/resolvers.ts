@@ -1,7 +1,7 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { CreateReport, ActionResult, Report, UUID } from './schema';
 import { ModerationDb } from '../db';
-import { eq } from 'drizzle-orm';
+import { desc, eq } from 'drizzle-orm';
 import { report } from '../db/schema';
 import { Publisher } from '../pubsub';
 import { UserBannedEvent } from '../pubsub/events';
@@ -12,7 +12,9 @@ export class ReportsResolver {
 
   @Query(() => [Report])
   async reports() {
-    return this.moderationDb.db.query.report.findMany();
+    return this.moderationDb.db.query.report.findMany({
+      orderBy: desc(report.createdAt),
+    });
   }
 
   @Query(() => Report)
