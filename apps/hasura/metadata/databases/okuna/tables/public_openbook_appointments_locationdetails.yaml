@@ -1,0 +1,11 @@
+table:
+  name: openbook_appointments_locationdetails
+  schema: public
+object_relationships:
+  - name: appointment
+    using:
+      foreign_key_constraint_on:
+        column: location_details_id
+        table:
+          name: openbook_appointments_appointment
+          schema: public

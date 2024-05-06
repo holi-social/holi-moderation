@@ -17,12 +17,33 @@ array_relationships:
         table:
           name: openbook_posts_postcomment
           schema: public
+  - name: createdAppointments
+    using:
+      foreign_key_constraint_on:
+        column: creator_id
+        table:
+          name: openbook_appointments_appointment
+          schema: public
+  - name: createdLinkhubTools
+    using:
+      foreign_key_constraint_on:
+        column: creator_id
+        table:
+          name: openbook_communities_collaborationtool
+          schema: public
   - name: createdSpaces
     using:
       foreign_key_constraint_on:
         column: creator_id
         table:
           name: openbook_communities_community
+          schema: public
+  - name: createdTasks
+    using:
+      foreign_key_constraint_on:
+        column: creator_id
+        table:
+          name: openbook_communities_task
           schema: public
   - name: posts
     using:

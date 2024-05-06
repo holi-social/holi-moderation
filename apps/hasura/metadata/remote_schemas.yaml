@@ -36,4 +36,54 @@
                 name: openbook_posts_postcomment
                 schema: public
           name: reportedComment
+        - definition:
+            to_source:
+              field_mapping:
+                contentId: id
+              relationship_type: object
+              source: okuna
+              table:
+                name: openbook_auth_user
+                schema: public
+          name: reportedUser
+        - definition:
+            to_source:
+              field_mapping:
+                contentId: id
+              relationship_type: object
+              source: okuna
+              table:
+                name: openbook_communities_community
+                schema: public
+          name: reportedSpace
+        - definition:
+            to_source:
+              field_mapping:
+                contentId: id
+              relationship_type: object
+              source: okuna
+              table:
+                name: openbook_appointments_appointment
+                schema: public
+          name: reportedSpaceAppointment
+        - definition:
+            to_source:
+              field_mapping:
+                contentId: id
+              relationship_type: object
+              source: okuna
+              table:
+                name: openbook_communities_task
+                schema: public
+          name: reportedSpaceTask
+        - definition:
+            to_source:
+              field_mapping:
+                contentId: id
+              relationship_type: object
+              source: okuna
+              table:
+                name: openbook_communities_collaborationtool
+                schema: public
+          name: reportedSpaceLinkhubTool
       type_name: Report

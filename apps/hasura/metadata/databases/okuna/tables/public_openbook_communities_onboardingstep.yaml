@@ -1,0 +1,7 @@
+table:
+  name: openbook_communities_onboardingstep
+  schema: public
+object_relationships:
+  - name: space
+    using:
+      foreign_key_constraint_on: community_id

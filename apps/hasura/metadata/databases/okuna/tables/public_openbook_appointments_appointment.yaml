@@ -1,0 +1,24 @@
+table:
+  name: openbook_appointments_appointment
+  schema: public
+object_relationships:
+  - name: creator
+    using:
+      foreign_key_constraint_on: creator_id
+  - name: locationDetails
+    using:
+      foreign_key_constraint_on: location_details_id
+  - name: space
+    using:
+      foreign_key_constraint_on: space_id
+  - name: videoCallLink
+    using:
+      foreign_key_constraint_on: video_call_link_id
+array_relationships:
+  - name: participants
+    using:
+      foreign_key_constraint_on:
+        column: appointment_id
+        table:
+          name: openbook_appointments_appointment_participants
+          schema: public

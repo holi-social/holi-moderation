@@ -1,0 +1,11 @@
+table:
+  name: openbook_appointments_videocalllink
+  schema: public
+object_relationships:
+  - name: appointment
+    using:
+      foreign_key_constraint_on:
+        column: video_call_link_id
+        table:
+          name: openbook_appointments_appointment
+          schema: public

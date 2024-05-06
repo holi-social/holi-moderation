@@ -6,10 +6,45 @@ object_relationships:
     using:
       foreign_key_constraint_on: creator_id
 array_relationships:
+  - name: appointments
+    using:
+      foreign_key_constraint_on:
+        column: space_id
+        table:
+          name: openbook_appointments_appointment
+          schema: public
+  - name: externalLinks
+    using:
+      foreign_key_constraint_on:
+        column: community_id
+        table:
+          name: openbook_communities_externallink
+          schema: public
+  - name: linkhubTools
+    using:
+      foreign_key_constraint_on:
+        column: community_id
+        table:
+          name: openbook_communities_collaborationtool
+          schema: public
+  - name: onboardingSteps
+    using:
+      foreign_key_constraint_on:
+        column: community_id
+        table:
+          name: openbook_communities_onboardingstep
+          schema: public
   - name: posts
     using:
       foreign_key_constraint_on:
         column: community_id
         table:
           name: openbook_posts_post
+          schema: public
+  - name: tasks
+    using:
+      foreign_key_constraint_on:
+        column: community_id
+        table:
+          name: openbook_communities_task
           schema: public

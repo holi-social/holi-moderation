@@ -1,0 +1,3 @@
+table:
+  name: openbook_terms_skill
+  schema: public
