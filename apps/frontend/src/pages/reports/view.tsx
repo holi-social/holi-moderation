@@ -1,31 +1,44 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import useSWR from "swr";
-import { VIEW_REPORT_QUERY } from "./queries";
 import { fetcher } from "../../fetcher";
 import {
   Grid,
   Loader,
-  Paper,
   Title,
   Text,
   ActionIcon,
-  GridCol,
   Avatar,
   Flex,
   Button,
+  Accordion,
+  Group,
+  Timeline,
 } from "@mantine/core";
 import {
+  IconActivity,
   IconArrowLeft,
   IconExternalLink,
+  IconFlag,
+  IconGavel,
   IconMessage2,
+  IconMessageReport,
+  IconStatusChange,
   IconTrash,
   IconUserCancel,
 } from "@tabler/icons-react";
 import { okunaAdminUrl } from "../../utils";
-import { ViewReportQuery } from "../../graphql/types";
+import { ViewReportQuery as ViewReportQueryResponse } from "../../graphql/generated/types";
 import { formatDistanceToNow, parseISO } from "date-fns";
-import { OpenbookAuthUser } from "../../graphql/schema.types";
+import { OpenbookAuthUser } from "../../graphql/generated/schema.types";
+import { Post } from "../../components/post";
+import { Comment } from "../../components/comment";
+import { ReportedUser } from "../../components/user/reported";
+import { ReportedSpace } from "../../components/space/reported";
+import { ReportedSpaceAppointment } from "../../components/spaceAppointment/reported";
+import { ViewReportQuery } from "../../graphql/queries/viewReport";
+import { ReportedSpaceTask } from "../../components/spaceTask/reported";
+import { ReportedSpaceLinkhubTool } from "../../components/spaceLinkhubTool/reported";
 
 const OkunaLinkButton: React.FC<{ urlPath: string }> = ({ urlPath }) => (
   <ActionIcon
@@ -52,8 +65,8 @@ const User: React.FC<{ user: OpenbookAuthUser }> = ({ user }) => {
 
 export const ViewReport: React.FC = () => {
   const { reportId } = useParams();
-  const { data, isLoading } = useSWR<ViewReportQuery>(
-    [VIEW_REPORT_QUERY, { id: reportId }],
+  const { data, isLoading } = useSWR<ViewReportQueryResponse>(
+    [ViewReportQuery, { id: reportId }],
     fetcher,
   );
 
@@ -83,96 +96,169 @@ export const ViewReport: React.FC = () => {
         <Title>Report #{idLastDigits}</Title>
       </Flex>
 
-      <Paper shadow="xs" p="md" mb="md">
-        <Title order={3} mb="sm">
-          Report Details
-        </Title>
-        <Grid>
-          <Grid.Col span={2}>
-            <Text fw={700}>Reported by:</Text>
-          </Grid.Col>
-          <Grid.Col span={10} display="flex">
-            <User user={report.reporter as OpenbookAuthUser} />
-          </Grid.Col>
-          <Grid.Col span={2}>
-            <Text fw={700}>Reported at:</Text>
-          </Grid.Col>
-          <Grid.Col span={10} display="flex">
-            <Text>{formatDate(report.createdAt)}</Text>
-          </Grid.Col>
-        </Grid>
-      </Paper>
+      <Accordion
+        multiple
+        variant="separated"
+        defaultValue={["report", "content"]}
+      >
+        <Accordion.Item value="report">
+          <Accordion.Control icon={<IconMessageReport />}>
+            <Title order={3}>Report Details</Title>
+          </Accordion.Control>
+          <Accordion.Panel p="md">
+            <Grid>
+              <Grid.Col span={2}>
+                <Text fw={700}>Reported by:</Text>
+              </Grid.Col>
+              <Grid.Col span={10} display="flex">
+                <User user={report.reporter as OpenbookAuthUser} />
+              </Grid.Col>
+              <Grid.Col span={2}>
+                <Text fw={700}>Reported at:</Text>
+              </Grid.Col>
+              <Grid.Col span={10} display="flex">
+                <Text>{formatDate(report.createdAt)}</Text>
+              </Grid.Col>
+              <Grid.Col span={2}>
+                <Text fw={700}>Comment:</Text>
+              </Grid.Col>
+              <Grid.Col span={10} display="flex">
+                <Text>{report.details}</Text>
+              </Grid.Col>
+            </Grid>
+          </Accordion.Panel>
+        </Accordion.Item>
 
-      <Paper shadow="xs" p="md" mb="md">
-        <Title order={3} mb="sm">
-          Reported Content
-        </Title>
-        <Grid>
-          <Grid.Col span={2}>
-            <Text fw={700}>Content Type:</Text>
-          </Grid.Col>
-          <Grid.Col span={10}>{report.contentType}</Grid.Col>
-          {report.contentType == "POST" && (
-            <>
-              <GridCol span={2}>
-                <Text fw={700}>Post ID:</Text>
-              </GridCol>
-              <GridCol span={10}>
-                <Flex align="center" gap="md">
-                  <Text>{report.reportedPost?.id}</Text>
-                  <OkunaLinkButton
-                    urlPath={`openbook_posts/post/${report.reportedPost?.id}`}
-                  />
-                </Flex>
-              </GridCol>
-              <GridCol span={2}>
-                <Text fw={700}>Author:</Text>
-              </GridCol>
-              <GridCol span={10}>
-                <User user={report.reportedPost?.author as OpenbookAuthUser} />
-              </GridCol>
-              <GridCol span={2}>
-                <Text fw={700}>Post Title:</Text>
-              </GridCol>
-              <GridCol span={10}>
-                <Text>{report.reportedPost?.title}</Text>
-              </GridCol>
-              <GridCol span={2}>
-                <Text fw={700}>Post Content:</Text>
-              </GridCol>
-              <GridCol span={10}>
-                <Text>{report.reportedPost?.text}</Text>
-              </GridCol>
-              <GridCol span={2}>
-                <Text fw={700}>Posted at:</Text>
-              </GridCol>
-              <GridCol span={10}>
-                <Text>
-                  {report.reportedPost?.created
-                    ? formatDate(report.reportedPost?.created)
-                    : "n/a"}
-                </Text>
-              </GridCol>
-            </>
+        {report.contentType === "POST" && report.reportedPost && (
+          <Accordion.Item value="content">
+            <Accordion.Control icon={<IconFlag />}>
+              <Title order={3}>Reported Post</Title>
+            </Accordion.Control>
+            <Accordion.Panel>
+              <Post post={report.reportedPost} />
+            </Accordion.Panel>
+          </Accordion.Item>
+        )}
+
+        {report.contentType === "COMMENT" && report.reportedComment && (
+          <Accordion.Item value="content">
+            <Accordion.Control icon={<IconFlag />}>
+              <Title order={3}>Reported Comment</Title>
+            </Accordion.Control>
+            <Accordion.Panel>
+              <Comment comment={report.reportedComment} />
+            </Accordion.Panel>
+          </Accordion.Item>
+        )}
+
+        {report.contentType === "USER" && report.reportedUser && (
+          <Accordion.Item value="content">
+            <Accordion.Control icon={<IconFlag />}>
+              <Title order={3}>Reported User</Title>
+            </Accordion.Control>
+            <Accordion.Panel>
+              <ReportedUser user={report.reportedUser} />
+            </Accordion.Panel>
+          </Accordion.Item>
+        )}
+
+        {report.contentType === "SPACE" && report.reportedSpace && (
+          <Accordion.Item value="content">
+            <Accordion.Control icon={<IconFlag />}>
+              <Title order={3}>Reported Space</Title>
+            </Accordion.Control>
+            <Accordion.Panel>
+              <ReportedSpace space={report.reportedSpace} />
+            </Accordion.Panel>
+          </Accordion.Item>
+        )}
+
+        {report.contentType === "SPACE_APPOINTMENT" &&
+          report.reportedSpaceAppointment && (
+            <Accordion.Item value="content">
+              <Accordion.Control icon={<IconFlag />}>
+                <Title order={3}>Reported Appointment</Title>
+              </Accordion.Control>
+              <Accordion.Panel>
+                <ReportedSpaceAppointment
+                  appointment={report.reportedSpaceAppointment}
+                />
+              </Accordion.Panel>
+            </Accordion.Item>
           )}
-        </Grid>
-      </Paper>
 
-      <Paper shadow="xs" p="md">
-        <Title order={3} mb="sm">
-          Actions
-        </Title>
+        {report.contentType === "SPACE_TASK" && report.reportedSpaceTask && (
+          <Accordion.Item value="content">
+            <Accordion.Control icon={<IconFlag />}>
+              <Title order={3}>Reported Task</Title>
+            </Accordion.Control>
+            <Accordion.Panel>
+              <ReportedSpaceTask task={report.reportedSpaceTask} />
+            </Accordion.Panel>
+          </Accordion.Item>
+        )}
 
-        <Flex gap="md">
-          <Button variant="light" leftSection={<IconMessage2 size={14} />}>
-            Message User
-          </Button>
-          <Button leftSection={<IconTrash size={14} />}>Delete Post</Button>
-          <Button leftSection={<IconUserCancel size={14} />} color="red">
-            Ban User
-          </Button>
-        </Flex>
-      </Paper>
+        {report.contentType === "SPACE_LINKHUB_TOOL" &&
+          report.reportedSpaceLinkhubTool && (
+            <Accordion.Item value="content">
+              <Accordion.Control icon={<IconFlag />}>
+                <Title order={3}>Reported Linkhub Tool</Title>
+              </Accordion.Control>
+              <Accordion.Panel>
+                <ReportedSpaceLinkhubTool
+                  tool={report.reportedSpaceLinkhubTool}
+                />
+              </Accordion.Panel>
+            </Accordion.Item>
+          )}
+
+        <Accordion.Item value="actions">
+          <Accordion.Control icon={<IconGavel />}>
+            <Title order={3}>Actions</Title>
+          </Accordion.Control>
+          <Accordion.Panel>
+            <Group>
+              <Button variant="light" leftSection={<IconMessage2 size={14} />}>
+                Message User
+              </Button>
+              <Button leftSection={<IconTrash size={14} />}>Delete Post</Button>
+              <Button leftSection={<IconUserCancel size={14} />} color="red">
+                Ban User
+              </Button>
+            </Group>
+          </Accordion.Panel>
+        </Accordion.Item>
+
+        <Accordion.Item value="Activity">
+          <Accordion.Control icon={<IconActivity />}>
+            <Title order={3}>Activity</Title>
+          </Accordion.Control>
+          <Accordion.Panel>
+            <Timeline>
+              <Timeline.Item
+                title="Report created"
+                bullet={<IconMessageReport size={12} />}
+              >
+                <Text c="dimmed">{formatDate(report.createdAt)}</Text>
+              </Timeline.Item>
+              <Timeline.Item
+                title="Status changed"
+                bullet={<IconStatusChange size={12} />}
+              >
+                <Text c="dimmed">Open → In Progress</Text>
+                <Text c="dimmed">14 minutes ago</Text>
+              </Timeline.Item>
+              <Timeline.Item
+                title="Action taken"
+                bullet={<IconGavel size={12} />}
+              >
+                <Text c="dimmed">User suspended for 14 days</Text>
+                <Text c="dimmed">8 minutes ago</Text>
+              </Timeline.Item>
+            </Timeline>
+          </Accordion.Panel>
+        </Accordion.Item>
+      </Accordion>
     </>
   );
 };

@@ -9,7 +9,7 @@ const config: IGraphQLConfig = {
         afterOneFileWrite: ["eslint --fix"],
       },
       generates: {
-        "src/graphql/schema.types.ts": {
+        "src/graphql/generated/schema.types.ts": {
           plugins: ["typescript"],
           config: {
             skipTypename: true,
@@ -17,7 +17,7 @@ const config: IGraphQLConfig = {
             defaultScalarType: "string",
           },
         },
-        "src/graphql/types.ts": {
+        "src/graphql/generated/types.ts": {
           preset: "import-types",
           documents: ["src/**/*.{ts,tsx}"],
           plugins: ["typescript-operations"],
