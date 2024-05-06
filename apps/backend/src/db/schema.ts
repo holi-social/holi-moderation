@@ -8,7 +8,7 @@ export const contentType = pgEnum('content_type', [
   'SPACE',
   'SPACE_TASK',
   'SPACE_APPOINTMENT',
-  'SPACE_LINK',
+  'SPACE_LINKHUB_TOOL',
   'USER',
 ]);
 

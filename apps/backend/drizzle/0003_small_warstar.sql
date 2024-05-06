@@ -1,0 +1,1 @@
+ALTER TYPE "content_type" ADD VALUE 'SPACE_LINKHUB_TOOL';

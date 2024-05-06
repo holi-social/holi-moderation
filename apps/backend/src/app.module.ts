@@ -5,7 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { ModerationDb } from './db';
 import { MigrateCommand } from './db/migrate.command';
 import { UUID } from './graphql/schema';
-import { ReportsResolver } from './graphql/resolvers';
+import { ModerationActionResolver, ReportsResolver } from './graphql/resolvers';
 import { Publisher, PubsubProvider, PubsubTopicProvider } from './pubsub';
 
 @Module({
@@ -22,6 +22,7 @@ import { Publisher, PubsubProvider, PubsubTopicProvider } from './pubsub';
     ModerationDb,
     MigrateCommand,
     ReportsResolver,
+    ModerationActionResolver,
     PubsubProvider,
     PubsubTopicProvider,
     Publisher,
