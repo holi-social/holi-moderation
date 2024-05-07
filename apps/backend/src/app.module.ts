@@ -7,7 +7,6 @@ import { MigrateCommand } from './db/migrate.command';
 import { UUID } from './graphql/schema';
 import { ModerationActionResolver, ReportsResolver } from './graphql/resolvers';
 import { Publisher, PubsubProvider, PubsubTopicProvider } from './pubsub';
-import GraphQLJSON from 'graphql-type-json';
 import { ReportLogger } from './reportLog';
 
 @Module({
@@ -16,7 +15,7 @@ import { ReportLogger } from './reportLog';
       driver: ApolloDriver,
       autoSchemaFile: true,
       sortSchema: true,
-      resolvers: { UUID: UUID, JSON: GraphQLJSON },
+      resolvers: { UUID: UUID },
     }),
     ConfigModule.forRoot({ ignoreEnvFile: true }),
   ],

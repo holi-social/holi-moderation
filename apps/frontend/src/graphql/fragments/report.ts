@@ -7,6 +7,7 @@ import { ReportedSpaceAppointmentDetails } from "./spaceAppointment";
 import { ReportedSpaceLinkhubToolDetails } from "./spaceLinkhubTool";
 import { ReportedSpaceTaskDetails } from "./spaceTask";
 import { UserDetails } from "./user";
+import { ReportEventDetails } from "./reportEvent";
 
 export const ReportDetails = gql`
   ${UserDetails}
@@ -17,6 +18,7 @@ export const ReportDetails = gql`
   ${ReportedSpaceAppointmentDetails}
   ${ReportedSpaceTaskDetails}
   ${ReportedSpaceLinkhubToolDetails}
+  ${ReportEventDetails}
 
   fragment ReportDetails on Report {
     id
@@ -27,6 +29,10 @@ export const ReportDetails = gql`
 
     reporter {
       ...UserDetails
+    }
+
+    events {
+      ...ReportEventDetails
     }
 
     reportedPost {

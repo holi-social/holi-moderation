@@ -26,6 +26,7 @@ export type Scalars = {
   Int: { input: number; output: number };
   Float: { input: number; output: number };
   DateTime: { input: string; output: string };
+  JSONObject: { input: string; output: string };
   UUID: { input: string; output: string };
   bigint: { input: string; output: string };
   geography: { input: string; output: string };
@@ -5664,6 +5665,7 @@ export type Report = {
   contentType: ContentType;
   createdAt: Scalars["DateTime"]["output"];
   details: Scalars["String"]["output"];
+  events: Array<ReportEvent>;
   id: Scalars["UUID"]["output"];
   reportedComment?: Maybe<OpenbookPostsPostcomment>;
   reportedPost?: Maybe<OpenbookPostsPost>;
@@ -5677,6 +5679,15 @@ export type Report = {
   status: ReportStatus;
   updatedAt: Scalars["DateTime"]["output"];
 };
+
+export type ReportEvent = {
+  eventName: ReportLogEvent;
+  eventPayload: Scalars["JSONObject"]["output"];
+  id: Scalars["UUID"]["output"];
+  occurredAt: Scalars["DateTime"]["output"];
+};
+
+export type ReportLogEvent = "STATUS_CHANGED";
 
 export type ReportStatus = "ACTION_TAKEN" | "IN_PROGRESS" | "OPEN" | "REJECTED";
 

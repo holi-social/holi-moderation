@@ -118,6 +118,9 @@ export type ReportDetailsFragment = Pick<
       >;
     }
   >;
+  events: Array<
+    Pick<Types.ReportEvent, "id" | "eventName" | "eventPayload" | "occurredAt">
+  >;
   reportedPost?: Types.Maybe<
     Pick<
       Types.OpenbookPostsPost,
@@ -928,6 +931,11 @@ export type ReportDetailsFragment = Pick<
     }
   >;
 };
+
+export type ReportEventDetailsFragment = Pick<
+  Types.ReportEvent,
+  "id" | "eventName" | "eventPayload" | "occurredAt"
+>;
 
 export type ReportedSpaceDetailsFragment = Pick<
   Types.OpenbookCommunitiesCommunity,
@@ -1809,6 +1817,12 @@ export type ChangeReportStatusMutation = {
           >
         >;
       }
+    >;
+    events: Array<
+      Pick<
+        Types.ReportEvent,
+        "id" | "eventName" | "eventPayload" | "occurredAt"
+      >
     >;
     reportedPost?: Types.Maybe<
       Pick<
@@ -2755,6 +2769,12 @@ export type ViewReportQuery = {
           >
         >;
       }
+    >;
+    events: Array<
+      Pick<
+        Types.ReportEvent,
+        "id" | "eventName" | "eventPayload" | "occurredAt"
+      >
     >;
     reportedPost?: Types.Maybe<
       Pick<

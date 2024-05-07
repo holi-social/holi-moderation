@@ -39,6 +39,7 @@ import { ViewReportQuery } from "../../graphql/queries/viewReport";
 import { ReportedSpaceTask } from "../../components/spaceTask/reported";
 import { ReportedSpaceLinkhubTool } from "../../components/spaceLinkhubTool/reported";
 import { ReportStatusDropdown } from "../../components/reportStatusDropdown";
+import { ReportTimeline } from "../../components/reportTimeline";
 
 const OkunaLinkButton: React.FC<{ urlPath: string }> = ({ urlPath }) => (
   <ActionIcon
@@ -243,28 +244,7 @@ export const ViewReport: React.FC = () => {
             <Title order={3}>Activity</Title>
           </Accordion.Control>
           <Accordion.Panel>
-            <Timeline>
-              <Timeline.Item
-                title="Report created"
-                bullet={<IconMessageReport size={12} />}
-              >
-                <Text c="dimmed">{formatDate(report.createdAt)}</Text>
-              </Timeline.Item>
-              <Timeline.Item
-                title="Status changed"
-                bullet={<IconStatusChange size={12} />}
-              >
-                <Text c="dimmed">Open → In Progress</Text>
-                <Text c="dimmed">14 minutes ago</Text>
-              </Timeline.Item>
-              <Timeline.Item
-                title="Action taken"
-                bullet={<IconGavel size={12} />}
-              >
-                <Text c="dimmed">User suspended for 14 days</Text>
-                <Text c="dimmed">8 minutes ago</Text>
-              </Timeline.Item>
-            </Timeline>
+            <ReportTimeline events={report.events} />
           </Accordion.Panel>
         </Accordion.Item>
       </Accordion>
