@@ -35,7 +35,15 @@ export enum ContentType {
   USER = 'USER',
 }
 
+export enum ReportStatus {
+  OPEN = 'OPEN',
+  IN_PROGRESS = 'IN_PROGRESS',
+  ACTION_TAKEN = 'ACTION_TAKEN',
+  REJECTED = 'REJECTED',
+}
+
 registerEnumType(ContentType, { name: 'ContentType' });
+registerEnumType(ReportStatus, { name: 'ReportStatus' });
 
 @ObjectType()
 export class Report {
@@ -54,6 +62,9 @@ export class Report {
   @Field(() => UUID)
   reporterId: string;
 
+  @Field(() => ReportStatus)
+  status: ReportStatus;
+
   @Field()
   createdAt: Date;
 
@@ -64,7 +75,7 @@ export class Report {
 @InputType()
 export class CreateReport extends OmitType(
   Report,
-  ['id', 'createdAt', 'updatedAt'] as const,
+  ['id', 'status', 'createdAt', 'updatedAt'] as const,
   InputType,
 ) {}
 

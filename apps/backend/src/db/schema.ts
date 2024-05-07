@@ -12,12 +12,20 @@ export const contentType = pgEnum('content_type', [
   'USER',
 ]);
 
+export const reportStatus = pgEnum('status', [
+  'OPEN',
+  'IN_PROGRESS',
+  'ACTION_TAKEN',
+  'REJECTED',
+]);
+
 export const report = pgTable('reports', {
   id: uuid('id').primaryKey().notNull().defaultRandom(),
   contentType: contentType('content_type').notNull(),
   contentId: uuid('content_id').notNull(),
   details: text('details').notNull(),
   reporterId: uuid('reporter_id').notNull(),
+  status: reportStatus('status').notNull().default('OPEN'),
   createdAt: timestamp('created_at').defaultNow(),
   updatedAt: timestamp('updated_at').$onUpdate(() => new Date()),
 });

@@ -29,6 +29,13 @@
       "when": 1714996548865,
       "tag": "0003_small_warstar",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1715071750427,
+      "tag": "0004_unique_shocker",
+      "breakpoints": true
     }
   ]
 }

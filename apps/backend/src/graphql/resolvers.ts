@@ -1,5 +1,11 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { CreateReport, ActionResult, Report, UUID } from './schema';
+import {
+  CreateReport,
+  ActionResult,
+  Report,
+  UUID,
+  ReportStatus,
+} from './schema';
 import { ModerationDb } from '../db';
 import { desc, eq } from 'drizzle-orm';
 import { report } from '../db/schema';
@@ -19,9 +25,7 @@ export class ReportsResolver {
 
   @Query(() => Report)
   async report(@Args('id', { type: () => UUID }) id: string) {
-    return this.moderationDb.db.query.report.findFirst({
-      where: eq(report.id, id),
-    });
+    return this.findReportById(id);
   }
 
   @Mutation(() => Report)
@@ -32,9 +36,28 @@ export class ReportsResolver {
     const data = await this.moderationDb.db
       .insert(report)
       .values({ ...input })
-      .returning();
+      .returning({ id: report.id });
 
-    return data[0];
+    return this.findReportById(data[0].id);
+  }
+
+  @Mutation(() => Report)
+  async changeReportStatus(
+    @Args('reportId', { type: () => UUID }) reportId: string,
+    @Args('newStatus', { type: () => ReportStatus }) newStatus: ReportStatus,
+  ) {
+    await this.moderationDb.db
+      .update(report)
+      .set({ status: newStatus })
+      .where(eq(report.id, reportId));
+
+    return this.findReportById(reportId);
+  }
+
+  private async findReportById(id: string) {
+    return this.moderationDb.db.query.report.findFirst({
+      where: eq(report.id, id),
+    });
   }
 }
 

@@ -19,9 +19,13 @@ import { ReportsList } from "./pages/reports/list";
 import { ViewReport } from "./pages/reports/view";
 import { ThemeSwitcher } from "./components/themeSwitcher";
 import { IconFlag } from "@tabler/icons-react";
+import { Notifications } from "@mantine/notifications";
+import "@mantine/notifications/styles.css";
 
 const Layout: React.FC<PropsWithChildren> = ({ children }) => (
   <MantineProvider>
+    <Notifications />
+
     <AppShell header={{ height: 60 }} padding="sm">
       <AppShell.Header
         display="flex"

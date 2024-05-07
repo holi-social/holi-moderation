@@ -39,6 +39,7 @@ import { ReportedSpaceAppointment } from "../../components/spaceAppointment/repo
 import { ViewReportQuery } from "../../graphql/queries/viewReport";
 import { ReportedSpaceTask } from "../../components/spaceTask/reported";
 import { ReportedSpaceLinkhubTool } from "../../components/spaceLinkhubTool/reported";
+import { ReportStatusDropdown } from "../../components/reportStatusDropdown";
 
 const OkunaLinkButton: React.FC<{ urlPath: string }> = ({ urlPath }) => (
   <ActionIcon
@@ -107,6 +108,15 @@ export const ViewReport: React.FC = () => {
           </Accordion.Control>
           <Accordion.Panel p="md">
             <Grid>
+              <Grid.Col span={2}>
+                <Text fw={700}>Status:</Text>
+              </Grid.Col>
+              <Grid.Col span={10} display="flex">
+                <ReportStatusDropdown
+                  reportId={report.id}
+                  status={report.status}
+                />
+              </Grid.Col>
               <Grid.Col span={2}>
                 <Text fw={700}>Reported by:</Text>
               </Grid.Col>

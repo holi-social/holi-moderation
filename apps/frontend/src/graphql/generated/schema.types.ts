@@ -5674,8 +5674,11 @@ export type Report = {
   reportedUser?: Maybe<OpenbookAuthUser>;
   reporter?: Maybe<OpenbookAuthUser>;
   reporterId: Scalars["UUID"]["output"];
+  status: ReportStatus;
   updatedAt: Scalars["DateTime"]["output"];
 };
+
+export type ReportStatus = "ACTION_TAKEN" | "IN_PROGRESS" | "OPEN" | "REJECTED";
 
 /** Boolean expression to compare columns of type "smallint". All fields are combined with logical 'AND'. */
 export type SmallintComparisonExp = {
@@ -5752,6 +5755,7 @@ export type UuidComparisonExp = {
 /** mutation root */
 export type Mutation_Root = {
   banUser: ActionResult;
+  changeReportStatus: Report;
   createReport: Report;
   /** delete data from the table: "django_content_type" */
   deleteDjangoContentType?: Maybe<DjangoContentTypeMutationResponse>;
@@ -6015,6 +6019,12 @@ export type Mutation_Root = {
 export type Mutation_RootBanUserArgs = {
   reason: Scalars["String"]["input"];
   userId: Scalars["UUID"]["input"];
+};
+
+/** mutation root */
+export type Mutation_RootChangeReportStatusArgs = {
+  newStatus: ReportStatus;
+  reportId: Scalars["UUID"]["input"];
 };
 
 /** mutation root */
