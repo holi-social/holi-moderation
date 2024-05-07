@@ -8,7 +8,7 @@ import {
 import { GraphQLScalarType, StringValueNode } from 'graphql';
 import { ReportEventPayload, ReportLogEvent } from '../reportLog';
 import { validate as validateUUID } from 'uuid';
-import GraphQLJSON, { GraphQLJSONObject } from 'graphql-type-json';
+import { GraphQLJSONObject } from 'graphql-type-json';
 
 const assertUUID = (input: string) => {
   if (!validateUUID(input)) {

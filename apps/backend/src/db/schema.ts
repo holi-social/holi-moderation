@@ -42,7 +42,10 @@ export const reportsRelations = relations(reports, ({ many }) => ({
   events: many(reportEvents),
 }));
 
-export const reportEventName = pgEnum('report_event_name', ['STATUS_CHANGED']);
+export const reportEventName = pgEnum('report_event_name', [
+  'STATUS_CHANGED',
+  'REPORT_CREATED',
+]);
 
 export const reportEvents = pgTable('report_events', {
   id: uuid('id').primaryKey().notNull().defaultRandom(),

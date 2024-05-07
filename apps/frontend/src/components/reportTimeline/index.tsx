@@ -1,33 +1,12 @@
 import React from "react";
 import { ReportEventDetailsFragment } from "../../graphql/generated/types";
-import { Text, Timeline } from "@mantine/core";
-import { IconStatusChange } from "@tabler/icons-react";
-import { relativeFormatISOTimestamp, titleCase } from "../../utils";
+import { Timeline } from "@mantine/core";
 import { ReportEvent } from "../../graphql/generated/schema.types";
+import { StatusChangedTimelineItem } from "./items/statusChanged";
+import { ReportCreatedTimelineItem } from "./items/reportCreated";
 
-type TimelineItemProps = {
+export type TimelineItemProps = {
   event: ReportEventDetailsFragment | ReportEvent;
-};
-
-export const StatusChangedTimelineItem: React.FC<TimelineItemProps> = ({
-  event,
-}) => {
-  const payload = event.eventPayload as unknown as {
-    oldStatus: string;
-    newStatus: string;
-  };
-
-  return (
-    <Timeline.Item
-      title="Status changed"
-      bullet={<IconStatusChange size={12} />}
-    >
-      <Text c="dimmed">
-        {titleCase(payload.oldStatus)} → {titleCase(payload.newStatus)}
-      </Text>
-      <Text c="dimmed">{relativeFormatISOTimestamp(event.occurredAt)}</Text>
-    </Timeline.Item>
-  );
 };
 
 type ReportTimelineProps = {
@@ -35,6 +14,7 @@ type ReportTimelineProps = {
 };
 
 const EVENT_TIMELINE_COMPONENTS = {
+  REPORT_CREATED: ReportCreatedTimelineItem,
   STATUS_CHANGED: StatusChangedTimelineItem,
 };
 

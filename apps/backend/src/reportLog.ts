@@ -3,26 +3,25 @@ import { ModerationDb } from './db';
 import { reportEvents } from './db/schema';
 import { ReportStatus } from './graphql/schema';
 import { asc, eq } from 'drizzle-orm';
-import { Field, InterfaceType, ObjectType } from '@nestjs/graphql';
 
 export enum ReportLogEvent {
+  REPORT_CREATED = 'REPORT_CREATED',
   STATUS_CHANGED = 'STATUS_CHANGED',
 }
 
-@InterfaceType()
-export abstract class ReportEventPayload {}
+export type EmptyPayload = Record<string, never>;
 
-@ObjectType({ implements: () => [ReportEventPayload] })
-export class StatusChangedEventPayload extends ReportEventPayload {
-  @Field()
+export type ReportEventPayload = StatusChangedEventPayload | EmptyPayload;
+
+export type ReportCreatedEventPayload = EmptyPayload;
+export type StatusChangedEventPayload = {
   oldStatus: ReportStatus;
-
-  @Field()
   newStatus: ReportStatus;
-}
+};
 
+export
 @Injectable()
-export class ReportLogger {
+class ReportLogger {
   constructor(private readonly moderationDb: ModerationDb) {}
 
   public async getReportLog(reportId: string) {
@@ -41,6 +40,14 @@ export class ReportLogger {
       reportId,
       ReportLogEvent.STATUS_CHANGED,
       { oldStatus, newStatus },
+    );
+  }
+
+  public async logReportCreated(reportId: string): Promise<void> {
+    return this.logEvent<EmptyPayload>(
+      reportId,
+      ReportLogEvent.REPORT_CREATED,
+      {},
     );
   }
 

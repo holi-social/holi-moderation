@@ -19,7 +19,7 @@ import { desc, eq } from 'drizzle-orm';
 import { reports } from '../db/schema';
 import { Publisher } from '../pubsub';
 import { UserBannedEvent } from '../pubsub/events';
-import { ReportLogger } from 'src/reportLog';
+import { ReportLogger } from '../reportLog';
 
 @Resolver(() => Report)
 export class ReportsResolver {
@@ -50,7 +50,10 @@ export class ReportsResolver {
       .values({ ...input })
       .returning({ id: reports.id });
 
-    return this.findReportById(data[0].id);
+    const newId = data[0].id;
+    await this.reportLogger.logReportCreated(newId);
+
+    return this.findReportById(newId);
   }
 
   @Mutation(() => Report)
