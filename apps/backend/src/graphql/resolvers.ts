@@ -1,25 +1,37 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
 import {
   CreateReport,
   ActionResult,
   Report,
   UUID,
   ReportStatus,
+  ReportEvent,
 } from './schema';
 import { ModerationDb } from '../db';
 import { desc, eq } from 'drizzle-orm';
-import { report } from '../db/schema';
+import { reports } from '../db/schema';
 import { Publisher } from '../pubsub';
 import { UserBannedEvent } from '../pubsub/events';
+import { ReportLogger } from 'src/reportLog';
 
 @Resolver(() => Report)
 export class ReportsResolver {
-  constructor(private readonly moderationDb: ModerationDb) {}
+  constructor(
+    private readonly moderationDb: ModerationDb,
+    private readonly reportLogger: ReportLogger,
+  ) {}
 
   @Query(() => [Report])
   async reports() {
-    return this.moderationDb.db.query.report.findMany({
-      orderBy: desc(report.createdAt),
+    return this.moderationDb.db.query.reports.findMany({
+      orderBy: desc(reports.createdAt),
     });
   }
 
@@ -34,9 +46,9 @@ export class ReportsResolver {
     input: CreateReport,
   ) {
     const data = await this.moderationDb.db
-      .insert(report)
+      .insert(reports)
       .values({ ...input })
-      .returning({ id: report.id });
+      .returning({ id: reports.id });
 
     return this.findReportById(data[0].id);
   }
@@ -46,17 +58,31 @@ export class ReportsResolver {
     @Args('reportId', { type: () => UUID }) reportId: string,
     @Args('newStatus', { type: () => ReportStatus }) newStatus: ReportStatus,
   ) {
+    /** @todo there's gotta be a better way of doing it than this */
+    const oldState = await this.findReportById(reportId);
+
     await this.moderationDb.db
-      .update(report)
+      .update(reports)
       .set({ status: newStatus })
-      .where(eq(report.id, reportId));
+      .where(eq(reports.id, reportId));
+
+    await this.reportLogger.logStatusChanged(
+      reportId,
+      ReportStatus[oldState.status],
+      newStatus,
+    );
 
     return this.findReportById(reportId);
   }
 
+  @ResolveField(() => [ReportEvent])
+  async events(@Parent() report: Report) {
+    return await this.reportLogger.getReportLog(report.id);
+  }
+
   private async findReportById(id: string) {
-    return this.moderationDb.db.query.report.findFirst({
-      where: eq(report.id, id),
+    return this.moderationDb.db.query.reports.findFirst({
+      where: eq(reports.id, id),
     });
   }
 }

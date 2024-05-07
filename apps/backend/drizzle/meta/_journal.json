@@ -36,6 +36,13 @@
       "when": 1715071750427,
       "tag": "0004_unique_shocker",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1715074877880,
+      "tag": "0005_military_chronomancer",
+      "breakpoints": true
     }
   ]
 }

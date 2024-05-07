@@ -6,7 +6,9 @@ import {
   registerEnumType,
 } from '@nestjs/graphql';
 import { GraphQLScalarType, StringValueNode } from 'graphql';
+import { ReportEventPayload, ReportLogEvent } from '../reportLog';
 import { validate as validateUUID } from 'uuid';
+import GraphQLJSON from 'graphql-type-json';
 
 const assertUUID = (input: string) => {
   if (!validateUUID(input)) {
@@ -44,6 +46,19 @@ export enum ReportStatus {
 
 registerEnumType(ContentType, { name: 'ContentType' });
 registerEnumType(ReportStatus, { name: 'ReportStatus' });
+registerEnumType(ReportLogEvent, { name: 'ReportLogEvent' });
+
+@ObjectType()
+export class ReportEvent {
+  @Field(() => UUID)
+  id: string;
+
+  @Field(() => ReportLogEvent)
+  eventName: ReportLogEvent;
+
+  @Field(() => GraphQLJSON)
+  eventPayload: ReportEventPayload;
+}
 
 @ObjectType()
 export class Report {
@@ -65,6 +80,9 @@ export class Report {
   @Field(() => ReportStatus)
   status: ReportStatus;
 
+  @Field(() => [ReportEvent])
+  events: ReportEvent[];
+
   @Field()
   createdAt: Date;
 
@@ -75,7 +93,7 @@ export class Report {
 @InputType()
 export class CreateReport extends OmitType(
   Report,
-  ['id', 'status', 'createdAt', 'updatedAt'] as const,
+  ['id', 'status', 'events', 'createdAt', 'updatedAt'] as const,
   InputType,
 ) {}
 
