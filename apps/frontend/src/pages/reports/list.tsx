@@ -10,14 +10,12 @@ import { Link } from "react-router-dom";
 import { formatDistanceToNow, parseISO } from "date-fns";
 import { ListReportsQuery as ListReportsQueryResponse } from "../../graphql/generated/types";
 import ListReportsQuery from "../../graphql/queries/listReports";
-import { fetcher } from "../../fetcher";
 import { formatUser, titleCase } from "../../utils";
 
 export const ReportsList: React.FC = () => {
-  const { data, isLoading } = useSWR<ListReportsQueryResponse>(
-    [ListReportsQuery],
-    fetcher,
-  );
+  const { data, isLoading } = useSWR<ListReportsQueryResponse>([
+    ListReportsQuery,
+  ]);
 
   const reports = data?.reports ?? [];
   const columns = React.useMemo<MRT_ColumnDef<(typeof reports)[0]>[]>(

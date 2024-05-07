@@ -1,7 +1,6 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import useSWR from "swr";
-import { fetcher } from "../../fetcher";
 import {
   Grid,
   Loader,
@@ -66,10 +65,10 @@ const User: React.FC<{ user: OpenbookAuthUser }> = ({ user }) => {
 
 export const ViewReport: React.FC = () => {
   const { reportId } = useParams();
-  const { data, isLoading } = useSWR<ViewReportQueryResponse>(
-    [ViewReportQuery, { id: reportId }],
-    fetcher,
-  );
+  const { data, isLoading } = useSWR<ViewReportQueryResponse>([
+    ViewReportQuery,
+    { id: reportId },
+  ]);
 
   if (isLoading || !data) {
     return <Loader />;

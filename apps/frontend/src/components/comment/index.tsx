@@ -4,7 +4,6 @@ import {
   ViewPostQuery as ViewPostQueryResponse,
 } from "../../graphql/generated/types";
 import useSWR from "swr";
-import { fetcher } from "../../fetcher";
 import { Post, PostSkeleton } from "../post";
 import {
   Blockquote,
@@ -39,7 +38,7 @@ export const Comment: React.FC<CommentProps> = ({
     useSWR<ViewPostQueryResponse>(() => {
       if (!commentableIsPost) return false;
       return [ViewPostQuery, { id: comment.commentableId }];
-    }, fetcher);
+    });
 
   const post = postResponse?.openbookPostsPostByPk;
 
