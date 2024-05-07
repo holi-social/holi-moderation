@@ -11,6 +11,8 @@ import { formatDistanceToNow, parseISO } from "date-fns";
 import { ListReportsQuery as ListReportsQueryResponse } from "../../graphql/generated/types";
 import ListReportsQuery from "../../graphql/queries/listReports";
 import { formatUser, titleCase } from "../../utils";
+import { ReportStatusDropdown } from "../../components/reportStatusDropdown";
+import { ReportStatus } from "../../graphql/generated/schema.types";
 
 export const ReportsList: React.FC = () => {
   const { data, isLoading } = useSWR<ListReportsQueryResponse>([
@@ -29,6 +31,17 @@ export const ReportsList: React.FC = () => {
 
           return <Link to={`/reports/${id}`}>#{shortId}</Link>;
         },
+      },
+      {
+        accessorKey: "status",
+        header: "Status",
+        Cell: ({ cell, row }) => (
+          <ReportStatusDropdown
+            reportId={row.getValue<string>("id")}
+            status={cell.getValue<ReportStatus>()}
+          />
+        ),
+        filterVariant: "select",
       },
       {
         accessorFn: (report) => formatUser(report.reporter!),

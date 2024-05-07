@@ -8,6 +8,7 @@ const ListReportsQuery = gql`
     reports {
       id
       details
+      status
       contentType
       reporter {
         ...UserDetails

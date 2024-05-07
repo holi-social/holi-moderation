@@ -2653,7 +2653,7 @@ export type ListReportsQuery = {
   reports: Array<
     Pick<
       Types.Report,
-      "id" | "details" | "contentType" | "createdAt" | "updatedAt"
+      "id" | "details" | "status" | "contentType" | "createdAt" | "updatedAt"
     > & {
       reporter?: Types.Maybe<
         Pick<Types.OpenbookAuthUser, "id" | "email" | "dateJoined"> & {
