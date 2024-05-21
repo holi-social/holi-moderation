@@ -76,7 +76,7 @@ export const ReportStatusDropdown: React.FC<ReportStatusDropdownProps> = ({
       async () => {
         setLoading(true);
         const { changeReportStatus } =
-          await gqlClient.request<ChangeReportStatusMutationResponse>(
+          await gqlClient().request<ChangeReportStatusMutationResponse>(
             ChangeReportStatusMutation,
             {
               reportId: reportId,
