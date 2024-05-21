@@ -65,9 +65,12 @@ services:
       ## uncomment next line to run console offline (i.e load console assets from server instead of CDN)
       # HASURA_GRAPHQL_CONSOLE_ASSETS_DIR: /srv/console-assets
       ## uncomment next line to set an admin secret
-      # HASURA_GRAPHQL_ADMIN_SECRET: myadminsecretkey
+      HASURA_GRAPHQL_ADMIN_SECRET: "${HASURA_ADMIN_SECRET}"
+      HASURA_GRAPHQL_ENABLE_REMOTE_SCHEMA_PERMISSIONS: "true"
+      HASURA_GRAPHQL_UNAUTHORIZED_ROLE: "anonymous"
       HASURA_GRAPHQL_METADATA_DEFAULTS: '{"backend_configs":{"dataconnector":{"athena":{"uri":"http://data-connector-agent:8081/api/v1/athena"},"mariadb":{"uri":"http://data-connector-agent:8081/api/v1/mariadb"},"mysql8":{"uri":"http://data-connector-agent:8081/api/v1/mysql"},"oracle":{"uri":"http://data-connector-agent:8081/api/v1/oracle"},"snowflake":{"uri":"http://data-connector-agent:8081/api/v1/snowflake"}}}}'
       HASURA_GRAPHQL_EXPERIMENTAL_FEATURES: "naming_convention"
+      HASURA_GRAPHQL_JWT_SECRET: "{\"type\": \"HS256\", \"key\": \"${MODERATION_JWT_SECRET}\"}"
       ## VARIABLES FOR METADATA CONFIG
       OKUNA_DATABASE_URL: postgres://${OKUNA_DB_USER}:${OKUNA_DB_PASSWORD}@${OKUNA_DB_HOST}:${OKUNA_DB_PORT:-5432}/${OKUNA_DB_NAME:-okuna}
       BACKEND_GRAPHQL_URL: "http://backend:3000/graphql"

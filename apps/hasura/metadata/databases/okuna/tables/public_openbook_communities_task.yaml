@@ -16,3 +16,27 @@ array_relationships:
         table:
           name: openbook_communities_task_skills
           schema: public
+select_permissions:
+  - role: moderator
+    permission:
+      columns:
+        - geolocation
+        - contact_email
+        - contact_phone
+        - location
+        - location_type
+        - name
+        - regularity
+        - thumbnail
+        - thumbnail_blurhash
+        - visibility
+        - slots_available
+        - slots_taken
+        - description
+        - created
+        - community_id
+        - creator_id
+        - id
+      filter: {}
+      allow_aggregations: true
+    comment: ""

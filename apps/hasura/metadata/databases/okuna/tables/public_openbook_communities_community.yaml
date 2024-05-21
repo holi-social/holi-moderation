@@ -48,3 +48,32 @@ array_relationships:
         table:
           name: openbook_communities_task
           schema: public
+select_permissions:
+  - role: moderator
+    permission:
+      columns:
+        - geolocation
+        - invites_enabled
+        - is_deleted
+        - avatar
+        - avatar_blurhash
+        - color
+        - contact_description
+        - contact_email
+        - contact_phone
+        - cover
+        - cover_blurhash
+        - location
+        - name
+        - title
+        - type
+        - user_adjective
+        - users_adjective
+        - description
+        - rules
+        - created
+        - creator_id
+        - id
+      filter: {}
+      allow_aggregations: true
+    comment: ""

@@ -22,3 +22,30 @@ array_relationships:
         table:
           name: openbook_appointments_appointment_participants
           schema: public
+select_permissions:
+  - role: moderator
+    permission:
+      columns:
+        - geolocation
+        - invite_only
+        - is_deleted
+        - location
+        - permission
+        - slug
+        - thumbnail
+        - thumbnail_blurhash
+        - title
+        - description
+        - created
+        - deleted_at
+        - end_date_time
+        - modified
+        - start_date_time
+        - creator_id
+        - id
+        - location_details_id
+        - space_id
+        - video_call_link_id
+      filter: {}
+      allow_aggregations: true
+    comment: ""

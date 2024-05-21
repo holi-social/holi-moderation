@@ -1,9 +1,108 @@
-- name: moderation API
+- name: moderation
   definition:
     url: '{{BACKEND_GRAPHQL_URL}}'
     timeout_seconds: 60
     customization: {}
+    forward_client_headers: true
   comment: ""
+  permissions:
+    - role: anonymous
+      definition:
+        schema: |
+          schema {
+            query: Query
+            mutation: Mutation
+          }
+          scalar UUID
+          type AuthResult {
+            email: String!
+            token: String!
+            userId: UUID!
+          }
+          type Mutation {
+            login(email: String!, password: String!): AuthResult!
+          }
+          type Query {
+            verifyToken: TokenValidity!
+          }
+          type TokenValidity {
+            valid: Boolean!
+          }
+    - role: moderator
+      definition:
+        schema: |
+          schema {
+            query: Query
+            mutation: Mutation
+          }
+          scalar DateTime
+          scalar JSONObject
+          scalar UUID
+          type ActionResult {
+            success: Boolean!
+          }
+          type AuthResult {
+            email: String!
+            token: String!
+            userId: UUID!
+          }
+          type Mutation {
+            banUser(reason: String!, userId: UUID!): ActionResult!
+            changeReportStatus(newStatus: ReportStatus!, reportId: UUID!): Report!
+            createReport(report: CreateReport!): Report!
+            login(email: String!, password: String!): AuthResult!
+          }
+          type Query {
+            report(id: UUID!): Report!
+            reports: [Report!]!
+            verifyToken: TokenValidity!
+          }
+          type Report {
+            contentId: UUID!
+            contentType: ContentType!
+            createdAt: DateTime!
+            details: String!
+            events: [ReportEvent!]!
+            id: UUID!
+            reporterId: UUID!
+            status: ReportStatus!
+            updatedAt: DateTime!
+          }
+          type ReportEvent {
+            eventName: ReportLogEvent!
+            eventPayload: JSONObject!
+            id: UUID!
+            occurredAt: DateTime!
+          }
+          type TokenValidity {
+            valid: Boolean!
+          }
+          enum ContentType {
+            CHAT_MESSAGE
+            COMMENT
+            POST
+            SPACE
+            SPACE_APPOINTMENT
+            SPACE_LINKHUB_TOOL
+            SPACE_TASK
+            USER
+          }
+          enum ReportLogEvent {
+            REPORT_CREATED
+            STATUS_CHANGED
+          }
+          enum ReportStatus {
+            ACTION_TAKEN
+            IN_PROGRESS
+            OPEN
+            REJECTED
+          }
+          input CreateReport {
+            contentId: UUID!
+            contentType: ContentType!
+            details: String!
+            reporterId: UUID!
+          }
   remote_relationships:
     - relationships:
         - definition:

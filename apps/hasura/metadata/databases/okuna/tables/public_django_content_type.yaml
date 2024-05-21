@@ -1,3 +1,13 @@
 table:
   name: django_content_type
   schema: public
+select_permissions:
+  - role: moderator
+    permission:
+      columns:
+        - app_label
+        - model
+        - id
+      filter: {}
+      allow_aggregations: true
+    comment: ""

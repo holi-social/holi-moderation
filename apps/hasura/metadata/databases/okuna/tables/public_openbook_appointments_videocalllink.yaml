@@ -9,3 +9,13 @@ object_relationships:
         table:
           name: openbook_appointments_appointment
           schema: public
+select_permissions:
+  - role: moderator
+    permission:
+      columns:
+        - url
+        - additional_info
+        - id
+      filter: {}
+      allow_aggregations: true
+    comment: ""

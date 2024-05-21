@@ -52,3 +52,31 @@ array_relationships:
         table:
           name: openbook_posts_post
           schema: public
+select_permissions:
+  - role: moderator
+    permission:
+      columns:
+        - are_guidelines_accepted
+        - connections_circle_id
+        - date_joined
+        - email
+        - id
+        - identity
+        - invite_count
+        - is_active
+        - is_deleted
+        - is_email_verified
+        - is_moderator
+        - is_staff
+        - is_superuser
+        - language_id
+        - last_login
+        - last_seen_notification_timestamp
+        - tracking_consent_analytics
+        - tracking_consent_personalization
+        - translation_language_id
+        - username
+        - visibility
+      filter: {}
+      allow_aggregations: true
+    comment: ""

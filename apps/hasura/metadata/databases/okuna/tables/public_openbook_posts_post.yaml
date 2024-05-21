@@ -8,3 +8,26 @@ object_relationships:
   - name: space
     using:
       foreign_key_constraint_on: community_id
+select_permissions:
+  - role: moderator
+    permission:
+      columns:
+        - comments_enabled
+        - is_closed
+        - is_deleted
+        - is_edited
+        - is_public
+        - public_reactions
+        - status
+        - title
+        - text
+        - created
+        - modified
+        - community_id
+        - creator_id
+        - id
+        - inspiration_post_category_id
+        - language_id
+      filter: {}
+      allow_aggregations: true
+    comment: ""
