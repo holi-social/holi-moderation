@@ -15,7 +15,6 @@ import {
   useNavigate,
 } from "react-router-dom";
 import { HoliLogo } from "../components/holiLogo";
-import { ThemeSwitcher } from "../components/themeSwitcher";
 import { AuthStateLoggedIn, useAuthState } from "../state";
 import { initialsFromEmail } from "../utils";
 import { useColorScheme } from "../hooks";
