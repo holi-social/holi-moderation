@@ -2661,6 +2661,15 @@ export type ChangeReportStatusMutation = {
   };
 };
 
+export type LoginMutationVariables = Types.Exact<{
+  email: Types.Scalars["String"]["input"];
+  password: Types.Scalars["String"]["input"];
+}>;
+
+export type LoginMutation = {
+  login: Pick<Types.AuthResult, "userId" | "email" | "token">;
+};
+
 export type ListReportsQueryVariables = Types.Exact<{ [key: string]: never }>;
 
 export type ListReportsQuery = {

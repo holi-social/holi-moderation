@@ -18,6 +18,15 @@ export const getInitials = (str: string, maxLength = 3) =>
     .join("")
     .substring(0, maxLength); // maxLength is the max number of characters in the initials string
 
+export const initialsFromEmail = (email: string, maxLength: number = 3) =>
+  email
+    .split("@")[0]
+    .split(".")
+    .map((name) => name[0] || "")
+    .join("")
+    .toUpperCase()
+    .substring(0, maxLength);
+
 export const titleCase = (str: string) =>
   str
     .split(/[_\s]/)

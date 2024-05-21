@@ -1,7 +1,18 @@
 import type { IGraphQLConfig } from "graphql-config";
 
+const gqlUrl: string = process.env.INTERNAL_GRAPHQL_URL!;
+const hasuraAdminSecret: string = process.env.HASURA_ADMIN_SECRET!;
+
 const config: IGraphQLConfig = {
-  schema: `http://graphql-engine:8080/v1/graphql`,
+  schema: [
+    {
+      [gqlUrl]: {
+        headers: {
+          "x-hasura-admin-secret": hasuraAdminSecret,
+        },
+      },
+    },
+  ],
   extensions: {
     codegen: {
       // Optional, you can use this to format your generated files.

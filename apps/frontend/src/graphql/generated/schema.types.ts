@@ -40,6 +40,12 @@ export type ActionResult = {
   success: Scalars["Boolean"]["output"];
 };
 
+export type AuthResult = {
+  email: Scalars["String"]["output"];
+  token: Scalars["String"]["output"];
+  userId: Scalars["UUID"]["output"];
+};
+
 /** Boolean expression to compare columns of type "bigint". All fields are combined with logical 'AND'. */
 export type BigintComparisonExp = {
   _eq?: InputMaybe<Scalars["bigint"]["input"]>;
@@ -5687,7 +5693,7 @@ export type ReportEvent = {
   occurredAt: Scalars["DateTime"]["output"];
 };
 
-export type ReportLogEvent = "STATUS_CHANGED";
+export type ReportLogEvent = "REPORT_CREATED" | "STATUS_CHANGED";
 
 export type ReportStatus = "ACTION_TAKEN" | "IN_PROGRESS" | "OPEN" | "REJECTED";
 
@@ -5748,6 +5754,10 @@ export type TimestamptzComparisonExp = {
   _lte?: InputMaybe<Scalars["timestamptz"]["input"]>;
   _neq?: InputMaybe<Scalars["timestamptz"]["input"]>;
   _nin?: InputMaybe<Array<Scalars["timestamptz"]["input"]>>;
+};
+
+export type TokenValidity = {
+  valid: Scalars["Boolean"]["output"];
 };
 
 /** Boolean expression to compare columns of type "uuid". All fields are combined with logical 'AND'. */
@@ -5896,6 +5906,7 @@ export type Mutation_Root = {
   insertOpenbookTermsSkill?: Maybe<OpenbookTermsSkillMutationResponse>;
   /** insert a single row into the table: "openbook_terms_skill" */
   insertOpenbookTermsSkillOne?: Maybe<OpenbookTermsSkill>;
+  login: AuthResult;
   /** update data of the table: "django_content_type" */
   updateDjangoContentType?: Maybe<DjangoContentTypeMutationResponse>;
   /** update single row of the table: "django_content_type" */
@@ -6397,6 +6408,12 @@ export type Mutation_RootInsertOpenbookTermsSkillArgs = {
 export type Mutation_RootInsertOpenbookTermsSkillOneArgs = {
   object: OpenbookTermsSkillInsertInput;
   onConflict?: InputMaybe<OpenbookTermsSkillOnConflict>;
+};
+
+/** mutation root */
+export type Mutation_RootLoginArgs = {
+  email: Scalars["String"]["input"];
+  password: Scalars["String"]["input"];
 };
 
 /** mutation root */
@@ -6917,6 +6934,7 @@ export type Query_Root = {
   openbookTermsSkillByPk?: Maybe<OpenbookTermsSkill>;
   report: Report;
   reports: Array<Report>;
+  verifyToken: TokenValidity;
 };
 
 export type Query_RootDjangoContentTypeArgs = {

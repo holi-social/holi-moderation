@@ -14,7 +14,7 @@ import { formatUser, titleCase } from "../../utils";
 import { ReportStatusDropdown } from "../../components/reportStatusDropdown";
 import { ReportStatus } from "../../graphql/generated/schema.types";
 
-export const ReportsList: React.FC = () => {
+export const ListReports: React.FC = () => {
   const { data, isLoading } = useSWR<ListReportsQueryResponse>([
     ListReportsQuery,
   ]);

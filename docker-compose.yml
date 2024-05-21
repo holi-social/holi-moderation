@@ -27,7 +27,10 @@ services:
       - frontend_node_modules:/code/node_modules
     working_dir: /code
     environment:
-      VITE_OKUNA_ADMIN_BASE_URL: "${OKUNA_ADMIN_BASE_URL}"
+      VITE_GRAPHQL_URL: "http://localhost:8080/v1/graphql"
+      # the admin secret should NEVER be added to the deployed container, only locally to facilitate schema introspection for codegen
+      HASURA_ADMIN_SECRET: "${HASURA_ADMIN_SECRET}"
+      INTERNAL_GRAPHQL_URL: "http://graphql-engine:8080/v1/graphql"
     entrypoint: "sh -c 'corepack enable yarn && yarn set version stable && yarn install && yarn run dev'"
 
   app-db:

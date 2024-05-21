@@ -1,12 +1,22 @@
 import { GraphQLClient, RequestDocument, Variables } from "graphql-request";
 import { Fetcher } from "swr";
+import { useAuthState } from "./state";
 
-export const BASE_URL = "http://localhost:8080/v1/graphql";
-export const client = new GraphQLClient(BASE_URL);
+export const BASE_URL = import.meta.env.VITE_GRAPHQL_URL;
+export const gqlClient = () => {
+  const authState = useAuthState.getState();
+  const headers: { authorization?: string } = {};
+
+  if (authState.loggedIn) {
+    headers["authorization"] = `Bearer ${authState.user.token}`;
+  }
+
+  return new GraphQLClient(BASE_URL, { headers });
+};
 
 type FetcherArgs = [RequestDocument, Variables | undefined];
 
 export const fetcher: Fetcher<unknown, FetcherArgs> = ([
   query,
   variables,
-]: FetcherArgs) => client.request(query, variables);
+]: FetcherArgs) => gqlClient().request(query, variables);

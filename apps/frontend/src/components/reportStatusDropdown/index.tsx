@@ -19,7 +19,7 @@ import {
 import { ChangeReportStatusMutation } from "../../graphql/mutations/changeReportStatus";
 import { useSWRConfig } from "swr";
 import { ViewReportQuery } from "../../graphql/queries/viewReport";
-import { client } from "../../fetcher";
+import { gqlClient } from "../../fetcher";
 import { ChangeReportStatusMutation as ChangeReportStatusMutationResponse } from "../../graphql/generated/types";
 import { notifications } from "@mantine/notifications";
 
@@ -76,7 +76,7 @@ export const ReportStatusDropdown: React.FC<ReportStatusDropdownProps> = ({
       async () => {
         setLoading(true);
         const { changeReportStatus } =
-          await client.request<ChangeReportStatusMutationResponse>(
+          await gqlClient.request<ChangeReportStatusMutationResponse>(
             ChangeReportStatusMutation,
             {
               reportId: reportId,
