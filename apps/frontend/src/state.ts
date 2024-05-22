@@ -1,3 +1,4 @@
+import { jwtDecode } from "jwt-decode";
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 
@@ -5,6 +6,13 @@ type UserInfo = {
   id: string;
   email: string;
   token: string;
+  validUntil: number;
+};
+
+export type TokenPayload = {
+  sub: string;
+  exp: number;
+  email: string;
 };
 
 export type AuthStateLoggedOut = {
@@ -19,17 +27,40 @@ export type AuthStateLoggedIn = {
 export type AuthState = AuthStateLoggedIn | AuthStateLoggedOut;
 
 export type AuthActions = {
-  logIn: (user: UserInfo) => void;
+  logIn: (token: string) => void;
   logOut: () => void;
+  tokenExpired: () => boolean;
 };
 
 export const useAuthState = create<AuthState & AuthActions>()(
   devtools(
     persist(
-      (set) => ({
+      (set, get) => ({
         loggedIn: false,
-        logIn: (user) => set(() => ({ loggedIn: true, user })),
+        logIn: (token: string) => {
+          const payload = jwtDecode<TokenPayload>(token);
+
+          if (payload === null) {
+            return;
+          }
+
+          const validUntil: number = payload.exp;
+
+          set(() => ({
+            loggedIn: true,
+            user: {
+              id: payload.sub,
+              email: payload.email,
+              token,
+              validUntil,
+            },
+          }));
+        },
         logOut: () => set(() => ({ loggedIn: false, user: undefined })),
+        tokenExpired: () =>
+          get().loggedIn &&
+          (get() as AuthStateLoggedIn).user.validUntil <=
+            Math.floor(Date.now() / 1000),
       }),
       { name: "moderation-auth" },
     ),

@@ -35,21 +35,30 @@ const menuItems: NavMenuItem[] = [
 
 export const Layout: React.FC<PropsWithChildren> = ({ children }) => {
   const authState = useAuthState();
+
   const navigate = useNavigate();
   const { pathname: currentPath } = useLocation();
   const colorScheme = useColorScheme();
+
+  const logout = () => {
+    authState.logOut();
+    navigate("/login");
+  };
 
   useEffect(() => {
     if (!authState.loggedIn) {
       navigate("/login");
     }
+
+    if (authState.tokenExpired()) {
+      logout();
+    }
   });
 
   const currentUser = (authState as AuthStateLoggedIn).user;
-  const logout = () => {
-    authState.logOut();
-    navigate("/login");
-  };
+  if (!currentUser) {
+    return <></>;
+  }
 
   return (
     <AppShell header={{ height: 60 }} padding="sm">

@@ -32,11 +32,7 @@ export const Login: React.FC = () => {
     >(LoginMutation, { email, password });
 
     if (response.login?.token) {
-      authState.logIn({
-        id: response.login.userId,
-        email,
-        token: response.login.token,
-      });
+      authState.logIn(response.login.token);
 
       navigate("/reports");
     }
