@@ -27,6 +27,13 @@ array_relationships:
         table:
           name: openbook_communities_collaborationtool
           schema: public
+  - name: members
+    using:
+      foreign_key_constraint_on:
+        column: community_id
+        table:
+          name: openbook_communities_communitymembership
+          schema: public
   - name: onboardingSteps
     using:
       foreign_key_constraint_on:

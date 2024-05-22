@@ -7,6 +7,7 @@
 - "!include public_openbook_auth_userprofile.yaml"
 - "!include public_openbook_communities_collaborationtool.yaml"
 - "!include public_openbook_communities_community.yaml"
+- "!include public_openbook_communities_communitymembership.yaml"
 - "!include public_openbook_communities_externallink.yaml"
 - "!include public_openbook_communities_onboardingstep.yaml"
 - "!include public_openbook_communities_task.yaml"

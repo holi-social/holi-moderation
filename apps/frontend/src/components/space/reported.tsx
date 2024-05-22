@@ -5,6 +5,7 @@ import {
   IconListCheck,
   IconMessage,
   IconTools,
+  IconUserBolt,
 } from "@tabler/icons-react";
 import { Post } from "../post";
 import { SpaceAppointment } from "../spaceAppointment";
@@ -12,6 +13,7 @@ import { Space } from ".";
 import { ReportedSpaceDetailsFragment } from "../../graphql/generated/types";
 import { SpaceTask } from "../spaceTask";
 import { SpaceLinkhubTool } from "../spaceLinkhubTool";
+import { User } from "../user";
 
 type ReportedSpaceProps = {
   space: ReportedSpaceDetailsFragment;
@@ -21,8 +23,19 @@ export const ReportedSpace: React.FC<ReportedSpaceProps> = ({ space }) => {
   const iconStyle = { height: rem(12), width: rem(12) };
 
   const additionalContent = (
-    <Tabs defaultValue="posts">
+    <Tabs defaultValue="admins">
       <Tabs.List>
+        <Tabs.Tab
+          value="admins"
+          leftSection={<IconUserBolt style={iconStyle} />}
+          rightSection={
+            <Badge variant="light" color="gray">
+              {space.admins.length}
+            </Badge>
+          }
+        >
+          Admins
+        </Tabs.Tab>
         <Tabs.Tab
           value="posts"
           leftSection={<IconMessage style={iconStyle} />}
@@ -70,6 +83,16 @@ export const ReportedSpace: React.FC<ReportedSpaceProps> = ({ space }) => {
           Linkhub Tools
         </Tabs.Tab>
       </Tabs.List>
+
+      <Tabs.Panel value="admins" pt="md">
+        <Grid>
+          {space.admins.map((admin) => (
+            <Grid.Col span={4} key={admin.user.id}>
+              <User user={admin.user} />
+            </Grid.Col>
+          ))}
+        </Grid>
+      </Tabs.Panel>
 
       <Tabs.Panel value="posts" pt="md">
         {space.posts.map((post) => (

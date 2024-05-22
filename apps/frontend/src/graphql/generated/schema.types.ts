@@ -2686,6 +2686,10 @@ export type OpenbookCommunitiesCommunity = {
   /** An aggregate relationship */
   linkhubToolsAggregate: OpenbookCommunitiesCollaborationtoolAggregate;
   location?: Maybe<Scalars["String"]["output"]>;
+  /** An array relationship */
+  members: Array<OpenbookCommunitiesCommunitymembership>;
+  /** An aggregate relationship */
+  membersAggregate: OpenbookCommunitiesCommunitymembershipAggregate;
   name: Scalars["String"]["output"];
   /** An array relationship */
   onboardingSteps: Array<OpenbookCommunitiesOnboardingstep>;
@@ -2762,6 +2766,28 @@ export type OpenbookCommunitiesCommunityLinkhubToolsAggregateArgs = {
   offset?: InputMaybe<Scalars["Int"]["input"]>;
   orderBy?: InputMaybe<Array<OpenbookCommunitiesCollaborationtoolOrderBy>>;
   where?: InputMaybe<OpenbookCommunitiesCollaborationtoolBoolExp>;
+};
+
+/** columns and relationships of "openbook_communities_community" */
+export type OpenbookCommunitiesCommunityMembersArgs = {
+  distinctOn?: InputMaybe<
+    Array<OpenbookCommunitiesCommunitymembershipSelectColumn>
+  >;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
+  orderBy?: InputMaybe<Array<OpenbookCommunitiesCommunitymembershipOrderBy>>;
+  where?: InputMaybe<OpenbookCommunitiesCommunitymembershipBoolExp>;
+};
+
+/** columns and relationships of "openbook_communities_community" */
+export type OpenbookCommunitiesCommunityMembersAggregateArgs = {
+  distinctOn?: InputMaybe<
+    Array<OpenbookCommunitiesCommunitymembershipSelectColumn>
+  >;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
+  orderBy?: InputMaybe<Array<OpenbookCommunitiesCommunitymembershipOrderBy>>;
+  where?: InputMaybe<OpenbookCommunitiesCommunitymembershipBoolExp>;
 };
 
 /** columns and relationships of "openbook_communities_community" */
@@ -2885,6 +2911,8 @@ export type OpenbookCommunitiesCommunityBoolExp = {
   linkhubTools?: InputMaybe<OpenbookCommunitiesCollaborationtoolBoolExp>;
   linkhubToolsAggregate?: InputMaybe<OpenbookCommunitiesCollaborationtoolAggregateBoolExp>;
   location?: InputMaybe<StringComparisonExp>;
+  members?: InputMaybe<OpenbookCommunitiesCommunitymembershipBoolExp>;
+  membersAggregate?: InputMaybe<OpenbookCommunitiesCommunitymembershipAggregateBoolExp>;
   name?: InputMaybe<StringComparisonExp>;
   onboardingSteps?: InputMaybe<OpenbookCommunitiesOnboardingstepBoolExp>;
   onboardingStepsAggregate?: InputMaybe<OpenbookCommunitiesOnboardingstepAggregateBoolExp>;
@@ -2928,6 +2956,7 @@ export type OpenbookCommunitiesCommunityInsertInput = {
   isDeleted?: InputMaybe<Scalars["Boolean"]["input"]>;
   linkhubTools?: InputMaybe<OpenbookCommunitiesCollaborationtoolArrRelInsertInput>;
   location?: InputMaybe<Scalars["String"]["input"]>;
+  members?: InputMaybe<OpenbookCommunitiesCommunitymembershipArrRelInsertInput>;
   name?: InputMaybe<Scalars["String"]["input"]>;
   onboardingSteps?: InputMaybe<OpenbookCommunitiesOnboardingstepArrRelInsertInput>;
   posts?: InputMaybe<OpenbookPostsPostArrRelInsertInput>;
@@ -3075,6 +3104,7 @@ export type OpenbookCommunitiesCommunityOrderBy = {
   isDeleted?: InputMaybe<OrderBy>;
   linkhubToolsAggregate?: InputMaybe<OpenbookCommunitiesCollaborationtoolAggregateOrderBy>;
   location?: InputMaybe<OrderBy>;
+  membersAggregate?: InputMaybe<OpenbookCommunitiesCommunitymembershipAggregateOrderBy>;
   name?: InputMaybe<OrderBy>;
   onboardingStepsAggregate?: InputMaybe<OpenbookCommunitiesOnboardingstepAggregateOrderBy>;
   postsAggregate?: InputMaybe<OpenbookPostsPostAggregateOrderBy>;
@@ -3264,6 +3294,238 @@ export type OpenbookCommunitiesCommunityUpdates = {
   _set?: InputMaybe<OpenbookCommunitiesCommunitySetInput>;
   /** filter the rows which have to be updated */
   where: OpenbookCommunitiesCommunityBoolExp;
+};
+
+/** columns and relationships of "openbook_communities_communitymembership" */
+export type OpenbookCommunitiesCommunitymembership = {
+  communityId: Scalars["uuid"]["output"];
+  created: Scalars["timestamptz"]["output"];
+  id: Scalars["uuid"]["output"];
+  isAdministrator: Scalars["Boolean"]["output"];
+  isModerator: Scalars["Boolean"]["output"];
+  /** An object relationship */
+  space: OpenbookCommunitiesCommunity;
+  /** An object relationship */
+  user: OpenbookAuthUser;
+  userId: Scalars["uuid"]["output"];
+};
+
+/** aggregated selection of "openbook_communities_communitymembership" */
+export type OpenbookCommunitiesCommunitymembershipAggregate = {
+  aggregate?: Maybe<OpenbookCommunitiesCommunitymembershipAggregateFields>;
+  nodes: Array<OpenbookCommunitiesCommunitymembership>;
+};
+
+export type OpenbookCommunitiesCommunitymembershipAggregateBoolExp = {
+  bool_and?: InputMaybe<OpenbookCommunitiesCommunitymembershipAggregateBoolExpBool_And>;
+  bool_or?: InputMaybe<OpenbookCommunitiesCommunitymembershipAggregateBoolExpBool_Or>;
+  count?: InputMaybe<OpenbookCommunitiesCommunitymembershipAggregateBoolExpCount>;
+};
+
+/** aggregate fields of "openbook_communities_communitymembership" */
+export type OpenbookCommunitiesCommunitymembershipAggregateFields = {
+  count: Scalars["Int"]["output"];
+  max?: Maybe<OpenbookCommunitiesCommunitymembershipMaxFields>;
+  min?: Maybe<OpenbookCommunitiesCommunitymembershipMinFields>;
+};
+
+/** aggregate fields of "openbook_communities_communitymembership" */
+export type OpenbookCommunitiesCommunitymembershipAggregateFieldsCountArgs = {
+  columns?: InputMaybe<
+    Array<OpenbookCommunitiesCommunitymembershipSelectColumn>
+  >;
+  distinct?: InputMaybe<Scalars["Boolean"]["input"]>;
+};
+
+/** order by aggregate values of table "openbook_communities_communitymembership" */
+export type OpenbookCommunitiesCommunitymembershipAggregateOrderBy = {
+  count?: InputMaybe<OrderBy>;
+  max?: InputMaybe<OpenbookCommunitiesCommunitymembershipMaxOrderBy>;
+  min?: InputMaybe<OpenbookCommunitiesCommunitymembershipMinOrderBy>;
+};
+
+/** input type for inserting array relation for remote table "openbook_communities_communitymembership" */
+export type OpenbookCommunitiesCommunitymembershipArrRelInsertInput = {
+  data: Array<OpenbookCommunitiesCommunitymembershipInsertInput>;
+  /** upsert condition */
+  onConflict?: InputMaybe<OpenbookCommunitiesCommunitymembershipOnConflict>;
+};
+
+/** Boolean expression to filter rows from the table "openbook_communities_communitymembership". All fields are combined with a logical 'AND'. */
+export type OpenbookCommunitiesCommunitymembershipBoolExp = {
+  _and?: InputMaybe<Array<OpenbookCommunitiesCommunitymembershipBoolExp>>;
+  _not?: InputMaybe<OpenbookCommunitiesCommunitymembershipBoolExp>;
+  _or?: InputMaybe<Array<OpenbookCommunitiesCommunitymembershipBoolExp>>;
+  communityId?: InputMaybe<UuidComparisonExp>;
+  created?: InputMaybe<TimestamptzComparisonExp>;
+  id?: InputMaybe<UuidComparisonExp>;
+  isAdministrator?: InputMaybe<BooleanComparisonExp>;
+  isModerator?: InputMaybe<BooleanComparisonExp>;
+  space?: InputMaybe<OpenbookCommunitiesCommunityBoolExp>;
+  user?: InputMaybe<OpenbookAuthUserBoolExp>;
+  userId?: InputMaybe<UuidComparisonExp>;
+};
+
+/** unique or primary key constraints on table "openbook_communities_communitymembership" */
+export type OpenbookCommunitiesCommunitymembershipConstraint =
+  /** unique or primary key constraint on columns "community_id", "user_id" */
+  | "openbook_communities_com_user_id_community_id_80ab28ad_uniq"
+  /** unique or primary key constraint on columns "id" */
+  | "openbook_communities_communitymembership_pkey";
+
+/** input type for inserting data into table "openbook_communities_communitymembership" */
+export type OpenbookCommunitiesCommunitymembershipInsertInput = {
+  communityId?: InputMaybe<Scalars["uuid"]["input"]>;
+  created?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  id?: InputMaybe<Scalars["uuid"]["input"]>;
+  isAdministrator?: InputMaybe<Scalars["Boolean"]["input"]>;
+  isModerator?: InputMaybe<Scalars["Boolean"]["input"]>;
+  space?: InputMaybe<OpenbookCommunitiesCommunityObjRelInsertInput>;
+  user?: InputMaybe<OpenbookAuthUserObjRelInsertInput>;
+  userId?: InputMaybe<Scalars["uuid"]["input"]>;
+};
+
+/** aggregate max on columns */
+export type OpenbookCommunitiesCommunitymembershipMaxFields = {
+  communityId?: Maybe<Scalars["uuid"]["output"]>;
+  created?: Maybe<Scalars["timestamptz"]["output"]>;
+  id?: Maybe<Scalars["uuid"]["output"]>;
+  userId?: Maybe<Scalars["uuid"]["output"]>;
+};
+
+/** order by max() on columns of table "openbook_communities_communitymembership" */
+export type OpenbookCommunitiesCommunitymembershipMaxOrderBy = {
+  communityId?: InputMaybe<OrderBy>;
+  created?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  userId?: InputMaybe<OrderBy>;
+};
+
+/** aggregate min on columns */
+export type OpenbookCommunitiesCommunitymembershipMinFields = {
+  communityId?: Maybe<Scalars["uuid"]["output"]>;
+  created?: Maybe<Scalars["timestamptz"]["output"]>;
+  id?: Maybe<Scalars["uuid"]["output"]>;
+  userId?: Maybe<Scalars["uuid"]["output"]>;
+};
+
+/** order by min() on columns of table "openbook_communities_communitymembership" */
+export type OpenbookCommunitiesCommunitymembershipMinOrderBy = {
+  communityId?: InputMaybe<OrderBy>;
+  created?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  userId?: InputMaybe<OrderBy>;
+};
+
+/** response of any mutation on the table "openbook_communities_communitymembership" */
+export type OpenbookCommunitiesCommunitymembershipMutationResponse = {
+  /** number of rows affected by the mutation */
+  affectedRows: Scalars["Int"]["output"];
+  /** data from the rows affected by the mutation */
+  returning: Array<OpenbookCommunitiesCommunitymembership>;
+};
+
+/** on_conflict condition type for table "openbook_communities_communitymembership" */
+export type OpenbookCommunitiesCommunitymembershipOnConflict = {
+  constraint: OpenbookCommunitiesCommunitymembershipConstraint;
+  updateColumns?: Array<OpenbookCommunitiesCommunitymembershipUpdateColumn>;
+  where?: InputMaybe<OpenbookCommunitiesCommunitymembershipBoolExp>;
+};
+
+/** Ordering options when selecting data from "openbook_communities_communitymembership". */
+export type OpenbookCommunitiesCommunitymembershipOrderBy = {
+  communityId?: InputMaybe<OrderBy>;
+  created?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  isAdministrator?: InputMaybe<OrderBy>;
+  isModerator?: InputMaybe<OrderBy>;
+  space?: InputMaybe<OpenbookCommunitiesCommunityOrderBy>;
+  user?: InputMaybe<OpenbookAuthUserOrderBy>;
+  userId?: InputMaybe<OrderBy>;
+};
+
+/** primary key columns input for table: openbook_communities_communitymembership */
+export type OpenbookCommunitiesCommunitymembershipPkColumnsInput = {
+  id: Scalars["uuid"]["input"];
+};
+
+/** select columns of table "openbook_communities_communitymembership" */
+export type OpenbookCommunitiesCommunitymembershipSelectColumn =
+  /** column name */
+  | "communityId"
+  /** column name */
+  | "created"
+  /** column name */
+  | "id"
+  /** column name */
+  | "isAdministrator"
+  /** column name */
+  | "isModerator"
+  /** column name */
+  | "userId";
+
+/** select "openbookCommunitiesCommunitymembershipAggregateBoolExpBool_andArgumentsColumns" columns of table "openbook_communities_communitymembership" */
+export type OpenbookCommunitiesCommunitymembershipSelectColumnOpenbookCommunitiesCommunitymembershipAggregateBoolExpBool_AndArgumentsColumns =
+  /** column name */
+  | "isAdministrator"
+  /** column name */
+  | "isModerator";
+
+/** select "openbookCommunitiesCommunitymembershipAggregateBoolExpBool_orArgumentsColumns" columns of table "openbook_communities_communitymembership" */
+export type OpenbookCommunitiesCommunitymembershipSelectColumnOpenbookCommunitiesCommunitymembershipAggregateBoolExpBool_OrArgumentsColumns =
+  /** column name */
+  | "isAdministrator"
+  /** column name */
+  | "isModerator";
+
+/** input type for updating data in table "openbook_communities_communitymembership" */
+export type OpenbookCommunitiesCommunitymembershipSetInput = {
+  communityId?: InputMaybe<Scalars["uuid"]["input"]>;
+  created?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  id?: InputMaybe<Scalars["uuid"]["input"]>;
+  isAdministrator?: InputMaybe<Scalars["Boolean"]["input"]>;
+  isModerator?: InputMaybe<Scalars["Boolean"]["input"]>;
+  userId?: InputMaybe<Scalars["uuid"]["input"]>;
+};
+
+/** Streaming cursor of the table "openbook_communities_communitymembership" */
+export type OpenbookCommunitiesCommunitymembershipStreamCursorInput = {
+  /** Stream column input with initial value */
+  initialValue: OpenbookCommunitiesCommunitymembershipStreamCursorValueInput;
+  /** cursor ordering */
+  ordering?: InputMaybe<CursorOrdering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type OpenbookCommunitiesCommunitymembershipStreamCursorValueInput = {
+  communityId?: InputMaybe<Scalars["uuid"]["input"]>;
+  created?: InputMaybe<Scalars["timestamptz"]["input"]>;
+  id?: InputMaybe<Scalars["uuid"]["input"]>;
+  isAdministrator?: InputMaybe<Scalars["Boolean"]["input"]>;
+  isModerator?: InputMaybe<Scalars["Boolean"]["input"]>;
+  userId?: InputMaybe<Scalars["uuid"]["input"]>;
+};
+
+/** update columns of table "openbook_communities_communitymembership" */
+export type OpenbookCommunitiesCommunitymembershipUpdateColumn =
+  /** column name */
+  | "communityId"
+  /** column name */
+  | "created"
+  /** column name */
+  | "id"
+  /** column name */
+  | "isAdministrator"
+  /** column name */
+  | "isModerator"
+  /** column name */
+  | "userId";
+
+export type OpenbookCommunitiesCommunitymembershipUpdates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<OpenbookCommunitiesCommunitymembershipSetInput>;
+  /** filter the rows which have to be updated */
+  where: OpenbookCommunitiesCommunitymembershipBoolExp;
 };
 
 /** columns and relationships of "openbook_communities_externallink" */
@@ -5814,6 +6076,10 @@ export type Mutation_Root = {
   deleteOpenbookCommunitiesCommunity?: Maybe<OpenbookCommunitiesCommunityMutationResponse>;
   /** delete single row from the table: "openbook_communities_community" */
   deleteOpenbookCommunitiesCommunityByPk?: Maybe<OpenbookCommunitiesCommunity>;
+  /** delete data from the table: "openbook_communities_communitymembership" */
+  deleteOpenbookCommunitiesCommunitymembership?: Maybe<OpenbookCommunitiesCommunitymembershipMutationResponse>;
+  /** delete single row from the table: "openbook_communities_communitymembership" */
+  deleteOpenbookCommunitiesCommunitymembershipByPk?: Maybe<OpenbookCommunitiesCommunitymembership>;
   /** delete data from the table: "openbook_communities_externallink" */
   deleteOpenbookCommunitiesExternallink?: Maybe<OpenbookCommunitiesExternallinkMutationResponse>;
   /** delete single row from the table: "openbook_communities_externallink" */
@@ -5878,6 +6144,10 @@ export type Mutation_Root = {
   insertOpenbookCommunitiesCommunity?: Maybe<OpenbookCommunitiesCommunityMutationResponse>;
   /** insert a single row into the table: "openbook_communities_community" */
   insertOpenbookCommunitiesCommunityOne?: Maybe<OpenbookCommunitiesCommunity>;
+  /** insert data into the table: "openbook_communities_communitymembership" */
+  insertOpenbookCommunitiesCommunitymembership?: Maybe<OpenbookCommunitiesCommunitymembershipMutationResponse>;
+  /** insert a single row into the table: "openbook_communities_communitymembership" */
+  insertOpenbookCommunitiesCommunitymembershipOne?: Maybe<OpenbookCommunitiesCommunitymembership>;
   /** insert data into the table: "openbook_communities_externallink" */
   insertOpenbookCommunitiesExternallink?: Maybe<OpenbookCommunitiesExternallinkMutationResponse>;
   /** insert a single row into the table: "openbook_communities_externallink" */
@@ -5978,6 +6248,14 @@ export type Mutation_Root = {
   /** update multiples rows of table: "openbook_communities_community" */
   updateOpenbookCommunitiesCommunityMany?: Maybe<
     Array<Maybe<OpenbookCommunitiesCommunityMutationResponse>>
+  >;
+  /** update data of the table: "openbook_communities_communitymembership" */
+  updateOpenbookCommunitiesCommunitymembership?: Maybe<OpenbookCommunitiesCommunitymembershipMutationResponse>;
+  /** update single row of the table: "openbook_communities_communitymembership" */
+  updateOpenbookCommunitiesCommunitymembershipByPk?: Maybe<OpenbookCommunitiesCommunitymembership>;
+  /** update multiples rows of table: "openbook_communities_communitymembership" */
+  updateOpenbookCommunitiesCommunitymembershipMany?: Maybe<
+    Array<Maybe<OpenbookCommunitiesCommunitymembershipMutationResponse>>
   >;
   /** update data of the table: "openbook_communities_externallink" */
   updateOpenbookCommunitiesExternallink?: Maybe<OpenbookCommunitiesExternallinkMutationResponse>;
@@ -6145,6 +6423,17 @@ export type Mutation_RootDeleteOpenbookCommunitiesCommunityArgs = {
 export type Mutation_RootDeleteOpenbookCommunitiesCommunityByPkArgs = {
   id: Scalars["uuid"]["input"];
 };
+
+/** mutation root */
+export type Mutation_RootDeleteOpenbookCommunitiesCommunitymembershipArgs = {
+  where: OpenbookCommunitiesCommunitymembershipBoolExp;
+};
+
+/** mutation root */
+export type Mutation_RootDeleteOpenbookCommunitiesCommunitymembershipByPkArgs =
+  {
+    id: Scalars["uuid"]["input"];
+  };
 
 /** mutation root */
 export type Mutation_RootDeleteOpenbookCommunitiesExternallinkArgs = {
@@ -6324,6 +6613,18 @@ export type Mutation_RootInsertOpenbookCommunitiesCommunityArgs = {
 export type Mutation_RootInsertOpenbookCommunitiesCommunityOneArgs = {
   object: OpenbookCommunitiesCommunityInsertInput;
   onConflict?: InputMaybe<OpenbookCommunitiesCommunityOnConflict>;
+};
+
+/** mutation root */
+export type Mutation_RootInsertOpenbookCommunitiesCommunitymembershipArgs = {
+  objects: Array<OpenbookCommunitiesCommunitymembershipInsertInput>;
+  onConflict?: InputMaybe<OpenbookCommunitiesCommunitymembershipOnConflict>;
+};
+
+/** mutation root */
+export type Mutation_RootInsertOpenbookCommunitiesCommunitymembershipOneArgs = {
+  object: OpenbookCommunitiesCommunitymembershipInsertInput;
+  onConflict?: InputMaybe<OpenbookCommunitiesCommunitymembershipOnConflict>;
 };
 
 /** mutation root */
@@ -6579,6 +6880,25 @@ export type Mutation_RootUpdateOpenbookCommunitiesCommunityManyArgs = {
 };
 
 /** mutation root */
+export type Mutation_RootUpdateOpenbookCommunitiesCommunitymembershipArgs = {
+  _set?: InputMaybe<OpenbookCommunitiesCommunitymembershipSetInput>;
+  where: OpenbookCommunitiesCommunitymembershipBoolExp;
+};
+
+/** mutation root */
+export type Mutation_RootUpdateOpenbookCommunitiesCommunitymembershipByPkArgs =
+  {
+    _set?: InputMaybe<OpenbookCommunitiesCommunitymembershipSetInput>;
+    pkColumns: OpenbookCommunitiesCommunitymembershipPkColumnsInput;
+  };
+
+/** mutation root */
+export type Mutation_RootUpdateOpenbookCommunitiesCommunitymembershipManyArgs =
+  {
+    updates: Array<OpenbookCommunitiesCommunitymembershipUpdates>;
+  };
+
+/** mutation root */
 export type Mutation_RootUpdateOpenbookCommunitiesExternallinkArgs = {
   _set?: InputMaybe<OpenbookCommunitiesExternallinkSetInput>;
   where: OpenbookCommunitiesExternallinkBoolExp;
@@ -6765,6 +7085,29 @@ export type OpenbookCommunitiesCommunityAggregateBoolExpCount = {
   predicate: IntComparisonExp;
 };
 
+export type OpenbookCommunitiesCommunitymembershipAggregateBoolExpBool_And = {
+  arguments: OpenbookCommunitiesCommunitymembershipSelectColumnOpenbookCommunitiesCommunitymembershipAggregateBoolExpBool_AndArgumentsColumns;
+  distinct?: InputMaybe<Scalars["Boolean"]["input"]>;
+  filter?: InputMaybe<OpenbookCommunitiesCommunitymembershipBoolExp>;
+  predicate: BooleanComparisonExp;
+};
+
+export type OpenbookCommunitiesCommunitymembershipAggregateBoolExpBool_Or = {
+  arguments: OpenbookCommunitiesCommunitymembershipSelectColumnOpenbookCommunitiesCommunitymembershipAggregateBoolExpBool_OrArgumentsColumns;
+  distinct?: InputMaybe<Scalars["Boolean"]["input"]>;
+  filter?: InputMaybe<OpenbookCommunitiesCommunitymembershipBoolExp>;
+  predicate: BooleanComparisonExp;
+};
+
+export type OpenbookCommunitiesCommunitymembershipAggregateBoolExpCount = {
+  arguments?: InputMaybe<
+    Array<OpenbookCommunitiesCommunitymembershipSelectColumn>
+  >;
+  distinct?: InputMaybe<Scalars["Boolean"]["input"]>;
+  filter?: InputMaybe<OpenbookCommunitiesCommunitymembershipBoolExp>;
+  predicate: IntComparisonExp;
+};
+
 export type OpenbookCommunitiesExternallinkAggregateBoolExpCount = {
   arguments?: InputMaybe<Array<OpenbookCommunitiesExternallinkSelectColumn>>;
   distinct?: InputMaybe<Scalars["Boolean"]["input"]>;
@@ -6890,6 +7233,12 @@ export type Query_Root = {
   openbookCommunitiesCommunityAggregate: OpenbookCommunitiesCommunityAggregate;
   /** fetch data from the table: "openbook_communities_community" using primary key columns */
   openbookCommunitiesCommunityByPk?: Maybe<OpenbookCommunitiesCommunity>;
+  /** fetch data from the table: "openbook_communities_communitymembership" */
+  openbookCommunitiesCommunitymembership: Array<OpenbookCommunitiesCommunitymembership>;
+  /** fetch aggregated fields from the table: "openbook_communities_communitymembership" */
+  openbookCommunitiesCommunitymembershipAggregate: OpenbookCommunitiesCommunitymembershipAggregate;
+  /** fetch data from the table: "openbook_communities_communitymembership" using primary key columns */
+  openbookCommunitiesCommunitymembershipByPk?: Maybe<OpenbookCommunitiesCommunitymembership>;
   /** fetch data from the table: "openbook_communities_externallink" */
   openbookCommunitiesExternallink: Array<OpenbookCommunitiesExternallink>;
   /** fetch aggregated fields from the table: "openbook_communities_externallink" */
@@ -7134,6 +7483,30 @@ export type Query_RootOpenbookCommunitiesCommunityByPkArgs = {
   id: Scalars["uuid"]["input"];
 };
 
+export type Query_RootOpenbookCommunitiesCommunitymembershipArgs = {
+  distinctOn?: InputMaybe<
+    Array<OpenbookCommunitiesCommunitymembershipSelectColumn>
+  >;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
+  orderBy?: InputMaybe<Array<OpenbookCommunitiesCommunitymembershipOrderBy>>;
+  where?: InputMaybe<OpenbookCommunitiesCommunitymembershipBoolExp>;
+};
+
+export type Query_RootOpenbookCommunitiesCommunitymembershipAggregateArgs = {
+  distinctOn?: InputMaybe<
+    Array<OpenbookCommunitiesCommunitymembershipSelectColumn>
+  >;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
+  orderBy?: InputMaybe<Array<OpenbookCommunitiesCommunitymembershipOrderBy>>;
+  where?: InputMaybe<OpenbookCommunitiesCommunitymembershipBoolExp>;
+};
+
+export type Query_RootOpenbookCommunitiesCommunitymembershipByPkArgs = {
+  id: Scalars["uuid"]["input"];
+};
+
 export type Query_RootOpenbookCommunitiesExternallinkArgs = {
   distinctOn?: InputMaybe<Array<OpenbookCommunitiesExternallinkSelectColumn>>;
   limit?: InputMaybe<Scalars["Int"]["input"]>;
@@ -7362,6 +7735,14 @@ export type Subscription_Root = {
   openbookCommunitiesCommunityByPk?: Maybe<OpenbookCommunitiesCommunity>;
   /** fetch data from the table in a streaming manner: "openbook_communities_community" */
   openbookCommunitiesCommunityStream: Array<OpenbookCommunitiesCommunity>;
+  /** fetch data from the table: "openbook_communities_communitymembership" */
+  openbookCommunitiesCommunitymembership: Array<OpenbookCommunitiesCommunitymembership>;
+  /** fetch aggregated fields from the table: "openbook_communities_communitymembership" */
+  openbookCommunitiesCommunitymembershipAggregate: OpenbookCommunitiesCommunitymembershipAggregate;
+  /** fetch data from the table: "openbook_communities_communitymembership" using primary key columns */
+  openbookCommunitiesCommunitymembershipByPk?: Maybe<OpenbookCommunitiesCommunitymembership>;
+  /** fetch data from the table in a streaming manner: "openbook_communities_communitymembership" */
+  openbookCommunitiesCommunitymembershipStream: Array<OpenbookCommunitiesCommunitymembership>;
   /** fetch data from the table: "openbook_communities_externallink" */
   openbookCommunitiesExternallink: Array<OpenbookCommunitiesExternallink>;
   /** fetch aggregated fields from the table: "openbook_communities_externallink" */
@@ -7680,6 +8061,40 @@ export type Subscription_RootOpenbookCommunitiesCommunityStreamArgs = {
   cursor: Array<InputMaybe<OpenbookCommunitiesCommunityStreamCursorInput>>;
   where?: InputMaybe<OpenbookCommunitiesCommunityBoolExp>;
 };
+
+export type Subscription_RootOpenbookCommunitiesCommunitymembershipArgs = {
+  distinctOn?: InputMaybe<
+    Array<OpenbookCommunitiesCommunitymembershipSelectColumn>
+  >;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
+  orderBy?: InputMaybe<Array<OpenbookCommunitiesCommunitymembershipOrderBy>>;
+  where?: InputMaybe<OpenbookCommunitiesCommunitymembershipBoolExp>;
+};
+
+export type Subscription_RootOpenbookCommunitiesCommunitymembershipAggregateArgs =
+  {
+    distinctOn?: InputMaybe<
+      Array<OpenbookCommunitiesCommunitymembershipSelectColumn>
+    >;
+    limit?: InputMaybe<Scalars["Int"]["input"]>;
+    offset?: InputMaybe<Scalars["Int"]["input"]>;
+    orderBy?: InputMaybe<Array<OpenbookCommunitiesCommunitymembershipOrderBy>>;
+    where?: InputMaybe<OpenbookCommunitiesCommunitymembershipBoolExp>;
+  };
+
+export type Subscription_RootOpenbookCommunitiesCommunitymembershipByPkArgs = {
+  id: Scalars["uuid"]["input"];
+};
+
+export type Subscription_RootOpenbookCommunitiesCommunitymembershipStreamArgs =
+  {
+    batchSize: Scalars["Int"]["input"];
+    cursor: Array<
+      InputMaybe<OpenbookCommunitiesCommunitymembershipStreamCursorInput>
+    >;
+    where?: InputMaybe<OpenbookCommunitiesCommunitymembershipBoolExp>;
+  };
 
 export type Subscription_RootOpenbookCommunitiesExternallinkArgs = {
   distinctOn?: InputMaybe<Array<OpenbookCommunitiesExternallinkSelectColumn>>;

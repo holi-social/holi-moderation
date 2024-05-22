@@ -631,6 +631,24 @@ export type ReportDetailsFragment = Pick<
           >;
         }
       >;
+      admins: Array<{
+        user: Pick<Types.OpenbookAuthUser, "id" | "email" | "dateJoined"> & {
+          profile?: Types.Maybe<
+            Pick<
+              Types.OpenbookAuthUserprofile,
+              | "id"
+              | "name"
+              | "lastName"
+              | "pronouns"
+              | "avatar"
+              | "cover"
+              | "aboutMe"
+              | "location"
+              | "url"
+            >
+          >;
+        };
+      }>;
       onboardingSteps: Array<
         Pick<Types.OpenbookCommunitiesOnboardingstep, "stepNumber" | "text">
       >;
@@ -1136,6 +1154,24 @@ export type ReportedSpaceDetailsFragment = Pick<
       >;
     }
   >;
+  admins: Array<{
+    user: Pick<Types.OpenbookAuthUser, "id" | "email" | "dateJoined"> & {
+      profile?: Types.Maybe<
+        Pick<
+          Types.OpenbookAuthUserprofile,
+          | "id"
+          | "name"
+          | "lastName"
+          | "pronouns"
+          | "avatar"
+          | "cover"
+          | "aboutMe"
+          | "location"
+          | "url"
+        >
+      >;
+    };
+  }>;
   onboardingSteps: Array<
     Pick<Types.OpenbookCommunitiesOnboardingstep, "stepNumber" | "text">
   >;
@@ -2354,6 +2390,24 @@ export type ChangeReportStatusMutation = {
             >;
           }
         >;
+        admins: Array<{
+          user: Pick<Types.OpenbookAuthUser, "id" | "email" | "dateJoined"> & {
+            profile?: Types.Maybe<
+              Pick<
+                Types.OpenbookAuthUserprofile,
+                | "id"
+                | "name"
+                | "lastName"
+                | "pronouns"
+                | "avatar"
+                | "cover"
+                | "aboutMe"
+                | "location"
+                | "url"
+              >
+            >;
+          };
+        }>;
         onboardingSteps: Array<
           Pick<Types.OpenbookCommunitiesOnboardingstep, "stepNumber" | "text">
         >;
@@ -3315,6 +3369,24 @@ export type ViewReportQuery = {
             >;
           }
         >;
+        admins: Array<{
+          user: Pick<Types.OpenbookAuthUser, "id" | "email" | "dateJoined"> & {
+            profile?: Types.Maybe<
+              Pick<
+                Types.OpenbookAuthUserprofile,
+                | "id"
+                | "name"
+                | "lastName"
+                | "pronouns"
+                | "avatar"
+                | "cover"
+                | "aboutMe"
+                | "location"
+                | "url"
+              >
+            >;
+          };
+        }>;
         onboardingSteps: Array<
           Pick<Types.OpenbookCommunitiesOnboardingstep, "stepNumber" | "text">
         >;

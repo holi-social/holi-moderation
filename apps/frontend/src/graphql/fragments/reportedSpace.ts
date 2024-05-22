@@ -4,8 +4,10 @@ import { SpaceDetails } from "./space";
 import { SpaceAppointmentDetails } from "./spaceAppointment";
 import { SpaceTaskDetails } from "./spaceTask";
 import { SpaceLinkhubToolDetails } from "./spaceLinkhubTool";
+import { UserDetails } from "./user";
 
 export const ReportedSpaceDetails = gql`
+  ${UserDetails}
   ${SpaceDetails}
   ${SpaceAppointmentDetails}
   ${PostDetails}
@@ -53,6 +55,12 @@ export const ReportedSpaceDetails = gql`
 
     linkhubTools(limit: 3, orderBy: { createdAt: DESC }) {
       ...SpaceLinkhubToolDetails
+    }
+
+    admins: members(where: { isAdministrator: { _eq: true } }) {
+      user {
+        ...UserDetails
+      }
     }
   }
 `;
