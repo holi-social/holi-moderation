@@ -27,6 +27,7 @@ services:
       - frontend_node_modules:/code/node_modules
     working_dir: /code
     environment:
+      VITE_OKUNA_ADMIN_BASE_URL: "http://localhost:8000/local/admin"
       VITE_GRAPHQL_URL: "http://localhost:8080/v1/graphql"
       # the admin secret should NEVER be added to the deployed container, only locally to facilitate schema introspection for codegen
       HASURA_ADMIN_SECRET: "${HASURA_ADMIN_SECRET}"
