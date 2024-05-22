@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { ClassProvider, Module } from '@nestjs/common';
 import { AuthService } from './service/auth';
 import { TokenService } from './service/token';
 import { UserService } from './service/user';
@@ -7,6 +7,12 @@ import { AuthGuard } from './guard';
 import { DbModule } from '../db';
 import { JwtModule } from '@nestjs/jwt';
 import { CreateUserCommand, CreateUserQuestions } from './createUser.command';
+import { APP_GUARD } from '@nestjs/core';
+
+const GlobalAuthGuardProvider: ClassProvider = {
+  provide: APP_GUARD,
+  useClass: AuthGuard,
+};
 
 @Module({
   imports: [DbModule, JwtModule],
@@ -18,6 +24,7 @@ import { CreateUserCommand, CreateUserQuestions } from './createUser.command';
     AuthGuard,
     CreateUserQuestions,
     CreateUserCommand,
+    GlobalAuthGuardProvider,
   ],
   exports: [AuthGuard, CreateUserCommand],
 })

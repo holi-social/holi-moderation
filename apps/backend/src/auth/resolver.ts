@@ -2,8 +2,7 @@ import { Args, Mutation, Resolver, Query } from '@nestjs/graphql';
 import { AuthResult, TokenValidity } from './schema';
 import { AuthService } from './service/auth';
 import { TokenService } from './service/token';
-import { AuthGuard } from './guard';
-import { UseGuards } from '@nestjs/common';
+import { Public } from './decorators';
 
 @Resolver()
 export class AuthResolver {
@@ -13,6 +12,7 @@ export class AuthResolver {
   ) {}
 
   @Mutation(() => AuthResult)
+  @Public()
   public async login(
     @Args('email') email: string,
     @Args('password') password: string,
@@ -28,7 +28,6 @@ export class AuthResolver {
   }
 
   @Query(() => TokenValidity)
-  @UseGuards(AuthGuard)
   public async verifyToken(): Promise<TokenValidity> {
     return {
       valid: true,
