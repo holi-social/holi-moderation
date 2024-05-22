@@ -1,0 +1,11 @@
+cache:
+  paths:
+    - "./node_modules/"
+
+stages:
+  - lint
+  - build
+
+include:
+  - local: "apps/backend/.gitlab-ci.yml"
+  - local: "apps/frontend/.gitlab-ci.yml"

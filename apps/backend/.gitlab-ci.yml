@@ -1,0 +1,15 @@
+backend:lint:
+  stage: lint
+  image: node:21-alpine
+  variables:
+    ESLINT_CODE_QUALITY_REPORT: apps/backend/gl-codequality.json
+  before_script:
+    - corepack enable
+    - yarn workspace @holi/moderation-backend install
+  script:
+    - pwd
+    - yarn workspace @holi/moderation-backend run -B eslint "{src,test}/**/*.ts"
+    - yarn workspace @holi/moderation-backend run -B eslint --format gitlab "{src,test}/**/*.ts"
+  artifacts:
+    reports:
+      codequality: apps/backend/gl-codequality.json
