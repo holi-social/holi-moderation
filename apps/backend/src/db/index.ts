@@ -1,11 +1,11 @@
-import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { Injectable, Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { PostgresJsDatabase, drizzle } from 'drizzle-orm/postgres-js';
 import * as postgres from 'postgres';
-import * as mainSchema from './schema';
+import * as reportsSchema from '../reports/dbSchema';
 import * as authSchema from '../auth/dbSchema';
 
-const schema = { ...mainSchema, ...authSchema };
+const schema = { ...reportsSchema, ...authSchema };
 const connectDrizzle = (connection: postgres.Sql) =>
   drizzle(connection, { schema });
 
@@ -42,3 +42,10 @@ export class ModerationDb {
     };
   }
 }
+
+@Module({
+  imports: [ConfigModule],
+  providers: [ModerationDb],
+  exports: [ModerationDb],
+})
+export class DbModule {}

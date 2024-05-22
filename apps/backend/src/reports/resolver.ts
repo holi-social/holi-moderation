@@ -6,20 +6,15 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql';
-import {
-  CreateReport,
-  ActionResult,
-  Report,
-  UUID,
-  ReportStatus,
-  ReportEvent,
-} from './schema';
+import { UUID } from '../graphql/uuidScalar';
+import { ReportEvent } from '../reportLogs/schema';
+import { CreateReport } from './schema';
+import { Report } from './schema';
+import { ReportStatus } from './schema';
 import { ModerationDb } from '../db';
 import { desc, eq } from 'drizzle-orm';
-import { reports } from '../db/schema';
-import { Publisher } from '../pubsub';
-import { UserBannedEvent } from '../pubsub/events';
-import { ReportLogger } from '../reportLog';
+import { reports } from './dbSchema';
+import { ReportLogger } from '../reportLogs/service';
 
 @Resolver(() => Report)
 export class ReportsResolver {
@@ -87,25 +82,5 @@ export class ReportsResolver {
     return this.moderationDb.db.query.reports.findFirst({
       where: eq(reports.id, id),
     });
-  }
-}
-
-@Resolver()
-export class ModerationActionResolver {
-  constructor(private readonly publisher: Publisher) {}
-
-  @Mutation(() => ActionResult)
-  async banUser(
-    @Args('userId', { type: () => UUID }) userId: string,
-    @Args('reason') reason?: string,
-  ) {
-    return this.publisher
-      .publish<UserBannedEvent>({
-        data: { userId, reason },
-        eventType: 'UserBanned',
-        version: '1.0.0',
-      })
-      .then((messageId) => ActionResult.success(messageId))
-      .catch((reason) => ActionResult.error(reason));
   }
 }

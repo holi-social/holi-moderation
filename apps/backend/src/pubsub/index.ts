@@ -1,7 +1,8 @@
 import { PubSub, Topic } from '@google-cloud/pubsub';
-import { FactoryProvider, Injectable } from '@nestjs/common';
+import { FactoryProvider, Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { Event, EventType } from './events';
+import { Publisher } from './publisher';
+import { SetupPubsubCommand } from './setup.command';
 
 export const PubsubProvider: FactoryProvider = {
   provide: PubSub,
@@ -17,20 +18,13 @@ export const PubsubTopicProvider: FactoryProvider = {
     pubsub.topic(config.get('PUBSUB_TOPIC_NAME')),
 };
 
-@Injectable()
-export class Publisher {
-  constructor(private readonly topic: Topic) {}
-
-  /** @returns the Pub/Sub message ID  */
-  async publish<TEvent extends Event<EventType, object>>(
-    event: TEvent,
-  ): Promise<string> {
-    return this.topic.publishMessage({
-      data: Buffer.from(JSON.stringify(event.data)),
-      attributes: {
-        eventType: event.eventType,
-        eventVersion: event.version,
-      },
-    });
-  }
-}
+@Module({
+  providers: [
+    PubsubProvider,
+    PubsubTopicProvider,
+    Publisher,
+    SetupPubsubCommand,
+  ],
+  exports: [Publisher, SetupPubsubCommand],
+})
+export class PubsubModule {}

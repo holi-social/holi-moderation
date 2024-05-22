@@ -1,27 +1,18 @@
+import {
+  StatusChangedEventPayload,
+  ReportLogEvent,
+  EmptyPayload,
+  ReportEventPayload,
+} from '../reportLogs/types';
+
 import { Injectable } from '@nestjs/common';
-import { ModerationDb } from './db';
-import { reportEvents } from './db/schema';
-import { ReportStatus } from './graphql/schema';
-import { asc, eq } from 'drizzle-orm';
+import { eq, asc } from 'drizzle-orm';
+import { ModerationDb } from '../db';
+import { reportEvents } from '../reports/dbSchema';
+import { ReportStatus } from '../reports/schema';
 
-export enum ReportLogEvent {
-  REPORT_CREATED = 'REPORT_CREATED',
-  STATUS_CHANGED = 'STATUS_CHANGED',
-}
-
-export type EmptyPayload = Record<string, never>;
-
-export type ReportEventPayload = StatusChangedEventPayload | EmptyPayload;
-
-export type ReportCreatedEventPayload = EmptyPayload;
-export type StatusChangedEventPayload = {
-  oldStatus: ReportStatus;
-  newStatus: ReportStatus;
-};
-
-export
 @Injectable()
-class ReportLogger {
+export class ReportLogger {
   constructor(private readonly moderationDb: ModerationDb) {}
 
   public async getReportLog(reportId: string) {

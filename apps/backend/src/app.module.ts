@@ -2,18 +2,15 @@ import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { ConfigModule } from '@nestjs/config';
-import { ModerationDb } from './db';
+import { DbModule } from './db';
+import { UUID } from './graphql/uuidScalar';
+import { PubsubModule } from './pubsub';
+import { ReportLogsModule } from './reportLogs';
+import { ModeratorActionsModule } from './moderatorActions';
+import { ReportsModule } from './reports';
+import { AuthModule } from './auth';
 import { MigrateCommand } from './db/migrate.command';
-import { UUID } from './graphql/schema';
-import { ModerationActionResolver, ReportsResolver } from './graphql/resolvers';
-import { Publisher, PubsubProvider, PubsubTopicProvider } from './pubsub';
-import { ReportLogger } from './reportLog';
-import { AuthService } from './auth/service/auth';
-import { TokenService } from './auth/service/token';
-import { UserService } from './auth/service/user';
-import { AuthGuard } from './auth/guard';
-import { JwtService } from '@nestjs/jwt';
-import { AuthResolver } from './auth/resolver';
+import { CommandRunnerModule } from 'nest-commander';
 
 @Module({
   imports: [
@@ -23,25 +20,15 @@ import { AuthResolver } from './auth/resolver';
       sortSchema: true,
       resolvers: { UUID: UUID },
     }),
-    ConfigModule.forRoot({ ignoreEnvFile: true }),
+    ConfigModule.forRoot({ ignoreEnvFile: true, isGlobal: true }),
+    CommandRunnerModule.forModule(),
+    DbModule,
+    AuthModule,
+    PubsubModule,
+    ReportLogsModule,
+    ModeratorActionsModule,
+    ReportsModule,
   ],
-  providers: [
-    ModerationDb,
-    MigrateCommand,
-    ReportsResolver,
-    ModerationActionResolver,
-    PubsubProvider,
-    PubsubTopicProvider,
-    Publisher,
-    ReportLogger,
-    AuthService,
-    TokenService,
-    UserService,
-    AuthGuard,
-    JwtService,
-    AuthResolver,
-    // CreateUserQuestions,
-    // CreateUserCommand,
-  ],
+  providers: [MigrateCommand], // for some reason this doesn't work when defined in the DbModule. So here it stays.
 })
 export class AppModule {}

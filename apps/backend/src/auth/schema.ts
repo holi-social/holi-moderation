@@ -1,5 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { UUID } from 'src/graphql/schema';
+import { UUID } from '../graphql/uuidScalar';
 
 @ObjectType()
 export class AuthResult {

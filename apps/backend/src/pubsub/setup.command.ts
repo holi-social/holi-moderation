@@ -6,7 +6,7 @@ import { Command, CommandRunner } from 'nest-commander';
   name: 'pubsub:setup',
   description: 'setup pubsub topic and subscriptions',
 })
-export class SetupPubsub extends CommandRunner {
+export class SetupPubsubCommand extends CommandRunner {
   constructor(
     private readonly pubsub: PubSub,
     private readonly config: ConfigService,

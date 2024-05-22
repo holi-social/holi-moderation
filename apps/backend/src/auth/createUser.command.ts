@@ -25,7 +25,7 @@ export class CreateUserQuestions {
   }
 }
 
-@Command({ name: 'user:create' })
+@Command({ name: 'user:create', description: 'create user' })
 export class CreateUserCommand extends CommandRunner {
   constructor(
     private readonly auth: AuthService,
