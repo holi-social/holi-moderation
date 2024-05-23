@@ -35,9 +35,9 @@ export class ModerationDb {
 
   private get connectionParams() {
     return {
-      host: this.config.get('APP_DB_HOST'),
-      user: this.config.get('APP_DB_USER'),
-      password: this.config.get('APP_DB_PASSWORD'),
+      host: this.config.get('MODERATION_DB_HOST'),
+      user: this.config.get('MODERATION_DB_USER'),
+      password: this.config.get('MODERATION_DB_PASSWORD'),
       database: 'moderation',
     };
   }
