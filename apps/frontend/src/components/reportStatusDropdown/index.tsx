@@ -47,12 +47,7 @@ type ReportStatusDropdownProps = {
   reportId: string;
 };
 
-const DropdownOption: React.FC<DropdownItem> = ({
-  icon: Icon,
-  status,
-  bgColor,
-  fgColor = "black",
-}) => {
+const DropdownOption: React.FC<DropdownItem> = ({ icon: Icon, status }) => {
   return (
     <Group>
       <Icon />

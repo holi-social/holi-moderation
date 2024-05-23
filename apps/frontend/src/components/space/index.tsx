@@ -4,7 +4,6 @@ import { Card, Group, Stack, Title, Text, List } from "@mantine/core";
 import { SpaceAvatar } from "../avatar";
 import { formatUser, relativeFormatISOTimestamp } from "../../utils";
 import {
-  Icon as TablerIcon,
   IconBrandDiscord,
   IconBrandFacebook,
   IconBrandInstagram,
@@ -23,7 +22,7 @@ import {
 } from "../../graphql/generated/schema.types";
 import { ImageWithPreview } from "../imageWithPreview";
 
-const externalIconMap: Record<string, TablerIcon> = {
+const externalIconMap: Record<string, typeof IconBrandInstagram> = {
   INSTAGRAM: IconBrandInstagram,
   FACEBOOK: IconBrandFacebook,
   LINKEDIN: IconBrandLinkedin,
