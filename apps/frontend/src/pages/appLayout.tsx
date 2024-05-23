@@ -79,7 +79,7 @@ export const Layout: React.FC<PropsWithChildren> = ({ children }) => {
                 component={RouterNavLink}
                 to={item.link}
                 label={item.label}
-                active={item.link.startsWith(currentPath)}
+                active={currentPath.startsWith(item.link)}
               />
             ))}
           </Group>
