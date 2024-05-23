@@ -14,9 +14,7 @@ FROM node:21-alpine AS builder
 
 WORKDIR /code
 COPY --from=dependencies /code/node_modules /code/node_modules
-COPY package.json ./package.json
-COPY yarn.lock ./yarn.lock
-COPY tsconfig.* .
+COPY tsconfig.* package.json yarn.lock nest-cli.json webpack.config.js ./
 COPY src ./src
 
 RUN echo 'nodeLinker: node-modules' > .yarnrc.yml
@@ -32,10 +30,11 @@ ARG LISTEN_ADDR="0.0.0.0"
 ARG PORT=3000
 
 WORKDIR /code
-COPY --from=builder /code/dist/main.js .
-COPY --from=dependencies /code/node_modules .
-COPY package.json .
-COPY yarn.lock .
+COPY --from=builder /code/dist .
+COPY --from=dependencies /code/node_modules ./node_modules
+
+COPY package.json yarn.lock drizzle.config.ts ./
+COPY ./drizzle ./drizzle
 
 EXPOSE ${PORT}
 CMD [ "node", "/code/main.js" ]
@@ -44,15 +43,11 @@ CMD [ "node", "/code/main.js" ]
 
 FROM node:21-alpine as development
 
-ARG LISTEN_ADDR="0.0.0.0"
-ARG PORT=3000
-
 WORKDIR /code
 COPY . /code
-COPY --from=dependencies /code/node_modules .
+COPY --from=dependencies /code/node_modules ./node_modules
 
 RUN corepack enable \
     && echo 'nodeLinker: node-modules' > .yarnrc.yml
 
-EXPOSE ${PORT}
-CMD yarn run -B nest start --watch
+CMD yarn install && yarn run -B nest start --watch

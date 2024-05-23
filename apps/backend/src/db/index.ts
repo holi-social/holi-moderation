@@ -38,7 +38,7 @@ export class ModerationDb {
       host: this.config.get('MODERATION_DB_HOST'),
       user: this.config.get('MODERATION_DB_USER'),
       password: this.config.get('MODERATION_DB_PASSWORD'),
-      database: 'moderation',
+      database: this.config.get('MODERATION_DB_NAME'),
     };
   }
 }

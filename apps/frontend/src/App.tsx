@@ -1,7 +1,7 @@
 import "@mantine/core/styles.css";
 import "mantine-react-table/styles.css";
 import { MantineProvider } from "@mantine/core";
-import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { ListReports } from "./pages/reports/list";
 import { ViewReport } from "./pages/reports/view";
 import { Notifications } from "@mantine/notifications";
@@ -11,26 +11,36 @@ import { fetcher } from "./fetcher";
 import { Login } from "./pages/auth/login";
 import { Layout } from "./pages/appLayout";
 
-const RouterLayout = () => (
-  <Layout>
-    <Outlet />
-  </Layout>
-);
+// const RouterLayout = () => (
+//   <Layout>
+//     <Outlet />
+//   </Layout>
+// );
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <RouterLayout />,
-    children: [
-      {
-        path: "reports",
-        element: <ListReports />,
-      },
-      {
-        path: "reports/:reportId",
-        element: <ViewReport />,
-      },
-    ],
+    element: (
+      <Layout>
+        <></>
+      </Layout>
+    ),
+  },
+  {
+    path: "/reports",
+    element: (
+      <Layout>
+        <ListReports />
+      </Layout>
+    ),
+  },
+  {
+    path: "/reports/:reportId",
+    element: (
+      <Layout>
+        <ViewReport />
+      </Layout>
+    ),
   },
   {
     path: "/login",
