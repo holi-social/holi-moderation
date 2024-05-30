@@ -50,4 +50,4 @@ COPY --from=dependencies /code/node_modules ./node_modules
 RUN corepack enable \
     && echo 'nodeLinker: node-modules' > .yarnrc.yml
 
-CMD yarn install && yarn run -B nest start --watch
+CMD yarn install && yarn run migrations:run && yarn run -B nest start --watch
