@@ -1,0 +1,28 @@
+include:
+  - local: ".gitlab/ci/deploy.yml"
+
+deploy:staging:infra:
+  extends: .deploy_infra
+  environment:
+    name: staging
+    url: https://staging.moderation.holi.social
+  only:
+    - main
+
+deploy:staging:hasura_metadata:
+  extends: .deploy_hasura_metadata
+  dependencies:
+    - "deploy:staging:infra"
+  needs:
+    - "deploy:staging:infra"
+  only:
+    - main
+
+deploy:staging:db_migrations:
+  extends: .run_db_migrations
+  dependencies:
+    - "deploy:staging:infra"
+  needs:
+    - "deploy:staging:infra"
+  only:
+    - main

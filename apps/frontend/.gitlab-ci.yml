@@ -1,0 +1,40 @@
+frontend:lint:
+  stage: lint
+  image: node:21-alpine
+  before_script:
+    - corepack enable
+    - yarn workspace @holi/moderation-frontend install
+  script:
+    - yarn workspace @holi/moderation-frontend run -B eslint "src/**/*.ts"
+
+frontend:build:
+  stage: build
+  needs:
+    - "frontend:lint"
+  image: docker:26.1
+  services:
+    - docker:26.1-dind
+  variables:
+    GCR_IMAGE: europe-north1-docker.pkg.dev/holi-shared/docker/holi-moderation-frontend
+  before_script:
+    # this is super ugly and should really come from a TF output
+    - export ENVIRONMENT_SLUG="review-$CI_COMMIT_REF_SLUG"
+    - export ENVIRONMENT_SLUG="${ENVIRONMENT_SLUG:0:22}"
+    - export ENVIRONMENT_SLUG="${ENVIRONMENT_SLUG%-}"
+    - export VITE_GRAPHQL_URL="https://${ENVIRONMENT_SLUG}.moderation-data.apis.holi.social/v1/graphql"
+    - '[ "$CI_COMMIT_BRANCH" == "production" ] && export VITE_GRAPHQL_URL="https://moderation-data.apis.holi.social/v1/graphql"'
+    - '[ "$CI_COMMIT_BRANCH" == "main" ] && export VITE_GRAPHQL_URL="https://staging.moderation-data.apis.holi.social/v1/graphql"'
+
+    - export VITE_OKUNA_ADMIN_BASE_URL="https://0kuna-adm1n.holi.social/staging/admin"
+    - '[ "$CI_COMMIT_BRANCH" == "production" ] && export VITE_OKUNA_ADMIN_BASE_URL="https://0kuna-adm1n.holi.social/production/admin"'
+
+    - cat $GOOGLE_CLOUD_SERVICE_ACCOUNT | docker login -u _json_key --password-stdin https://europe-north1-docker.pkg.dev
+    - cd apps/frontend
+  script:
+    - docker pull $GCR_IMAGE || true
+    - docker build --cache-from $GCR_IMAGE --target=production --build-arg VITE_GRAPHQL_URL --build-arg VITE_OKUNA_ADMIN_BASE_URL -t $GCR_IMAGE:latest -t $GCR_IMAGE:$CI_COMMIT_SHA -t $GCR_IMAGE:$CI_COMMIT_REF_SLUG .
+    - docker push $GCR_IMAGE:$CI_COMMIT_SHA
+    - docker push $GCR_IMAGE:$CI_COMMIT_REF_SLUG
+    - docker push $GCR_IMAGE:latest
+  tags:
+    - 4cpu-4gb

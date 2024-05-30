@@ -1,0 +1,28 @@
+include:
+  - local: ".gitlab/ci/deploy.yml"
+
+deploy:production:infra:
+  extends: .deploy_infra
+  environment:
+    name: production
+    url: https://moderation.holi.social
+  only:
+    - production
+
+deploy:production:hasura_metadata:
+  extends: .deploy_hasura_metadata
+  dependencies:
+    - "deploy:production:infra"
+  needs:
+    - "deploy:production:infra"
+  only:
+    - production
+
+deploy:production:db_migrations:
+  extends: .run_db_migrations
+  dependencies:
+    - "deploy:production:infra"
+  needs:
+    - "deploy:production:infra"
+  only:
+    - production

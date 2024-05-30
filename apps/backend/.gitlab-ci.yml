@@ -1,0 +1,29 @@
+backend:lint:
+  stage: lint
+  image: node:21-alpine
+  before_script:
+    - corepack enable
+    - yarn workspace @holi/moderation-backend install
+  script:
+    - yarn workspace @holi/moderation-backend run -B eslint "{src,test}/**/*.ts"
+
+backend:build:
+  stage: build
+  needs:
+    - "backend:lint"
+  image: docker:26.1
+  services:
+    - docker:26.1-dind
+  variables:
+    GCR_IMAGE: europe-north1-docker.pkg.dev/holi-shared/docker/holi-moderation-backend
+  before_script:
+    - cat $GOOGLE_CLOUD_SERVICE_ACCOUNT | docker login -u _json_key --password-stdin https://europe-north1-docker.pkg.dev
+    - cd apps/backend
+  script:
+    - docker pull $GCR_IMAGE || true
+    - docker build --cache-from $GCR_IMAGE --target=production -t $GCR_IMAGE:latest -t $GCR_IMAGE:$CI_COMMIT_SHA -t $GCR_IMAGE:$CI_COMMIT_REF_SLUG .
+    - docker push $GCR_IMAGE:$CI_COMMIT_SHA
+    - docker push $GCR_IMAGE:$CI_COMMIT_REF_SLUG
+    - docker push $GCR_IMAGE:latest
+  tags:
+    - 4cpu-4gb
