@@ -17,8 +17,8 @@ output "moderation_service_account_email" {
   value = google_service_account.moderation.email
 }
 
-output "migration_job_name" {
-  value = google_cloud_run_v2_job.migrations.name
+output "backend_db_migrations_job_name" {
+  value = google_cloud_run_v2_job.backend_db_migrations.name
 }
 
 output "project_id" {

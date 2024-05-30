@@ -1,4 +1,4 @@
-resource "google_cloud_run_v2_job" "migrations" {
+resource "google_cloud_run_v2_job" "backend_db_migrations" {
   project  = data.terraform_remote_state.holi_infra_state.outputs.shared_project_id
   name     = "moderation-${local.environment_name}-migration-${random_id.backend.hex}"
   location = "europe-north1"
