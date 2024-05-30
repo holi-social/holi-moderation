@@ -41,7 +41,7 @@ resource "google_cloud_run_service" "frontend" {
     metadata {
       annotations = {
         "autoscaling.knative.dev/minScale" = local.environment == "production" ? "1" : "0"
-        "autoscaling.knative.dev/maxScale" = local.environment == "production" ? "5" : "1"
+        "autoscaling.knative.dev/maxScale" = "1"
 
         "run.googleapis.com/vpc-access-connector" = data.terraform_remote_state.holi_infra_state.outputs.vpc_access_connector_name
         "run.googleapis.com/vpc-access-egress"    = "all-traffic"
