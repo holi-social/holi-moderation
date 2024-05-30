@@ -23,8 +23,8 @@ deploy:review:hasura_metadata:
     - main
     - production
 
-deploy:review:migrate:
-  extends: .migrate
+deploy:review:db_migrations:
+  extends: .run_db_migrations
   dependencies:
     - "deploy:review:infra"
   needs:

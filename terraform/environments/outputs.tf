@@ -24,3 +24,7 @@ output "migration_job_name" {
 output "project_id" {
   value = data.terraform_remote_state.holi_infra_state.outputs.shared_project_id
 }
+
+output "hasura_version" {
+  value = var.hasura_image_tag
+}
