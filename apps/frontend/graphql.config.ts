@@ -1,7 +1,7 @@
 import type { IGraphQLConfig } from "graphql-config";
 
 const gqlUrl: string = process.env.INTERNAL_GRAPHQL_URL!;
-const hasuraAdminSecret: string = process.env.HASURA_ADMIN_SECRET!;
+const hasuraAdminSecret: string = process.env.HASURA_GRAPHQL_ADMIN_SECRET!;
 
 const config: IGraphQLConfig = {
   schema: [

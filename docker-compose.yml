@@ -31,7 +31,7 @@ services:
       VITE_OKUNA_ADMIN_BASE_URL: "http://localhost:8000/local/admin"
       VITE_GRAPHQL_URL: "http://localhost:8080/v1/graphql"
       # the admin secret should NEVER be added to the deployed container, only locally to facilitate schema introspection for codegen
-      HASURA_ADMIN_SECRET: "${HASURA_ADMIN_SECRET}"
+      HASURA_GRAPHQL_ADMIN_SECRET: "${HASURA_GRAPHQL_ADMIN_SECRET}"
       INTERNAL_GRAPHQL_URL: "http://hasura:8080/v1/graphql"
 
   db:
@@ -69,7 +69,7 @@ services:
       ## uncomment next line to run console offline (i.e load console assets from server instead of CDN)
       # HASURA_GRAPHQL_CONSOLE_ASSETS_DIR: /srv/console-assets
       ## uncomment next line to set an admin secret
-      HASURA_GRAPHQL_ADMIN_SECRET: "${HASURA_ADMIN_SECRET}"
+      HASURA_GRAPHQL_ADMIN_SECRET: "${HASURA_GRAPHQL_ADMIN_SECRET}"
       HASURA_GRAPHQL_ENABLE_REMOTE_SCHEMA_PERMISSIONS: "true"
       HASURA_GRAPHQL_UNAUTHORIZED_ROLE: "anonymous"
       HASURA_GRAPHQL_EXPERIMENTAL_FEATURES: "naming_convention"
