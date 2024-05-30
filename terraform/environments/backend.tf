@@ -34,6 +34,8 @@ resource "google_cloud_run_service" "moderation_backend" {
   name     = "moderation-backend-${local.environment_name}-${random_id.backend.hex}"
   location = local.default_location
 
+  depends_on = [google_service_account.moderation, google_project_iam_member.moderation]
+
   autogenerate_revision_name = true
 
   template {

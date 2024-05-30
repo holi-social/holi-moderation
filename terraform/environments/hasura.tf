@@ -35,6 +35,8 @@ resource "google_cloud_run_service" "moderation_hasura" {
   name     = "moderation-hasura-${local.environment_name}-${random_id.hasura.hex}"
   location = local.default_location
 
+  depends_on = [google_service_account.moderation, google_project_iam_member.moderation]
+
   autogenerate_revision_name = true
 
   template {
