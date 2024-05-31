@@ -5,6 +5,7 @@ import {
   OmitType,
   registerEnumType,
 } from '@nestjs/graphql';
+import { IsInt, Min, Max } from 'class-validator';
 import { UUID } from '../graphql/uuidScalar';
 import { ReportEvent } from '../reportLogs/schema';
 
@@ -64,3 +65,29 @@ export class CreateReport extends OmitType(
   ['id', 'status', 'events', 'createdAt', 'updatedAt'] as const,
   InputType,
 ) {}
+
+@InputType()
+export class ReportsFilter {
+  @Field(() => UUID, { nullable: true })
+  reporter?: string;
+
+  @Field(() => ReportStatus, { nullable: true })
+  status?: ReportStatus;
+
+  @Field({ nullable: true })
+  search?: string;
+}
+
+@InputType()
+export class Pagination {
+  @Field()
+  @IsInt()
+  @Min(1)
+  @Max(100)
+  limit?: number = 10;
+
+  @Field()
+  @IsInt()
+  @Min(0)
+  offset?: number = 0;
+}

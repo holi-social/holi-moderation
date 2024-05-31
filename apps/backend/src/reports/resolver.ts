@@ -8,11 +8,11 @@ import {
 } from '@nestjs/graphql';
 import { UUID } from '../graphql/uuidScalar';
 import { ReportEvent } from '../reportLogs/schema';
-import { CreateReport } from './schema';
+import { CreateReport, Pagination, ReportsFilter } from './schema';
 import { Report } from './schema';
 import { ReportStatus } from './schema';
 import { ModerationDb } from '../db';
-import { desc, eq } from 'drizzle-orm';
+import { DBQueryConfig, and, desc, eq, like } from 'drizzle-orm';
 import { reports } from './dbSchema';
 import { ReportLogger } from '../reportLogs/service';
 
@@ -24,9 +24,18 @@ export class ReportsResolver {
   ) {}
 
   @Query(() => [Report])
-  async reports() {
-    return this.moderationDb.db.query.reports.findMany({
+  async reports(
+    @Args('filter', { nullable: true }) filter: ReportsFilter,
+    @Args('pagination', { nullable: true }) pagination: Pagination,
+  ) {
+    const defaultQueryOptions: DBQueryConfig<'many', true> = {
       orderBy: desc(reports.createdAt),
+    };
+
+    return this.moderationDb.db.query.reports.findMany({
+      ...defaultQueryOptions,
+      ...this.buildReportsFilterWhere(filter),
+      ...this.buildDbPagination(pagination),
     });
   }
 
@@ -82,5 +91,42 @@ export class ReportsResolver {
     return this.moderationDb.db.query.reports.findFirst({
       where: eq(reports.id, id),
     });
+  }
+
+  private buildReportsFilterWhere(
+    filter?: ReportsFilter,
+  ): DBQueryConfig<'many'> {
+    const whereClauses = [];
+
+    if (filter?.reporter) {
+      whereClauses.push(eq(reports.reporterId, filter.reporter));
+    }
+
+    if (filter?.search) {
+      whereClauses.push(like(reports.details, `%${filter.search}%`));
+    }
+
+    if (filter?.status) {
+      whereClauses.push(eq(reports.status, filter.status));
+    }
+
+    // `and` already handles the special cases of having 0 or 1 conditions internally, so it's safe to use here
+    return { where: and(...whereClauses) };
+  }
+
+  private buildDbPagination(
+    pagination?: Pagination,
+  ): DBQueryConfig<'many', true> {
+    const options: DBQueryConfig<'many', true> = {};
+
+    if (pagination?.limit) {
+      options.limit = pagination.limit;
+    }
+
+    if (pagination?.offset) {
+      options.offset = pagination.offset;
+    }
+
+    return options;
   }
 }
