@@ -26,7 +26,10 @@ import {
   IconUserCancel,
 } from "@tabler/icons-react";
 import { okunaAdminUrl } from "../../utils";
-import { ViewReportQuery as ViewReportQueryResponse } from "../../graphql/generated/types";
+import {
+  ViewReportQuery as ViewReportQueryResponse,
+  ViewReportQueryVariables,
+} from "../../graphql/generated/types";
 import { formatDistanceToNow, parseISO } from "date-fns";
 import { OpenbookAuthUser } from "../../graphql/generated/schema.types";
 import { Post } from "../../components/post";
@@ -66,10 +69,11 @@ const User: React.FC<{ user: OpenbookAuthUser }> = ({ user }) => {
 
 export const ViewReport: React.FC = () => {
   const { reportId } = useParams();
-  const { data, isLoading } = useSWR<ViewReportQueryResponse>([
-    ViewReportQuery,
-    { id: reportId },
-  ]);
+  const { data, isLoading } = useSWR<
+    ViewReportQueryResponse,
+    unknown,
+    [typeof ViewReportQuery, ViewReportQueryVariables]
+  >([ViewReportQuery, { id: reportId! }]);
 
   if (isLoading || !data) {
     return <Loader />;
