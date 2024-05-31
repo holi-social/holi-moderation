@@ -15,6 +15,7 @@ services:
       - 8087:3000
     volumes:
       - ./apps/backend:/code
+      - /code/node_modules
     working_dir: /code
 
   frontend:
