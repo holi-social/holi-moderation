@@ -19,6 +19,7 @@ import {
   IconExternalLink,
   IconFlag,
   IconGavel,
+  IconHistory,
   IconMessage2,
   IconMessageReport,
   IconTrash,
@@ -38,6 +39,7 @@ import { ReportedSpaceTask } from "../../components/spaceTask/reported";
 import { ReportedSpaceLinkhubTool } from "../../components/spaceLinkhubTool/reported";
 import { ReportStatusDropdown } from "../../components/reportStatusDropdown";
 import { ReportTimeline } from "../../components/reportTimeline";
+import { ReportsTable } from "../../components/reportsTable";
 
 const OkunaLinkButton: React.FC<{ urlPath: string }> = ({ urlPath }) => (
   <ActionIcon
@@ -132,6 +134,26 @@ export const ViewReport: React.FC = () => {
               </Grid.Col>
               <Grid.Col span={10} display="flex">
                 <Text>{report.details}</Text>
+              </Grid.Col>
+
+              <Grid.Col span={12}>
+                <Accordion variant="contained">
+                  <Accordion.Item value="userReports">
+                    <Accordion.Control icon={<IconHistory />}>
+                      Recent reports by this user
+                    </Accordion.Control>
+
+                    <Accordion.Panel>
+                      <ReportsTable
+                        filters={{ reporter: report.reporter?.id }}
+                        initialTableState={{
+                          density: "xs",
+                          pagination: { pageIndex: 0, pageSize: 5 },
+                        }}
+                      />
+                    </Accordion.Panel>
+                  </Accordion.Item>
+                </Accordion>
               </Grid.Col>
             </Grid>
           </Accordion.Panel>

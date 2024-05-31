@@ -10,6 +10,7 @@ import { SWRConfig } from "swr";
 import { fetcher } from "./fetcher";
 import { Login } from "./pages/auth/login";
 import { Layout } from "./pages/appLayout";
+import { ListReportsFromUser } from "./pages/reports/fromUser";
 
 // const RouterLayout = () => (
 //   <Layout>
@@ -39,6 +40,14 @@ const router = createBrowserRouter([
     element: (
       <Layout>
         <ViewReport />
+      </Layout>
+    ),
+  },
+  {
+    path: "/reports/user/:reporterId",
+    element: (
+      <Layout>
+        <ListReportsFromUser />
       </Layout>
     ),
   },

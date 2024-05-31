@@ -5928,6 +5928,11 @@ export type OrderBy =
   /** in descending order, nulls last */
   | "DESC_NULLS_LAST";
 
+export type Pagination = {
+  limit?: Scalars["Float"]["input"];
+  offset?: Scalars["Float"]["input"];
+};
+
 export type Report = {
   contentId: Scalars["UUID"]["output"];
   contentType: ContentType;
@@ -5958,6 +5963,12 @@ export type ReportEvent = {
 export type ReportLogEvent = "REPORT_CREATED" | "STATUS_CHANGED";
 
 export type ReportStatus = "ACTION_TAKEN" | "IN_PROGRESS" | "OPEN" | "REJECTED";
+
+export type ReportsFilter = {
+  reporter?: InputMaybe<Scalars["UUID"]["input"]>;
+  search?: InputMaybe<Scalars["String"]["input"]>;
+  status?: InputMaybe<ReportStatus>;
+};
 
 /** Boolean expression to compare columns of type "smallint". All fields are combined with logical 'AND'. */
 export type SmallintComparisonExp = {
@@ -7649,6 +7660,11 @@ export type Query_RootOpenbookTermsSkillByPkArgs = {
 
 export type Query_RootReportArgs = {
   id: Scalars["UUID"]["input"];
+};
+
+export type Query_RootReportsArgs = {
+  filter?: InputMaybe<ReportsFilter>;
+  pagination?: InputMaybe<Pagination>;
 };
 
 export type St_D_Within_Geography_Input = {

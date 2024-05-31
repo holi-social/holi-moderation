@@ -2724,7 +2724,10 @@ export type LoginMutation = {
   login: Pick<Types.AuthResult, "userId" | "email" | "token">;
 };
 
-export type ListReportsQueryVariables = Types.Exact<{ [key: string]: never }>;
+export type ListReportsQueryVariables = Types.Exact<{
+  filter?: Types.InputMaybe<Types.ReportsFilter>;
+  pagination?: Types.InputMaybe<Types.Pagination>;
+}>;
 
 export type ListReportsQuery = {
   reports: Array<
