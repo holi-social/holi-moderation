@@ -1,1 +1,0 @@
-ALTER TYPE "report_event_name" ADD VALUE 'REPORT_CREATED';

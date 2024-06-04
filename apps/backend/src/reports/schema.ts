@@ -1,68 +1,17 @@
-import {
-  Field,
-  InputType,
-  ObjectType,
-  OmitType,
-  registerEnumType,
-} from '@nestjs/graphql';
+import { Field, InputType, PickType, registerEnumType } from '@nestjs/graphql';
 import { IsInt, Min, Max } from 'class-validator';
 import { UUID } from '../graphql/uuidScalar';
-import { ReportEvent } from '../reportLogs/schema';
-
-export enum ContentType {
-  POST = 'POST',
-  COMMENT = 'COMMENT',
-  CHAT_MESSAGE = 'CHAT_MESSAGE',
-  SPACE = 'SPACE',
-  SPACE_TASK = 'SPACE_TASK',
-  SPACE_APPOINTMENT = 'SPACE_APPOINTMENT',
-  SPACE_LINKHUB_TOOL = 'SPACE_LINKHUB_TOOL',
-  USER = 'USER',
-}
-export enum ReportStatus {
-  OPEN = 'OPEN',
-  IN_PROGRESS = 'IN_PROGRESS',
-  ACTION_TAKEN = 'ACTION_TAKEN',
-  REJECTED = 'REJECTED',
-}
+import { ContentType } from './entities/contentType';
+import { ReportStatus } from './entities/reportStatus';
+import { Report } from './entities/report';
 
 registerEnumType(ContentType, { name: 'ContentType' });
 registerEnumType(ReportStatus, { name: 'ReportStatus' });
 
-@ObjectType()
-export class Report {
-  @Field(() => UUID)
-  id: string;
-
-  @Field(() => ContentType)
-  contentType: ContentType;
-
-  @Field(() => UUID)
-  contentId: string;
-
-  @Field()
-  details: string;
-
-  @Field(() => UUID)
-  reporterId: string;
-
-  @Field(() => ReportStatus)
-  status: ReportStatus;
-
-  @Field(() => [ReportEvent])
-  events: ReportEvent[];
-
-  @Field()
-  createdAt: Date;
-
-  @Field()
-  updatedAt: Date;
-}
-
 @InputType()
-export class CreateReport extends OmitType(
+export class CreateReport extends PickType(
   Report,
-  ['id', 'status', 'events', 'createdAt', 'updatedAt'] as const,
+  ['contentType', 'contentId', 'details', 'reporterId'] as const,
   InputType,
 ) {}
 

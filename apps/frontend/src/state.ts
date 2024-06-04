@@ -5,6 +5,7 @@ import { devtools, persist } from "zustand/middleware";
 type UserInfo = {
   id: string;
   email: string;
+  role: "admin" | "moderator";
   token: string;
   validUntil: number;
 };
@@ -13,6 +14,7 @@ export type TokenPayload = {
   sub: string;
   exp: number;
   email: string;
+  role: "admin" | "moderator";
 };
 
 export type AuthStateLoggedOut = {
@@ -51,6 +53,7 @@ export const useAuthState = create<AuthState & AuthActions>()(
             user: {
               id: payload.sub,
               email: payload.email,
+              role: payload.role,
               token,
               validUntil,
             },

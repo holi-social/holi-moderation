@@ -1,0 +1,6 @@
+export enum ReportStatus {
+  OPEN = 'OPEN',
+  IN_PROGRESS = 'IN_PROGRESS',
+  ACTION_TAKEN = 'ACTION_TAKEN',
+  REJECTED = 'REJECTED',
+}

@@ -6,20 +6,20 @@ import {
 } from '../reportLogs/types';
 
 import { Injectable } from '@nestjs/common';
-import { eq, asc } from 'drizzle-orm';
-import { ModerationDb } from '../db';
-import { reportEvents } from '../reports/dbSchema';
-import { ReportStatus } from '../reports/schema';
+import { ReportStatus } from '../reports/entities/reportStatus';
+import { InjectRepository } from '@nestjs/typeorm';
+import { ReportEvent } from './entities/reportEvent';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class ReportLogger {
-  constructor(private readonly moderationDb: ModerationDb) {}
+  constructor(
+    @InjectRepository(ReportEvent)
+    private readonly repository: Repository<ReportEvent>,
+  ) {}
 
-  public async getReportLog(reportId: string) {
-    return this.moderationDb.db.query.reportEvents.findMany({
-      where: eq(reportEvents.reportId, reportId),
-      orderBy: asc(reportEvents.occurredAt),
-    });
+  public async getReportLog(reportId: string): Promise<ReportEvent[]> {
+    return this.repository.findBy({ report: { id: reportId } });
   }
 
   public async logStatusChanged(
@@ -47,10 +47,15 @@ export class ReportLogger {
     eventName: ReportLogEvent,
     eventPayload: TPayload,
   ) {
-    await this.moderationDb.db.insert(reportEvents).values({
-      reportId,
-      eventName,
-      eventPayload,
-    });
+    await this.repository
+      .createQueryBuilder()
+      .insert()
+      .into(ReportEvent)
+      .values({
+        report: { id: reportId },
+        eventName,
+        eventPayload,
+      })
+      .execute();
   }
 }

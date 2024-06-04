@@ -1,6 +1,9 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
-import { User, UserService } from './user';
 import { verify, Options as Argon2Options, hash } from '@node-rs/argon2';
+import { InjectRepository } from '@nestjs/typeorm';
+import { User } from '../entities/user';
+import { Repository } from 'typeorm';
+import { UserRole } from '../entities/userRole';
 
 @Injectable()
 export class AuthService {
@@ -14,11 +17,13 @@ export class AuthService {
     parallelism: 1,
   };
 
-  constructor(private readonly users: UserService) {}
+  constructor(
+    @InjectRepository(User) private readonly repository: Repository<User>,
+  ) {}
 
   async login(email: string, password: string): Promise<User> {
-    const user = await this.users.findByEmail(email);
-    if (user === undefined) {
+    const user = await this.repository.findOneBy({ email });
+    if (user === null) {
       throw new ForbiddenException();
     }
 
@@ -27,6 +32,7 @@ export class AuthService {
       password,
       this.HASH_SETTINGS,
     );
+
     if (!passwordMatchesHash) {
       throw new ForbiddenException();
     }
@@ -34,8 +40,18 @@ export class AuthService {
     return user;
   }
 
-  async register(email: string, password: string): Promise<User> {
+  async register(
+    email: string,
+    password: string,
+    role: UserRole = UserRole.MODERATOR,
+  ): Promise<User> {
     const passwordHash = await hash(password, this.HASH_SETTINGS);
-    return this.users.create(email, passwordHash);
+    const newUser = this.repository.create({
+      email,
+      passwordHash,
+      role,
+    });
+
+    return this.repository.save(newUser);
   }
 }

@@ -16,11 +16,12 @@ WORKDIR /code
 COPY --from=dependencies /code/node_modules /code/node_modules
 COPY tsconfig.* package.json yarn.lock nest-cli.json webpack.config.js ./
 COPY src ./src
+COPY migrations ./migrations
 
 RUN echo 'nodeLinker: node-modules' > .yarnrc.yml
 
 RUN corepack enable \
-    && yarn run -B nest build -b webpack
+    && yarn run -B nest build
 
 ###
 
@@ -33,11 +34,10 @@ WORKDIR /code
 COPY --from=builder /code/dist .
 COPY --from=dependencies /code/node_modules ./node_modules
 
-COPY package.json yarn.lock drizzle.config.ts ./
-COPY ./drizzle ./drizzle
+COPY package.json yarn.lock ./
 
 EXPOSE ${PORT}
-CMD [ "node", "/code/main.js" ]
+CMD [ "node", "/code/src/main.js" ]
 
 ###
 
@@ -50,4 +50,4 @@ COPY --from=dependencies /code/node_modules ./node_modules
 RUN corepack enable \
     && echo 'nodeLinker: node-modules' > .yarnrc.yml
 
-CMD yarn install && yarn run migrations:run && yarn run -B nest start --watch
+CMD yarn install && yarn run typeorm migration:run -d src/typeorm.ts && yarn run -B nest start --watch

@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ReportsResolver } from './resolver';
-import { DbModule } from '../db';
 import { ReportLogsModule } from '../reportLogs';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Report } from './entities/report';
 
 @Module({
-  imports: [DbModule, ReportLogsModule],
+  imports: [ReportLogsModule, TypeOrmModule.forFeature([Report])],
   providers: [ReportsResolver],
   exports: [ReportsResolver],
 })
