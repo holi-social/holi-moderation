@@ -3,14 +3,16 @@
 ## How to run
 
 1. copy `.env.dist` to `.env` and set the correct password for the okuna database inside
-2. `docker compose up -d`
-3. `docker compose exec backend yarn run migrations:run`
-4. `cd apps/hasura && hasura deploy` 
+2. either source `.env` manually, or ensure direnv loads the file 
+3. `docker compose up -d`
+4. `docker compose exec backend yarn run typeorm migration:run -d src/typeorm.ts`
+5. `cd apps/hasura && hasura deploy` 
 
 You should be able to reach the following endpoints:
 
 - [Hasura Console](http://localhost:8080/console)
 - [Frontend](http://localhost:8089)
+- [Backend GQL Playground](http://localhost:8087/graphql)
 
 ## Useful commands
 
@@ -27,5 +29,10 @@ You should be able to reach the following endpoints:
 
 - Generate new migrations
   ```bash
-  docker compose exec backend yarn run migrations:generate
+  docker compose exec backend yarn run typeorm migration:generate -d src/typeorm.ts migrations/<MigrationName>
+  ```
+
+- Run migrations
+  ```bash
+  docker compose exec backend yarn run typeorm migration:run -d src/typeorm.ts
   ```

@@ -6,28 +6,6 @@
     forward_client_headers: true
   comment: ""
   permissions:
-    - role: anonymous
-      definition:
-        schema: |
-          schema {
-            query: Query
-            mutation: Mutation
-          }
-          scalar UUID
-          type AuthResult {
-            email: String!
-            token: String!
-            userId: UUID!
-          }
-          type Mutation {
-            login(email: String!, password: String!): AuthResult!
-          }
-          type Query {
-            verifyToken: TokenValidity!
-          }
-          type TokenValidity {
-            valid: Boolean!
-          }
     - role: moderator
       definition:
         schema: |
@@ -54,7 +32,7 @@
           }
           type Query {
             report(id: UUID!): Report!
-            reports: [Report!]!
+            reports(filter: ReportsFilter, pagination: Pagination): [Report!]!
             verifyToken: TokenValidity!
           }
           type Report {
@@ -102,6 +80,37 @@
             contentType: ContentType!
             details: String!
             reporterId: UUID!
+          }
+          input Pagination {
+            limit: Float! = 10
+            offset: Float! = 0
+          }
+          input ReportsFilter {
+            reporter: UUID
+            search: String
+            status: ReportStatus
+          }
+    - role: anonymous
+      definition:
+        schema: |
+          schema {
+            query: Query
+            mutation: Mutation
+          }
+          scalar UUID
+          type AuthResult {
+            email: String!
+            token: String!
+            userId: UUID!
+          }
+          type Mutation {
+            login(email: String!, password: String!): AuthResult!
+          }
+          type Query {
+            verifyToken: TokenValidity!
+          }
+          type TokenValidity {
+            valid: Boolean!
           }
   remote_relationships:
     - relationships:

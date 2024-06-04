@@ -1,16 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { User } from './user';
+import { User } from '../entities/user';
 import { JwtService, JwtSignOptions } from '@nestjs/jwt';
+import { UserRole } from '../entities/userRole';
 
-type HasuraRole = 'moderator';
+type Role = `${UserRole}`;
 
 export type TokenPayload = {
   sub: string;
   email: string;
+  role: Role;
   'https://hasura.io/jwt/claims': {
-    'x-hasura-allowed-roles': HasuraRole[];
-    'x-hasura-default-role': HasuraRole;
+    'x-hasura-allowed-roles': Role[];
+    'x-hasura-default-role': Role;
     'x-hasura-user-id': string;
   };
 };
@@ -37,23 +39,18 @@ export class TokenService {
     return this.jwt.signAsync(payload, this.jwtOptions());
   }
 
-  async verify(token: string): Promise<boolean> {
-    try {
-      this.jwt.verify(token, this.jwtOptions());
-    } catch {
-      return false;
-    }
-
-    return true;
+  async verify(token: string): Promise<TokenPayload> {
+    return this.jwt.verify<TokenPayload>(token, this.jwtOptions());
   }
 
   private payloadForUser(user: User): TokenPayload {
     return {
       sub: user.id,
       email: user.email,
+      role: user.role,
       'https://hasura.io/jwt/claims': {
-        'x-hasura-allowed-roles': ['moderator'],
-        'x-hasura-default-role': 'moderator',
+        'x-hasura-allowed-roles': [user.role],
+        'x-hasura-default-role': user.role,
         'x-hasura-user-id': user.id,
       },
     };

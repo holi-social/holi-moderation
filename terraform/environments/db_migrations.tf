@@ -12,7 +12,7 @@ resource "google_cloud_run_v2_job" "backend_db_migrations" {
 
       containers {
         image   = "${data.terraform_remote_state.holi_infra_state.outputs.artifact_registry_location}/holi-moderation-backend:${var.backend_image_tag}"
-        command = ["node", "/code/cli.js", "migrate"]
+        command = ["node", "/code/node_modules/.bin/typeorm-ts-node-commonjs", "migration:run", "-d", "/code/src/typeorm.js"]
 
 
         env {

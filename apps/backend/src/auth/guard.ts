@@ -5,7 +5,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { Request } from 'express';
-import { TokenService } from './service/token';
+import { TokenPayload, TokenService } from './service/token';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { Reflector } from '@nestjs/core';
 import { Metadata } from './decorators';
@@ -23,6 +23,11 @@ export class AuthGuard implements CanActivate {
       [context.getHandler(), context.getClass()],
     );
 
+    const isAdminOnly = this.reflector.getAllAndOverride<boolean>(
+      Metadata.ADMIN_ONLY,
+      [context.getHandler(), context.getClass()],
+    );
+
     if (isPublic) {
       return true;
     }
@@ -34,15 +39,40 @@ export class AuthGuard implements CanActivate {
     const request = ctx.req;
     const token = this.extractToken(request);
 
+    if (this.isHasuraAdminRequest(request)) {
+      return true;
+    }
+
     if (!token) {
       throw new UnauthorizedException();
     }
 
-    return this.token.verify(token);
+    let payload: TokenPayload;
+    try {
+      payload = await this.token.verify(token);
+    } catch {
+      return false;
+    }
+
+    ctx['authToken'] = payload;
+
+    if (
+      isAdminOnly &&
+      payload.role !== 'admin' &&
+      !this.isHasuraAdminRequest(request)
+    ) {
+      return false;
+    }
+
+    return true;
   }
 
   private extractToken(request: Request): string | undefined {
     const [type, token] = request.headers.authorization?.split(' ') ?? [];
     return type === 'Bearer' ? token : undefined;
+  }
+
+  private isHasuraAdminRequest(request: Request): boolean {
+    return 'x-hasura-admin-secret' in request.headers;
   }
 }

@@ -11,6 +11,7 @@ services:
       LISTEN_ADDR: "0.0.0.0"
       PUBSUB_EMULATOR_HOST: "pubsub:8085"
       PUBSUB_PROJECT_ID: holi-shared
+      DEBUG: "true"
     ports:
       - 8087:3000
     volumes:

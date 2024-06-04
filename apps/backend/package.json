@@ -18,8 +18,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "migrations:generate": "drizzle-kit generate:pg",
-    "migrations:run": "ts-node ./src/cli.ts migrate"
+    "typeorm": "typeorm-ts-node-commonjs"
   },
   "dependencies": {
     "@apollo/server": "^4.10.2",
@@ -31,16 +30,18 @@
     "@nestjs/graphql": "^12.1.1",
     "@nestjs/jwt": "^10.2.0",
     "@nestjs/platform-express": "^10.0.0",
+    "@nestjs/typeorm": "^10.0.2",
     "@node-rs/argon2": "^1.8.3",
+    "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
-    "drizzle-orm": "^0.30.7",
     "eslint-plugin-drizzle": "^0.2.3",
     "graphql": "^16.8.1",
     "graphql-type-json": "^0.3.2",
     "nest-commander": "^3.12.5",
-    "postgres": "^3.4.4",
+    "pg": "^8.11.5",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
+    "typeorm": "^0.3.20",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
@@ -51,11 +52,11 @@
     "@types/inquirer": "^9.0.7",
     "@types/jest": "^29.5.2",
     "@types/node": "^20.3.1",
+    "@types/pg": "^8",
     "@types/supertest": "^6.0.0",
     "@types/uuid": "^9.0.8",
     "@typescript-eslint/eslint-plugin": "^7.8.0",
     "@typescript-eslint/parser": "^7.8.0",
-    "drizzle-kit": "^0.20.14",
     "eslint": "^8.42.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-formatter-gitlab": "^5.1.0",

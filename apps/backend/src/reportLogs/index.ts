@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ReportLogger } from './service';
-import { DbModule } from '../db';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { ReportEvent } from './entities/reportEvent';
 
 @Module({
-  imports: [DbModule],
+  imports: [TypeOrmModule.forFeature([ReportEvent])],
   providers: [ReportLogger],
   exports: [ReportLogger],
 })
