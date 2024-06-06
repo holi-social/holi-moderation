@@ -8,6 +8,7 @@ import { CreateUserCommand, CreateUserQuestions } from './createUser.command';
 import { APP_GUARD } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user';
+import { CreateInitialUser } from './createInitialUser';
 
 const GlobalAuthGuardProvider: ClassProvider = {
   provide: APP_GUARD,
@@ -25,7 +26,8 @@ const GlobalAuthGuardProvider: ClassProvider = {
     CreateUserQuestions,
     CreateUserCommand,
     GlobalAuthGuardProvider,
+    CreateInitialUser,
   ],
-  exports: [AuthGuard, CreateUserCommand],
+  exports: [AuthGuard, CreateUserCommand, CreateInitialUser],
 })
 export class AuthModule {}

@@ -10,7 +10,8 @@ import { User } from './entities/user';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserRole } from './entities/userRole';
-import { NotFoundException } from '@nestjs/common';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
+import { Success } from 'src/graphql/commonSchema';
 
 @Resolver()
 export class AuthResolver {
@@ -53,7 +54,7 @@ export class UserResolver {
 
   @Query(() => [User])
   public async users(
-    @Args('pagination') pagination: Pagination,
+    @Args('pagination', { nullable: true }) pagination?: Pagination,
   ): Promise<User[]> {
     const qb = this.repository.createQueryBuilder('user').select();
 
@@ -94,5 +95,44 @@ export class UserResolver {
 
     user.role = newRole;
     return this.repository.save(user);
+  }
+
+  public async changeOwnPassword(
+    @Args('newPassword') newPassword: string,
+    @AuthToken() token?: TokenPayload,
+  ): Promise<Success> {
+    if (!token) {
+      throw new BadRequestException();
+    }
+
+    const user = await this.repository.findOneBy({ id: token.sub });
+    if (user === null) {
+      // this could happen in edge cases where the user was deleted, but still had a valid token
+      throw new BadRequestException();
+    }
+
+    await this.auth.changePassword(user, newPassword);
+
+    return { success: true };
+  }
+
+  @Mutation(() => Success)
+  @AdminOnly()
+  public async deleteUser(
+    @Args('userId', { type: () => UUID }) userId: string,
+    @AuthToken() token?: TokenPayload,
+  ): Promise<Success> {
+    if (token?.sub === userId) {
+      throw new ForbiddenError("Can't delete your own account.");
+    }
+
+    const user = await this.repository.findOneBy({ id: userId });
+    if (user === null) {
+      throw new NotFoundException();
+    }
+
+    await this.repository.remove(user);
+
+    return { success: true };
   }
 }

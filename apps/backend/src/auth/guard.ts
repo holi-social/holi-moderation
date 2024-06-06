@@ -73,6 +73,9 @@ export class AuthGuard implements CanActivate {
   }
 
   private isHasuraAdminRequest(request: Request): boolean {
-    return 'x-hasura-admin-secret' in request.headers;
+    return (
+      'x-hasura-role' in request.headers &&
+      request.headers['x-hasura-role'] === 'admin'
+    );
   }
 }

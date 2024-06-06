@@ -7,7 +7,7 @@ import {
   Stack,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import React from "react";
+import React, { useState } from "react";
 import { HoliLogo } from "../../components/holiLogo";
 import { useAuthState } from "../../state";
 import { gqlClient } from "../../fetcher";
@@ -25,16 +25,24 @@ export const Login: React.FC = () => {
     mode: "uncontrolled",
   });
 
+  const [loading, setLoading] = useState<boolean>(false);
+
   const login = async (email: string, password: string): Promise<void> => {
-    const response = await gqlClient().request<
-      LoginMutationResponse,
-      LoginMutationVariables
-    >(LoginMutation, { email, password });
+    setLoading(true);
 
-    if (response.login?.token) {
-      authState.logIn(response.login.token);
+    try {
+      const response = await gqlClient().request<
+        LoginMutationResponse,
+        LoginMutationVariables
+      >(LoginMutation, { email, password });
 
-      navigate("/reports");
+      if (response.login?.token) {
+        authState.logIn(response.login.token);
+
+        navigate("/reports");
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -65,7 +73,7 @@ export const Login: React.FC = () => {
             key={form.key("password")}
             {...form.getInputProps("password")}
           />
-          <Button fullWidth mt="xl" type="submit">
+          <Button fullWidth mt="xl" type="submit" loading={loading}>
             Sign in
           </Button>
         </form>

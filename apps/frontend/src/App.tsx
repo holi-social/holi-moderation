@@ -11,12 +11,8 @@ import { fetcher } from "./fetcher";
 import { Login } from "./pages/auth/login";
 import { Layout } from "./pages/appLayout";
 import { ListReportsFromUser } from "./pages/reports/fromUser";
-
-// const RouterLayout = () => (
-//   <Layout>
-//     <Outlet />
-//   </Layout>
-// );
+import { ListUsers } from "./pages/moderationUsers/list";
+import { ModalsProvider } from "@mantine/modals";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +48,14 @@ const router = createBrowserRouter([
     ),
   },
   {
+    path: "/users",
+    element: (
+      <Layout>
+        <ListUsers />
+      </Layout>
+    ),
+  },
+  {
     path: "/login",
     element: <Login />,
   },
@@ -66,7 +70,9 @@ function App() {
     >
       <MantineProvider>
         <Notifications />
-        <RouterProvider router={router} />
+        <ModalsProvider>
+          <RouterProvider router={router} />
+        </ModalsProvider>
       </MantineProvider>
     </SWRConfig>
   );

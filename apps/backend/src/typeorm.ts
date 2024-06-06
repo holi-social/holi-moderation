@@ -22,4 +22,4 @@ const cliConfig: TypeOrmModuleOptions = {
 };
 
 export default registerAs('typeorm', () => config);
-export const connectionSource = new DataSource(cliConfig as DataSourceOptions);
+export const dataSource = new DataSource(cliConfig as DataSourceOptions);

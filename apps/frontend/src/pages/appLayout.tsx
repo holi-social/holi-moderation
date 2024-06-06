@@ -1,13 +1,20 @@
 import {
   AppShell,
   Avatar,
+  Button,
   Flex,
   Group,
   Menu,
   NavLink,
   Title,
 } from "@mantine/core";
-import { IconFlag, IconLogout, IconMoon, IconSun } from "@tabler/icons-react";
+import {
+  IconFlag,
+  IconLogout,
+  IconMoon,
+  IconSun,
+  IconUsers,
+} from "@tabler/icons-react";
 import React, { PropsWithChildren, useEffect } from "react";
 import {
   NavLink as RouterNavLink,
@@ -18,20 +25,13 @@ import { HoliLogo } from "../components/holiLogo";
 import { AuthStateLoggedIn, useAuthState } from "../state";
 import { initialsFromEmail } from "../utils";
 import { useColorScheme } from "../hooks";
+import { RoleGuard } from "../components/auth/roleGuard";
 
 type NavMenuItem = {
   icon: typeof IconFlag;
   link: string;
   label: string;
 };
-
-const menuItems: NavMenuItem[] = [
-  {
-    icon: IconFlag,
-    link: "/reports",
-    label: "Reports",
-  },
-];
 
 export const Layout: React.FC<PropsWithChildren> = ({ children }) => {
   const authState = useAuthState();
@@ -72,16 +72,26 @@ export const Layout: React.FC<PropsWithChildren> = ({ children }) => {
             Backoffice 3000
           </Title>
           <Group ml="xl">
-            {menuItems.map((item) => (
-              <NavLink
-                key={item.link}
-                leftSection={<item.icon />}
+            <Button
+              leftSection={<IconFlag />}
+              component={RouterNavLink}
+              to="/reports"
+              variant={currentPath.startsWith("/reports") ? "light" : "subtle"}
+              color={currentPath.startsWith("/reports") ? "blue" : "gray"}
+            >
+              Reports
+            </Button>
+            <RoleGuard allowedRoles={["ADMIN"]}>
+              <Button
+                leftSection={<IconUsers />}
                 component={RouterNavLink}
-                to={item.link}
-                label={item.label}
-                active={currentPath.startsWith(item.link)}
-              />
-            ))}
+                to="/users"
+                variant={currentPath.startsWith("/users") ? "light" : "subtle"}
+                color={currentPath.startsWith("/users") ? "blue" : "gray"}
+              >
+                Users
+              </Button>
+            </RoleGuard>
           </Group>
         </Flex>
         <Group align="center" pr="md">

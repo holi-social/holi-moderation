@@ -52,6 +52,11 @@ export type CommentDetailsFragment = Pick<
   >;
 };
 
+export type ModerationUserDetailsFragment = Pick<
+  Types.User,
+  "id" | "email" | "role" | "createdAt" | "updatedAt"
+>;
+
 export type PostDetailsFragment = Pick<
   Types.OpenbookPostsPost,
   "id" | "title" | "text" | "status" | "created"
@@ -1826,6 +1831,18 @@ export type UserDetailsFragment = Pick<
   >;
 };
 
+export type ChangeModerationUserRoleMutationVariables = Types.Exact<{
+  userId: Types.Scalars["UUID"]["input"];
+  newRole: Types.UserRole;
+}>;
+
+export type ChangeModerationUserRoleMutation = {
+  changeRole: Pick<
+    Types.User,
+    "id" | "email" | "role" | "createdAt" | "updatedAt"
+  >;
+};
+
 export type ChangeReportStatusMutationVariables = Types.Exact<{
   reportId: Types.Scalars["UUID"]["input"];
   newStatus: Types.ReportStatus;
@@ -2715,6 +2732,25 @@ export type ChangeReportStatusMutation = {
   };
 };
 
+export type CreateModerationUserMutationVariables = Types.Exact<{
+  user: Types.CreateUser;
+}>;
+
+export type CreateModerationUserMutation = {
+  registerUser: Pick<
+    Types.User,
+    "id" | "email" | "role" | "createdAt" | "updatedAt"
+  >;
+};
+
+export type DeleteModerationUserMutationVariables = Types.Exact<{
+  userId: Types.Scalars["UUID"]["input"];
+}>;
+
+export type DeleteModerationUserMutation = {
+  deleteUser: Pick<Types.Success, "success">;
+};
+
 export type LoginMutationVariables = Types.Exact<{
   email: Types.Scalars["String"]["input"];
   password: Types.Scalars["String"]["input"];
@@ -2722,6 +2758,16 @@ export type LoginMutationVariables = Types.Exact<{
 
 export type LoginMutation = {
   login: Pick<Types.AuthResult, "userId" | "email" | "token">;
+};
+
+export type ListModeratorsQueryVariables = Types.Exact<{
+  [key: string]: never;
+}>;
+
+export type ListModeratorsQuery = {
+  users: Array<
+    Pick<Types.User, "id" | "email" | "role" | "createdAt" | "updatedAt">
+  >;
 };
 
 export type ListReportsQueryVariables = Types.Exact<{

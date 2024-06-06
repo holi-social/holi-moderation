@@ -89,6 +89,12 @@ export type CreateReport = {
   reporterId: Scalars["UUID"]["input"];
 };
 
+export type CreateUser = {
+  email: Scalars["String"]["input"];
+  password: Scalars["String"]["input"];
+  role?: UserRole;
+};
+
 /** ordering argument of a cursor */
 export type CursorOrdering =
   /** ascending ordering of the cursor */
@@ -5958,6 +5964,7 @@ export type ReportEvent = {
   eventPayload: Scalars["JSONObject"]["output"];
   id: Scalars["UUID"]["output"];
   occurredAt: Scalars["DateTime"]["output"];
+  report: Report;
 };
 
 export type ReportLogEvent = "REPORT_CREATED" | "STATUS_CHANGED";
@@ -6016,6 +6023,10 @@ export type StringComparisonExp = {
   _similar?: InputMaybe<Scalars["String"]["input"]>;
 };
 
+export type Success = {
+  success: Scalars["Boolean"]["output"];
+};
+
 /** Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'. */
 export type TimestamptzComparisonExp = {
   _eq?: InputMaybe<Scalars["timestamptz"]["input"]>;
@@ -6032,6 +6043,16 @@ export type TimestamptzComparisonExp = {
 export type TokenValidity = {
   valid: Scalars["Boolean"]["output"];
 };
+
+export type User = {
+  createdAt: Scalars["DateTime"]["output"];
+  email: Scalars["String"]["output"];
+  id: Scalars["UUID"]["output"];
+  role: UserRole;
+  updatedAt: Scalars["DateTime"]["output"];
+};
+
+export type UserRole = "ADMIN" | "MODERATOR";
 
 /** Boolean expression to compare columns of type "uuid". All fields are combined with logical 'AND'. */
 export type UuidComparisonExp = {
@@ -6050,6 +6071,7 @@ export type UuidComparisonExp = {
 export type Mutation_Root = {
   banUser: ActionResult;
   changeReportStatus: Report;
+  changeRole: User;
   createReport: Report;
   /** delete data from the table: "django_content_type" */
   deleteDjangoContentType?: Maybe<DjangoContentTypeMutationResponse>;
@@ -6119,6 +6141,7 @@ export type Mutation_Root = {
   deleteOpenbookTermsSkill?: Maybe<OpenbookTermsSkillMutationResponse>;
   /** delete single row from the table: "openbook_terms_skill" */
   deleteOpenbookTermsSkillByPk?: Maybe<OpenbookTermsSkill>;
+  deleteUser: Success;
   /** insert data into the table: "django_content_type" */
   insertDjangoContentType?: Maybe<DjangoContentTypeMutationResponse>;
   /** insert a single row into the table: "django_content_type" */
@@ -6188,6 +6211,7 @@ export type Mutation_Root = {
   /** insert a single row into the table: "openbook_terms_skill" */
   insertOpenbookTermsSkillOne?: Maybe<OpenbookTermsSkill>;
   login: AuthResult;
+  registerUser: User;
   /** update data of the table: "django_content_type" */
   updateDjangoContentType?: Maybe<DjangoContentTypeMutationResponse>;
   /** update single row of the table: "django_content_type" */
@@ -6336,6 +6360,12 @@ export type Mutation_RootBanUserArgs = {
 export type Mutation_RootChangeReportStatusArgs = {
   newStatus: ReportStatus;
   reportId: Scalars["UUID"]["input"];
+};
+
+/** mutation root */
+export type Mutation_RootChangeRoleArgs = {
+  newRole: UserRole;
+  userId: Scalars["UUID"]["input"];
 };
 
 /** mutation root */
@@ -6514,6 +6544,11 @@ export type Mutation_RootDeleteOpenbookTermsSkillArgs = {
 /** mutation root */
 export type Mutation_RootDeleteOpenbookTermsSkillByPkArgs = {
   id: Scalars["uuid"]["input"];
+};
+
+/** mutation root */
+export type Mutation_RootDeleteUserArgs = {
+  userId: Scalars["UUID"]["input"];
 };
 
 /** mutation root */
@@ -6726,6 +6761,11 @@ export type Mutation_RootInsertOpenbookTermsSkillOneArgs = {
 export type Mutation_RootLoginArgs = {
   email: Scalars["String"]["input"];
   password: Scalars["String"]["input"];
+};
+
+/** mutation root */
+export type Mutation_RootRegisterUserArgs = {
+  user: CreateUser;
 };
 
 /** mutation root */
@@ -7294,6 +7334,7 @@ export type Query_Root = {
   openbookTermsSkillByPk?: Maybe<OpenbookTermsSkill>;
   report: Report;
   reports: Array<Report>;
+  users: Array<User>;
   verifyToken: TokenValidity;
 };
 
@@ -7664,6 +7705,10 @@ export type Query_RootReportArgs = {
 
 export type Query_RootReportsArgs = {
   filter?: InputMaybe<ReportsFilter>;
+  pagination?: InputMaybe<Pagination>;
+};
+
+export type Query_RootUsersArgs = {
   pagination?: InputMaybe<Pagination>;
 };
 
