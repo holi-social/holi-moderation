@@ -1,8 +1,8 @@
 import { Args, Mutation, Resolver, Query } from '@nestjs/graphql';
 import { AuthResult, CreateUser, TokenValidity } from './schema';
 import { AuthService } from './service/auth';
-import { TokenPayload, TokenService } from './service/token';
-import { AdminOnly, AuthToken, Public } from './decorators';
+import { TokenService } from './service/token';
+import { AdminOnly, AuthenticatedUser, Public } from './decorators';
 import { UUID } from '../graphql/uuidScalar';
 import { ForbiddenError } from '@nestjs/apollo';
 import { Pagination } from '../reports/schema';
@@ -82,9 +82,9 @@ export class UserResolver {
   public async changeRole(
     @Args('userId', { type: () => UUID }) userId: string,
     @Args('newRole', { type: () => UserRole }) newRole: UserRole,
-    @AuthToken() token?: TokenPayload,
+    @AuthenticatedUser() authenticatedUser?: User,
   ): Promise<User> {
-    if (token?.sub === userId) {
+    if (authenticatedUser && authenticatedUser.id === userId) {
       throw new ForbiddenError('Not allowed to change your own role.');
     }
 
@@ -99,19 +99,13 @@ export class UserResolver {
 
   public async changeOwnPassword(
     @Args('newPassword') newPassword: string,
-    @AuthToken() token?: TokenPayload,
+    @AuthenticatedUser() authenticatedUser?: User,
   ): Promise<Success> {
-    if (!token) {
+    if (!authenticatedUser) {
       throw new BadRequestException();
     }
 
-    const user = await this.repository.findOneBy({ id: token.sub });
-    if (user === null) {
-      // this could happen in edge cases where the user was deleted, but still had a valid token
-      throw new BadRequestException();
-    }
-
-    await this.auth.changePassword(user, newPassword);
+    await this.auth.changePassword(authenticatedUser, newPassword);
 
     return { success: true };
   }
@@ -120,9 +114,9 @@ export class UserResolver {
   @AdminOnly()
   public async deleteUser(
     @Args('userId', { type: () => UUID }) userId: string,
-    @AuthToken() token?: TokenPayload,
+    @AuthenticatedUser() authenticatedUser?: User,
   ): Promise<Success> {
-    if (token?.sub === userId) {
+    if (authenticatedUser && authenticatedUser.id === userId) {
       throw new ForbiddenError("Can't delete your own account.");
     }
 

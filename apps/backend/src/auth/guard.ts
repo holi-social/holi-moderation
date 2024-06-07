@@ -9,12 +9,17 @@ import { TokenPayload, TokenService } from './service/token';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { Reflector } from '@nestjs/core';
 import { Metadata } from './decorators';
+import { Repository } from 'typeorm';
+import { User } from './entities/user';
+import { InjectRepository } from '@nestjs/typeorm';
+import { UserRole } from './entities/userRole';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(
     private readonly token: TokenService,
     private readonly reflector: Reflector,
+    @InjectRepository(User) private readonly users: Repository<User>,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -55,12 +60,9 @@ export class AuthGuard implements CanActivate {
     }
 
     ctx['authToken'] = payload;
+    ctx['user'] = this.users.findOneBy({ id: payload.sub });
 
-    if (
-      isAdminOnly &&
-      payload.role !== 'admin' &&
-      !this.isHasuraAdminRequest(request)
-    ) {
+    if (isAdminOnly && payload.role !== UserRole.ADMIN) {
       return false;
     }
 
@@ -74,8 +76,9 @@ export class AuthGuard implements CanActivate {
 
   private isHasuraAdminRequest(request: Request): boolean {
     return (
+      !('authorization' in request.headers) &&
       'x-hasura-role' in request.headers &&
-      request.headers['x-hasura-role'] === 'admin'
+      request.headers['x-hasura-role'] === UserRole.ADMIN
     );
   }
 }
