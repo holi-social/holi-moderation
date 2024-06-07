@@ -36,3 +36,9 @@ You should be able to reach the following endpoints:
   ```bash
   docker compose exec backend yarn run typeorm migration:run -d src/typeorm.ts
   ```
+
+- Reload hasura metadata (in case of connection errors, new graphql schema, ...)
+  ```bash
+  cd apps/hasura
+  hasura md reload
+  ```
