@@ -5,7 +5,6 @@ import {
   Flex,
   Group,
   Menu,
-  NavLink,
   Title,
 } from "@mantine/core";
 import {
@@ -26,12 +25,6 @@ import { AuthStateLoggedIn, useAuthState } from "../state";
 import { initialsFromEmail } from "../utils";
 import { useColorScheme } from "../hooks";
 import { RoleGuard } from "../components/auth/roleGuard";
-
-type NavMenuItem = {
-  icon: typeof IconFlag;
-  link: string;
-  label: string;
-};
 
 export const Layout: React.FC<PropsWithChildren> = ({ children }) => {
   const authState = useAuthState();
