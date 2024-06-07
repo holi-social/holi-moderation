@@ -4,7 +4,6 @@ import { TokenService } from './service/token';
 import { AuthResolver, UserResolver } from './resolver';
 import { AuthGuard } from './guard';
 import { JwtModule } from '@nestjs/jwt';
-import { CreateUserCommand, CreateUserQuestions } from './createUser.command';
 import { APP_GUARD } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user';
@@ -23,11 +22,9 @@ const GlobalAuthGuardProvider: ClassProvider = {
     AuthResolver,
     UserResolver,
     AuthGuard,
-    CreateUserQuestions,
-    CreateUserCommand,
     GlobalAuthGuardProvider,
     CreateInitialUser,
   ],
-  exports: [AuthGuard, CreateUserCommand, CreateInitialUser],
+  exports: [AuthGuard, CreateInitialUser],
 })
 export class AuthModule {}

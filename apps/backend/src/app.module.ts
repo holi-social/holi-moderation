@@ -8,7 +8,6 @@ import { ReportLogsModule } from './reportLogs';
 import { ModeratorActionsModule } from './moderatorActions';
 import { ReportsModule } from './reports';
 import { AuthModule } from './auth';
-import { CommandRunnerModule } from 'nest-commander';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import typeormConfig from './typeorm';
 
@@ -29,7 +28,6 @@ import typeormConfig from './typeorm';
       sortSchema: true,
       resolvers: { UUID: UUID },
     }),
-    CommandRunnerModule.forModule(),
     AuthModule,
     PubsubModule,
     ReportLogsModule,

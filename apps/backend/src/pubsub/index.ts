@@ -2,7 +2,7 @@ import { PubSub, Topic } from '@google-cloud/pubsub';
 import { FactoryProvider, Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Publisher } from './publisher';
-import { SetupPubsubCommand } from './setup.command';
+import { EnsurePubsubTopic } from './ensurePubsubTopic';
 
 export const PubsubProvider: FactoryProvider = {
   provide: PubSub,
@@ -23,8 +23,8 @@ export const PubsubTopicProvider: FactoryProvider = {
     PubsubProvider,
     PubsubTopicProvider,
     Publisher,
-    SetupPubsubCommand,
+    EnsurePubsubTopic,
   ],
-  exports: [Publisher, SetupPubsubCommand],
+  exports: [Publisher, EnsurePubsubTopic],
 })
 export class PubsubModule {}
