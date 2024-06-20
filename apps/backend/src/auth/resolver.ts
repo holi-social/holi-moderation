@@ -44,7 +44,6 @@ export class AuthResolver {
   }
 }
 
-/** @todo think about how to improve the typing consistency between DB and GraphQL schema */
 @Resolver(() => User)
 export class UserResolver {
   constructor(

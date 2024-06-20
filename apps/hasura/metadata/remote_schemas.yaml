@@ -16,19 +16,16 @@
           scalar DateTime
           scalar JSONObject
           scalar UUID
-          type ActionResult {
-            success: Boolean!
-          }
           type AuthResult {
             email: String!
             token: String!
             userId: UUID!
           }
           type Mutation {
-            banUser(reason: String!, userId: UUID!): ActionResult!
             changeReportStatus(newStatus: ReportStatus!, reportId: UUID!): Report!
             createReport(report: CreateReport!): Report!
             login(email: String!, password: String!): AuthResult!
+            suspendUser(duration: Float, email: String!, reason: String): Success!
           }
           type Query {
             report(id: UUID!): Report!
@@ -51,6 +48,9 @@
             eventPayload: JSONObject!
             id: UUID!
             occurredAt: DateTime!
+          }
+          type Success {
+            success: Boolean!
           }
           type TokenValidity {
             valid: Boolean!

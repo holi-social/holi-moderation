@@ -1,0 +1,67 @@
+resource "random_id" "event_listener" {
+  byte_length = 4
+}
+
+data "archive_file" "event_listener_build" {
+  type        = "zip"
+  source_dir  = "${path.module}/../../apps/eventListener"
+  output_path = "function.zip"
+
+  # this isn't necessary for the normal pipeline, but functions as a guardrail when applying locally
+  excludes = concat(
+    tolist(fileset("${path.module}/../../apps/eventListener/dist", "**")),
+    tolist(fileset("${path.module}/../../apps/eventListener/node_modules", "**")),
+  )
+}
+
+resource "google_storage_bucket" "event_listener" {
+  name     = "moderation-event-listener-${local.environment_name}-${random_id.event_listener.hex}"
+  location = local.default_location
+}
+
+resource "google_storage_bucket_object" "event_listener" {
+  name   = "index.zip"
+  bucket = google_storage_bucket.event_listener.name
+  source = data.archive_file.event_listener_build.output_path
+}
+
+resource "google_cloudfunctions2_function" "event_listener" {
+  name     = "moderation-event-listener-${local.environment_name}-${random_id.event_listener.hex}"
+  location = local.default_location
+
+  depends_on = [google_service_account.moderation, google_project_iam_member.moderation]
+
+  build_config {
+    runtime     = "nodejs20"
+    entry_point = "ModerationEventListener"
+
+    source {
+      storage_source {
+        bucket = google_storage_bucket.event_listener.name
+        object = google_storage_bucket_object.event_listener.name
+      }
+    }
+  }
+
+  service_config {
+    secret_environment_variables {
+      key        = "ORY_API_KEY"
+      project_id = local.project
+      secret     = local.environment == "production" ? "ORY_API_KEY_PRODUCTION" : "ORY_API_KEY_DEVELOPMENT"
+      version    = "latest"
+    }
+
+    service_account_email          = google_service_account.moderation.email
+    all_traffic_on_latest_revision = true
+    ingress_settings               = "ALLOW_INTERNAL_ONLY"
+
+    min_instance_count = 1
+    max_instance_count = 1
+  }
+
+  event_trigger {
+    event_type            = "google.cloud.pubsub.topic.v1.messagePublished"
+    pubsub_topic          = google_pubsub_topic.moderation.id
+    service_account_email = google_service_account.moderation.email
+  }
+}

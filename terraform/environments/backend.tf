@@ -55,7 +55,7 @@ resource "google_cloud_run_service" "moderation_backend" {
 
         env {
           name  = "NODE_ENV"
-          value = local.environment == "production" ? "production" : "development"
+          value = "production"
         }
 
         env {

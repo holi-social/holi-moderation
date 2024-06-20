@@ -10,6 +10,7 @@ import { ReportsModule } from './reports';
 import { AuthModule } from './auth';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import typeormConfig from './typeorm';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import typeormConfig from './typeorm';
       inject: [ConfigService],
       useFactory: (config: ConfigService) => config.get('typeorm'),
     }),
+    ScheduleModule.forRoot(),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: true,
