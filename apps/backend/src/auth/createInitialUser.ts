@@ -16,15 +16,21 @@ export class CreateInitialUser implements OnApplicationBootstrap {
   ) {}
 
   async onApplicationBootstrap() {
-    if ((await this.userRepository.count()) > 0) {
-      return;
-    }
+    try {
+      if ((await this.userRepository.count()) > 0) {
+        return;
+      }
 
-    const password = crypto.randomBytes(32).toString('hex');
-    await this.authService.register(this.USER_EMAIL, password, UserRole.ADMIN);
+      const password = crypto.randomBytes(32).toString('hex');
+      await this.authService.register(
+        this.USER_EMAIL,
+        password,
+        UserRole.ADMIN,
+      );
 
-    console.log(
-      `+++ INITIAL USER: ${this.USER_EMAIL} - "${password}". Please change this immediately.`,
-    );
+      console.log(
+        `+++ INITIAL USER: ${this.USER_EMAIL} - "${password}". Please change this immediately.`,
+      );
+    } catch {}
   }
 }

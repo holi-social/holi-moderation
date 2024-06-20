@@ -17,7 +17,7 @@ export class Migrations1717485344234 implements MigrationInterface {
       `CREATE TYPE "public"."report_status_enum" AS ENUM('OPEN', 'IN_PROGRESS', 'ACTION_TAKEN', 'REJECTED')`,
     );
     await queryRunner.query(
-      `CREATE TABLE "report" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "reporterId" uuid NOT NULL, "contentType" "public"."report_contenttype_enum" NOT NULL, "contentId" uuid NOT NULL, "details" text NOT NULL, "status" "public"."report_status_enum" NOT NULL, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_99e4d0bea58cba73c57f935a546" PRIMARY KEY ("id"))`,
+      `CREATE TABLE "report" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "reporterId" uuid NOT NULL, "contentType" "public"."report_contenttype_enum" NOT NULL, "contentId" uuid NOT NULL, "details" text NOT NULL, "status" "public"."report_status_enum" NOT NULL DEFAULT 'OPEN', "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_99e4d0bea58cba73c57f935a546" PRIMARY KEY ("id"))`,
     );
     await queryRunner.query(
       `CREATE TYPE "public"."user_role_enum" AS ENUM('admin', 'moderator')`,

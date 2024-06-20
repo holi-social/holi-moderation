@@ -11,7 +11,7 @@ export class Publisher {
     event: TEvent,
   ): Promise<string> {
     return this.topic.publishMessage({
-      data: Buffer.from(JSON.stringify(event.data)),
+      json: event.data,
       attributes: {
         eventType: event.eventType,
         eventVersion: event.version,

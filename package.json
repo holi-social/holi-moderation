@@ -3,11 +3,8 @@
   "private": true,
   "workspaces": [
     "apps/backend",
-    "apps/frontend"
+    "apps/frontend",
+    "apps/eventListener"
   ],
-  "scripts": {
-    "backend:dev": "yarn workspace @holi/moderation-backend run start:dev",
-    "frontend:dev": "yarn workspace @holi/moderation-frontend run dev"
-  },
   "packageManager": "yarn@4.1.1"
 }

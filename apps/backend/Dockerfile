@@ -14,7 +14,7 @@ FROM node:21-alpine AS builder
 
 WORKDIR /code
 COPY --from=dependencies /code/node_modules /code/node_modules
-COPY tsconfig.* package.json yarn.lock nest-cli.json webpack.config.js ./
+COPY tsconfig.* package.json yarn.lock nest-cli.json ./
 COPY src ./src
 COPY migrations ./migrations
 

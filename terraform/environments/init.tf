@@ -22,9 +22,11 @@ data "terraform_remote_state" "moderation_common_state" {
 }
 
 provider "google" {
-  region = "europe-north1"
+  region  = "europe-north1"
+  project = data.terraform_remote_state.holi_infra_state.outputs.shared_project_id
 }
 
 provider "google-beta" {
-  region = "europe-north1"
+  region  = "europe-north1"
+  project = data.terraform_remote_state.holi_infra_state.outputs.shared_project_id
 }

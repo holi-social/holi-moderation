@@ -4,6 +4,7 @@ import { DataSource, DataSourceOptions } from 'typeorm';
 import { Report } from './reports/entities/report';
 import { ReportEvent } from './reportLogs/entities/reportEvent';
 import { User } from './auth/entities/user';
+import { UserSuspension } from './moderatorActions/entities/userSuspension';
 
 const config: TypeOrmModuleOptions = {
   type: 'postgres',
@@ -18,7 +19,7 @@ const config: TypeOrmModuleOptions = {
 const cliConfig: TypeOrmModuleOptions = {
   ...config,
   autoLoadEntities: false,
-  entities: [Report, ReportEvent, User],
+  entities: [Report, ReportEvent, User, UserSuspension],
 };
 
 export default registerAs('typeorm', () => config);
