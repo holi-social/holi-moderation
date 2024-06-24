@@ -7,24 +7,32 @@ services:
     env_file:
       - .env
     environment:
+      PORT: 3001 # dont clash with web app nextjs
       NODE_ENV: development
       LISTEN_ADDR: "0.0.0.0"
-      PUBSUB_EMULATOR_HOST: "pubsub:8085"
-      PUBSUB_PROJECT_ID: holi-shared
       DEBUG: "true"
     ports:
-      - 8087:3000
+      - 3001:3001
     volumes:
       - ./apps/backend:/code
       - /code/node_modules
     working_dir: /code
+    healthcheck:
+        test: wget --no-verbose --tries=1 --spider http://localhost:3001/health
+        interval: 5s
+        timeout: 10s
+        retries: 30
+        start_period: 20s
+    depends_on:
+      db:
+        condition: service_healthy
 
   frontend:
     build:
       context: apps/frontend
       target: development
     ports:
-      - 8089:5173
+      - 5173:5173
     volumes:
       - ./apps/frontend:/code
       - /code/node_modules
@@ -50,7 +58,7 @@ services:
     ports:
       - 5435:5432
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -d ${MODERATION_DB_NAME} -U ${MODERATION_DB_USER}"]
+      test: [ "CMD-SHELL", "pg_isready -d ${MODERATION_DB_NAME} -U ${MODERATION_DB_USER}" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -62,12 +70,13 @@ services:
     restart: always
     environment:
       ## postgres database to store Hasura metadata
-      HASURA_GRAPHQL_METADATA_DATABASE_URL: postgres://${MODERATION_DB_USER}:${MODERATION_DB_PASSWORD}@db:5432/hasura
+      HASURA_GRAPHQL_METADATA_DATABASE_URL: postgres://${MODERATION_DB_USER}:${MODERATION_DB_PASSWORD}@${MODERATION_DB_HOST}:${MODERATION_DB_PORT:-5432}/hasura
       ## enable the console served by server
       HASURA_GRAPHQL_ENABLE_CONSOLE: "true" # set to "false" to disable console
       ## enable debugging mode. It is recommended to disable this in production
       HASURA_GRAPHQL_DEV_MODE: "true"
-      HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
+      # HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
+      HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, webhook-log, websocket-log, query-log
       ## uncomment next line to run console offline (i.e load console assets from server instead of CDN)
       # HASURA_GRAPHQL_CONSOLE_ASSETS_DIR: /srv/console-assets
       ## uncomment next line to set an admin secret
@@ -78,14 +87,17 @@ services:
       HASURA_GRAPHQL_JWT_SECRET: "{\"type\": \"HS256\", \"key\": \"${MODERATION_JWT_SECRET}\"}"
       ## VARIABLES FOR METADATA CONFIG
       OKUNA_DATABASE_URL: postgres://${OKUNA_DB_USER}:${OKUNA_DB_PASSWORD}@${OKUNA_DB_HOST}:${OKUNA_DB_PORT:-5432}/${OKUNA_DB_NAME:-okuna}
-      BACKEND_GRAPHQL_URL: "http://backend:3000/graphql"
+      BACKEND_GRAPHQL_URL: "http://backend:3001/graphql"
     depends_on:
+      backend:
+        condition: service_healthy
       db:
         condition: service_healthy
 
   pubsub:
     image: eu.gcr.io/google.com/cloudsdktool/google-cloud-cli:emulators
-    command: "gcloud beta emulators pubsub start --project=holi-shared --host-port=0.0.0.0:8085"
+    command: "gcloud beta emulators pubsub start --project=${PUBSUB_PROJECT_ID} --host-port=0.0.0.0:8085"
 
 volumes:
   db_data:
+

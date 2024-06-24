@@ -28,9 +28,7 @@ export class CreateInitialUser implements OnApplicationBootstrap {
         UserRole.ADMIN,
       );
 
-      console.log(
-        `+++ INITIAL USER: ${this.USER_EMAIL} - "${password}". Please change this immediately.`,
-      );
+      console.log(`+++ INITIAL USER: ${this.USER_EMAIL} - "${password}".`);
     } catch {}
   }
 }

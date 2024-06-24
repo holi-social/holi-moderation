@@ -11,6 +11,7 @@ import { AuthModule } from './auth';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import typeormConfig from './typeorm';
 import { ScheduleModule } from '@nestjs/schedule';
+import { HealthCheckModule } from './healthcheck';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { ScheduleModule } from '@nestjs/schedule';
     ReportLogsModule,
     ModeratorActionsModule,
     ReportsModule,
+    HealthCheckModule,
   ],
 })
 export class AppModule {}

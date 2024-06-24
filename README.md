@@ -2,17 +2,26 @@
 
 ## How to run
 
-1. copy `.env.dist` to `.env` and set the correct password for the okuna database inside
-2. either source `.env` manually, or ensure direnv loads the file 
+Run either as part of the holi-meta-based mprocs setup (enable in .envrc.local.backends)
+or
+using docker-compose from the context of this repository
+
+1. copy `.env.local.template` to `.env.local` and set okuna db credentials
+2. ensure direnv reloads the file 
 3. `docker compose up -d`
 4. `docker compose exec backend yarn run typeorm migration:run -d src/typeorm.ts`
-5. `cd apps/hasura && hasura deploy` 
+5. install hasura-cli https://hasura.io/docs/latest/hasura-cli/install-hasura-cli
+6. `cd apps/hasura && hasura deploy --admin--secret HASURA_GRAPHQL_ADMIN_SECRET` 
+
+An initial user account is created for you and a password echoed in the backend container log. Save the password.
+(`+++ INITIAL USER: moderation@holi.social ...`)
 
 You should be able to reach the following endpoints:
 
 - [Hasura Console](http://localhost:8080/console)
-- [Frontend](http://localhost:8089)
+- [Frontend](http://localhost:5173)
 - [Backend GQL Playground](http://localhost:8087/graphql)
+
 
 ## Useful commands
 
@@ -27,12 +36,12 @@ You should be able to reach the following endpoints:
   hasura metadata export
   ```
 
-- Generate new migrations
+- Generate new moderation service migrations
   ```bash
   docker compose exec backend yarn run typeorm migration:generate -d src/typeorm.ts migrations/<MigrationName>
   ```
 
-- Run migrations
+- Run  moderation service migrations
   ```bash
   docker compose exec backend yarn run typeorm migration:run -d src/typeorm.ts
   ```

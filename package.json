@@ -6,5 +6,15 @@
     "apps/frontend",
     "apps/eventListener"
   ],
-  "packageManager": "yarn@4.1.1"
+  "scripts": {
+    "start": "npx ts-node mprocs-start.ts"
+  },
+  "packageManager": "yarn@4.1.1",
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "docker-compose": "^0.24.8",
+    "dotenv": "^16.4.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
 }
