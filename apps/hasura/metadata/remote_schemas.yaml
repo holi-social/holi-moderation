@@ -82,8 +82,8 @@
             reporterId: UUID!
           }
           input Pagination {
-            limit: Float! = 10
-            offset: Float! = 0
+            limit: Int! = 10
+            offset: Int! = 0
           }
           input ReportsFilter {
             reporter: UUID

@@ -5,7 +5,7 @@ import { TokenService } from './service/token';
 import { AdminOnly, AuthenticatedUser, Public } from './decorators';
 import { UUID } from '../graphql/uuidScalar';
 import { ForbiddenError } from '@nestjs/apollo';
-import { Pagination } from '../reports/schema';
+import { Pagination } from 'src/graphql/commonSchema';
 import { User } from './entities/user';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';

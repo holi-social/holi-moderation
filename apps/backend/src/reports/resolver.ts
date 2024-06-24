@@ -8,7 +8,8 @@ import {
 } from '@nestjs/graphql';
 import { UUID } from '../graphql/uuidScalar';
 import { ReportEvent } from '../reportLogs/entities/reportEvent';
-import { CreateReport, Pagination, ReportsFilter } from './schema';
+import { CreateReport, ReportsFilter } from './schema';
+import { Pagination } from 'src/graphql/commonSchema';
 import { Report } from './entities/report';
 import { ReportStatus } from './entities/reportStatus';
 import { ReportLogger } from '../reportLogs/service';

@@ -1,5 +1,4 @@
 import { Field, InputType, PickType, registerEnumType } from '@nestjs/graphql';
-import { IsInt, Min, Max } from 'class-validator';
 import { UUID } from '../graphql/uuidScalar';
 import { ContentType } from './entities/contentType';
 import { ReportStatus } from './entities/reportStatus';
@@ -25,18 +24,4 @@ export class ReportsFilter {
 
   @Field({ nullable: true })
   search?: string;
-}
-
-@InputType()
-export class Pagination {
-  @Field()
-  @IsInt()
-  @Min(1)
-  @Max(100)
-  limit?: number = 10;
-
-  @Field()
-  @IsInt()
-  @Min(0)
-  offset?: number = 0;
 }
