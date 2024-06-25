@@ -36,10 +36,6 @@ export type Scalars = {
   uuid: { input: string; output: string };
 };
 
-export type ActionResult = {
-  success: Scalars["Boolean"]["output"];
-};
-
 export type AuthResult = {
   email: Scalars["String"]["output"];
   token: Scalars["String"]["output"];
@@ -4050,6 +4046,7 @@ export type OpenbookCommunitiesTask = {
   /** An object relationship */
   creator?: Maybe<OpenbookAuthUser>;
   creatorId?: Maybe<Scalars["uuid"]["output"]>;
+  deletedAt?: Maybe<Scalars["timestamptz"]["output"]>;
   description: Scalars["String"]["output"];
   geolocation?: Maybe<Scalars["geometry"]["output"]>;
   id: Scalars["uuid"]["output"];
@@ -4164,6 +4161,7 @@ export type OpenbookCommunitiesTaskBoolExp = {
   created?: InputMaybe<TimestamptzComparisonExp>;
   creator?: InputMaybe<OpenbookAuthUserBoolExp>;
   creatorId?: InputMaybe<UuidComparisonExp>;
+  deletedAt?: InputMaybe<TimestamptzComparisonExp>;
   description?: InputMaybe<StringComparisonExp>;
   geolocation?: InputMaybe<GeometryComparisonExp>;
   id?: InputMaybe<UuidComparisonExp>;
@@ -4200,6 +4198,7 @@ export type OpenbookCommunitiesTaskInsertInput = {
   created?: InputMaybe<Scalars["timestamptz"]["input"]>;
   creator?: InputMaybe<OpenbookAuthUserObjRelInsertInput>;
   creatorId?: InputMaybe<Scalars["uuid"]["input"]>;
+  deletedAt?: InputMaybe<Scalars["timestamptz"]["input"]>;
   description?: InputMaybe<Scalars["String"]["input"]>;
   geolocation?: InputMaybe<Scalars["geometry"]["input"]>;
   id?: InputMaybe<Scalars["uuid"]["input"]>;
@@ -4223,6 +4222,7 @@ export type OpenbookCommunitiesTaskMaxFields = {
   contactPhone?: Maybe<Scalars["String"]["output"]>;
   created?: Maybe<Scalars["timestamptz"]["output"]>;
   creatorId?: Maybe<Scalars["uuid"]["output"]>;
+  deletedAt?: Maybe<Scalars["timestamptz"]["output"]>;
   description?: Maybe<Scalars["String"]["output"]>;
   id?: Maybe<Scalars["uuid"]["output"]>;
   location?: Maybe<Scalars["String"]["output"]>;
@@ -4243,6 +4243,7 @@ export type OpenbookCommunitiesTaskMaxOrderBy = {
   contactPhone?: InputMaybe<OrderBy>;
   created?: InputMaybe<OrderBy>;
   creatorId?: InputMaybe<OrderBy>;
+  deletedAt?: InputMaybe<OrderBy>;
   description?: InputMaybe<OrderBy>;
   id?: InputMaybe<OrderBy>;
   location?: InputMaybe<OrderBy>;
@@ -4263,6 +4264,7 @@ export type OpenbookCommunitiesTaskMinFields = {
   contactPhone?: Maybe<Scalars["String"]["output"]>;
   created?: Maybe<Scalars["timestamptz"]["output"]>;
   creatorId?: Maybe<Scalars["uuid"]["output"]>;
+  deletedAt?: Maybe<Scalars["timestamptz"]["output"]>;
   description?: Maybe<Scalars["String"]["output"]>;
   id?: Maybe<Scalars["uuid"]["output"]>;
   location?: Maybe<Scalars["String"]["output"]>;
@@ -4283,6 +4285,7 @@ export type OpenbookCommunitiesTaskMinOrderBy = {
   contactPhone?: InputMaybe<OrderBy>;
   created?: InputMaybe<OrderBy>;
   creatorId?: InputMaybe<OrderBy>;
+  deletedAt?: InputMaybe<OrderBy>;
   description?: InputMaybe<OrderBy>;
   id?: InputMaybe<OrderBy>;
   location?: InputMaybe<OrderBy>;
@@ -4319,6 +4322,7 @@ export type OpenbookCommunitiesTaskOrderBy = {
   created?: InputMaybe<OrderBy>;
   creator?: InputMaybe<OpenbookAuthUserOrderBy>;
   creatorId?: InputMaybe<OrderBy>;
+  deletedAt?: InputMaybe<OrderBy>;
   description?: InputMaybe<OrderBy>;
   geolocation?: InputMaybe<OrderBy>;
   id?: InputMaybe<OrderBy>;
@@ -4353,6 +4357,8 @@ export type OpenbookCommunitiesTaskSelectColumn =
   /** column name */
   | "creatorId"
   /** column name */
+  | "deletedAt"
+  /** column name */
   | "description"
   /** column name */
   | "geolocation"
@@ -4384,6 +4390,7 @@ export type OpenbookCommunitiesTaskSetInput = {
   contactPhone?: InputMaybe<Scalars["String"]["input"]>;
   created?: InputMaybe<Scalars["timestamptz"]["input"]>;
   creatorId?: InputMaybe<Scalars["uuid"]["input"]>;
+  deletedAt?: InputMaybe<Scalars["timestamptz"]["input"]>;
   description?: InputMaybe<Scalars["String"]["input"]>;
   geolocation?: InputMaybe<Scalars["geometry"]["input"]>;
   id?: InputMaybe<Scalars["uuid"]["input"]>;
@@ -4727,6 +4734,7 @@ export type OpenbookCommunitiesTaskStreamCursorValueInput = {
   contactPhone?: InputMaybe<Scalars["String"]["input"]>;
   created?: InputMaybe<Scalars["timestamptz"]["input"]>;
   creatorId?: InputMaybe<Scalars["uuid"]["input"]>;
+  deletedAt?: InputMaybe<Scalars["timestamptz"]["input"]>;
   description?: InputMaybe<Scalars["String"]["input"]>;
   geolocation?: InputMaybe<Scalars["geometry"]["input"]>;
   id?: InputMaybe<Scalars["uuid"]["input"]>;
@@ -4765,6 +4773,8 @@ export type OpenbookCommunitiesTaskUpdateColumn =
   | "created"
   /** column name */
   | "creatorId"
+  /** column name */
+  | "deletedAt"
   /** column name */
   | "description"
   /** column name */
@@ -6069,7 +6079,6 @@ export type UuidComparisonExp = {
 
 /** mutation root */
 export type Mutation_Root = {
-  banUser: ActionResult;
   changeReportStatus: Report;
   changeRole: User;
   createReport: Report;
@@ -6212,6 +6221,7 @@ export type Mutation_Root = {
   insertOpenbookTermsSkillOne?: Maybe<OpenbookTermsSkill>;
   login: AuthResult;
   registerUser: User;
+  suspendUser: Success;
   /** update data of the table: "django_content_type" */
   updateDjangoContentType?: Maybe<DjangoContentTypeMutationResponse>;
   /** update single row of the table: "django_content_type" */
@@ -6348,12 +6358,6 @@ export type Mutation_Root = {
   updateOpenbookTermsSkillMany?: Maybe<
     Array<Maybe<OpenbookTermsSkillMutationResponse>>
   >;
-};
-
-/** mutation root */
-export type Mutation_RootBanUserArgs = {
-  reason: Scalars["String"]["input"];
-  userId: Scalars["UUID"]["input"];
 };
 
 /** mutation root */
@@ -6766,6 +6770,13 @@ export type Mutation_RootLoginArgs = {
 /** mutation root */
 export type Mutation_RootRegisterUserArgs = {
   user: CreateUser;
+};
+
+/** mutation root */
+export type Mutation_RootSuspendUserArgs = {
+  duration?: InputMaybe<Scalars["Int"]["input"]>;
+  email: Scalars["String"]["input"];
+  reason?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 /** mutation root */

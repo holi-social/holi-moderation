@@ -13,6 +13,7 @@ import { Layout } from "./pages/appLayout";
 import { ListReportsFromUser } from "./pages/reports/fromUser";
 import { ListUsers } from "./pages/moderationUsers/list";
 import { ModalsProvider } from "@mantine/modals";
+import { AVAILABLE_MODALS } from "./modals";
 
 const router = createBrowserRouter([
   {
@@ -70,7 +71,7 @@ function App() {
     >
       <MantineProvider>
         <Notifications />
-        <ModalsProvider>
+        <ModalsProvider modals={AVAILABLE_MODALS}>
           <RouterProvider router={router} />
         </ModalsProvider>
       </MantineProvider>

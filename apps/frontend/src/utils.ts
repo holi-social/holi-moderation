@@ -35,5 +35,12 @@ export const titleCase = (str: string) =>
     )
     .join(" ");
 
-export const formatUser = (user: OpenbookAuthUser | UserDetailsFragment) =>
-  `${user.profile?.name ?? ""} ${user.profile?.lastName ?? ""} (${(user.profile?.pronouns && user.profile.pronouns + ", ") ?? ""}${user.email})`;
+export const formatUser = (user: OpenbookAuthUser | UserDetailsFragment) => {
+  if (!user) {
+    return "N/A";
+  }
+
+  return user.profile
+    ? `${user.profile?.name ?? ""} ${user.profile?.lastName ?? ""} (${(user.profile?.pronouns && user.profile.pronouns + ", ") ?? ""}${user.email})`
+    : user.email;
+};

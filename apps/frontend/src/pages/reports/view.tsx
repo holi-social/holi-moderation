@@ -43,6 +43,7 @@ import { ReportedSpaceLinkhubTool } from "../../components/spaceLinkhubTool/repo
 import { ReportStatusDropdown } from "../../components/reportStatusDropdown";
 import { ReportTimeline } from "../../components/reportTimeline";
 import { ReportsTable } from "../../components/reportsTable";
+import { showSuspendUser } from "../../modals";
 
 const OkunaLinkButton: React.FC<{ urlPath: string }> = ({ urlPath }) => (
   <ActionIcon
@@ -252,13 +253,28 @@ export const ViewReport: React.FC = () => {
           </Accordion.Control>
           <Accordion.Panel>
             <Group>
-              <Button variant="light" leftSection={<IconMessage2 size={14} />}>
-                Message User
-              </Button>
-              <Button leftSection={<IconTrash size={14} />}>Delete Post</Button>
-              <Button leftSection={<IconUserCancel size={14} />} color="red">
-                Ban User
-              </Button>
+              {report.reportedUser && (
+                <Button
+                  leftSection={<IconUserCancel size={14} />}
+                  color="red"
+                  onClick={() =>
+                    showSuspendUser({ user: report.reportedUser! })
+                  }
+                >
+                  Suspend User
+                </Button>
+              )}
+              {report.reportedSpace?.creator && (
+                <Button
+                  leftSection={<IconUserCancel size={14} />}
+                  color="red"
+                  onClick={() =>
+                    showSuspendUser({ user: report.reportedSpace!.creator! })
+                  }
+                >
+                  Suspend Space Creator
+                </Button>
+              )}
             </Group>
           </Accordion.Panel>
         </Accordion.Item>

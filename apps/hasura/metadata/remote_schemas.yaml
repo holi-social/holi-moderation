@@ -1,6 +1,6 @@
 - name: moderation
   definition:
-    url: '{{BACKEND_GRAPHQL_URL}}'
+    url: "{{BACKEND_GRAPHQL_URL}}"
     timeout_seconds: 60
     customization: {}
     forward_client_headers: true
@@ -25,7 +25,7 @@
             changeReportStatus(newStatus: ReportStatus!, reportId: UUID!): Report!
             createReport(report: CreateReport!): Report!
             login(email: String!, password: String!): AuthResult!
-            suspendUser(duration: Float, email: String!, reason: String): Success!
+            suspendUser(duration: Int, email: String!, reason: String): Success!
           }
           type Query {
             report(id: UUID!): Report!

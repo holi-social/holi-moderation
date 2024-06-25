@@ -15,7 +15,10 @@ export class UserSuspension {
   @Column('varchar', { length: 255 })
   email: string;
 
-  @Column('timestamp')
+  @Column('text', { nullable: true })
+  reason: string;
+
+  @Column('timestamp', { nullable: true })
   @Index()
   expiresAt: Date;
 

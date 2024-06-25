@@ -2760,6 +2760,16 @@ export type LoginMutation = {
   login: Pick<Types.AuthResult, "userId" | "email" | "token">;
 };
 
+export type SuspendUserMutationVariables = Types.Exact<{
+  email: Types.Scalars["String"]["input"];
+  reason?: Types.InputMaybe<Types.Scalars["String"]["input"]>;
+  duration?: Types.InputMaybe<Types.Scalars["Int"]["input"]>;
+}>;
+
+export type SuspendUserMutation = {
+  suspendUser: Pick<Types.Success, "success">;
+};
+
 export type ListModeratorsQueryVariables = Types.Exact<{
   [key: string]: never;
 }>;
