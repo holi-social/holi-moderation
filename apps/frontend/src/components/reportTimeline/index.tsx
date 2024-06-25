@@ -4,6 +4,7 @@ import { Timeline } from "@mantine/core";
 import { ReportEvent } from "../../graphql/generated/schema.types";
 import { StatusChangedTimelineItem } from "./items/statusChanged";
 import { ReportCreatedTimelineItem } from "./items/reportCreated";
+import { UserSuspendedTimelineItem } from "./items/userSuspended";
 
 export type TimelineItemProps = {
   event: ReportEventDetailsFragment | ReportEvent;
@@ -16,6 +17,7 @@ type ReportTimelineProps = {
 const EVENT_TIMELINE_COMPONENTS = {
   REPORT_CREATED: ReportCreatedTimelineItem,
   STATUS_CHANGED: StatusChangedTimelineItem,
+  USER_SUSPENDED: UserSuspendedTimelineItem,
 };
 
 export const ReportTimeline: React.FC<ReportTimelineProps> = ({ events }) => {

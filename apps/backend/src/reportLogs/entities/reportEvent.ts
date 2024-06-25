@@ -10,6 +10,7 @@ import {
 import { ReportEventPayload, ReportLogEvent } from '../types';
 import { GraphQLJSONObject } from 'graphql-type-json';
 import { Report } from '../../reports/entities/report';
+import { User } from '../../auth/entities/user';
 
 @ObjectType()
 @Entity()
@@ -29,6 +30,10 @@ export class ReportEvent {
   @Field(() => GraphQLJSONObject)
   @Column('json')
   eventPayload: ReportEventPayload;
+
+  @Field(() => User, { nullable: true })
+  @ManyToOne(() => User, { nullable: true })
+  actor: User;
 
   @Field()
   @CreateDateColumn()

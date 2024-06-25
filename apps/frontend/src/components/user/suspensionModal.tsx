@@ -19,18 +19,22 @@ import { useForm } from "@mantine/form";
 import { gqlClient } from "../../fetcher";
 import { SuspendUserMutation } from "../../graphql/mutations/suspendUser";
 import { notifications } from "@mantine/notifications";
+import { useSWRConfig } from "swr";
+import { ViewReportQuery } from "../../graphql/queries/viewReport";
 
 const durationParser = new DurationParser();
 const durationValidator = new DurationValidator();
 
 export type SuspendUserModalProps = {
+  reportId: string;
   user: UserDetailsFragment | OpenbookAuthUser;
 };
 
 export const SuspendUserModal: React.FC<
   ContextModalProps<SuspendUserModalProps>
-> = ({ context, id, innerProps: { user } }) => {
+> = ({ context, id, innerProps: { user, reportId } }) => {
   const [isIndefinite, setIndefinite] = useState<boolean>(false);
+  const { mutate } = useSWRConfig();
 
   const form = useForm({
     mode: "uncontrolled",
@@ -57,6 +61,7 @@ export const SuspendUserModal: React.FC<
       SuspendUserMutationResponse,
       SuspendUserMutationVariables
     >(SuspendUserMutation, {
+      reportId,
       email: user.email,
       duration: isIndefinite ? undefined : duration,
     });
@@ -74,6 +79,8 @@ export const SuspendUserModal: React.FC<
         withBorder: true,
       });
     }
+
+    mutate([ViewReportQuery, { id: reportId }]);
   };
 
   return (

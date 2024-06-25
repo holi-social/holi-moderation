@@ -20,9 +20,7 @@ import {
   IconFlag,
   IconGavel,
   IconHistory,
-  IconMessage2,
   IconMessageReport,
-  IconTrash,
   IconUserCancel,
 } from "@tabler/icons-react";
 import { okunaAdminUrl } from "../../utils";
@@ -258,7 +256,10 @@ export const ViewReport: React.FC = () => {
                   leftSection={<IconUserCancel size={14} />}
                   color="red"
                   onClick={() =>
-                    showSuspendUser({ user: report.reportedUser! })
+                    showSuspendUser({
+                      reportId: report.id,
+                      user: report.reportedUser!,
+                    })
                   }
                 >
                   Suspend User
@@ -269,7 +270,10 @@ export const ViewReport: React.FC = () => {
                   leftSection={<IconUserCancel size={14} />}
                   color="red"
                   onClick={() =>
-                    showSuspendUser({ user: report.reportedSpace!.creator! })
+                    showSuspendUser({
+                      reportId: report.id,
+                      user: report.reportedSpace!.creator!,
+                    })
                   }
                 >
                   Suspend Space Creator

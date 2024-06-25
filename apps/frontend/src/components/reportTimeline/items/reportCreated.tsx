@@ -9,7 +9,6 @@ export const ReportCreatedTimelineItem: React.FC<TimelineItemProps> = ({
 }) => {
   return (
     <Timeline.Item title="Report created" bullet={<IconFlag size={12} />}>
-      <Text c="dimmed">Report created</Text>
       <Text c="dimmed">{relativeFormatISOTimestamp(event.occurredAt)}</Text>
     </Timeline.Item>
   );

@@ -5945,8 +5945,8 @@ export type OrderBy =
   | "DESC_NULLS_LAST";
 
 export type Pagination = {
-  limit?: Scalars["Float"]["input"];
-  offset?: Scalars["Float"]["input"];
+  limit?: Scalars["Int"]["input"];
+  offset?: Scalars["Int"]["input"];
 };
 
 export type Report = {
@@ -5970,6 +5970,7 @@ export type Report = {
 };
 
 export type ReportEvent = {
+  actor?: Maybe<User>;
   eventName: ReportLogEvent;
   eventPayload: Scalars["JSONObject"]["output"];
   id: Scalars["UUID"]["output"];
@@ -5977,7 +5978,10 @@ export type ReportEvent = {
   report: Report;
 };
 
-export type ReportLogEvent = "REPORT_CREATED" | "STATUS_CHANGED";
+export type ReportLogEvent =
+  | "REPORT_CREATED"
+  | "STATUS_CHANGED"
+  | "USER_SUSPENDED";
 
 export type ReportStatus = "ACTION_TAKEN" | "IN_PROGRESS" | "OPEN" | "REJECTED";
 
@@ -6777,6 +6781,7 @@ export type Mutation_RootSuspendUserArgs = {
   duration?: InputMaybe<Scalars["Int"]["input"]>;
   email: Scalars["String"]["input"];
   reason?: InputMaybe<Scalars["String"]["input"]>;
+  reportId: Scalars["UUID"]["input"];
 };
 
 /** mutation root */
@@ -7247,6 +7252,7 @@ export type Query_Root = {
   djangoContentTypeAggregate: DjangoContentTypeAggregate;
   /** fetch data from the table: "django_content_type" using primary key columns */
   djangoContentTypeByPk?: Maybe<DjangoContentType>;
+  isUserSuspended: Scalars["Boolean"]["output"];
   /** fetch data from the table: "openbook_appointments_appointment" */
   openbookAppointmentsAppointment: Array<OpenbookAppointmentsAppointment>;
   /** fetch aggregated fields from the table: "openbook_appointments_appointment" */
@@ -7367,6 +7373,10 @@ export type Query_RootDjangoContentTypeAggregateArgs = {
 
 export type Query_RootDjangoContentTypeByPkArgs = {
   id: Scalars["Int"]["input"];
+};
+
+export type Query_RootIsUserSuspendedArgs = {
+  email: Scalars["String"]["input"];
 };
 
 export type Query_RootOpenbookAppointmentsAppointmentArgs = {

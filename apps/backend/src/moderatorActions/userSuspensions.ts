@@ -3,11 +3,11 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserSuspension } from './entities/userSuspension';
 import { Duration, add } from 'date-fns';
-import { Publisher } from 'src/pubsub/publisher';
+import { Publisher } from '../pubsub/publisher';
 import {
   UserSuspendedEvent,
   UserSuspensionExpiredEvent,
-} from 'src/pubsub/events';
+} from '../pubsub/events';
 import { Cron, CronExpression } from '@nestjs/schedule';
 
 @Injectable()

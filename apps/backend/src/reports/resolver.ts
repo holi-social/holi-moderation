@@ -9,13 +9,15 @@ import {
 import { UUID } from '../graphql/uuidScalar';
 import { ReportEvent } from '../reportLogs/entities/reportEvent';
 import { CreateReport, ReportsFilter } from './schema';
-import { Pagination } from 'src/graphql/commonSchema';
+import { Pagination } from '../graphql/commonSchema';
 import { Report } from './entities/report';
 import { ReportStatus } from './entities/reportStatus';
 import { ReportLogger } from '../reportLogs/service';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { NotFoundException } from '@nestjs/common';
+import { AuthenticatedUser } from '../auth/decorators';
+import { User } from '../auth/entities/user';
 
 @Resolver(() => Report)
 export class ReportsResolver {
@@ -86,6 +88,7 @@ export class ReportsResolver {
   async changeReportStatus(
     @Args('reportId', { type: () => UUID }) reportId: string,
     @Args('newStatus', { type: () => ReportStatus }) newStatus: ReportStatus,
+    @AuthenticatedUser() currentUser: User,
   ) {
     const report = await this.repository.findOneBy({ id: reportId });
     if (report === null) {
@@ -96,6 +99,7 @@ export class ReportsResolver {
       reportId,
       report.status,
       newStatus,
+      currentUser,
     );
 
     report.status = newStatus;

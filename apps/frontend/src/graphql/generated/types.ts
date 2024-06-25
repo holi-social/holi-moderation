@@ -124,7 +124,14 @@ export type ReportDetailsFragment = Pick<
     }
   >;
   events: Array<
-    Pick<Types.ReportEvent, "id" | "eventName" | "eventPayload" | "occurredAt">
+    Pick<
+      Types.ReportEvent,
+      "id" | "eventName" | "eventPayload" | "occurredAt"
+    > & {
+      actor?: Types.Maybe<
+        Pick<Types.User, "id" | "email" | "role" | "createdAt" | "updatedAt">
+      >;
+    }
   >;
   reportedPost?: Types.Maybe<
     Pick<
@@ -958,7 +965,11 @@ export type ReportDetailsFragment = Pick<
 export type ReportEventDetailsFragment = Pick<
   Types.ReportEvent,
   "id" | "eventName" | "eventPayload" | "occurredAt"
->;
+> & {
+  actor?: Types.Maybe<
+    Pick<Types.User, "id" | "email" | "role" | "createdAt" | "updatedAt">
+  >;
+};
 
 export type ReportedSpaceDetailsFragment = Pick<
   Types.OpenbookCommunitiesCommunity,
@@ -1875,7 +1886,11 @@ export type ChangeReportStatusMutation = {
       Pick<
         Types.ReportEvent,
         "id" | "eventName" | "eventPayload" | "occurredAt"
-      >
+      > & {
+        actor?: Types.Maybe<
+          Pick<Types.User, "id" | "email" | "role" | "createdAt" | "updatedAt">
+        >;
+      }
     >;
     reportedPost?: Types.Maybe<
       Pick<
@@ -2761,6 +2776,7 @@ export type LoginMutation = {
 };
 
 export type SuspendUserMutationVariables = Types.Exact<{
+  reportId: Types.Scalars["UUID"]["input"];
   email: Types.Scalars["String"]["input"];
   reason?: Types.InputMaybe<Types.Scalars["String"]["input"]>;
   duration?: Types.InputMaybe<Types.Scalars["Int"]["input"]>;
@@ -2896,7 +2912,11 @@ export type ViewReportQuery = {
       Pick<
         Types.ReportEvent,
         "id" | "eventName" | "eventPayload" | "occurredAt"
-      >
+      > & {
+        actor?: Types.Maybe<
+          Pick<Types.User, "id" | "email" | "role" | "createdAt" | "updatedAt">
+        >;
+      }
     >;
     reportedPost?: Types.Maybe<
       Pick<

@@ -14,12 +14,10 @@ export const StatusChangedTimelineItem: React.FC<TimelineItemProps> = ({
 
   return (
     <Timeline.Item
-      title="Status changed"
+      title={`Status changed: ${titleCase(payload.oldStatus)} → ${titleCase(payload.newStatus)}`}
       bullet={<IconStatusChange size={12} />}
     >
-      <Text c="dimmed">
-        {titleCase(payload.oldStatus)} → {titleCase(payload.newStatus)}
-      </Text>
+      <Text c="dimmed">{event.actor?.email}</Text>
       <Text c="dimmed">{relativeFormatISOTimestamp(event.occurredAt)}</Text>
     </Timeline.Item>
   );

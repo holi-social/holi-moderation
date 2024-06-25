@@ -25,7 +25,7 @@
             changeReportStatus(newStatus: ReportStatus!, reportId: UUID!): Report!
             createReport(report: CreateReport!): Report!
             login(email: String!, password: String!): AuthResult!
-            suspendUser(duration: Int, email: String!, reason: String): Success!
+            suspendUser(reportId: UUID!, duration: Int, email: String!, reason: String): Success!
           }
           type Query {
             report(id: UUID!): Report!
