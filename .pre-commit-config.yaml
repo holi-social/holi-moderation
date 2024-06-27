@@ -26,6 +26,13 @@ repos:
         pass_filenames: false
         always_run: true
 
+      - id: eslint-event-listener
+        name: eslint event listener
+        language: system
+        entry: bash -c ". $HOME/.nvm/nvm.sh && yarn workspace @holi/moderation-event-listener eslint --fix src"
+        pass_filenames: false
+        always_run: true
+
   - repo: https://github.com/jorisroovers/gitlint
     rev: v0.19.1
     hooks:
