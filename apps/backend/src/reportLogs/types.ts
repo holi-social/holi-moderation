@@ -11,7 +11,10 @@ registerEnumType(ReportLogEvent, { name: 'ReportLogEvent' });
 
 export type EmptyPayload = Record<string, never>;
 
-export type ReportEventPayload = StatusChangedEventPayload | ReportCreatedEventPayload | UserSuspendedEventPayload;
+export type ReportEventPayload =
+  | StatusChangedEventPayload
+  | ReportCreatedEventPayload
+  | UserSuspendedEventPayload;
 
 export type ReportCreatedEventPayload = EmptyPayload;
 export type StatusChangedEventPayload = {
@@ -21,4 +24,4 @@ export type StatusChangedEventPayload = {
 export type UserSuspendedEventPayload = {
   userEmail: string;
   duration?: number;
-}
+};

@@ -7,7 +7,11 @@ import { UserSuspensionResolver } from './resolvers/userSuspension';
 import { ReportLogsModule } from '../reportLogs';
 
 @Module({
-  imports: [PubsubModule, TypeOrmModule.forFeature([UserSuspension]), ReportLogsModule],
+  imports: [
+    PubsubModule,
+    TypeOrmModule.forFeature([UserSuspension]),
+    ReportLogsModule,
+  ],
   providers: [UserSuspensions, UserSuspensionResolver],
 })
 export class ModeratorActionsModule {}
