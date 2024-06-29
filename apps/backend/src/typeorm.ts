@@ -1,6 +1,7 @@
 import { registerAs } from '@nestjs/config';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { DataSource, DataSourceOptions } from 'typeorm';
+
 import { Report } from './reports/entities/report';
 import { ReportEvent } from './reportLogs/entities/reportEvent';
 import { User } from './auth/entities/user';

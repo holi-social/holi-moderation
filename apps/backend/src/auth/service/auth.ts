@@ -1,8 +1,9 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { verify, Options as Argon2Options, hash } from '@node-rs/argon2';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from '../entities/user';
 import { Repository } from 'typeorm';
+
+import { User } from '../entities/user';
 import { UserRole } from '../entities/userRole';
 
 @Injectable()

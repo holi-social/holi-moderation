@@ -1,5 +1,7 @@
 import { Field, InputType, PickType, registerEnumType } from '@nestjs/graphql';
+
 import { UUID } from '../graphql/uuidScalar';
+
 import { ContentType } from './entities/contentType';
 import { ReportStatus } from './entities/reportStatus';
 import { Report } from './entities/report';

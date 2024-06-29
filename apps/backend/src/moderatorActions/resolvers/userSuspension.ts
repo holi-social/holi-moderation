@@ -1,4 +1,5 @@
 import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+
 import { Success } from '../../graphql/commonSchema';
 import { UserSuspensions } from '../userSuspensions';
 import { ReportLogger } from '../../reportLogs/service';

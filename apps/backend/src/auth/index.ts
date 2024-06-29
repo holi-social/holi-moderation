@@ -1,11 +1,12 @@
 import { ClassProvider, Module } from '@nestjs/common';
+import { JwtModule } from '@nestjs/jwt';
+import { APP_GUARD } from '@nestjs/core';
+import { TypeOrmModule } from '@nestjs/typeorm';
+
 import { AuthService } from './service/auth';
 import { TokenService } from './service/token';
 import { AuthResolver, UserResolver } from './resolver';
 import { AuthGuard } from './guard';
-import { JwtModule } from '@nestjs/jwt';
-import { APP_GUARD } from '@nestjs/core';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user';
 import { CreateInitialUser } from './createInitialUser';
 

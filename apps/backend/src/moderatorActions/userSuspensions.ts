@@ -1,14 +1,16 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { UserSuspension } from './entities/userSuspension';
 import { Duration, add } from 'date-fns';
+import { Cron, CronExpression } from '@nestjs/schedule';
+
 import { Publisher } from '../pubsub/publisher';
 import {
   UserSuspendedEvent,
   UserSuspensionExpiredEvent,
 } from '../pubsub/events';
-import { Cron, CronExpression } from '@nestjs/schedule';
+
+import { UserSuspension } from './entities/userSuspension';
 
 @Injectable()
 export class UserSuspensions {

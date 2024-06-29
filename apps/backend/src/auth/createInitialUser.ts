@@ -1,10 +1,12 @@
-import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
-import { AuthService } from './service/auth';
-import { Repository } from 'typeorm';
-import { User } from './entities/user';
-import { InjectRepository } from '@nestjs/typeorm';
-import { UserRole } from './entities/userRole';
 import crypto from 'node:crypto';
+
+import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+
+import { AuthService } from './service/auth';
+import { User } from './entities/user';
+import { UserRole } from './entities/userRole';
 
 @Injectable()
 export class CreateInitialUser implements OnApplicationBootstrap {

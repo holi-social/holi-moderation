@@ -1,5 +1,6 @@
 import { Topic } from '@google-cloud/pubsub';
 import { Injectable, Logger } from '@nestjs/common';
+
 import { Event, EventType } from './events';
 
 @Injectable()

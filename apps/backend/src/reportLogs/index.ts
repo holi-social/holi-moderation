@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
-import { ReportLogger } from './service';
 import { TypeOrmModule } from '@nestjs/typeorm';
+
+import { ReportLogger } from './service';
 import { ReportEvent } from './entities/reportEvent';
 
 @Module({

@@ -1,7 +1,9 @@
 import { Module } from '@nestjs/common';
-import { ReportsResolver } from './resolver';
-import { ReportLogsModule } from '../reportLogs';
 import { TypeOrmModule } from '@nestjs/typeorm';
+
+import { ReportLogsModule } from '../reportLogs';
+
+import { ReportsResolver } from './resolver';
 import { Report } from './entities/report';
 
 @Module({

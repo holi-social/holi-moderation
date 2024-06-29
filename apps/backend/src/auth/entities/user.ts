@@ -1,5 +1,4 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { UUID } from '../../graphql/uuidScalar';
 import {
   Column,
   CreateDateColumn,
@@ -7,8 +6,11 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { UserRole } from './userRole';
 import { IsEmail } from 'class-validator';
+
+import { UUID } from '../../graphql/uuidScalar';
+
+import { UserRole } from './userRole';
 
 @ObjectType()
 @Entity()

@@ -1,5 +1,4 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { UUID } from '../../graphql/uuidScalar';
 import {
   Column,
   CreateDateColumn,
@@ -7,8 +6,10 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { ReportEventPayload, ReportLogEvent } from '../types';
 import { GraphQLJSONObject } from 'graphql-type-json';
+
+import { UUID } from '../../graphql/uuidScalar';
+import { ReportEventPayload, ReportLogEvent } from '../types';
 import { Report } from '../../reports/entities/report';
 import { User } from '../../auth/entities/user';
 

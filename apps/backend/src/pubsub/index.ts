@@ -1,6 +1,7 @@
 import { PubSub, Topic } from '@google-cloud/pubsub';
 import { FactoryProvider, Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+
 import { Publisher } from './publisher';
 import { EnsurePubsubTopic } from './ensurePubsubTopic';
 

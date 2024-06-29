@@ -5,7 +5,9 @@ import {
   registerEnumType,
 } from '@nestjs/graphql';
 import { IsEmail, MinLength } from 'class-validator';
+
 import { UUID } from '../graphql/uuidScalar';
+
 import { UserRole } from './entities/userRole';
 
 @ObjectType()

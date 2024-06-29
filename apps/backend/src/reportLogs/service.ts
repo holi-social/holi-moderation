@@ -1,3 +1,8 @@
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+
+import { ReportStatus } from '../reports/entities/reportStatus';
 import {
   StatusChangedEventPayload,
   ReportLogEvent,
@@ -5,13 +10,9 @@ import {
   ReportCreatedEventPayload,
   UserSuspendedEventPayload,
 } from '../reportLogs/types';
-
-import { Injectable } from '@nestjs/common';
-import { ReportStatus } from '../reports/entities/reportStatus';
-import { InjectRepository } from '@nestjs/typeorm';
-import { ReportEvent } from './entities/reportEvent';
-import { Repository } from 'typeorm';
 import { User } from '../auth/entities/user';
+
+import { ReportEvent } from './entities/reportEvent';
 
 @Injectable()
 export class ReportLogger {

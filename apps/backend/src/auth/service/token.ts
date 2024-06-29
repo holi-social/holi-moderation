@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { User } from '../entities/user';
 import { JwtService, JwtSignOptions } from '@nestjs/jwt';
+
+import { User } from '../entities/user';
 import { UserRole } from '../entities/userRole';
 
 type Role = `${UserRole}`;

@@ -1,17 +1,18 @@
 import { Args, Mutation, Resolver, Query } from '@nestjs/graphql';
+import { ForbiddenError } from '@nestjs/apollo';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
+
+import { UUID } from '../graphql/uuidScalar';
+import { Pagination, Success } from '../graphql/commonSchema';
+
 import { AuthResult, CreateUser, TokenValidity } from './schema';
 import { AuthService } from './service/auth';
 import { TokenService } from './service/token';
 import { AdminOnly, AuthenticatedUser, Public } from './decorators';
-import { UUID } from '../graphql/uuidScalar';
-import { ForbiddenError } from '@nestjs/apollo';
-import { Pagination } from '../graphql/commonSchema';
 import { User } from './entities/user';
-import { Repository } from 'typeorm';
-import { InjectRepository } from '@nestjs/typeorm';
 import { UserRole } from './entities/userRole';
-import { BadRequestException, NotFoundException } from '@nestjs/common';
-import { Success } from '../graphql/commonSchema';
 
 @Resolver()
 export class AuthResolver {

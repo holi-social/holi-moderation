@@ -5,13 +5,14 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { Request } from 'express';
-import { TokenPayload, TokenService } from './service/token';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { Reflector } from '@nestjs/core';
-import { Metadata } from './decorators';
 import { Repository } from 'typeorm';
-import { User } from './entities/user';
 import { InjectRepository } from '@nestjs/typeorm';
+
+import { Metadata } from './decorators';
+import { User } from './entities/user';
+import { TokenPayload, TokenService } from './service/token';
 import { UserRole } from './entities/userRole';
 
 @Injectable()

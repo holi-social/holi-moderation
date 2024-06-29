@@ -6,18 +6,20 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql';
-import { UUID } from '../graphql/uuidScalar';
-import { ReportEvent } from '../reportLogs/entities/reportEvent';
-import { CreateReport, ReportsFilter } from './schema';
-import { Pagination } from '../graphql/commonSchema';
-import { Report } from './entities/report';
-import { ReportStatus } from './entities/reportStatus';
-import { ReportLogger } from '../reportLogs/service';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { NotFoundException } from '@nestjs/common';
+
+import { UUID } from '../graphql/uuidScalar';
+import { ReportEvent } from '../reportLogs/entities/reportEvent';
+import { Pagination } from '../graphql/commonSchema';
+import { ReportLogger } from '../reportLogs/service';
 import { AuthenticatedUser } from '../auth/decorators';
 import { User } from '../auth/entities/user';
+
+import { ReportStatus } from './entities/reportStatus';
+import { Report } from './entities/report';
+import { CreateReport, ReportsFilter } from './schema';
 
 @Resolver(() => Report)
 export class ReportsResolver {
