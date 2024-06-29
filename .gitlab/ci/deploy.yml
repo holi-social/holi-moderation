@@ -9,6 +9,7 @@
   needs:
     - "backend:build"
     - "frontend:build"
+    - "event_listener:test"
 
   artifacts:
     paths:
