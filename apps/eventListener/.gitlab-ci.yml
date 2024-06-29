@@ -6,3 +6,12 @@ event_listener:lint:
     - yarn workspace @holi/moderation-event-listener install
   script:
     - yarn workspace @holi/moderation-event-listener run -B eslint
+
+event_listener:test:
+  stage: test
+  image: node:20-alpine
+  before_script:
+    - corepack enable
+    - yarn workspace @holi/moderation-event-listener install
+  script:
+    - yarn workspace @holi/moderation-event-listener run test

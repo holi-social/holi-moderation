@@ -5,6 +5,7 @@ default:
 
 stages:
   - lint
+  - test
   - build
   - deploy
   - destroy
