@@ -9,5 +9,5 @@ module.exports = tseslint.config(
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
   { files: ["src/**/*"] },
-  { ignores: ["eslint.config.cjs", "dist/**/*"] },
+  { ignores: ["eslint.config.cjs", "dist/**/*", "jest.config.js"] },
 );

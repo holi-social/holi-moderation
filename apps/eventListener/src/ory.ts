@@ -7,17 +7,15 @@ import {
 import { envOrFail } from "./utils";
 
 export class Ory {
-  private readonly config: Configuration;
-  private readonly identity: IdentityApi;
-
   static fromEnvironment() {
-    return new Ory(envOrFail("ORY_API_KEY"));
+    return Ory.withApiKey(envOrFail("ORY_API_KEY"));
   }
 
-  constructor(apiKey: string) {
-    this.config = new Configuration({ apiKey });
-    this.identity = new IdentityApi(this.config);
+  static withApiKey(apiKey: string) {
+    return new Ory(new IdentityApi(new Configuration({ apiKey })));
   }
+
+  constructor(private readonly identity: IdentityApi) {}
 
   public async deactivateUser(email: string): Promise<void> {
     const identity = await this.findIdentity(email);
@@ -38,7 +36,7 @@ export class Ory {
     await this.updateIdentityState(identity.id, "active");
   }
 
-  private async findIdentity(email: string): Promise<Identity | null> {
+  public async findIdentity(email: string): Promise<Identity | null> {
     const { data } = await this.identity.listIdentities({
       credentialsIdentifier: email,
     });
@@ -54,15 +52,15 @@ export class Ory {
     return data[0];
   }
 
-  private async terminateAllSessions(identityId: string) {
-    return this.identity.deleteIdentitySessions({ id: identityId });
+  public async terminateAllSessions(identityId: string): Promise<void> {
+    await this.identity.deleteIdentitySessions({ id: identityId });
   }
 
-  private async updateIdentityState(
+  public async updateIdentityState(
     identityId: string,
     state: "active" | "inactive",
-  ) {
-    return this.identity.patchIdentity({
+  ): Promise<void> {
+    await this.identity.patchIdentity({
       id: identityId,
       jsonPatch: [
         {

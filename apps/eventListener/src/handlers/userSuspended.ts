@@ -1,7 +1,10 @@
 import { Ory } from "../ory";
 import { UserSuspendedData } from "../types";
+import { HandlerOptions } from "./types";
 
-export const handleUserSuspended = async (event: UserSuspendedData) => {
-  const ory = Ory.fromEnvironment();
+export const handleUserSuspended = async (
+  event: UserSuspendedData,
+  { ory = Ory.fromEnvironment() }: HandlerOptions | undefined = {},
+) => {
   ory.deactivateUser(event.email);
 };
