@@ -7,13 +7,15 @@ import {
   IconTools,
   IconUserBolt,
 } from "@tabler/icons-react";
+
 import { Post } from "../post";
 import { SpaceAppointment } from "../spaceAppointment";
-import { Space } from ".";
 import { ReportedSpaceDetailsFragment } from "../../graphql/generated/types";
 import { SpaceTask } from "../spaceTask";
 import { SpaceLinkhubTool } from "../spaceLinkhubTool";
 import { User } from "../user";
+
+import { Space } from ".";
 
 type ReportedSpaceProps = {
   space: ReportedSpaceDetailsFragment;

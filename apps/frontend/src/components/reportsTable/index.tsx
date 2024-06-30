@@ -1,9 +1,4 @@
-import React, { useState } from "react";
-import {
-  OpenbookAuthUser,
-  ReportStatus,
-  ReportsFilter,
-} from "../../graphql/generated/schema.types";
+import React, { useState, useMemo } from "react";
 import { Loader } from "@mantine/core";
 import { parseISO, formatDistanceToNow } from "date-fns";
 import {
@@ -16,11 +11,19 @@ import {
 } from "mantine-react-table";
 import { Link } from "react-router-dom";
 import useSWR from "swr";
-import { ListReportsQueryVariables } from "../../graphql/generated/types";
+
+import {
+  OpenbookAuthUser,
+  ReportStatus,
+  ReportsFilter,
+} from "../../graphql/generated/schema.types";
+import {
+  ListReportsQueryVariables,
+  ListReportsQuery as ListReportsQueryResponse,
+} from "../../graphql/generated/types";
 import ListReportsQuery from "../../graphql/queries/listReports";
 import { formatUser, titleCase } from "../../utils";
 import { ReportStatusDropdown } from "../reportStatusDropdown";
-import { ListReportsQuery as ListReportsQueryResponse } from "../../graphql/generated/types";
 
 type ReportsTableProps<
   TRow extends MRT_RowData = ListReportsQueryResponse["reports"][0],
@@ -61,7 +64,7 @@ export const ReportsTable: React.FC<ReportsTableProps> = ({
   ]);
 
   const reports = data?.reports ?? [];
-  const columns = React.useMemo<
+  const columns = useMemo<
     MRT_ColumnDef<ListReportsQueryResponse["reports"][0]>[]
   >(
     () => [

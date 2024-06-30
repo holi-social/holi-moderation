@@ -1,6 +1,4 @@
 import React from "react";
-import { OpenbookCommunitiesCollaborationtool } from "../../graphql/generated/schema.types";
-import { SpaceLinkhubToolDetailsFragment } from "../../graphql/generated/types";
 import {
   ActionIcon,
   Avatar,
@@ -11,18 +9,21 @@ import {
   Title,
 } from "@mantine/core";
 import {
-  formatUser,
-  getInitials,
-  relativeFormatISOTimestamp,
-  titleCase,
-} from "../../utils";
-import {
   IconCategory,
   IconClockPlus,
   IconExternalLink,
   IconLink,
   IconUser,
 } from "@tabler/icons-react";
+
+import { OpenbookCommunitiesCollaborationtool } from "../../graphql/generated/schema.types";
+import { SpaceLinkhubToolDetailsFragment } from "../../graphql/generated/types";
+import {
+  formatUser,
+  getInitials,
+  relativeFormatISOTimestamp,
+  titleCase,
+} from "../../utils";
 
 type SpaceLinkhubToolProps = {
   tool: SpaceLinkhubToolDetailsFragment | OpenbookCommunitiesCollaborationtool;

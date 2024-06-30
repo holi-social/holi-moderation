@@ -1,10 +1,12 @@
 import React from "react";
 import { Button, Grid, Group, Stack, Text } from "@mantine/core";
-import { Space } from "../space";
-import { SpaceAppointment } from ".";
-import { okunaAdminUrl } from "../../utils";
 import { IconCalendar, IconTopologyRing3, IconUser } from "@tabler/icons-react";
+
+import { Space } from "../space";
+import { okunaAdminUrl } from "../../utils";
 import { ReportedSpaceAppointmentDetailsFragment } from "../../graphql/generated/types";
+
+import { SpaceAppointment } from ".";
 
 type ReportedSpaceAppointmentProps = {
   appointment: ReportedSpaceAppointmentDetailsFragment;

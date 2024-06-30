@@ -1,8 +1,5 @@
 import React, { ReactNode } from "react";
-import { SpaceDetailsFragment } from "../../graphql/generated/types";
 import { Card, Group, Stack, Title, Text, List } from "@mantine/core";
-import { SpaceAvatar } from "../avatar";
-import { formatUser, relativeFormatISOTimestamp } from "../../utils";
 import {
   IconBrandDiscord,
   IconBrandFacebook,
@@ -16,6 +13,10 @@ import {
   IconPhone,
   IconUser,
 } from "@tabler/icons-react";
+
+import { SpaceDetailsFragment } from "../../graphql/generated/types";
+import { SpaceAvatar } from "../avatar";
+import { formatUser, relativeFormatISOTimestamp } from "../../utils";
 import {
   OpenbookCommunitiesCommunity,
   OpenbookCommunitiesExternallink,

@@ -1,12 +1,13 @@
 import { Text, Timeline } from "@mantine/core";
 import { IconStatusChange } from "@tabler/icons-react";
-import { TimelineItemProps } from "..";
-import { relativeFormatISOTimestamp } from "../../../utils";
 import {
   formatDuration,
   intervalToDuration,
   minutesToMilliseconds,
 } from "date-fns";
+
+import { TimelineItemProps } from "..";
+import { relativeFormatISOTimestamp } from "../../../utils";
 
 export const UserSuspendedTimelineItem: React.FC<TimelineItemProps> = ({
   event,

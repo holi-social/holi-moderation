@@ -1,5 +1,4 @@
 import React from "react";
-import { SpaceAppointmentDetailsFragment } from "../../graphql/generated/types";
 import { Card, Group, Stack, Text, Title } from "@mantine/core";
 import {
   IconCalendar,
@@ -10,6 +9,8 @@ import {
   IconTrash,
   IconWorld,
 } from "@tabler/icons-react";
+
+import { SpaceAppointmentDetailsFragment } from "../../graphql/generated/types";
 import {
   localFormatISOTimestamp,
   okunaAdminUrl,

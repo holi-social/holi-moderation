@@ -1,4 +1,5 @@
-import gql from "graphql-tag";
+import { gql } from "graphql-tag";
+
 import { PostDetails } from "../fragments/post";
 
 export const ViewPostQuery = gql`

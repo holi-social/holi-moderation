@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
-import { UserDetailsFragment } from "../../graphql/generated/types";
 import { Card, Group, Stack, Text, Title } from "@mantine/core";
+
+import { UserDetailsFragment } from "../../graphql/generated/types";
 import { UserAvatar } from "../avatar";
 import { relativeFormatISOTimestamp } from "../../utils";
 import { OpenbookAuthUser } from "../../graphql/generated/schema.types";

@@ -7,21 +7,22 @@ import {
   Text,
   useCombobox,
 } from "@mantine/core";
-import { ReportStatus } from "../../graphql/generated/schema.types";
 import React, { useState } from "react";
-import { titleCase } from "../../utils";
 import {
   IconBan,
   IconCheck,
   IconMailbox,
   IconProgress,
 } from "@tabler/icons-react";
-import { ChangeReportStatusMutation } from "../../graphql/mutations/changeReportStatus";
 import { useSWRConfig } from "swr";
+import { notifications } from "@mantine/notifications";
+
+import { ReportStatus } from "../../graphql/generated/schema.types";
+import { titleCase } from "../../utils";
+import { ChangeReportStatusMutation } from "../../graphql/mutations/changeReportStatus";
 import { ViewReportQuery } from "../../graphql/queries/viewReport";
 import { gqlClient } from "../../fetcher";
 import { ChangeReportStatusMutation as ChangeReportStatusMutationResponse } from "../../graphql/generated/types";
-import { notifications } from "@mantine/notifications";
 
 interface DropdownItem {
   icon: typeof IconMailbox;

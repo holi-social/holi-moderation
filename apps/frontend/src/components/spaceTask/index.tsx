@@ -1,6 +1,4 @@
 import React from "react";
-import { OpenbookCommunitiesTask } from "../../graphql/generated/schema.types";
-import { SpaceTaskDetailsFragment } from "../../graphql/generated/types";
 import { Badge, Card, Group, Stack, Text, Title } from "@mantine/core";
 import {
   IconAccessible,
@@ -15,6 +13,9 @@ import {
   IconUserPlus,
   IconWorld,
 } from "@tabler/icons-react";
+
+import { OpenbookCommunitiesTask } from "../../graphql/generated/schema.types";
+import { SpaceTaskDetailsFragment } from "../../graphql/generated/types";
 import { formatUser, relativeFormatISOTimestamp, titleCase } from "../../utils";
 import { ImageWithPreview } from "../imageWithPreview";
 

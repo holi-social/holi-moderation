@@ -1,4 +1,5 @@
 import { formatDistanceToNow, parseISO } from "date-fns";
+
 import { OpenbookAuthUser } from "./graphql/generated/schema.types";
 import { UserDetailsFragment } from "./graphql/generated/types";
 

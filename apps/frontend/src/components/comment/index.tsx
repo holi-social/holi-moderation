@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  CommentDetailsFragment,
-  ViewPostQuery as ViewPostQueryResponse,
-} from "../../graphql/generated/types";
 import useSWR from "swr";
-import { Post, PostSkeleton } from "../post";
 import {
   Blockquote,
   Button,
@@ -15,9 +10,15 @@ import {
   Text,
   Tooltip,
 } from "@mantine/core";
-import { okunaAdminUrl } from "../../utils";
 import { formatDistanceToNow, parseISO } from "date-fns";
 import { IconMessageReply, IconUser } from "@tabler/icons-react";
+
+import { okunaAdminUrl } from "../../utils";
+import { Post, PostSkeleton } from "../post";
+import {
+  CommentDetailsFragment,
+  ViewPostQuery as ViewPostQueryResponse,
+} from "../../graphql/generated/types";
 import { UserAvatar } from "../avatar";
 import { ViewPostQuery } from "../../graphql/queries/viewPost";
 

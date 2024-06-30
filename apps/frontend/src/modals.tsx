@@ -1,5 +1,6 @@
 import { Group, Text } from "@mantine/core";
 import { modals } from "@mantine/modals";
+
 import { UserAvatar } from "./components/avatar";
 import {
   SuspendUserModal,

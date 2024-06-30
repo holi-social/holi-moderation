@@ -1,7 +1,8 @@
 import React from "react";
+import { Avatar, MantineSize } from "@mantine/core";
+
 import { OpenbookAuthUser } from "../../graphql/generated/schema.types";
 import { UserDetailsFragment } from "../../graphql/generated/types";
-import { Avatar, MantineSize } from "@mantine/core";
 import { getInitials, okunaAdminUrl } from "../../utils";
 
 type UserAvatarProps = {

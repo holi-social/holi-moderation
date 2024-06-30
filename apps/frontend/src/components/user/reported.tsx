@@ -5,10 +5,12 @@ import {
   IconTopologyRing3,
 } from "@tabler/icons-react";
 import React from "react";
+
 import { ReportedUserDetailsFragment } from "../../graphql/generated/types";
 import { okunaAdminUrl } from "../../utils";
 import { Comment } from "../comment";
 import { Post } from "../post";
+
 import { User } from ".";
 
 export type ReportedUserDetailsProps = {

@@ -1,4 +1,5 @@
-import gql from "graphql-tag";
+import { gql } from "graphql-tag";
+
 import { UserDetails } from "./user";
 import { SpaceDetails } from "./space";
 

@@ -1,15 +1,17 @@
 import React from "react";
-import { OpenbookCommunitiesTask } from "../../graphql/generated/schema.types";
-import { SpaceTask } from ".";
-import { ReportedSpaceTaskDetailsFragment } from "../../graphql/generated/types";
 import { Button, Grid, Group, Stack, Text } from "@mantine/core";
-import { Space } from "../space";
 import {
   IconListCheck,
   IconTopologyRing3,
   IconUser,
 } from "@tabler/icons-react";
+
+import { ReportedSpaceTaskDetailsFragment } from "../../graphql/generated/types";
+import { Space } from "../space";
+import { OpenbookCommunitiesTask } from "../../graphql/generated/schema.types";
 import { okunaAdminUrl } from "../../utils";
+
+import { SpaceTask } from ".";
 
 type ReportedSpaceTaskProps = {
   task: ReportedSpaceTaskDetailsFragment | OpenbookCommunitiesTask;

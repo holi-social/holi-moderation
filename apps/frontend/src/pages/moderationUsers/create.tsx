@@ -14,6 +14,9 @@ import { useForm, zodResolver } from "@mantine/form";
 import { IconUserPlus } from "@tabler/icons-react";
 import React, { useState } from "react";
 import { z } from "zod";
+import { notifications } from "@mantine/notifications";
+import { useSWRConfig } from "swr";
+
 import { UserRole } from "../../graphql/generated/schema.types";
 import { gqlClient } from "../../fetcher";
 import {
@@ -21,8 +24,6 @@ import {
   CreateModerationUserMutationVariables,
 } from "../../graphql/generated/types";
 import { CreateModerationUserMutation } from "../../graphql/mutations/createModerationUser";
-import { notifications } from "@mantine/notifications";
-import { useSWRConfig } from "swr";
 import { ListModerationUsersQuery } from "../../graphql/queries/listModerationUsers";
 
 interface CreateModerationUserProps extends ModalProps {}

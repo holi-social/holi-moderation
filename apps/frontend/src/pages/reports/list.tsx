@@ -1,6 +1,7 @@
 import React from "react";
-import { ReportsTable } from "../../components/reportsTable";
 import { Stack, Title } from "@mantine/core";
+
+import { ReportsTable } from "../../components/reportsTable";
 
 export const ListReports: React.FC = () => (
   <Stack>

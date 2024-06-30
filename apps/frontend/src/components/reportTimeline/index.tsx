@@ -1,7 +1,9 @@
 import React from "react";
-import { ReportEventDetailsFragment } from "../../graphql/generated/types";
 import { Timeline } from "@mantine/core";
+
+import { ReportEventDetailsFragment } from "../../graphql/generated/types";
 import { ReportEvent } from "../../graphql/generated/schema.types";
+
 import { StatusChangedTimelineItem } from "./items/statusChanged";
 import { ReportCreatedTimelineItem } from "./items/reportCreated";
 import { UserSuspendedTimelineItem } from "./items/userSuspended";

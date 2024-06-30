@@ -12,6 +12,11 @@ import {
 } from "@mantine/core";
 import React from "react";
 import useSWR from "swr";
+import { IconPlus, IconShieldLock, IconTrash } from "@tabler/icons-react";
+import { notifications } from "@mantine/notifications";
+import { modals } from "@mantine/modals";
+import { useDisclosure } from "@mantine/hooks";
+
 import { ListModerationUsersQuery } from "../../graphql/queries/listModerationUsers";
 import {
   ChangeModerationUserRoleMutation as ChangeModerationUserRoleMutationResponse,
@@ -25,15 +30,12 @@ import {
   relativeFormatISOTimestamp,
   titleCase,
 } from "../../utils";
-import { IconPlus, IconShieldLock, IconTrash } from "@tabler/icons-react";
 import { UserRole } from "../../graphql/generated/schema.types";
 import { gqlClient } from "../../fetcher";
 import { ChangeModerationUserRoleMutation } from "../../graphql/mutations/changeModerationUserRole";
 import { DeleteModerationUserMutation } from "../../graphql/mutations/deleteModerationUser";
-import { notifications } from "@mantine/notifications";
-import { modals } from "@mantine/modals";
 import { useAuthState } from "../../state";
-import { useDisclosure } from "@mantine/hooks";
+
 import { CreateModerationUser } from "./create";
 
 export const ListUsers: React.FC = () => {

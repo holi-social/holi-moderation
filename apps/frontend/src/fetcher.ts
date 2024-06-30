@@ -1,5 +1,6 @@
 import { GraphQLClient, RequestDocument, Variables } from "graphql-request";
 import { Fetcher } from "swr";
+
 import { useAuthState } from "./state";
 
 export const BASE_URL = import.meta.env.VITE_GRAPHQL_URL;

@@ -1,4 +1,5 @@
-import gql from "graphql-tag";
+import { gql } from "graphql-tag";
+
 import { UserDetails } from "../fragments/user";
 
 const ListReportsQuery = gql`

@@ -8,6 +8,8 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { HoliLogo } from "../../components/holiLogo";
 import { useAuthState } from "../../state";
 import { gqlClient } from "../../fetcher";
@@ -16,7 +18,6 @@ import {
   LoginMutation as LoginMutationResponse,
   LoginMutationVariables,
 } from "../../graphql/generated/types";
-import { useNavigate } from "react-router-dom";
 
 export const Login: React.FC = () => {
   const navigate = useNavigate();

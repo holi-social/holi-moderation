@@ -1,10 +1,4 @@
 import React, { useState } from "react";
-import { OpenbookAuthUser } from "../../graphql/generated/schema.types";
-import {
-  SuspendUserMutation as SuspendUserMutationResponse,
-  SuspendUserMutationVariables,
-  UserDetailsFragment,
-} from "../../graphql/generated/types";
 import { ContextModalProps } from "@mantine/modals";
 import {
   Button,
@@ -16,10 +10,17 @@ import {
 } from "@mantine/core";
 import DurationParser, { DurationValidator } from "js-duration-parser";
 import { useForm } from "@mantine/form";
-import { gqlClient } from "../../fetcher";
-import { SuspendUserMutation } from "../../graphql/mutations/suspendUser";
 import { notifications } from "@mantine/notifications";
 import { useSWRConfig } from "swr";
+
+import { gqlClient } from "../../fetcher";
+import { SuspendUserMutation } from "../../graphql/mutations/suspendUser";
+import {
+  SuspendUserMutation as SuspendUserMutationResponse,
+  SuspendUserMutationVariables,
+  UserDetailsFragment,
+} from "../../graphql/generated/types";
+import { OpenbookAuthUser } from "../../graphql/generated/schema.types";
 import { ViewReportQuery } from "../../graphql/queries/viewReport";
 
 const durationParser = new DurationParser();

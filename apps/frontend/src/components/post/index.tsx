@@ -9,11 +9,12 @@ import {
   Text,
   Tooltip,
 } from "@mantine/core";
-import { PostDetailsFragment } from "../../graphql/generated/types";
 import React from "react";
-import { okunaAdminUrl } from "../../utils";
 import { formatDistanceToNow, parseISO } from "date-fns";
 import { IconMessage, IconTopologyRing3, IconUser } from "@tabler/icons-react";
+
+import { okunaAdminUrl } from "../../utils";
+import { PostDetailsFragment } from "../../graphql/generated/types";
 import { UserAvatar } from "../avatar";
 
 type PostProps = {

@@ -1,10 +1,12 @@
 import React from "react";
-import { ReportedSpaceLinkhubToolDetailsFragment } from "../../graphql/generated/types";
 import { Button, Grid, Group, Stack, Text } from "@mantine/core";
-import { SpaceLinkhubTool } from ".";
-import { Space } from "../space";
 import { IconTools, IconTopologyRing3, IconUser } from "@tabler/icons-react";
+
+import { Space } from "../space";
+import { ReportedSpaceLinkhubToolDetailsFragment } from "../../graphql/generated/types";
 import { okunaAdminUrl } from "../../utils";
+
+import { SpaceLinkhubTool } from ".";
 
 type ReportedSpaceLinkhubToolProps = {
   tool: ReportedSpaceLinkhubToolDetailsFragment;

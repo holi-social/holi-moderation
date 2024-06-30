@@ -1,7 +1,8 @@
 import React from "react";
+import { Avatar } from "@mantine/core";
+
 import { OpenbookCommunitiesCommunity } from "../../graphql/generated/schema.types";
 import { SpaceDetailsFragment } from "../../graphql/generated/types";
-import { Avatar } from "@mantine/core";
 import { getInitials, okunaAdminUrl } from "../../utils";
 
 type SpaceAvatarProps = {

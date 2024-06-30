@@ -1,19 +1,21 @@
-import "@mantine/core/styles.css";
-import "mantine-react-table/styles.css";
 import { MantineProvider } from "@mantine/core";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { Notifications } from "@mantine/notifications";
+import { ModalsProvider } from "@mantine/modals";
+import { SWRConfig } from "swr";
+
 import { ListReports } from "./pages/reports/list";
 import { ViewReport } from "./pages/reports/view";
-import { Notifications } from "@mantine/notifications";
-import "@mantine/notifications/styles.css";
-import { SWRConfig } from "swr";
 import { fetcher } from "./fetcher";
 import { Login } from "./pages/auth/login";
 import { Layout } from "./pages/appLayout";
 import { ListReportsFromUser } from "./pages/reports/fromUser";
 import { ListUsers } from "./pages/moderationUsers/list";
-import { ModalsProvider } from "@mantine/modals";
 import { AVAILABLE_MODALS } from "./modals";
+
+import "@mantine/core/styles.css";
+import "mantine-react-table/styles.css";
+import "@mantine/notifications/styles.css";
 
 const router = createBrowserRouter([
   {
