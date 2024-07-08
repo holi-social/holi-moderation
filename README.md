@@ -11,7 +11,7 @@ using docker-compose from the context of this repository
 3. `docker compose up -d`
 4. `docker compose exec backend yarn run typeorm migration:run -d src/typeorm.ts`
 5. install hasura-cli https://hasura.io/docs/latest/hasura-cli/install-hasura-cli
-6. `cd apps/hasura && hasura deploy --admin--secret HASURA_GRAPHQL_ADMIN_SECRET` 
+6. `cd apps/hasura && hasura deploy --admin-secret HASURA_GRAPHQL_ADMIN_SECRET` 
 
 An initial user account is created for you and a password echoed in the backend container log. Save the password.
 (`+++ INITIAL USER: moderation@holi.social ...`)
