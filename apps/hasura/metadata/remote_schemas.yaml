@@ -1,6 +1,6 @@
 - name: moderation
   definition:
-    url: "{{BACKEND_GRAPHQL_URL}}"
+    url: '{{BACKEND_GRAPHQL_URL}}'
     timeout_seconds: 60
     customization: {}
     forward_client_headers: true
