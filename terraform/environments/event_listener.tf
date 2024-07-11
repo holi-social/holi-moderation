@@ -1,5 +1,6 @@
 resource "random_id" "event_listener" {
-  byte_length = 4
+  byte_length = 2
+  prefix      = "moderation-event-listener-${local.environment_name}-"
 }
 
 data "archive_file" "event_listener_build" {
@@ -14,19 +15,14 @@ data "archive_file" "event_listener_build" {
   )
 }
 
-resource "google_storage_bucket" "event_listener" {
-  name     = "moderation-event-listener-${local.environment_name}-${random_id.event_listener.hex}"
-  location = local.default_location
-}
-
 resource "google_storage_bucket_object" "event_listener" {
-  name   = "index.zip"
-  bucket = google_storage_bucket.event_listener.name
+  name   = "${random_id.event_listener.hex}/index.zip"
+  bucket = data.terraform_remote_state.holi_infra_state.outputs.gcf_sources_upload_bucket_name
   source = data.archive_file.event_listener_build.output_path
 }
 
 resource "google_cloudfunctions2_function" "event_listener" {
-  name     = "moderation-event-listener-${local.environment_name}-${random_id.event_listener.hex}"
+  name     = random_id.event_listener.hex
   location = local.default_location
 
   depends_on = [google_service_account.moderation, google_project_iam_member.moderation]
@@ -37,7 +33,7 @@ resource "google_cloudfunctions2_function" "event_listener" {
 
     source {
       storage_source {
-        bucket = google_storage_bucket.event_listener.name
+        bucket = data.terraform_remote_state.holi_infra_state.outputs.gcf_sources_upload_bucket_name
         object = google_storage_bucket_object.event_listener.name
       }
     }

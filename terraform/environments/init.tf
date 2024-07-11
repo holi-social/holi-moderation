@@ -5,6 +5,14 @@ terraform {
   }
 }
 
+data "terraform_remote_state" "moderation_common_state" {
+  backend = "gcs"
+  config = {
+    bucket = "holi-shared-terraform-state"
+    prefix = "moderation-common"
+  }
+}
+
 data "terraform_remote_state" "holi_infra_state" {
   backend = "gcs"
   config = {
@@ -13,11 +21,12 @@ data "terraform_remote_state" "holi_infra_state" {
   }
 }
 
-data "terraform_remote_state" "moderation_common_state" {
-  backend = "gcs"
+data "terraform_remote_state" "okuna_environments_state" {
+  backend   = "gcs"
+  workspace = terraform.workspace == "production" ? "production" : "staging"
   config = {
     bucket = "holi-shared-terraform-state"
-    prefix = "moderation-common"
+    prefix = "okuna-environments"
   }
 }
 

@@ -1,38 +1,40 @@
 locals {
   # moderation-data.apis.holi.social
   production_hasura_zone   = data.terraform_remote_state.holi_infra_state.outputs.dns_apis_zone_name
+  # TODO Why moderation-data instead of hasura? Why both names?
   production_hasura_domain = "moderation-data.${data.terraform_remote_state.holi_infra_state.outputs.dns_apis_zone_domain}."
 
   # ENV.moderation-data.apis.holi.social
   development_hasura_zone   = data.terraform_remote_state.holi_infra_state.outputs.dns_apis_zone_name
-  development_hasura_domain = "${local.environment_name}.moderation-data.${data.terraform_remote_state.holi_infra_state.outputs.dns_apis_zone_domain}."
+  development_hasura_domain = "${local.environment_name}.${local.production_hasura_domain}"
 
   hasura_domain      = local.environment == "production" ? local.production_hasura_domain : local.development_hasura_domain
   hasura_domain_zone = local.environment == "production" ? local.production_hasura_zone : local.development_hasura_zone
 
-  okuna_db_name = local.environment == "production" ? "okuna-production-deb5" : "okuna-staging-4db7"
+  okuna_db_name = data.terraform_remote_state.okuna_environments_state.outputs.database_name
 }
 
 resource "random_id" "hasura" {
   byte_length = 2
+  prefix      = "moderation-hasura-${local.environment_name}-"
 }
 
 resource "google_sql_user" "hasura" {
   project  = data.terraform_remote_state.holi_infra_state.outputs.shared_project_id
   instance = local.db_instance
-  name     = "moderation_hasura_${local.environment_name_snake}_${random_id.hasura.hex}"
+  name     = random_id.hasura.hex
   password = data.google_secret_manager_secret_version_access.hasura_metadata_db_password.secret_data
 }
 
 resource "google_sql_database" "hasura" {
   project  = data.terraform_remote_state.holi_infra_state.outputs.shared_project_id
   instance = local.db_instance
-  name     = "moderation_hasura_${local.environment_name_snake}_${random_id.hasura.hex}"
+  name     = random_id.hasura.hex
 }
 
 resource "google_cloud_run_service" "moderation_hasura" {
   project  = data.terraform_remote_state.holi_infra_state.outputs.shared_project_id
-  name     = "moderation-hasura-${local.environment_name}-${random_id.hasura.hex}"
+  name     = random_id.hasura.hex
   location = local.default_location
 
   depends_on = [google_service_account.moderation, google_project_iam_member.moderation]
@@ -108,6 +110,7 @@ resource "google_cloud_run_service" "moderation_hasura" {
         }
 
         resources {
+          # TODO: is this amount of CPU/memory really needed?
           limits = {
             cpu    = local.environment == "production" ? "4000m" : "4000m"
             memory = local.environment == "production" ? "2048Mi" : "2048Mi"
