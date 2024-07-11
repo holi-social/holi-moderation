@@ -1,6 +1,6 @@
 locals {
   # moderation-data.apis.holi.social
-  production_hasura_zone   = data.terraform_remote_state.holi_infra_state.outputs.dns_apis_zone_name
+  production_hasura_zone = data.terraform_remote_state.holi_infra_state.outputs.dns_apis_zone_name
   # TODO Why moderation-data instead of hasura? Why both names?
   production_hasura_domain = "moderation-data.${data.terraform_remote_state.holi_infra_state.outputs.dns_apis_zone_domain}."
 
@@ -12,29 +12,25 @@ locals {
   hasura_domain_zone = local.environment == "production" ? local.production_hasura_zone : local.development_hasura_zone
 
   okuna_db_name = data.terraform_remote_state.okuna_environments_state.outputs.database_name
-}
-
-resource "random_id" "hasura" {
-  byte_length = 2
-  prefix      = "moderation-hasura-${local.environment_name}-"
+  hasura_name   = format(local.name_template, "hasura")
 }
 
 resource "google_sql_user" "hasura" {
   project  = data.terraform_remote_state.holi_infra_state.outputs.shared_project_id
   instance = local.db_instance
-  name     = random_id.hasura.hex
+  name     = local.hasura_name
   password = data.google_secret_manager_secret_version_access.hasura_metadata_db_password.secret_data
 }
 
 resource "google_sql_database" "hasura" {
   project  = data.terraform_remote_state.holi_infra_state.outputs.shared_project_id
   instance = local.db_instance
-  name     = random_id.hasura.hex
+  name     = local.hasura_name
 }
 
 resource "google_cloud_run_service" "moderation_hasura" {
   project  = data.terraform_remote_state.holi_infra_state.outputs.shared_project_id
-  name     = random_id.hasura.hex
+  name     = local.hasura_name
   location = local.default_location
 
   depends_on = [google_service_account.moderation, google_project_iam_member.moderation]

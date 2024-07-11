@@ -9,30 +9,26 @@ locals {
 
   backend_domain      = local.environment == "production" ? local.production_backend_domain : local.development_backend_domain
   backend_domain_zone = local.environment == "production" ? local.production_backend_zone : local.development_backend_zone
-}
-
-resource "random_id" "backend" {
-  byte_length = 2
-  prefix      = "moderation-backend-${local.environment_name}-"
+  backend_name        = format(local.name_template, "backend")
 }
 
 resource "google_sql_user" "backend" {
   project  = data.terraform_remote_state.holi_infra_state.outputs.shared_project_id
   instance = local.db_instance
 
-  name     = random_id.backend.hex
+  name     = local.backend_name
   password = data.google_secret_manager_secret_version_access.moderation_db_password.secret_data
 }
 
 resource "google_sql_database" "backend" {
   project  = data.terraform_remote_state.holi_infra_state.outputs.shared_project_id
   instance = local.db_instance
-  name     = random_id.backend.hex
+  name     = local.backend_name
 }
 
 resource "google_cloud_run_service" "moderation_backend" {
   project  = data.terraform_remote_state.holi_infra_state.outputs.shared_project_id
-  name     = random_id.backend.hex
+  name     = local.backend_name
   location = local.default_location
 
   depends_on = [google_service_account.moderation, google_project_iam_member.moderation]

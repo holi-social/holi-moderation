@@ -9,16 +9,13 @@ locals {
 
   frontend_domain      = local.environment == "production" ? local.production_frontend_domain : local.development_frontend_domain
   frontend_domain_zone = local.environment == "production" ? local.production_frontend_zone : local.development_frontend_zone
+  frontend_name        = format(local.name_template, "frontend")
 }
 
-resource "random_id" "frontend" {
-  byte_length = 2
-  prefix      = "moderation-frontend-${local.environment_name}-"
-}
 
 resource "google_cloud_run_service" "frontend" {
   project  = data.terraform_remote_state.holi_infra_state.outputs.shared_project_id
-  name     = random_id.frontend.hex
+  name     = local.frontend_name
   location = local.default_location
 
   depends_on = [google_service_account.moderation, google_project_iam_member.moderation]

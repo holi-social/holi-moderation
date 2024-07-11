@@ -1,6 +1,5 @@
-resource "random_id" "event_listener" {
-  byte_length = 2
-  prefix      = "moderation-event-listener-${local.environment_name}-"
+locals {
+  eventlistener_name = format(local.name_template, "event-listener")
 }
 
 data "archive_file" "event_listener_build" {
@@ -16,13 +15,13 @@ data "archive_file" "event_listener_build" {
 }
 
 resource "google_storage_bucket_object" "event_listener" {
-  name   = "${random_id.event_listener.hex}/index.zip"
+  name   = "${local.eventlistener_name}/index.zip"
   bucket = data.terraform_remote_state.holi_infra_state.outputs.gcf_sources_upload_bucket_name
   source = data.archive_file.event_listener_build.output_path
 }
 
 resource "google_cloudfunctions2_function" "event_listener" {
-  name     = random_id.event_listener.hex
+  name     = local.eventlistener_name
   location = local.default_location
 
   depends_on = [google_service_account.moderation, google_project_iam_member.moderation]

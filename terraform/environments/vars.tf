@@ -1,3 +1,7 @@
+resource "random_id" "moderation" {
+  byte_length = 2
+}
+
 locals {
   # predefined environment names are staging, production, and <branchname>
   environment      = terraform.workspace
@@ -8,6 +12,10 @@ locals {
 
   db_instance = local.environment == "production" ? data.terraform_remote_state.holi_infra_state.outputs.database_name_production : data.terraform_remote_state.holi_infra_state.outputs.database_name_development
   db_host     = local.environment == "production" ? data.terraform_remote_state.holi_infra_state.outputs.database_ip_address_production : data.terraform_remote_state.holi_infra_state.outputs.database_ip_address_development
+
+  name_generic       = "moderation-${local.environment_name}-${random_id.moderation.hex}"
+  name_generic_max30 = "moderation-${substr(local.environment_name, 0, 14)}-${random_id.moderation.hex}"
+  name_template      = "moderation-%s-${local.environment_name}-${random_id.moderation.hex}"
 }
 
 variable "backend_image_tag" {
