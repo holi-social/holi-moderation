@@ -46,6 +46,10 @@ resource "google_cloudfunctions2_function" "event_listener" {
       version    = "latest"
     }
 
+    environment_variables = {
+      "LOG_EXECUTION_ID" = "true"
+    }
+
     service_account_email          = google_service_account.moderation.email
     all_traffic_on_latest_revision = true
     ingress_settings               = "ALLOW_INTERNAL_ONLY"
@@ -58,5 +62,6 @@ resource "google_cloudfunctions2_function" "event_listener" {
     event_type            = "google.cloud.pubsub.topic.v1.messagePublished"
     pubsub_topic          = google_pubsub_topic.moderation.id
     service_account_email = google_service_account.moderation.email
+    retry_policy          = "RETRY_POLICY_DO_NOT_RETRY"
   }
 }
