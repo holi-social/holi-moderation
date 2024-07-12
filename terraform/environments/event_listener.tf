@@ -22,7 +22,7 @@ resource "google_storage_bucket_object" "event_listener" {
 
 resource "google_cloudfunctions2_function" "event_listener" {
   name     = local.eventlistener_name
-  location = local.default_location
+  location = local.default_region
 
   depends_on = [google_service_account.moderation, google_project_iam_member.moderation]
 

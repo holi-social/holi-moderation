@@ -11,7 +11,7 @@ resource "google_kms_crypto_key" "moderation_pubsub" {
   rotation_period = "100000s"
 
   lifecycle {
-    prevent_destroy = false
+    prevent_destroy = true
   }
 }
 

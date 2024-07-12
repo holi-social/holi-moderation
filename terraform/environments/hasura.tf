@@ -31,7 +31,7 @@ resource "google_sql_database" "hasura" {
 resource "google_cloud_run_service" "moderation_hasura" {
   project  = data.terraform_remote_state.holi_infra_state.outputs.shared_project_id
   name     = local.hasura_name
-  location = local.default_location
+  location = local.default_region
 
   depends_on = [google_service_account.moderation, google_project_iam_member.moderation]
 

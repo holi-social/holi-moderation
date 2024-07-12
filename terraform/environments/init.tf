@@ -31,11 +31,11 @@ data "terraform_remote_state" "okuna_environments_state" {
 }
 
 provider "google" {
-  region  = "europe-north1"
+  region  = local.default_region
   project = data.terraform_remote_state.holi_infra_state.outputs.shared_project_id
 }
 
 provider "google-beta" {
-  region  = "europe-north1"
+  region  = local.default_region
   project = data.terraform_remote_state.holi_infra_state.outputs.shared_project_id
 }

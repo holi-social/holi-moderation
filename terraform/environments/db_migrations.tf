@@ -8,7 +8,7 @@ resource "google_cloud_run_v2_job" "backend_db_migrations" {
 
   project  = data.terraform_remote_state.holi_infra_state.outputs.shared_project_id
   name     = local.migrations_name
-  location = "europe-north1"
+  location = local.default_region
 
   template {
     task_count = 1
