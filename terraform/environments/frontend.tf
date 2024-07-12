@@ -5,20 +5,18 @@ locals {
 
   # ENV.moderation.holi.social
   development_frontend_zone   = data.terraform_remote_state.holi_infra_state.outputs.dns_sld_zone_name
-  development_frontend_domain = "${local.environment_name}.moderation.${data.terraform_remote_state.holi_infra_state.outputs.dns_sld_zone_domain}."
+  development_frontend_domain = "${local.environment_name}.${local.production_frontend_domain}"
 
   frontend_domain      = local.environment == "production" ? local.production_frontend_domain : local.development_frontend_domain
   frontend_domain_zone = local.environment == "production" ? local.production_frontend_zone : local.development_frontend_zone
+  frontend_name        = format(local.name_template, "frontend")
 }
 
-resource "random_id" "frontend" {
-  byte_length = 2
-}
 
 resource "google_cloud_run_service" "frontend" {
   project  = data.terraform_remote_state.holi_infra_state.outputs.shared_project_id
-  name     = "moderation-frontend-${local.environment_name}-${random_id.frontend.hex}"
-  location = local.default_location
+  name     = local.frontend_name
+  location = local.default_region
 
   depends_on = [google_service_account.moderation, google_project_iam_member.moderation]
 

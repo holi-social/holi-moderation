@@ -14,9 +14,9 @@ data "terraform_remote_state" "holi_infra_state" {
 }
 
 provider "google" {
-  region = "europe-north1"
+  region = local.default_region
 }
 
 provider "google-beta" {
-  region = "europe-north1"
+  region = local.default_region
 }

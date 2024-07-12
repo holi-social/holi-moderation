@@ -1,9 +1,14 @@
+locals {
+  migrations_name = format(local.name_template, "migration")
+}
+
+# TODO: How does this work? How are migrations synced with deployments?
 resource "google_cloud_run_v2_job" "backend_db_migrations" {
   depends_on = [google_project_iam_member.moderation]
 
   project  = data.terraform_remote_state.holi_infra_state.outputs.shared_project_id
-  name     = "moderation-${local.environment_name}-migration-${random_id.backend.hex}"
-  location = "europe-north1"
+  name     = local.migrations_name
+  location = local.default_region
 
   template {
     task_count = 1

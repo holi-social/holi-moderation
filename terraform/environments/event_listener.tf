@@ -1,5 +1,5 @@
-resource "random_id" "event_listener" {
-  byte_length = 4
+locals {
+  eventlistener_name = format(local.name_template, "event-listener")
 }
 
 data "archive_file" "event_listener_build" {
@@ -14,20 +14,15 @@ data "archive_file" "event_listener_build" {
   )
 }
 
-resource "google_storage_bucket" "event_listener" {
-  name     = "moderation-event-listener-${local.environment_name}-${random_id.event_listener.hex}"
-  location = local.default_location
-}
-
 resource "google_storage_bucket_object" "event_listener" {
-  name   = "index.zip"
-  bucket = google_storage_bucket.event_listener.name
+  name   = "${local.eventlistener_name}/index.zip"
+  bucket = data.terraform_remote_state.holi_infra_state.outputs.gcf_sources_upload_bucket_name
   source = data.archive_file.event_listener_build.output_path
 }
 
 resource "google_cloudfunctions2_function" "event_listener" {
-  name     = "moderation-event-listener-${local.environment_name}-${random_id.event_listener.hex}"
-  location = local.default_location
+  name     = local.eventlistener_name
+  location = local.default_region
 
   depends_on = [google_service_account.moderation, google_project_iam_member.moderation]
 
@@ -37,7 +32,7 @@ resource "google_cloudfunctions2_function" "event_listener" {
 
     source {
       storage_source {
-        bucket = google_storage_bucket.event_listener.name
+        bucket = data.terraform_remote_state.holi_infra_state.outputs.gcf_sources_upload_bucket_name
         object = google_storage_bucket_object.event_listener.name
       }
     }
@@ -49,6 +44,10 @@ resource "google_cloudfunctions2_function" "event_listener" {
       project_id = local.project
       secret     = local.environment == "production" ? "ORY_API_KEY_PRODUCTION" : "ORY_API_KEY_DEVELOPMENT"
       version    = "latest"
+    }
+
+    environment_variables = {
+      "LOG_EXECUTION_ID" = "true"
     }
 
     service_account_email          = google_service_account.moderation.email
@@ -63,5 +62,6 @@ resource "google_cloudfunctions2_function" "event_listener" {
     event_type            = "google.cloud.pubsub.topic.v1.messagePublished"
     pubsub_topic          = google_pubsub_topic.moderation.id
     service_account_email = google_service_account.moderation.email
+    retry_policy          = "RETRY_POLICY_DO_NOT_RETRY"
   }
 }
