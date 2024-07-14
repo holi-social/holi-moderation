@@ -24,6 +24,9 @@ resource "google_sql_database" "backend" {
   project  = data.terraform_remote_state.holi_infra_state.outputs.shared_project_id
   instance = local.db_instance
   name     = local.backend_name
+
+  # on destroy, the user needs to be kept until the db is destroyed
+  depends_on = [google_sql_user.backend]
 }
 
 resource "google_cloud_run_service" "moderation_backend" {
