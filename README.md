@@ -13,7 +13,7 @@ using docker-compose from the context of this repository
 5. install hasura-cli https://hasura.io/docs/latest/hasura-cli/install-hasura-cli
 6. `cd apps/hasura && hasura deploy --admin-secret HASURA_GRAPHQL_ADMIN_SECRET` 
 
-An initial user account is created for you and a password echoed in the backend container log. Save the password.
+An initial user account is created for you and a password shown in the backend container log and saved to the [backend/.credentials file](backend/.credentials).
 (`+++ INITIAL USER: moderation@holi.social ...`)
 
 You should be able to reach the following endpoints:
