@@ -14,7 +14,6 @@ if (!process.env.OKUNA_DB_HOST) {
   process.exit();
 }
 
-const EXTERNAL_SERVICES = ["pubsub"];
 const SERVICES = ["db", "hasura", "frontend", "backend"];
 
 const waitForPostgres = (
@@ -88,13 +87,7 @@ const waitForPubsub = (
 };
 
 const replaceDockerInternalHostname = (host: string) => {
-  let result = "ERROR";
-  result = host.replace("host.docker.internal", "127.0.0.1");
-  EXTERNAL_SERVICES.forEach((externalServiceHost) => {
-    result = result.replace(externalServiceHost, "127.0.0.1");
-  });
-
-  return result;
+  return host.replace("host.docker.internal", "127.0.0.1");
 };
 
 (async () => {

@@ -1,8 +1,9 @@
 import crypto from 'node:crypto';
+import * as fs from 'node:fs';
 
 import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
-import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 import { AuthService } from './service/auth';
 import { User } from './entities/user';
@@ -31,6 +32,15 @@ export class CreateInitialUser implements OnApplicationBootstrap {
       );
 
       console.log(`+++ INITIAL USER: ${this.USER_EMAIL} - "${password}".`);
-    } catch {}
+
+      if (process.env.NODE_ENV === 'development') {
+        fs.writeFileSync(
+          '.credentials',
+          JSON.stringify({ email: this.USER_EMAIL, password }),
+        );
+      }
+    } catch (e) {
+      console.log(e);
+    }
   }
 }
