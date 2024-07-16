@@ -6,9 +6,8 @@ resource "google_project_service_identity" "moderation_pubsub_serviceaccount" {
 }
 
 resource "google_kms_crypto_key" "moderation_pubsub" {
-  name            = "moderation-pubsub-key"
-  key_ring        = data.terraform_remote_state.holi_infra_state.outputs.kms_shared_key_ring_id
-  rotation_period = "100000s"
+  name     = "moderation-pubsub-key"
+  key_ring = data.terraform_remote_state.holi_infra_state.outputs.kms_shared_key_ring_id
 
   lifecycle {
     prevent_destroy = true
