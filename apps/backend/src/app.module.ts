@@ -31,6 +31,7 @@ import { HealthCheckModule } from './healthcheck';
       autoSchemaFile: true,
       sortSchema: true,
       resolvers: { UUID: UUID },
+      introspection: true,
     }),
     AuthModule,
     PubsubModule,
