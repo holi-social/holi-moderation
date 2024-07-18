@@ -1,21 +1,15 @@
-import { Text, Timeline } from "@mantine/core";
-import { IconStatusChange } from "@tabler/icons-react";
-import {
-  formatDuration,
-  intervalToDuration,
-  minutesToMilliseconds,
-} from "date-fns";
+import { Text, Timeline } from '@mantine/core'
+import { IconStatusChange } from '@tabler/icons-react'
+import { formatDuration, intervalToDuration, minutesToMilliseconds } from 'date-fns'
 
-import { TimelineItemProps } from "..";
-import { relativeFormatISOTimestamp } from "../../../utils";
+import { TimelineItemProps } from '..'
+import { relativeFormatISOTimestamp } from '../../../utils'
 
-export const UserSuspendedTimelineItem: React.FC<TimelineItemProps> = ({
-  event,
-}) => {
+export const UserSuspendedTimelineItem: React.FC<TimelineItemProps> = ({ event }) => {
   const payload = event.eventPayload as unknown as {
-    userEmail: string;
-    duration?: number;
-  };
+    userEmail: string
+    duration?: number
+  }
 
   const formatMinutesAsDuration = (minutes: number) =>
     formatDuration(
@@ -23,11 +17,9 @@ export const UserSuspendedTimelineItem: React.FC<TimelineItemProps> = ({
         start: 0,
         end: minutesToMilliseconds(minutes),
       }),
-    );
+    )
 
-  const durationString = payload.duration
-    ? `for ${formatMinutesAsDuration(payload.duration)}`
-    : "indefinitely";
+  const durationString = payload.duration ? `for ${formatMinutesAsDuration(payload.duration)}` : 'indefinitely'
 
   return (
     <Timeline.Item
@@ -37,5 +29,5 @@ export const UserSuspendedTimelineItem: React.FC<TimelineItemProps> = ({
       <Text c="dimmed">{event.actor?.email}</Text>
       <Text c="dimmed">{relativeFormatISOTimestamp(event.occurredAt)}</Text>
     </Timeline.Item>
-  );
-};
+  )
+}

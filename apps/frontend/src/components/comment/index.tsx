@@ -1,56 +1,34 @@
-import React from "react";
-import useSWR from "swr";
-import {
-  Blockquote,
-  Button,
-  Grid,
-  Group,
-  Paper,
-  Stack,
-  Text,
-  Tooltip,
-} from "@mantine/core";
-import { formatDistanceToNow, parseISO } from "date-fns";
-import { IconMessageReply, IconUser } from "@tabler/icons-react";
+import React from 'react'
+import useSWR from 'swr'
+import { Blockquote, Button, Grid, Group, Paper, Stack, Text, Tooltip } from '@mantine/core'
+import { formatDistanceToNow, parseISO } from 'date-fns'
+import { IconMessageReply, IconUser } from '@tabler/icons-react'
 
-import { okunaAdminUrl } from "../../utils";
-import { Post, PostSkeleton } from "../post";
-import {
-  CommentDetailsFragment,
-  ViewPostQuery as ViewPostQueryResponse,
-} from "../../graphql/generated/types";
-import { UserAvatar } from "../avatar";
-import { ViewPostQuery } from "../../graphql/queries/viewPost";
+import { okunaAdminUrl } from '../../utils'
+import { Post, PostSkeleton } from '../post'
+import { CommentDetailsFragment, ViewPostQuery as ViewPostQueryResponse } from '../../graphql/generated/types'
+import { UserAvatar } from '../avatar'
+import { ViewPostQuery } from '../../graphql/queries/viewPost'
 
 type CommentProps = {
-  comment: CommentDetailsFragment;
-  withCommentable?: boolean;
-};
+  comment: CommentDetailsFragment
+  withCommentable?: boolean
+}
 
-export const Comment: React.FC<CommentProps> = ({
-  comment,
-  withCommentable = true,
-}) => {
+export const Comment: React.FC<CommentProps> = ({ comment, withCommentable = true }) => {
   const commentableIsPost =
-    comment.commentableType.appLabel === "openbook_posts" &&
-    comment.commentableType.model === "post";
+    comment.commentableType.appLabel === 'openbook_posts' && comment.commentableType.model === 'post'
 
-  const { data: postResponse, isLoading: postIsLoading } =
-    useSWR<ViewPostQueryResponse>(() => {
-      if (!commentableIsPost) return false;
-      return [ViewPostQuery, { id: comment.commentableId }];
-    });
+  const { data: postResponse, isLoading: postIsLoading } = useSWR<ViewPostQueryResponse>(() => {
+    if (!commentableIsPost) return false
+    return [ViewPostQuery, { id: comment.commentableId }]
+  })
 
-  const post = postResponse?.openbookPostsPostByPk;
+  const post = postResponse?.openbookPostsPostByPk
 
-  const authorName =
-    (comment.commenter.profile?.name ?? "") +
-    " " +
-    (comment.commenter.profile?.lastName ?? "");
+  const authorName = (comment.commenter.profile?.name ?? '') + ' ' + (comment.commenter.profile?.lastName ?? '')
 
-  const authorAdminUrl = okunaAdminUrl(
-    `openbook_auth/user/${comment.commenter.id}`,
-  );
+  const authorAdminUrl = okunaAdminUrl(`openbook_auth/user/${comment.commenter.id}`)
 
   const commentOnly = (
     <Paper p="md">
@@ -62,7 +40,7 @@ export const Comment: React.FC<CommentProps> = ({
             cite={
               <Tooltip label={parseISO(comment.created).toLocaleString()}>
                 <Text>
-                  {authorName} •{" "}
+                  {authorName} •{' '}
                   {formatDistanceToNow(comment.created, {
                     addSuffix: true,
                   })}
@@ -98,21 +76,17 @@ export const Comment: React.FC<CommentProps> = ({
         </Stack>
       </Group>
     </Paper>
-  );
+  )
 
-  if (!withCommentable) return commentOnly;
+  if (!withCommentable) return commentOnly
 
   return (
     <Grid>
       <Grid.Col span={12}>
-        {!postIsLoading && post ? (
-          <Post post={post} backgroundColor="gray" />
-        ) : (
-          <PostSkeleton backgroundColor="gray" />
-        )}
+        {!postIsLoading && post ? <Post post={post} backgroundColor="gray" /> : <PostSkeleton backgroundColor="gray" />}
       </Grid.Col>
       <Grid.Col span={1} />
       <Grid.Col span={11}>{commentOnly}</Grid.Col>
     </Grid>
-  );
-};
+  )
+}

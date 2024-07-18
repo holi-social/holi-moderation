@@ -1,20 +1,17 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Duration, add } from 'date-fns';
-import { Cron, CronExpression } from '@nestjs/schedule';
+import { Injectable, Logger } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
+import { Repository } from 'typeorm'
+import { Duration, add } from 'date-fns'
+import { Cron, CronExpression } from '@nestjs/schedule'
 
-import { Publisher } from '../pubsub/publisher';
-import {
-  UserSuspendedEvent,
-  UserSuspensionExpiredEvent,
-} from '../pubsub/events';
+import { Publisher } from '../pubsub/publisher'
+import { UserSuspendedEvent, UserSuspensionExpiredEvent } from '../pubsub/events'
 
-import { UserSuspension } from './entities/userSuspension';
+import { UserSuspension } from './entities/userSuspension'
 
 @Injectable()
 export class UserSuspensions {
-  private readonly logger = new Logger(UserSuspensions.name);
+  private readonly logger = new Logger(UserSuspensions.name)
 
   constructor(
     @InjectRepository(UserSuspension)
@@ -23,14 +20,10 @@ export class UserSuspensions {
   ) {}
 
   public async isUserSuspended(email: string): Promise<boolean> {
-    return this.repository.existsBy({ email });
+    return this.repository.existsBy({ email })
   }
 
-  public async suspendUser(
-    email: string,
-    reason?: string,
-    duration?: Duration,
-  ): Promise<void> {
+  public async suspendUser(email: string, reason?: string, duration?: Duration): Promise<void> {
     await this.publisher.publish<UserSuspendedEvent>({
       eventType: 'UserSuspended',
       version: '1',
@@ -38,40 +31,40 @@ export class UserSuspensions {
         email,
         reason,
       },
-    });
+    })
 
-    const suspension = this.repository.create({ email, reason });
+    const suspension = this.repository.create({ email, reason })
     if (duration) {
-      suspension.expiresAt = add(new Date(), duration);
+      suspension.expiresAt = add(new Date(), duration)
     }
 
-    await this.repository.save(suspension);
+    await this.repository.save(suspension)
   }
 
   @Cron(CronExpression.EVERY_10_MINUTES)
   public async liftExpiredSuspensions(): Promise<UserSuspension[]> {
-    this.logger.debug('Checking for expired suspensions');
+    this.logger.debug('Checking for expired suspensions')
 
     const expiredSuspensions = await this.repository
       .createQueryBuilder('us')
       .where('us.expiresAt <= CURRENT_TIMESTAMP')
       .andWhere('us.deletedAt IS NULL')
-      .getMany();
+      .getMany()
 
     await Promise.all(
       expiredSuspensions.map((suspension) => {
-        this.logger.debug(`Lifting expired suspension ${suspension.id}`);
+        this.logger.debug(`Lifting expired suspension ${suspension.id}`)
         return this.publisher.publish<UserSuspensionExpiredEvent>({
           eventType: 'UserSuspensionExpired',
           version: '1',
           data: {
             email: suspension.email,
           },
-        });
+        })
       }),
-    );
+    )
 
-    await this.repository.softRemove(expiredSuspensions);
-    return this.repository.save(expiredSuspensions);
+    await this.repository.softRemove(expiredSuspensions)
+    return this.repository.save(expiredSuspensions)
   }
 }

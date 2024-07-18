@@ -1,5 +1,5 @@
-import { Ory } from "../ory";
+import { Ory } from '../ory'
 
 export type HandlerOptions = {
-  ory?: Ory;
-};
+  ory?: Ory
+}

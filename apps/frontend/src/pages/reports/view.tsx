@@ -1,18 +1,7 @@
-import React from "react";
-import { Link, useParams } from "react-router-dom";
-import useSWR from "swr";
-import {
-  Grid,
-  Loader,
-  Title,
-  Text,
-  ActionIcon,
-  Avatar,
-  Flex,
-  Button,
-  Accordion,
-  Group,
-} from "@mantine/core";
+import React from 'react'
+import { Link, useParams } from 'react-router-dom'
+import useSWR from 'swr'
+import { Grid, Loader, Title, Text, ActionIcon, Avatar, Flex, Button, Accordion, Group } from '@mantine/core'
 import {
   IconActivity,
   IconArrowLeft,
@@ -22,38 +11,30 @@ import {
   IconHistory,
   IconMessageReport,
   IconUserCancel,
-} from "@tabler/icons-react";
-import { formatDistanceToNow, parseISO } from "date-fns";
+} from '@tabler/icons-react'
+import { formatDistanceToNow, parseISO } from 'date-fns'
 
-import { okunaAdminUrl } from "../../utils";
-import {
-  ViewReportQuery as ViewReportQueryResponse,
-  ViewReportQueryVariables,
-} from "../../graphql/generated/types";
-import { OpenbookAuthUser } from "../../graphql/generated/schema.types";
-import { Post } from "../../components/post";
-import { Comment } from "../../components/comment";
-import { ReportedUser } from "../../components/user/reported";
-import { ReportedSpace } from "../../components/space/reported";
-import { ReportedSpaceAppointment } from "../../components/spaceAppointment/reported";
-import { ViewReportQuery } from "../../graphql/queries/viewReport";
-import { ReportedSpaceTask } from "../../components/spaceTask/reported";
-import { ReportedSpaceLinkhubTool } from "../../components/spaceLinkhubTool/reported";
-import { ReportStatusDropdown } from "../../components/reportStatusDropdown";
-import { ReportTimeline } from "../../components/reportTimeline";
-import { ReportsTable } from "../../components/reportsTable";
-import { showSuspendUser } from "../../modals";
+import { okunaAdminUrl } from '../../utils'
+import { ViewReportQuery as ViewReportQueryResponse, ViewReportQueryVariables } from '../../graphql/generated/types'
+import { OpenbookAuthUser } from '../../graphql/generated/schema.types'
+import { Post } from '../../components/post'
+import { Comment } from '../../components/comment'
+import { ReportedUser } from '../../components/user/reported'
+import { ReportedSpace } from '../../components/space/reported'
+import { ReportedSpaceAppointment } from '../../components/spaceAppointment/reported'
+import { ViewReportQuery } from '../../graphql/queries/viewReport'
+import { ReportedSpaceTask } from '../../components/spaceTask/reported'
+import { ReportedSpaceLinkhubTool } from '../../components/spaceLinkhubTool/reported'
+import { ReportStatusDropdown } from '../../components/reportStatusDropdown'
+import { ReportTimeline } from '../../components/reportTimeline'
+import { ReportsTable } from '../../components/reportsTable'
+import { showSuspendUser } from '../../modals'
 
 const OkunaLinkButton: React.FC<{ urlPath: string }> = ({ urlPath }) => (
-  <ActionIcon
-    variant="default"
-    component="a"
-    href={okunaAdminUrl(urlPath)}
-    target="_blank"
-  >
-    <IconExternalLink style={{ width: "75%", height: "75%" }} />
+  <ActionIcon variant="default" component="a" href={okunaAdminUrl(urlPath)} target="_blank">
+    <IconExternalLink style={{ width: '75%', height: '75%' }} />
   </ActionIcon>
-);
+)
 
 const User: React.FC<{ user: OpenbookAuthUser }> = ({ user }) => {
   return (
@@ -64,48 +45,39 @@ const User: React.FC<{ user: OpenbookAuthUser }> = ({ user }) => {
       </Text>
       <OkunaLinkButton urlPath={`openbook_auth/user/${user.id}`} />
     </Flex>
-  );
-};
+  )
+}
 
 export const ViewReport: React.FC = () => {
-  const { reportId } = useParams();
+  const { reportId } = useParams()
   const { data, isLoading } = useSWR<
     ViewReportQueryResponse,
     unknown,
     [typeof ViewReportQuery, ViewReportQueryVariables]
-  >([ViewReportQuery, { id: reportId! }]);
+  >([ViewReportQuery, { id: reportId! }])
 
   if (isLoading || !data) {
-    return <Loader />;
+    return <Loader />
   }
 
-  const report = data?.report;
-  const idLastDigits = report.id.substring(0, 6).toUpperCase();
+  const report = data?.report
+  const idLastDigits = report.id.substring(0, 6).toUpperCase()
 
   const formatDate = (dateString: string) => {
-    const date = parseISO(dateString);
-    return `${formatDistanceToNow(date, { addSuffix: true })} (${date.toLocaleString()})`;
-  };
+    const date = parseISO(dateString)
+    return `${formatDistanceToNow(date, { addSuffix: true })} (${date.toLocaleString()})`
+  }
 
   return (
     <>
       <Flex align="center" pb="xl" gap="md">
-        <ActionIcon
-          variant="subtle"
-          color="gray"
-          component={Link}
-          to="/reports"
-        >
+        <ActionIcon variant="subtle" color="gray" component={Link} to="/reports">
           <IconArrowLeft />
         </ActionIcon>
         <Title>Report #{idLastDigits}</Title>
       </Flex>
 
-      <Accordion
-        multiple
-        variant="separated"
-        defaultValue={["report", "content"]}
-      >
+      <Accordion multiple variant="separated" defaultValue={['report', 'content']}>
         <Accordion.Item value="report">
           <Accordion.Control icon={<IconMessageReport />}>
             <Title order={3}>Report Details</Title>
@@ -116,10 +88,7 @@ export const ViewReport: React.FC = () => {
                 <Text fw={700}>Status:</Text>
               </Grid.Col>
               <Grid.Col span={10} display="flex">
-                <ReportStatusDropdown
-                  reportId={report.id}
-                  status={report.status}
-                />
+                <ReportStatusDropdown reportId={report.id} status={report.status} />
               </Grid.Col>
               <Grid.Col span={2}>
                 <Text fw={700}>Reported by:</Text>
@@ -143,15 +112,13 @@ export const ViewReport: React.FC = () => {
               <Grid.Col span={12}>
                 <Accordion variant="contained">
                   <Accordion.Item value="userReports">
-                    <Accordion.Control icon={<IconHistory />}>
-                      Recent reports by this user
-                    </Accordion.Control>
+                    <Accordion.Control icon={<IconHistory />}>Recent reports by this user</Accordion.Control>
 
                     <Accordion.Panel>
                       <ReportsTable
                         filters={{ reporter: report.reporter?.id }}
                         initialTableState={{
-                          density: "xs",
+                          density: 'xs',
                           pagination: { pageIndex: 0, pageSize: 5 },
                         }}
                       />
@@ -163,7 +130,7 @@ export const ViewReport: React.FC = () => {
           </Accordion.Panel>
         </Accordion.Item>
 
-        {report.contentType === "POST" && report.reportedPost && (
+        {report.contentType === 'POST' && report.reportedPost && (
           <Accordion.Item value="content">
             <Accordion.Control icon={<IconFlag />}>
               <Title order={3}>Reported Post</Title>
@@ -174,7 +141,7 @@ export const ViewReport: React.FC = () => {
           </Accordion.Item>
         )}
 
-        {report.contentType === "COMMENT" && report.reportedComment && (
+        {report.contentType === 'COMMENT' && report.reportedComment && (
           <Accordion.Item value="content">
             <Accordion.Control icon={<IconFlag />}>
               <Title order={3}>Reported Comment</Title>
@@ -185,7 +152,7 @@ export const ViewReport: React.FC = () => {
           </Accordion.Item>
         )}
 
-        {report.contentType === "USER" && report.reportedUser && (
+        {report.contentType === 'USER' && report.reportedUser && (
           <Accordion.Item value="content">
             <Accordion.Control icon={<IconFlag />}>
               <Title order={3}>Reported User</Title>
@@ -196,7 +163,7 @@ export const ViewReport: React.FC = () => {
           </Accordion.Item>
         )}
 
-        {report.contentType === "SPACE" && report.reportedSpace && (
+        {report.contentType === 'SPACE' && report.reportedSpace && (
           <Accordion.Item value="content">
             <Accordion.Control icon={<IconFlag />}>
               <Title order={3}>Reported Space</Title>
@@ -207,21 +174,18 @@ export const ViewReport: React.FC = () => {
           </Accordion.Item>
         )}
 
-        {report.contentType === "SPACE_APPOINTMENT" &&
-          report.reportedSpaceAppointment && (
-            <Accordion.Item value="content">
-              <Accordion.Control icon={<IconFlag />}>
-                <Title order={3}>Reported Appointment</Title>
-              </Accordion.Control>
-              <Accordion.Panel>
-                <ReportedSpaceAppointment
-                  appointment={report.reportedSpaceAppointment}
-                />
-              </Accordion.Panel>
-            </Accordion.Item>
-          )}
+        {report.contentType === 'SPACE_APPOINTMENT' && report.reportedSpaceAppointment && (
+          <Accordion.Item value="content">
+            <Accordion.Control icon={<IconFlag />}>
+              <Title order={3}>Reported Appointment</Title>
+            </Accordion.Control>
+            <Accordion.Panel>
+              <ReportedSpaceAppointment appointment={report.reportedSpaceAppointment} />
+            </Accordion.Panel>
+          </Accordion.Item>
+        )}
 
-        {report.contentType === "SPACE_TASK" && report.reportedSpaceTask && (
+        {report.contentType === 'SPACE_TASK' && report.reportedSpaceTask && (
           <Accordion.Item value="content">
             <Accordion.Control icon={<IconFlag />}>
               <Title order={3}>Reported Task</Title>
@@ -232,19 +196,16 @@ export const ViewReport: React.FC = () => {
           </Accordion.Item>
         )}
 
-        {report.contentType === "SPACE_LINKHUB_TOOL" &&
-          report.reportedSpaceLinkhubTool && (
-            <Accordion.Item value="content">
-              <Accordion.Control icon={<IconFlag />}>
-                <Title order={3}>Reported Linkhub Tool</Title>
-              </Accordion.Control>
-              <Accordion.Panel>
-                <ReportedSpaceLinkhubTool
-                  tool={report.reportedSpaceLinkhubTool}
-                />
-              </Accordion.Panel>
-            </Accordion.Item>
-          )}
+        {report.contentType === 'SPACE_LINKHUB_TOOL' && report.reportedSpaceLinkhubTool && (
+          <Accordion.Item value="content">
+            <Accordion.Control icon={<IconFlag />}>
+              <Title order={3}>Reported Linkhub Tool</Title>
+            </Accordion.Control>
+            <Accordion.Panel>
+              <ReportedSpaceLinkhubTool tool={report.reportedSpaceLinkhubTool} />
+            </Accordion.Panel>
+          </Accordion.Item>
+        )}
 
         <Accordion.Item value="actions">
           <Accordion.Control icon={<IconGavel />}>
@@ -294,5 +255,5 @@ export const ViewReport: React.FC = () => {
         </Accordion.Item>
       </Accordion>
     </>
-  );
-};
+  )
+}

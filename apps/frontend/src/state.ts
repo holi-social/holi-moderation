@@ -1,38 +1,38 @@
-import { jwtDecode } from "jwt-decode";
-import { create } from "zustand";
-import { devtools, persist } from "zustand/middleware";
+import { jwtDecode } from 'jwt-decode'
+import { create } from 'zustand'
+import { devtools, persist } from 'zustand/middleware'
 
 type UserInfo = {
-  id: string;
-  email: string;
-  role: "admin" | "moderator";
-  token: string;
-  validUntil: number;
-};
+  id: string
+  email: string
+  role: 'admin' | 'moderator'
+  token: string
+  validUntil: number
+}
 
 export type TokenPayload = {
-  sub: string;
-  exp: number;
-  email: string;
-  role: "admin" | "moderator";
-};
+  sub: string
+  exp: number
+  email: string
+  role: 'admin' | 'moderator'
+}
 
 export type AuthStateLoggedOut = {
-  loggedIn: false;
-};
+  loggedIn: false
+}
 
 export type AuthStateLoggedIn = {
-  loggedIn: true;
-  user: UserInfo;
-};
+  loggedIn: true
+  user: UserInfo
+}
 
-export type AuthState = AuthStateLoggedIn | AuthStateLoggedOut;
+export type AuthState = AuthStateLoggedIn | AuthStateLoggedOut
 
 export type AuthActions = {
-  logIn: (token: string) => void;
-  logOut: () => void;
-  tokenExpired: () => boolean;
-};
+  logIn: (token: string) => void
+  logOut: () => void
+  tokenExpired: () => boolean
+}
 
 export const useAuthState = create<AuthState & AuthActions>()(
   devtools(
@@ -40,13 +40,13 @@ export const useAuthState = create<AuthState & AuthActions>()(
       (set, get) => ({
         loggedIn: false,
         logIn: (token: string) => {
-          const payload = jwtDecode<TokenPayload>(token);
+          const payload = jwtDecode<TokenPayload>(token)
 
           if (payload === null) {
-            return;
+            return
           }
 
-          const validUntil: number = payload.exp;
+          const validUntil: number = payload.exp
 
           set(() => ({
             loggedIn: true,
@@ -57,15 +57,13 @@ export const useAuthState = create<AuthState & AuthActions>()(
               token,
               validUntil,
             },
-          }));
+          }))
         },
         logOut: () => set(() => ({ loggedIn: false, user: undefined })),
         tokenExpired: () =>
-          get().loggedIn &&
-          (get() as AuthStateLoggedIn).user.validUntil <=
-            Math.floor(Date.now() / 1000),
+          get().loggedIn && (get() as AuthStateLoggedIn).user.validUntil <= Math.floor(Date.now() / 1000),
       }),
-      { name: "moderation-auth" },
+      { name: 'moderation-auth' },
     ),
   ),
-);
+)

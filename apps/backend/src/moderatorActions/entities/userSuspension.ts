@@ -1,30 +1,23 @@
-import {
-  Column,
-  CreateDateColumn,
-  DeleteDateColumn,
-  Entity,
-  Index,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, Index, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity()
 export class UserSuspension {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id: string
 
   @Column('varchar', { length: 255 })
-  email: string;
+  email: string
 
   @Column('text', { nullable: true })
-  reason: string;
+  reason: string
 
   @Column('timestamp', { nullable: true })
   @Index()
-  expiresAt: Date;
+  expiresAt: Date
 
   @CreateDateColumn()
-  createdAt: Date;
+  createdAt: Date
 
   @DeleteDateColumn()
-  deletedAt: Date;
+  deletedAt: Date
 }

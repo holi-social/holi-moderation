@@ -1,52 +1,39 @@
-import {
-  Combobox,
-  Group,
-  InputBase,
-  LoadingOverlay,
-  MantineColor,
-  Text,
-  useCombobox,
-} from "@mantine/core";
-import React, { useState } from "react";
-import {
-  IconBan,
-  IconCheck,
-  IconMailbox,
-  IconProgress,
-} from "@tabler/icons-react";
-import { useSWRConfig } from "swr";
-import { notifications } from "@mantine/notifications";
+import { Combobox, Group, InputBase, LoadingOverlay, MantineColor, Text, useCombobox } from '@mantine/core'
+import React, { useState } from 'react'
+import { IconBan, IconCheck, IconMailbox, IconProgress } from '@tabler/icons-react'
+import { useSWRConfig } from 'swr'
+import { notifications } from '@mantine/notifications'
 
-import { ReportStatus } from "../../graphql/generated/schema.types";
-import { titleCase } from "../../utils";
-import { ChangeReportStatusMutation } from "../../graphql/mutations/changeReportStatus";
-import { ViewReportQuery } from "../../graphql/queries/viewReport";
-import { gqlClient } from "../../fetcher";
-import { ChangeReportStatusMutation as ChangeReportStatusMutationResponse } from "../../graphql/generated/types";
+import { ReportStatus } from '../../graphql/generated/schema.types'
+import { titleCase } from '../../utils'
+import { ChangeReportStatusMutation } from '../../graphql/mutations/changeReportStatus'
+import { ViewReportQuery } from '../../graphql/queries/viewReport'
+import { gqlClient } from '../../fetcher'
+import { ChangeReportStatusMutation as ChangeReportStatusMutationResponse } from '../../graphql/generated/types'
 
 interface DropdownItem {
-  icon: typeof IconMailbox;
-  status: ReportStatus;
-  bgColor: MantineColor;
-  fgColor?: MantineColor;
+  icon: typeof IconMailbox
+  status: ReportStatus
+  bgColor: MantineColor
+  fgColor?: MantineColor
 }
 
 const DROPDOWN_ITEMS: DropdownItem[] = [
-  { icon: IconMailbox, status: "OPEN", bgColor: "orange", fgColor: "white" },
+  { icon: IconMailbox, status: 'OPEN', bgColor: 'orange', fgColor: 'white' },
   {
     icon: IconProgress,
-    status: "IN_PROGRESS",
-    bgColor: "blue",
-    fgColor: "white",
+    status: 'IN_PROGRESS',
+    bgColor: 'blue',
+    fgColor: 'white',
   },
-  { icon: IconBan, status: "REJECTED", bgColor: "red" },
-  { icon: IconCheck, status: "ACTION_TAKEN", bgColor: "green" },
-];
+  { icon: IconBan, status: 'REJECTED', bgColor: 'red' },
+  { icon: IconCheck, status: 'ACTION_TAKEN', bgColor: 'green' },
+]
 
 type ReportStatusDropdownProps = {
-  status: ReportStatus;
-  reportId: string;
-};
+  status: ReportStatus
+  reportId: string
+}
 
 const DropdownOption: React.FC<DropdownItem> = ({ icon: Icon, status }) => {
   return (
@@ -54,65 +41,59 @@ const DropdownOption: React.FC<DropdownItem> = ({ icon: Icon, status }) => {
       <Icon />
       <Text fz="sm">{titleCase(status)}</Text>
     </Group>
-  );
-};
+  )
+}
 
-export const ReportStatusDropdown: React.FC<ReportStatusDropdownProps> = ({
-  status,
-  reportId,
-}) => {
-  const combobox = useCombobox();
-  const [localStatus, setLocalStatus] = useState<ReportStatus>(status);
-  const [loading, setLoading] = useState<boolean>(false);
+export const ReportStatusDropdown: React.FC<ReportStatusDropdownProps> = ({ status, reportId }) => {
+  const combobox = useCombobox()
+  const [localStatus, setLocalStatus] = useState<ReportStatus>(status)
+  const [loading, setLoading] = useState<boolean>(false)
 
-  const { mutate } = useSWRConfig();
+  const { mutate } = useSWRConfig()
   const updateStatus = (newStatus: ReportStatus) => {
     mutate(
       [ViewReportQuery, { id: reportId }],
       async () => {
-        setLoading(true);
-        const { changeReportStatus } =
-          await gqlClient().request<ChangeReportStatusMutationResponse>(
-            ChangeReportStatusMutation,
-            {
-              reportId: reportId,
-              newStatus: newStatus,
-            },
-          );
-        setLoading(false);
+        setLoading(true)
+        const { changeReportStatus } = await gqlClient().request<ChangeReportStatusMutationResponse>(
+          ChangeReportStatusMutation,
+          {
+            reportId: reportId,
+            newStatus: newStatus,
+          },
+        )
+        setLoading(false)
 
         notifications.show({
-          message: "Status updated!",
-          color: "green",
+          message: 'Status updated!',
+          color: 'green',
           withBorder: true,
-        });
+        })
 
         return {
           report: changeReportStatus,
-        };
+        }
       },
       false,
-    );
-  };
+    )
+  }
 
   const options = DROPDOWN_ITEMS.map((item) => (
     <Combobox.Option value={item.status} key={item.status}>
       <DropdownOption {...item} />
     </Combobox.Option>
-  ));
+  ))
 
-  const selectedOption = DROPDOWN_ITEMS.find(
-    (item) => item.status === localStatus,
-  );
+  const selectedOption = DROPDOWN_ITEMS.find((item) => item.status === localStatus)
 
   return (
     <Combobox
       store={combobox}
       offset={0}
       onOptionSubmit={async (newStatus) => {
-        setLocalStatus(newStatus as ReportStatus);
-        combobox.closeDropdown();
-        updateStatus(newStatus as ReportStatus);
+        setLocalStatus(newStatus as ReportStatus)
+        combobox.closeDropdown()
+        updateStatus(newStatus as ReportStatus)
       }}
     >
       <Combobox.Target>
@@ -126,7 +107,7 @@ export const ReportStatusDropdown: React.FC<ReportStatusDropdownProps> = ({
           w={200}
           multiline
         >
-          <LoadingOverlay visible={loading} loaderProps={{ size: "xs" }} />
+          <LoadingOverlay visible={loading} loaderProps={{ size: 'xs' }} />
           {selectedOption && <DropdownOption {...selectedOption} />}
         </InputBase>
       </Combobox.Target>
@@ -135,5 +116,5 @@ export const ReportStatusDropdown: React.FC<ReportStatusDropdownProps> = ({
         <Combobox.Options>{options}</Combobox.Options>
       </Combobox.Dropdown>
     </Combobox>
-  );
-};
+  )
+}

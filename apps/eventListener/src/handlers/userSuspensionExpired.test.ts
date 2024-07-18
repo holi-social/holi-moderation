@@ -1,21 +1,20 @@
-import { Ory } from "../ory";
-import { handleUserSuspensionExpired } from "./userSuspensionExpired";
+import { Ory } from '../ory'
 
-describe("userSuspensionExpired handler", () => {
-  it("should activate ory identity", () => {
-    const ory = Ory.withApiKey("");
+import { handleUserSuspensionExpired } from './userSuspensionExpired'
 
-    const activateUser = jest
-      .spyOn(Ory.prototype, "activateUser")
-      .mockImplementation(async () => {});
+describe('userSuspensionExpired handler', () => {
+  it('should activate ory identity', () => {
+    const ory = Ory.withApiKey('')
+
+    const activateUser = jest.spyOn(Ory.prototype, 'activateUser').mockImplementation(async () => {})
 
     handleUserSuspensionExpired(
       {
-        email: "test@holi.social",
+        email: 'test@holi.social',
       },
       { ory },
-    );
+    )
 
-    expect(activateUser).toHaveBeenCalledWith<[string]>("test@holi.social");
-  });
-});
+    expect(activateUser).toHaveBeenCalledWith<[string]>('test@holi.social')
+  })
+})

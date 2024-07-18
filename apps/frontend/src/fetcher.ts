@@ -1,23 +1,21 @@
-import { GraphQLClient, RequestDocument, Variables } from "graphql-request";
-import { Fetcher } from "swr";
+import { GraphQLClient, RequestDocument, Variables } from 'graphql-request'
+import { Fetcher } from 'swr'
 
-import { useAuthState } from "./state";
+import { useAuthState } from './state'
 
-export const BASE_URL = import.meta.env.VITE_GRAPHQL_URL;
+export const BASE_URL = import.meta.env.VITE_GRAPHQL_URL
 export const gqlClient = () => {
-  const authState = useAuthState.getState();
-  const headers: { authorization?: string } = {};
+  const authState = useAuthState.getState()
+  const headers: { authorization?: string } = {}
 
   if (authState.loggedIn) {
-    headers["authorization"] = `Bearer ${authState.user.token}`;
+    headers['authorization'] = `Bearer ${authState.user.token}`
   }
 
-  return new GraphQLClient(BASE_URL, { headers });
-};
+  return new GraphQLClient(BASE_URL, { headers })
+}
 
-type FetcherArgs = [RequestDocument, Variables | undefined];
+type FetcherArgs = [RequestDocument, Variables | undefined]
 
-export const fetcher: Fetcher<unknown, FetcherArgs> = ([
-  query,
-  variables,
-]: FetcherArgs) => gqlClient().request(query, variables);
+export const fetcher: Fetcher<unknown, FetcherArgs> = ([query, variables]: FetcherArgs) =>
+  gqlClient().request(query, variables)

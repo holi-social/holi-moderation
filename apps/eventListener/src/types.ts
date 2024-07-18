@@ -3,58 +3,39 @@
  *       maybe workspace dependencies + bundler?
  */
 
-export type EventType =
-  | "UserSuspended"
-  | "UserSuspensionExpired"
-  | "ContentDeleted";
+export type EventType = 'UserSuspended' | 'UserSuspensionExpired' | 'ContentDeleted'
 
 export type PubsubEvent<TEvent extends EventType, TData extends object> = {
-  subscription: string;
+  subscription: string
   message: {
-    messageId: string;
-    publishTime: string;
-  };
+    messageId: string
+    publishTime: string
+  }
   attributes: {
-    eventVersion: number;
-    eventType: TEvent;
-  };
-  data: TData;
-};
+    eventVersion: number
+    eventType: TEvent
+  }
+  data: TData
+}
 
 export type UserSuspendedData = {
-  email: string;
-  reason?: string;
-};
+  email: string
+  reason?: string
+}
 
 export type UserSuspensionExpiredData = {
-  email: string;
-};
+  email: string
+}
 
 export type ContentDeletedData = {
-  contentType:
-    | "POST"
-    | "COMMENT"
-    | "CHAT_MESSAGE"
-    | "SPACE"
-    | "SPACE_TASK"
-    | "SPACE_APPOINTMENT"
-    | "SPACE_LINKHUB_TOOL";
-  contentId: string;
-  userId: string;
-  reason?: string;
-};
+  contentType: 'POST' | 'COMMENT' | 'CHAT_MESSAGE' | 'SPACE' | 'SPACE_TASK' | 'SPACE_APPOINTMENT' | 'SPACE_LINKHUB_TOOL'
+  contentId: string
+  userId: string
+  reason?: string
+}
 
-export type UserSuspendedEvent = PubsubEvent<
-  "UserSuspended",
-  UserSuspendedData
->;
+export type UserSuspendedEvent = PubsubEvent<'UserSuspended', UserSuspendedData>
 
-export type UserSuspensionExpiredEvent = PubsubEvent<
-  "UserSuspensionExpired",
-  UserSuspensionExpiredData
->;
+export type UserSuspensionExpiredEvent = PubsubEvent<'UserSuspensionExpired', UserSuspensionExpiredData>
 
-export type ContentDeletedEvent = PubsubEvent<
-  "ContentDeleted",
-  ContentDeletedData
->;
+export type ContentDeletedEvent = PubsubEvent<'ContentDeleted', ContentDeletedData>

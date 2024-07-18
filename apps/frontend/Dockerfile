@@ -1,4 +1,4 @@
-FROM node:21-alpine AS dependencies
+FROM node:20.11-alpine AS dependencies
 
 WORKDIR /code
 COPY package.json yarn.lock .yarnrc.yml ./
@@ -8,7 +8,7 @@ RUN corepack enable \
 
 ###
 
-FROM node:21-alpine AS builder
+FROM node:20.11-alpine AS builder
 
 WORKDIR /code
 COPY --from=dependencies /code/node_modules ./node_modules
@@ -22,7 +22,7 @@ RUN corepack enable \
 
 ###
 
-FROM node:21-alpine AS development
+FROM node:20.11-alpine AS development
 
 WORKDIR /code
 

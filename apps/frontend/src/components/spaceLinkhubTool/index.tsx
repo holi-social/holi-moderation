@@ -1,33 +1,14 @@
-import React from "react";
-import {
-  ActionIcon,
-  Avatar,
-  Card,
-  Group,
-  Stack,
-  Text,
-  Title,
-} from "@mantine/core";
-import {
-  IconCategory,
-  IconClockPlus,
-  IconExternalLink,
-  IconLink,
-  IconUser,
-} from "@tabler/icons-react";
+import React from 'react'
+import { ActionIcon, Avatar, Card, Group, Stack, Text, Title } from '@mantine/core'
+import { IconCategory, IconClockPlus, IconExternalLink, IconLink, IconUser } from '@tabler/icons-react'
 
-import { OpenbookCommunitiesCollaborationtool } from "../../graphql/generated/schema.types";
-import { SpaceLinkhubToolDetailsFragment } from "../../graphql/generated/types";
-import {
-  formatUser,
-  getInitials,
-  relativeFormatISOTimestamp,
-  titleCase,
-} from "../../utils";
+import { OpenbookCommunitiesCollaborationtool } from '../../graphql/generated/schema.types'
+import { SpaceLinkhubToolDetailsFragment } from '../../graphql/generated/types'
+import { formatUser, getInitials, relativeFormatISOTimestamp, titleCase } from '../../utils'
 
 type SpaceLinkhubToolProps = {
-  tool: SpaceLinkhubToolDetailsFragment | OpenbookCommunitiesCollaborationtool;
-};
+  tool: SpaceLinkhubToolDetailsFragment | OpenbookCommunitiesCollaborationtool
+}
 
 export const SpaceLinkhubTool: React.FC<SpaceLinkhubToolProps> = ({ tool }) => {
   return (
@@ -45,13 +26,7 @@ export const SpaceLinkhubTool: React.FC<SpaceLinkhubToolProps> = ({ tool }) => {
               <Text>{tool.description}</Text>
             </Stack>
           </Group>
-          <ActionIcon
-            variant="transparent"
-            color="gray"
-            component="a"
-            href={tool.url}
-            target="_blank"
-          >
+          <ActionIcon variant="transparent" color="gray" component="a" href={tool.url} target="_blank">
             <IconExternalLink />
           </ActionIcon>
         </Group>
@@ -68,9 +43,7 @@ export const SpaceLinkhubTool: React.FC<SpaceLinkhubToolProps> = ({ tool }) => {
           </Group>
           <Group gap="xs">
             <IconClockPlus size={14} />
-            <Text size="sm">
-              created {relativeFormatISOTimestamp(tool.createdAt)}
-            </Text>
+            <Text size="sm">created {relativeFormatISOTimestamp(tool.createdAt)}</Text>
           </Group>
           <Group gap="xs">
             <IconUser size={14} />
@@ -79,5 +52,5 @@ export const SpaceLinkhubTool: React.FC<SpaceLinkhubToolProps> = ({ tool }) => {
         </Stack>
       </Card.Section>
     </Card>
-  );
-};
+  )
+}

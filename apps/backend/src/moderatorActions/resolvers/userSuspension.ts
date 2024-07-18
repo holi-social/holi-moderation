@@ -1,11 +1,11 @@
-import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql'
 
-import { Success } from '../../graphql/commonSchema';
-import { UserSuspensions } from '../userSuspensions';
-import { ReportLogger } from '../../reportLogs/service';
-import { AuthenticatedUser } from '../../auth/decorators';
-import { User } from '../../auth/entities/user';
-import { UUID } from '../../graphql/uuidScalar';
+import { Success } from '../../graphql/commonSchema'
+import { UserSuspensions } from '../userSuspensions'
+import { ReportLogger } from '../../reportLogs/service'
+import { AuthenticatedUser } from '../../auth/decorators'
+import { User } from '../../auth/entities/user'
+import { UUID } from '../../graphql/uuidScalar'
 
 @Resolver()
 export class UserSuspensionResolver {
@@ -16,7 +16,7 @@ export class UserSuspensionResolver {
 
   @Query(() => Boolean)
   async isUserSuspended(@Args('email') email: string): Promise<boolean> {
-    return this.userSuspensions.isUserSuspended(email);
+    return this.userSuspensions.isUserSuspended(email)
   }
 
   @Mutation(() => Success)
@@ -38,15 +38,10 @@ export class UserSuspensionResolver {
             minutes: durationMinutes,
           }
         : undefined,
-    );
+    )
 
-    await this.reportLogger.logUserSuspended(
-      reportId,
-      email,
-      currentUser,
-      durationMinutes,
-    );
+    await this.reportLogger.logUserSuspended(reportId, email, currentUser, durationMinutes)
 
-    return { success: true };
+    return { success: true }
   }
 }

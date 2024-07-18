@@ -1,45 +1,40 @@
-import {
-  Field,
-  InputType,
-  ObjectType,
-  registerEnumType,
-} from '@nestjs/graphql';
-import { IsEmail, MinLength } from 'class-validator';
+import { Field, InputType, ObjectType, registerEnumType } from '@nestjs/graphql'
+import { IsEmail, MinLength } from 'class-validator'
 
-import { UUID } from '../graphql/uuidScalar';
+import { UUID } from '../graphql/uuidScalar'
 
-import { UserRole } from './entities/userRole';
+import { UserRole } from './entities/userRole'
 
 @ObjectType()
 export class AuthResult {
   @Field(() => UUID)
-  userId: string;
+  userId: string
 
   @Field()
-  email: string;
+  email: string
 
   @Field()
-  token: string;
+  token: string
 }
 
 @ObjectType()
 export class TokenValidity {
   @Field()
-  valid: boolean;
+  valid: boolean
 }
 
-registerEnumType(UserRole, { name: 'UserRole' });
+registerEnumType(UserRole, { name: 'UserRole' })
 
 @InputType()
 export class CreateUser {
   @Field()
   @IsEmail()
-  email: string;
+  email: string
 
   @Field()
   @MinLength(12)
-  password: string;
+  password: string
 
   @Field(() => UserRole)
-  role: UserRole = UserRole.MODERATOR;
+  role: UserRole = UserRole.MODERATOR
 }

@@ -1,6 +1,6 @@
-import { PubSub } from '@google-cloud/pubsub';
-import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { PubSub } from '@google-cloud/pubsub'
+import { Injectable, OnApplicationBootstrap } from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
 
 @Injectable()
 export class EnsurePubsubTopic implements OnApplicationBootstrap {
@@ -12,18 +12,18 @@ export class EnsurePubsubTopic implements OnApplicationBootstrap {
   async onApplicationBootstrap() {
     try {
       if (process.env.NODE_ENV !== 'development') {
-        return;
+        return
       }
 
-      const topicName = this.config.get('PUBSUB_TOPIC_NAME');
-      const topic = this.pubsub.topic(topicName);
+      const topicName = this.config.get('PUBSUB_TOPIC_NAME')
+      const topic = this.pubsub.topic(topicName)
 
-      const [topicExists] = await topic.exists();
+      const [topicExists] = await topic.exists()
       if (topicExists) {
-        return;
+        return
       }
 
-      await topic.create();
+      await topic.create()
     } catch {}
   }
 }

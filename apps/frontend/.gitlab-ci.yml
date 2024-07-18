@@ -1,11 +1,12 @@
 frontend:lint:
   stage: lint
-  image: node:21-alpine
+  image: node:20.11-alpine
   before_script:
     - corepack enable
+    - yarn install
     - yarn workspace @holi/moderation-frontend install
   script:
-    - yarn workspace @holi/moderation-frontend run -B eslint "src/**/*.ts"
+    - yarn workspace @holi/moderation-frontend run lint
 
 frontend:build:
   stage: build

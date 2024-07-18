@@ -1,5 +1,5 @@
-import React, { ReactNode } from "react";
-import { Card, Group, Stack, Title, Text, List } from "@mantine/core";
+import React, { ReactNode } from 'react'
+import { Card, Group, Stack, Title, Text, List } from '@mantine/core'
 import {
   IconBrandDiscord,
   IconBrandFacebook,
@@ -12,16 +12,13 @@ import {
   IconMail,
   IconPhone,
   IconUser,
-} from "@tabler/icons-react";
+} from '@tabler/icons-react'
 
-import { SpaceDetailsFragment } from "../../graphql/generated/types";
-import { SpaceAvatar } from "../avatar";
-import { formatUser, relativeFormatISOTimestamp } from "../../utils";
-import {
-  OpenbookCommunitiesCommunity,
-  OpenbookCommunitiesExternallink,
-} from "../../graphql/generated/schema.types";
-import { ImageWithPreview } from "../imageWithPreview";
+import { SpaceDetailsFragment } from '../../graphql/generated/types'
+import { SpaceAvatar } from '../avatar'
+import { formatUser, relativeFormatISOTimestamp } from '../../utils'
+import { OpenbookCommunitiesCommunity, OpenbookCommunitiesExternallink } from '../../graphql/generated/schema.types'
+import { ImageWithPreview } from '../imageWithPreview'
 
 const externalIconMap: Record<string, typeof IconBrandInstagram> = {
   INSTAGRAM: IconBrandInstagram,
@@ -31,12 +28,14 @@ const externalIconMap: Record<string, typeof IconBrandInstagram> = {
   TWITTER: IconBrandTwitter,
   WHATSAPP: IconBrandWhatsapp,
   OTHER: IconLink,
-};
+}
 
-const ExternalLinkListItem: React.FC<
-  Pick<OpenbookCommunitiesExternallink, "name" | "url" | "type">
-> = ({ name, url, type }) => {
-  const Icon = externalIconMap[type.toUpperCase()] ?? IconLink;
+const ExternalLinkListItem: React.FC<Pick<OpenbookCommunitiesExternallink, 'name' | 'url' | 'type'>> = ({
+  name,
+  url,
+  type,
+}) => {
+  const Icon = externalIconMap[type.toUpperCase()] ?? IconLink
 
   return (
     <Group gap="xs">
@@ -45,17 +44,16 @@ const ExternalLinkListItem: React.FC<
         {name}
       </Text>
     </Group>
-  );
-};
+  )
+}
 
 type SpaceProps = {
-  space: SpaceDetailsFragment | OpenbookCommunitiesCommunity;
-  additionalContent?: ReactNode;
-};
+  space: SpaceDetailsFragment | OpenbookCommunitiesCommunity
+  additionalContent?: ReactNode
+}
 
 export const Space: React.FC<SpaceProps> = ({ space, additionalContent }) => {
-  const hasContactDetails =
-    !!space.contactDescription || !!space.contactEmail || !!space.contactPhone;
+  const hasContactDetails = !!space.contactDescription || !!space.contactEmail || !!space.contactPhone
 
   return (
     <Card shadow="xs" padding="lg" radius="md" withBorder>
@@ -84,9 +82,7 @@ export const Space: React.FC<SpaceProps> = ({ space, additionalContent }) => {
           {hasContactDetails && (
             <Stack gap={0}>
               <Title order={5}>Contact Details</Title>
-              {space.contactDescription && (
-                <Text>{space.contactDescription}</Text>
-              )}
+              {space.contactDescription && <Text>{space.contactDescription}</Text>}
               {space.contactEmail && (
                 <Group gap="xs">
                   <IconMail size={14} />
@@ -119,12 +115,7 @@ export const Space: React.FC<SpaceProps> = ({ space, additionalContent }) => {
               <Title order={5}>External Links</Title>
               <Stack gap="xs">
                 {space.externalLinks.map((link) => (
-                  <ExternalLinkListItem
-                    key={link.id}
-                    name={link.name}
-                    url={link.url}
-                    type={link.type}
-                  />
+                  <ExternalLinkListItem key={link.id} name={link.name} url={link.url} type={link.type} />
                 ))}
               </Stack>
             </Stack>
@@ -149,9 +140,7 @@ export const Space: React.FC<SpaceProps> = ({ space, additionalContent }) => {
         </Stack>
       </Card.Section>
 
-      {additionalContent && (
-        <Card.Section p="md">{additionalContent}</Card.Section>
-      )}
+      {additionalContent && <Card.Section p="md">{additionalContent}</Card.Section>}
     </Card>
-  );
-};
+  )
+}

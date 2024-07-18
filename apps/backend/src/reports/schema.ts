@@ -1,13 +1,13 @@
-import { Field, InputType, PickType, registerEnumType } from '@nestjs/graphql';
+import { Field, InputType, PickType, registerEnumType } from '@nestjs/graphql'
 
-import { UUID } from '../graphql/uuidScalar';
+import { UUID } from '../graphql/uuidScalar'
 
-import { ContentType } from './entities/contentType';
-import { ReportStatus } from './entities/reportStatus';
-import { Report } from './entities/report';
+import { ContentType } from './entities/contentType'
+import { ReportStatus } from './entities/reportStatus'
+import { Report } from './entities/report'
 
-registerEnumType(ContentType, { name: 'ContentType' });
-registerEnumType(ReportStatus, { name: 'ReportStatus' });
+registerEnumType(ContentType, { name: 'ContentType' })
+registerEnumType(ReportStatus, { name: 'ReportStatus' })
 
 @InputType()
 export class CreateReport extends PickType(
@@ -19,11 +19,11 @@ export class CreateReport extends PickType(
 @InputType()
 export class ReportsFilter {
   @Field(() => UUID, { nullable: true })
-  reporter?: string;
+  reporter?: string
 
   @Field(() => ReportStatus, { nullable: true })
-  status?: ReportStatus;
+  status?: ReportStatus
 
   @Field({ nullable: true })
-  search?: string;
+  search?: string
 }

@@ -1,25 +1,19 @@
-import React from "react";
-import { Button, Grid, Group, Stack, Text } from "@mantine/core";
-import {
-  IconListCheck,
-  IconTopologyRing3,
-  IconUser,
-} from "@tabler/icons-react";
+import React from 'react'
+import { Button, Grid, Group, Stack, Text } from '@mantine/core'
+import { IconListCheck, IconTopologyRing3, IconUser } from '@tabler/icons-react'
 
-import { ReportedSpaceTaskDetailsFragment } from "../../graphql/generated/types";
-import { Space } from "../space";
-import { OpenbookCommunitiesTask } from "../../graphql/generated/schema.types";
-import { okunaAdminUrl } from "../../utils";
+import { ReportedSpaceTaskDetailsFragment } from '../../graphql/generated/types'
+import { Space } from '../space'
+import { OpenbookCommunitiesTask } from '../../graphql/generated/schema.types'
+import { okunaAdminUrl } from '../../utils'
 
-import { SpaceTask } from ".";
+import { SpaceTask } from '.'
 
 type ReportedSpaceTaskProps = {
-  task: ReportedSpaceTaskDetailsFragment | OpenbookCommunitiesTask;
-};
+  task: ReportedSpaceTaskDetailsFragment | OpenbookCommunitiesTask
+}
 
-export const ReportedSpaceTask: React.FC<ReportedSpaceTaskProps> = ({
-  task,
-}) => {
+export const ReportedSpaceTask: React.FC<ReportedSpaceTaskProps> = ({ task }) => {
   return (
     <Grid>
       <Grid.Col span={9}>
@@ -42,9 +36,7 @@ export const ReportedSpaceTask: React.FC<ReportedSpaceTaskProps> = ({
               variant="light"
               leftSection={<IconTopologyRing3 size={14} />}
               component="a"
-              href={okunaAdminUrl(
-                `openbook_communities/community/${task.space.id}`,
-              )}
+              href={okunaAdminUrl(`openbook_communities/community/${task.space.id}`)}
               target="_blank"
             >
               Space
@@ -65,5 +57,5 @@ export const ReportedSpaceTask: React.FC<ReportedSpaceTaskProps> = ({
         <Space space={task.space} />
       </Grid.Col>
     </Grid>
-  );
-};
+  )
+}

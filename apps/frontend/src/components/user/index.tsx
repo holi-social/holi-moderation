@@ -1,22 +1,19 @@
-import React, { ReactNode } from "react";
-import { Card, Group, Stack, Text, Title } from "@mantine/core";
+import React, { ReactNode } from 'react'
+import { Card, Group, Stack, Text, Title } from '@mantine/core'
 
-import { UserDetailsFragment } from "../../graphql/generated/types";
-import { UserAvatar } from "../avatar";
-import { relativeFormatISOTimestamp } from "../../utils";
-import { OpenbookAuthUser } from "../../graphql/generated/schema.types";
-import { ImageWithPreview } from "../imageWithPreview";
+import { UserDetailsFragment } from '../../graphql/generated/types'
+import { UserAvatar } from '../avatar'
+import { relativeFormatISOTimestamp } from '../../utils'
+import { OpenbookAuthUser } from '../../graphql/generated/schema.types'
+import { ImageWithPreview } from '../imageWithPreview'
 
 type UserDetailsProps = {
-  user: UserDetailsFragment | OpenbookAuthUser;
-  additionalContent?: ReactNode;
-};
+  user: UserDetailsFragment | OpenbookAuthUser
+  additionalContent?: ReactNode
+}
 
-export const User: React.FC<UserDetailsProps> = ({
-  user,
-  additionalContent,
-}) => {
-  const userNameHead = `${user.profile?.name ?? ""} ${user.profile?.lastName ?? ""} ${user.profile?.pronouns ? `(${user.profile.pronouns})` : ""}`;
+export const User: React.FC<UserDetailsProps> = ({ user, additionalContent }) => {
+  const userNameHead = `${user.profile?.name ?? ''} ${user.profile?.lastName ?? ''} ${user.profile?.pronouns ? `(${user.profile.pronouns})` : ''}`
 
   return (
     <Card shadow="xs" padding="lg" radius="md" withBorder>
@@ -61,9 +58,7 @@ export const User: React.FC<UserDetailsProps> = ({
         </Stack>
       </Card.Section>
 
-      {additionalContent && (
-        <Card.Section p="md">{additionalContent}</Card.Section>
-      )}
+      {additionalContent && <Card.Section p="md">{additionalContent}</Card.Section>}
     </Card>
-  );
-};
+  )
+}

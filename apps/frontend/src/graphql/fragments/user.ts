@@ -1,4 +1,4 @@
-import { gql } from "graphql-tag";
+import { gql } from 'graphql-tag'
 
 export const UserDetails = gql`
   fragment UserDetails on OpenbookAuthUser {
@@ -18,4 +18,4 @@ export const UserDetails = gql`
       url
     }
   }
-`;
+`

@@ -1,4 +1,4 @@
-import { gql } from "graphql-tag";
+import { gql } from 'graphql-tag'
 
 export const DeleteModerationUserMutation = gql`
   mutation DeleteModerationUser($userId: UUID!) {
@@ -6,4 +6,4 @@ export const DeleteModerationUserMutation = gql`
       success
     }
   }
-`;
+`

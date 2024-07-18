@@ -1,25 +1,25 @@
-import { MantineProvider } from "@mantine/core";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { Notifications } from "@mantine/notifications";
-import { ModalsProvider } from "@mantine/modals";
-import { SWRConfig } from "swr";
+import { MantineProvider } from '@mantine/core'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { Notifications } from '@mantine/notifications'
+import { ModalsProvider } from '@mantine/modals'
+import { SWRConfig } from 'swr'
 
-import { ListReports } from "./pages/reports/list";
-import { ViewReport } from "./pages/reports/view";
-import { fetcher } from "./fetcher";
-import { Login } from "./pages/auth/login";
-import { Layout } from "./pages/appLayout";
-import { ListReportsFromUser } from "./pages/reports/fromUser";
-import { ListUsers } from "./pages/moderationUsers/list";
-import { AVAILABLE_MODALS } from "./modals";
+import { ListReports } from './pages/reports/list'
+import { ViewReport } from './pages/reports/view'
+import { fetcher } from './fetcher'
+import { Login } from './pages/auth/login'
+import { Layout } from './pages/appLayout'
+import { ListReportsFromUser } from './pages/reports/fromUser'
+import { ListUsers } from './pages/moderationUsers/list'
+import { AVAILABLE_MODALS } from './modals'
 
-import "@mantine/core/styles.css";
-import "mantine-react-table/styles.css";
-import "@mantine/notifications/styles.css";
+import '@mantine/core/styles.css'
+import 'mantine-react-table/styles.css'
+import '@mantine/notifications/styles.css'
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: (
       <Layout>
         <></>
@@ -27,7 +27,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/reports",
+    path: '/reports',
     element: (
       <Layout>
         <ListReports />
@@ -35,7 +35,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/reports/:reportId",
+    path: '/reports/:reportId',
     element: (
       <Layout>
         <ViewReport />
@@ -43,7 +43,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/reports/user/:reporterId",
+    path: '/reports/user/:reporterId',
     element: (
       <Layout>
         <ListReportsFromUser />
@@ -51,7 +51,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/users",
+    path: '/users',
     element: (
       <Layout>
         <ListUsers />
@@ -59,10 +59,10 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/login",
+    path: '/login',
     element: <Login />,
   },
-]);
+])
 
 function App() {
   return (
@@ -78,7 +78,7 @@ function App() {
         </ModalsProvider>
       </MantineProvider>
     </SWRConfig>
-  );
+  )
 }
 
-export default App;
+export default App

@@ -1,11 +1,7 @@
-import { Controller, Get } from '@nestjs/common';
-import {
-  HealthCheckService,
-  HealthCheck,
-  TypeOrmHealthIndicator,
-} from '@nestjs/terminus';
+import { Controller, Get } from '@nestjs/common'
+import { HealthCheckService, HealthCheck, TypeOrmHealthIndicator } from '@nestjs/terminus'
 
-import { Public } from '../auth/decorators';
+import { Public } from '../auth/decorators'
 
 @Controller('health')
 export class HealthCheckController {
@@ -18,8 +14,6 @@ export class HealthCheckController {
   @Public()
   @HealthCheck()
   readiness() {
-    return this.health.check([
-      async () => this.db.pingCheck('database', { timeout: 300 }),
-    ]);
+    return this.health.check([async () => this.db.pingCheck('database', { timeout: 300 })])
   }
 }
