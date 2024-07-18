@@ -1,28 +1,22 @@
-import React from "react";
-import { Tabs, Badge, rem, Grid } from "@mantine/core";
-import {
-  IconCalendar,
-  IconListCheck,
-  IconMessage,
-  IconTools,
-  IconUserBolt,
-} from "@tabler/icons-react";
+import React from 'react'
+import { Tabs, Badge, rem, Grid } from '@mantine/core'
+import { IconCalendar, IconListCheck, IconMessage, IconTools, IconUserBolt } from '@tabler/icons-react'
 
-import { Post } from "../post";
-import { SpaceAppointment } from "../spaceAppointment";
-import { ReportedSpaceDetailsFragment } from "../../graphql/generated/types";
-import { SpaceTask } from "../spaceTask";
-import { SpaceLinkhubTool } from "../spaceLinkhubTool";
-import { User } from "../user";
+import { Post } from '../post'
+import { SpaceAppointment } from '../spaceAppointment'
+import { ReportedSpaceDetailsFragment } from '../../graphql/generated/types'
+import { SpaceTask } from '../spaceTask'
+import { SpaceLinkhubTool } from '../spaceLinkhubTool'
+import { User } from '../user'
 
-import { Space } from ".";
+import { Space } from '.'
 
 type ReportedSpaceProps = {
-  space: ReportedSpaceDetailsFragment;
-};
+  space: ReportedSpaceDetailsFragment
+}
 
 export const ReportedSpace: React.FC<ReportedSpaceProps> = ({ space }) => {
-  const iconStyle = { height: rem(12), width: rem(12) };
+  const iconStyle = { height: rem(12), width: rem(12) }
 
   const additionalContent = (
     <Tabs defaultValue="admins">
@@ -106,10 +100,7 @@ export const ReportedSpace: React.FC<ReportedSpaceProps> = ({ space }) => {
         <Grid>
           {space.appointments.map((appointment) => (
             <Grid.Col span={4} key={appointment.id}>
-              <SpaceAppointment
-                appointment={appointment}
-                key={appointment.id}
-              />
+              <SpaceAppointment appointment={appointment} key={appointment.id} />
             </Grid.Col>
           ))}
         </Grid>
@@ -135,7 +126,7 @@ export const ReportedSpace: React.FC<ReportedSpaceProps> = ({ space }) => {
         </Grid>
       </Tabs.Panel>
     </Tabs>
-  );
+  )
 
-  return <Space space={space} additionalContent={additionalContent} />;
-};
+  return <Space space={space} additionalContent={additionalContent} />
+}

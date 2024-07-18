@@ -1,6 +1,6 @@
-import { gql } from "graphql-tag";
+import { gql } from 'graphql-tag'
 
-import { ModerationUserDetails } from "./moderationUser";
+import { ModerationUserDetails } from './moderationUser'
 
 export const ReportEventDetails = gql`
   ${ModerationUserDetails}
@@ -14,4 +14,4 @@ export const ReportEventDetails = gql`
       ...ModerationUserDetails
     }
   }
-`;
+`

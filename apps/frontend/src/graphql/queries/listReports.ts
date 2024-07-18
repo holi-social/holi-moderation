@@ -1,6 +1,6 @@
-import { gql } from "graphql-tag";
+import { gql } from 'graphql-tag'
 
-import { UserDetails } from "../fragments/user";
+import { UserDetails } from '../fragments/user'
 
 const ListReportsQuery = gql`
   ${UserDetails}
@@ -18,6 +18,6 @@ const ListReportsQuery = gql`
       updatedAt
     }
   }
-`;
+`
 
-export default ListReportsQuery;
+export default ListReportsQuery

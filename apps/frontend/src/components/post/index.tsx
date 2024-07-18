@@ -1,36 +1,23 @@
-import {
-  Blockquote,
-  Button,
-  DefaultMantineColor,
-  Group,
-  Paper,
-  Skeleton,
-  Stack,
-  Text,
-  Tooltip,
-} from "@mantine/core";
-import React from "react";
-import { formatDistanceToNow, parseISO } from "date-fns";
-import { IconMessage, IconTopologyRing3, IconUser } from "@tabler/icons-react";
+import { Blockquote, Button, DefaultMantineColor, Group, Paper, Skeleton, Stack, Text, Tooltip } from '@mantine/core'
+import React from 'react'
+import { formatDistanceToNow, parseISO } from 'date-fns'
+import { IconMessage, IconTopologyRing3, IconUser } from '@tabler/icons-react'
 
-import { okunaAdminUrl } from "../../utils";
-import { PostDetailsFragment } from "../../graphql/generated/types";
-import { UserAvatar } from "../avatar";
+import { okunaAdminUrl } from '../../utils'
+import { PostDetailsFragment } from '../../graphql/generated/types'
+import { UserAvatar } from '../avatar'
 
 type PostProps = {
-  post: PostDetailsFragment;
-  backgroundColor?: DefaultMantineColor;
-};
+  post: PostDetailsFragment
+  backgroundColor?: DefaultMantineColor
+}
 
-type PostSkeletonProps = Omit<PostProps, "post">;
+type PostSkeletonProps = Omit<PostProps, 'post'>
 
 export const Post: React.FC<PostProps> = ({ post, backgroundColor }) => {
-  const authorName =
-    (post.author.profile?.name ?? "") +
-    " " +
-    (post.author.profile?.lastName ?? "");
+  const authorName = (post.author.profile?.name ?? '') + ' ' + (post.author.profile?.lastName ?? '')
 
-  const authorAdminUrl = okunaAdminUrl(`openbook_auth/user/${post.author.id}`);
+  const authorAdminUrl = okunaAdminUrl(`openbook_auth/user/${post.author.id}`)
 
   return (
     <Paper p="md">
@@ -38,13 +25,12 @@ export const Post: React.FC<PostProps> = ({ post, backgroundColor }) => {
         <UserAvatar user={post.author} />
         <Stack flex={1}>
           <Blockquote
-            color={backgroundColor ?? "blue"}
+            color={backgroundColor ?? 'blue'}
             p="sm"
             cite={
               <Tooltip label={parseISO(post.created).toLocaleString()}>
                 <Text>
-                  {authorName} •{" "}
-                  {formatDistanceToNow(post.created, { addSuffix: true })}
+                  {authorName} • {formatDistanceToNow(post.created, { addSuffix: true })}
                   {post.space && ` in space "${post.space.title}"`}
                 </Text>
               </Tooltip>
@@ -59,7 +45,7 @@ export const Post: React.FC<PostProps> = ({ post, backgroundColor }) => {
             </Text>
             <Button
               variant="light"
-              color={backgroundColor ?? "blue"}
+              color={backgroundColor ?? 'blue'}
               leftSection={<IconMessage size={14} />}
               component="a"
               href={okunaAdminUrl(`openbook_posts/post/${post.id}`)}
@@ -69,7 +55,7 @@ export const Post: React.FC<PostProps> = ({ post, backgroundColor }) => {
             </Button>
             <Button
               variant="light"
-              color={backgroundColor ?? "blue"}
+              color={backgroundColor ?? 'blue'}
               leftSection={<IconUser size={14} />}
               component="a"
               href={authorAdminUrl}
@@ -80,12 +66,10 @@ export const Post: React.FC<PostProps> = ({ post, backgroundColor }) => {
             {post.space && (
               <Button
                 variant="light"
-                color={backgroundColor ?? "blue"}
+                color={backgroundColor ?? 'blue'}
                 leftSection={<IconTopologyRing3 size={14} />}
                 component="a"
-                href={okunaAdminUrl(
-                  `openbook_communities/community/${post.space.id}`,
-                )}
+                href={okunaAdminUrl(`openbook_communities/community/${post.space.id}`)}
                 target="_blank"
               >
                 Space
@@ -95,21 +79,15 @@ export const Post: React.FC<PostProps> = ({ post, backgroundColor }) => {
         </Stack>
       </Group>
     </Paper>
-  );
-};
+  )
+}
 
-export const PostSkeleton: React.FC<PostSkeletonProps> = ({
-  backgroundColor,
-}) => (
+export const PostSkeleton: React.FC<PostSkeletonProps> = ({ backgroundColor }) => (
   <Paper p="md">
     <Group align="start">
       <Skeleton circle height={50} />
       <Stack flex={1}>
-        <Blockquote
-          color={backgroundColor ?? "blue"}
-          p="sm"
-          cite={<Skeleton height={8} width="25%" />}
-        >
+        <Blockquote color={backgroundColor ?? 'blue'} p="sm" cite={<Skeleton height={8} width="25%" />}>
           <Skeleton height={16} mb="sm" />
           <Skeleton height={12} mb="sm" />
           <Skeleton height={12} />
@@ -125,4 +103,4 @@ export const PostSkeleton: React.FC<PostSkeletonProps> = ({
       </Stack>
     </Group>
   </Paper>
-);
+)

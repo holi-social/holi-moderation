@@ -1,6 +1,6 @@
-import { gql } from "graphql-tag";
+import { gql } from 'graphql-tag'
 
-import { ModerationUserDetails } from "../fragments/moderationUser";
+import { ModerationUserDetails } from '../fragments/moderationUser'
 
 export const ChangeModerationUserRoleMutation = gql`
   ${ModerationUserDetails}
@@ -10,4 +10,4 @@ export const ChangeModerationUserRoleMutation = gql`
       ...ModerationUserDetails
     }
   }
-`;
+`

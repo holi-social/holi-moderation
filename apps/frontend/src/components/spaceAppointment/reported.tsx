@@ -1,20 +1,18 @@
-import React from "react";
-import { Button, Grid, Group, Stack, Text } from "@mantine/core";
-import { IconCalendar, IconTopologyRing3, IconUser } from "@tabler/icons-react";
+import React from 'react'
+import { Button, Grid, Group, Stack, Text } from '@mantine/core'
+import { IconCalendar, IconTopologyRing3, IconUser } from '@tabler/icons-react'
 
-import { Space } from "../space";
-import { okunaAdminUrl } from "../../utils";
-import { ReportedSpaceAppointmentDetailsFragment } from "../../graphql/generated/types";
+import { Space } from '../space'
+import { okunaAdminUrl } from '../../utils'
+import { ReportedSpaceAppointmentDetailsFragment } from '../../graphql/generated/types'
 
-import { SpaceAppointment } from ".";
+import { SpaceAppointment } from '.'
 
 type ReportedSpaceAppointmentProps = {
-  appointment: ReportedSpaceAppointmentDetailsFragment;
-};
+  appointment: ReportedSpaceAppointmentDetailsFragment
+}
 
-export const ReportedSpaceAppointment: React.FC<
-  ReportedSpaceAppointmentProps
-> = ({ appointment }) => {
+export const ReportedSpaceAppointment: React.FC<ReportedSpaceAppointmentProps> = ({ appointment }) => {
   return (
     <Grid>
       <Grid.Col span={9}>
@@ -28,9 +26,7 @@ export const ReportedSpaceAppointment: React.FC<
               variant="light"
               leftSection={<IconCalendar size={14} />}
               component="a"
-              href={okunaAdminUrl(
-                `openbook_appointments/appointment/${appointment.id}`,
-              )}
+              href={okunaAdminUrl(`openbook_appointments/appointment/${appointment.id}`)}
               target="_blank"
             >
               Appointment
@@ -39,9 +35,7 @@ export const ReportedSpaceAppointment: React.FC<
               variant="light"
               leftSection={<IconTopologyRing3 size={14} />}
               component="a"
-              href={okunaAdminUrl(
-                `openbook_communities/community/${appointment.space.id}`,
-              )}
+              href={okunaAdminUrl(`openbook_communities/community/${appointment.space.id}`)}
               target="_blank"
             >
               Space
@@ -50,9 +44,7 @@ export const ReportedSpaceAppointment: React.FC<
               variant="light"
               leftSection={<IconUser size={14} />}
               component="a"
-              href={okunaAdminUrl(
-                `openbook_auth/user/${appointment.creator?.id}`,
-              )}
+              href={okunaAdminUrl(`openbook_auth/user/${appointment.creator?.id}`)}
               target="_blank"
             >
               Creator
@@ -64,5 +56,5 @@ export const ReportedSpaceAppointment: React.FC<
         <Space space={appointment.space} />
       </Grid.Col>
     </Grid>
-  );
-};
+  )
+}

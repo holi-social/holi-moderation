@@ -1,18 +1,18 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Injectable } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
+import { Repository } from 'typeorm'
 
-import { ReportStatus } from '../reports/entities/reportStatus';
+import { ReportStatus } from '../reports/entities/reportStatus'
 import {
   StatusChangedEventPayload,
   ReportLogEvent,
   ReportEventPayload,
   ReportCreatedEventPayload,
   UserSuspendedEventPayload,
-} from '../reportLogs/types';
-import { User } from '../auth/entities/user';
+} from '../reportLogs/types'
+import { User } from '../auth/entities/user'
 
-import { ReportEvent } from './entities/reportEvent';
+import { ReportEvent } from './entities/reportEvent'
 
 @Injectable()
 export class ReportLogger {
@@ -26,7 +26,7 @@ export class ReportLogger {
       where: { report: { id: reportId } },
       order: { occurredAt: 'ASC' },
       relations: { actor: true },
-    });
+    })
   }
 
   public async logStatusChanged(
@@ -40,29 +40,20 @@ export class ReportLogger {
       ReportLogEvent.STATUS_CHANGED,
       { oldStatus, newStatus },
       actor,
-    );
+    )
   }
 
   public async logReportCreated(reportId: string): Promise<void> {
-    return this.logEvent<ReportCreatedEventPayload>(
-      reportId,
-      ReportLogEvent.REPORT_CREATED,
-      {},
-    );
+    return this.logEvent<ReportCreatedEventPayload>(reportId, ReportLogEvent.REPORT_CREATED, {})
   }
 
-  public async logUserSuspended(
-    reportId: string,
-    userEmail: string,
-    actor: User,
-    duration?: number,
-  ): Promise<void> {
+  public async logUserSuspended(reportId: string, userEmail: string, actor: User, duration?: number): Promise<void> {
     return this.logEvent<UserSuspendedEventPayload>(
       reportId,
       ReportLogEvent.USER_SUSPENDED,
       { userEmail, duration },
       actor,
-    );
+    )
   }
 
   private async logEvent<TPayload extends ReportEventPayload>(
@@ -75,16 +66,11 @@ export class ReportLogger {
       report: { id: reportId },
       eventName,
       eventPayload,
-    };
+    }
     if (actor) {
-      eventData['actor'] = { id: actor.id };
+      eventData['actor'] = { id: actor.id }
     }
 
-    await this.repository
-      .createQueryBuilder()
-      .insert()
-      .into(ReportEvent)
-      .values(eventData)
-      .execute();
+    await this.repository.createQueryBuilder().insert().into(ReportEvent).values(eventData).execute()
   }
 }

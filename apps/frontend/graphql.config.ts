@@ -1,14 +1,14 @@
-import type { IGraphQLConfig } from "graphql-config";
+import type { IGraphQLConfig } from 'graphql-config'
 
-const gqlUrl: string = process.env.INTERNAL_GRAPHQL_URL!;
-const hasuraAdminSecret: string = process.env.HASURA_GRAPHQL_ADMIN_SECRET!;
+const gqlUrl: string = process.env.INTERNAL_GRAPHQL_URL
+const hasuraAdminSecret: string = process.env.HASURA_GRAPHQL_ADMIN_SECRET
 
 const config: IGraphQLConfig = {
   schema: [
     {
       [gqlUrl]: {
         headers: {
-          "x-hasura-admin-secret": hasuraAdminSecret,
+          'x-hasura-admin-secret': hasuraAdminSecret,
         },
       },
     },
@@ -17,21 +17,21 @@ const config: IGraphQLConfig = {
     codegen: {
       // Optional, you can use this to format your generated files.
       hooks: {
-        afterOneFileWrite: ["eslint --fix"],
+        afterOneFileWrite: ['eslint --fix'],
       },
       generates: {
-        "src/graphql/generated/schema.types.ts": {
-          plugins: ["typescript"],
+        'src/graphql/generated/schema.types.ts': {
+          plugins: ['typescript'],
           config: {
             skipTypename: true,
             enumsAsTypes: true,
-            defaultScalarType: "string",
+            defaultScalarType: 'string',
           },
         },
-        "src/graphql/generated/types.ts": {
-          preset: "import-types",
-          documents: ["src/**/*.{ts,tsx}"],
-          plugins: ["typescript-operations"],
+        'src/graphql/generated/types.ts': {
+          preset: 'import-types',
+          documents: ['src/**/*.{ts,tsx}'],
+          plugins: ['typescript-operations'],
           config: {
             skipTypename: true,
             enumsAsTypes: true,
@@ -39,12 +39,12 @@ const config: IGraphQLConfig = {
             useTypeImports: true,
           },
           presetConfig: {
-            typesPath: "./schema.types",
+            typesPath: './schema.types',
           },
         },
       },
     },
   },
-};
+}
 
-export default config;
+export default config

@@ -1,9 +1,9 @@
-import { gql } from "graphql-tag";
+import { gql } from 'graphql-tag'
 
-import { CommentDetails } from "./comment";
-import { PostDetails } from "./post";
-import { SpaceDetails } from "./space";
-import { UserDetails } from "./user";
+import { CommentDetails } from './comment'
+import { PostDetails } from './post'
+import { SpaceDetails } from './space'
+import { UserDetails } from './user'
 
 export const ReportedUserDetails = gql`
   ${UserDetails}
@@ -41,4 +41,4 @@ export const ReportedUserDetails = gql`
       ...SpaceDetails
     }
   }
-`;
+`

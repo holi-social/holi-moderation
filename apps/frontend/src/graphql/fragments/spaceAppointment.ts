@@ -1,7 +1,7 @@
-import { gql } from "graphql-tag";
+import { gql } from 'graphql-tag'
 
-import { SpaceDetails } from "./space";
-import { UserDetails } from "./user";
+import { SpaceDetails } from './space'
+import { UserDetails } from './user'
 
 export const SpaceAppointmentDetails = gql`
   ${UserDetails}
@@ -43,7 +43,7 @@ export const SpaceAppointmentDetails = gql`
     isDeleted
     deletedAt
   }
-`;
+`
 
 export const ReportedSpaceAppointmentDetails = gql`
   ${SpaceAppointmentDetails}
@@ -56,4 +56,4 @@ export const ReportedSpaceAppointmentDetails = gql`
       ...SpaceDetails
     }
   }
-`;
+`

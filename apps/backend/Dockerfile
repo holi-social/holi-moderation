@@ -1,4 +1,4 @@
-FROM node:21-alpine AS dependencies
+FROM node:20.11-alpine AS dependencies
 
 WORKDIR /code
 COPY package.json .
@@ -10,7 +10,7 @@ RUN corepack enable \
 
 ###
 
-FROM node:21-alpine AS builder
+FROM node:20.11-alpine AS builder
 
 WORKDIR /code
 COPY --from=dependencies /code/node_modules /code/node_modules
@@ -25,7 +25,7 @@ RUN corepack enable \
 
 ###
 
-FROM node:21-alpine AS production
+FROM node:20.11-alpine AS production
 
 ARG LISTEN_ADDR="0.0.0.0"
 ARG PORT=3000
@@ -41,7 +41,7 @@ CMD [ "node", "/code/src/main.js" ]
 
 ###
 
-FROM node:21-alpine as development
+FROM node:20.11-alpine as development
 
 WORKDIR /code
 COPY . /code

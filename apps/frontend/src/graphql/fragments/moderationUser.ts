@@ -1,4 +1,4 @@
-import { gql } from "graphql-tag";
+import { gql } from 'graphql-tag'
 
 export const ModerationUserDetails = gql`
   fragment ModerationUserDetails on User {
@@ -8,4 +8,4 @@ export const ModerationUserDetails = gql`
     createdAt
     updatedAt
   }
-`;
+`

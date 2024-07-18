@@ -1,14 +1,11 @@
-import { Group, Text } from "@mantine/core";
-import { modals } from "@mantine/modals";
+import { Group, Text } from '@mantine/core'
+import { modals } from '@mantine/modals'
 
-import { UserAvatar } from "./components/avatar";
-import {
-  SuspendUserModal,
-  SuspendUserModalProps,
-} from "./components/user/suspensionModal";
+import { UserAvatar } from './components/avatar'
+import { SuspendUserModal, SuspendUserModalProps } from './components/user/suspensionModal'
 
 export enum Modals {
-  SuspendUser = "suspendUser",
+  SuspendUser = 'suspendUser',
 }
 
 export const showSuspendUser = (props: SuspendUserModalProps) =>
@@ -21,9 +18,9 @@ export const showSuspendUser = (props: SuspendUserModalProps) =>
         <Text fw={600}>Suspend {props.user.email}</Text>
       </Group>
     ),
-    size: "xl",
-  });
+    size: 'xl',
+  })
 
 export const AVAILABLE_MODALS = {
   [Modals.SuspendUser]: SuspendUserModal,
-};
+}

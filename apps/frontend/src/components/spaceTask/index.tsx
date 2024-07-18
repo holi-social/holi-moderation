@@ -1,5 +1,5 @@
-import React from "react";
-import { Badge, Card, Group, Stack, Text, Title } from "@mantine/core";
+import React from 'react'
+import { Badge, Card, Group, Stack, Text, Title } from '@mantine/core'
 import {
   IconAccessible,
   IconClockPlus,
@@ -12,28 +12,28 @@ import {
   IconUser,
   IconUserPlus,
   IconWorld,
-} from "@tabler/icons-react";
+} from '@tabler/icons-react'
 
-import { OpenbookCommunitiesTask } from "../../graphql/generated/schema.types";
-import { SpaceTaskDetailsFragment } from "../../graphql/generated/types";
-import { formatUser, relativeFormatISOTimestamp, titleCase } from "../../utils";
-import { ImageWithPreview } from "../imageWithPreview";
+import { OpenbookCommunitiesTask } from '../../graphql/generated/schema.types'
+import { SpaceTaskDetailsFragment } from '../../graphql/generated/types'
+import { formatUser, relativeFormatISOTimestamp, titleCase } from '../../utils'
+import { ImageWithPreview } from '../imageWithPreview'
 
 type SpaceTaskProps = {
-  task: SpaceTaskDetailsFragment | OpenbookCommunitiesTask;
-};
+  task: SpaceTaskDetailsFragment | OpenbookCommunitiesTask
+}
 
 export const SpaceTask: React.FC<SpaceTaskProps> = ({ task }) => {
   const visibility =
-    task.visibility === "PUBLIC"
+    task.visibility === 'PUBLIC'
       ? {
           icon: IconWorld,
-          text: "Public",
+          text: 'Public',
         }
       : {
           icon: IconLock,
-          text: "Members only",
-        };
+          text: 'Members only',
+        }
 
   return (
     <Card shadow="xs" padding="lg" radius="md" withBorder>
@@ -104,9 +104,7 @@ export const SpaceTask: React.FC<SpaceTaskProps> = ({ task }) => {
         <Stack c="dimmed" gap="xs">
           <Group gap="xs">
             <IconClockPlus size={14} />
-            <Text size="sm">
-              created {relativeFormatISOTimestamp(task.created)}
-            </Text>
+            <Text size="sm">created {relativeFormatISOTimestamp(task.created)}</Text>
           </Group>
           <Group gap="xs">
             <IconUser size={14} />
@@ -115,5 +113,5 @@ export const SpaceTask: React.FC<SpaceTaskProps> = ({ task }) => {
         </Stack>
       </Card.Section>
     </Card>
-  );
-};
+  )
+}

@@ -1,6 +1,6 @@
-import React, { useState, useMemo } from "react";
-import { Loader } from "@mantine/core";
-import { parseISO, formatDistanceToNow } from "date-fns";
+import React, { useState, useMemo } from 'react'
+import { Loader } from '@mantine/core'
+import { parseISO, formatDistanceToNow } from 'date-fns'
 import {
   MRT_PaginationState,
   MRT_ColumnDef,
@@ -8,42 +8,30 @@ import {
   MantineReactTable,
   MRT_TableState,
   MRT_RowData,
-} from "mantine-react-table";
-import { Link } from "react-router-dom";
-import useSWR from "swr";
+} from 'mantine-react-table'
+import { Link } from 'react-router-dom'
+import useSWR from 'swr'
 
-import {
-  OpenbookAuthUser,
-  ReportStatus,
-  ReportsFilter,
-} from "../../graphql/generated/schema.types";
-import {
-  ListReportsQueryVariables,
-  ListReportsQuery as ListReportsQueryResponse,
-} from "../../graphql/generated/types";
-import ListReportsQuery from "../../graphql/queries/listReports";
-import { formatUser, titleCase } from "../../utils";
-import { ReportStatusDropdown } from "../reportStatusDropdown";
+import { OpenbookAuthUser, ReportStatus, ReportsFilter } from '../../graphql/generated/schema.types'
+import { ListReportsQueryVariables, ListReportsQuery as ListReportsQueryResponse } from '../../graphql/generated/types'
+import ListReportsQuery from '../../graphql/queries/listReports'
+import { formatUser, titleCase } from '../../utils'
+import { ReportStatusDropdown } from '../reportStatusDropdown'
 
-type ReportsTableProps<
-  TRow extends MRT_RowData = ListReportsQueryResponse["reports"][0],
-> = {
-  filters?: ReportsFilter;
-  initialTableState?: Partial<MRT_TableState<TRow>>;
-};
+type ReportsTableProps<TRow extends MRT_RowData = ListReportsQueryResponse['reports'][0]> = {
+  filters?: ReportsFilter
+  initialTableState?: Partial<MRT_TableState<TRow>>
+}
 
-export const ReportsTable: React.FC<ReportsTableProps> = ({
-  filters,
-  initialTableState = {},
-}) => {
+export const ReportsTable: React.FC<ReportsTableProps> = ({ filters, initialTableState = {} }) => {
   const [pagination, setPagination] = useState<MRT_PaginationState>(
     initialTableState?.pagination ?? {
       pageIndex: 0,
       pageSize: 10,
     },
-  );
+  )
 
-  const [searchTerm, setSearchTerm] = useState(undefined);
+  const [searchTerm, setSearchTerm] = useState(undefined)
 
   const { data, isLoading } = useSWR<
     ListReportsQueryResponse,
@@ -61,77 +49,68 @@ export const ReportsTable: React.FC<ReportsTableProps> = ({
         ...filters,
       },
     },
-  ]);
+  ])
 
-  const reports = data?.reports ?? [];
-  const columns = useMemo<
-    MRT_ColumnDef<ListReportsQueryResponse["reports"][0]>[]
-  >(
+  const reports = data?.reports ?? []
+  const columns = useMemo<MRT_ColumnDef<ListReportsQueryResponse['reports'][0]>[]>(
     () => [
       {
-        accessorKey: "id",
-        header: "ID",
+        accessorKey: 'id',
+        header: 'ID',
         Cell: ({ cell }) => {
-          const id = cell.getValue<string>();
-          const shortId = id.substring(0, 6).toUpperCase();
+          const id = cell.getValue<string>()
+          const shortId = id.substring(0, 6).toUpperCase()
 
-          return <Link to={`/reports/${id}`}>#{shortId}</Link>;
+          return <Link to={`/reports/${id}`}>#{shortId}</Link>
         },
       },
       {
-        accessorKey: "status",
-        header: "Status",
+        accessorKey: 'status',
+        header: 'Status',
         Cell: ({ cell, row }) => (
-          <ReportStatusDropdown
-            reportId={row.getValue<string>("id")}
-            status={cell.getValue<ReportStatus>()}
-          />
+          <ReportStatusDropdown reportId={row.getValue<string>('id')} status={cell.getValue<ReportStatus>()} />
         ),
-        filterVariant: "select",
+        filterVariant: 'select',
       },
       {
         // accessorFn: (report) => formatUser(report.reporter!),
-        accessorKey: "reporter",
-        header: "Reporter",
+        accessorKey: 'reporter',
+        header: 'Reporter',
         Cell: ({ cell }) => {
-          const reporter = cell.getValue<OpenbookAuthUser>();
-          return (
-            <Link to={`/reports/user/${reporter.id}`}>
-              {formatUser(reporter)}
-            </Link>
-          );
+          const reporter = cell.getValue<OpenbookAuthUser>()
+          return <Link to={`/reports/user/${reporter.id}`}>{formatUser(reporter)}</Link>
         },
       },
       {
-        accessorKey: "contentType",
-        header: "Content Type",
+        accessorKey: 'contentType',
+        header: 'Content Type',
         Cell: ({ cell }) => titleCase(cell.getValue<string>()),
       },
       {
-        accessorKey: "details",
-        header: "Details/Comment",
+        accessorKey: 'details',
+        header: 'Details/Comment',
       },
       {
-        id: "createdAt",
+        id: 'createdAt',
         accessorFn: (report) => {
           if (!report.createdAt) {
-            return null;
+            return null
           }
-          return parseISO(report.createdAt);
+          return parseISO(report.createdAt)
         },
-        header: "Created",
+        header: 'Created',
         Cell: ({ cell }) => {
-          const date = cell.getValue<Date>();
-          if (!date) return null;
-          return formatDistanceToNow(date, { addSuffix: true });
+          const date = cell.getValue<Date>()
+          if (!date) return null
+          return formatDistanceToNow(date, { addSuffix: true })
         },
-        filterVariant: "date-range",
-        sortingFn: "datetime",
+        filterVariant: 'date-range',
+        sortingFn: 'datetime',
         enableColumnFilterModes: false,
       },
     ],
     [],
-  );
+  )
 
   const table = useMantineReactTable({
     columns,
@@ -144,11 +123,11 @@ export const ReportsTable: React.FC<ReportsTableProps> = ({
     onPaginationChange: setPagination,
     onGlobalFilterChange: setSearchTerm,
     initialState: initialTableState,
-  });
+  })
 
   if (isLoading) {
-    return <Loader />;
+    return <Loader />
   }
 
-  return <MantineReactTable table={table} />;
-};
+  return <MantineReactTable table={table} />
+}

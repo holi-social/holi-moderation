@@ -1,20 +1,37 @@
 {
   "name": "@holi/moderation",
   "private": true,
+  "packageManager": "yarn@4.2.2",
   "workspaces": [
     "apps/backend",
     "apps/frontend",
     "apps/eventListener"
   ],
   "scripts": {
-    "start": "npx ts-node mprocs-start.ts"
+    "start": "npx ts-node mprocs-start.ts",
+    "lint": "yarn workspaces foreach -Ap run lint",
+    "test": "yarn workspaces foreach -Ap run test --passWithNoTests",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json}\""
   },
-  "packageManager": "yarn@4.1.1",
   "devDependencies": {
+    "@eslint/js": "^9.7.0",
+    "@types/eslint__js": "^8.42.3",
     "@types/node": "^20.11.0",
     "docker-compose": "^0.24.8",
     "dotenv": "^16.4.5",
+    "eslint": "^9.7.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-react-refresh": "^0.4.8",
+    "prettier": "^3.3.3",
     "ts-node": "^10.9.2",
-    "typescript": "^5.4.5"
+    "typescript": "^5.5.3",
+    "typescript-eslint": "8.0.0-alpha.44"
+  },
+  "prettier": {
+    "printWidth": 120,
+    "semi": false,
+    "singleQuote": true
   }
 }

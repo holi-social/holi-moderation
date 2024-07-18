@@ -1,6 +1,6 @@
-import { gql } from "graphql-tag";
+import { gql } from 'graphql-tag'
 
-import { PostDetails } from "../fragments/post";
+import { PostDetails } from '../fragments/post'
 
 export const ViewPostQuery = gql`
   ${PostDetails}
@@ -10,4 +10,4 @@ export const ViewPostQuery = gql`
       ...PostDetails
     }
   }
-`;
+`

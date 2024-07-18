@@ -1,6 +1,6 @@
-import { gql } from "graphql-tag";
+import { gql } from 'graphql-tag'
 
-import { UserDetails } from "./user";
+import { UserDetails } from './user'
 
 export const CommentDetails = gql`
   ${UserDetails}
@@ -41,4 +41,4 @@ export const CommentDetails = gql`
       }
     }
   }
-`;
+`

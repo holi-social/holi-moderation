@@ -1,11 +1,11 @@
-import { gql } from "graphql-tag";
+import { gql } from 'graphql-tag'
 
-import { PostDetails } from "./post";
-import { SpaceDetails } from "./space";
-import { SpaceAppointmentDetails } from "./spaceAppointment";
-import { SpaceTaskDetails } from "./spaceTask";
-import { SpaceLinkhubToolDetails } from "./spaceLinkhubTool";
-import { UserDetails } from "./user";
+import { PostDetails } from './post'
+import { SpaceDetails } from './space'
+import { SpaceAppointmentDetails } from './spaceAppointment'
+import { SpaceTaskDetails } from './spaceTask'
+import { SpaceLinkhubToolDetails } from './spaceLinkhubTool'
+import { UserDetails } from './user'
 
 export const ReportedSpaceDetails = gql`
   ${UserDetails}
@@ -64,4 +64,4 @@ export const ReportedSpaceDetails = gql`
       }
     }
   }
-`;
+`

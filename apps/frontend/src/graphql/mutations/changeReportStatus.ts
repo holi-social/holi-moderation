@@ -1,6 +1,6 @@
-import { gql } from "graphql-tag";
+import { gql } from 'graphql-tag'
 
-import { ReportDetails } from "../fragments/report";
+import { ReportDetails } from '../fragments/report'
 
 export const ChangeReportStatusMutation = gql`
   ${ReportDetails}
@@ -10,4 +10,4 @@ export const ChangeReportStatusMutation = gql`
       ...ReportDetails
     }
   }
-`;
+`

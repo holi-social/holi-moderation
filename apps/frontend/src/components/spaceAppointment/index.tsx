@@ -1,36 +1,18 @@
-import React from "react";
-import { Card, Group, Stack, Text, Title } from "@mantine/core";
-import {
-  IconCalendar,
-  IconClock,
-  IconLock,
-  IconMapPin,
-  IconPencil,
-  IconTrash,
-  IconWorld,
-} from "@tabler/icons-react";
+import React from 'react'
+import { Card, Group, Stack, Text, Title } from '@mantine/core'
+import { IconCalendar, IconClock, IconLock, IconMapPin, IconPencil, IconTrash, IconWorld } from '@tabler/icons-react'
 
-import { SpaceAppointmentDetailsFragment } from "../../graphql/generated/types";
-import {
-  localFormatISOTimestamp,
-  okunaAdminUrl,
-  relativeFormatISOTimestamp,
-} from "../../utils";
-import { OpenbookAppointmentsAppointment } from "../../graphql/generated/schema.types";
-import { ImageWithPreview } from "../imageWithPreview";
+import { SpaceAppointmentDetailsFragment } from '../../graphql/generated/types'
+import { localFormatISOTimestamp, okunaAdminUrl, relativeFormatISOTimestamp } from '../../utils'
+import { OpenbookAppointmentsAppointment } from '../../graphql/generated/schema.types'
+import { ImageWithPreview } from '../imageWithPreview'
 
 type SpaceAppointmentProps = {
-  appointment:
-    | SpaceAppointmentDetailsFragment
-    | OpenbookAppointmentsAppointment;
-};
+  appointment: SpaceAppointmentDetailsFragment | OpenbookAppointmentsAppointment
+}
 
-export const SpaceAppointment: React.FC<SpaceAppointmentProps> = ({
-  appointment,
-}) => {
-  const adminUrl = okunaAdminUrl(
-    `openbook_appointments/appointment/${appointment.id}`,
-  );
+export const SpaceAppointment: React.FC<SpaceAppointmentProps> = ({ appointment }) => {
+  const adminUrl = okunaAdminUrl(`openbook_appointments/appointment/${appointment.id}`)
   const visibility = appointment.inviteOnly ? (
     <Group gap="xs">
       <IconLock size={12} />
@@ -41,7 +23,7 @@ export const SpaceAppointment: React.FC<SpaceAppointmentProps> = ({
       <IconWorld size={12} />
       <Text c="dimmed">Public</Text>
     </Group>
-  );
+  )
 
   return (
     <Card shadow="xs" padding="lg" radius="md" withBorder>
@@ -57,9 +39,7 @@ export const SpaceAppointment: React.FC<SpaceAppointmentProps> = ({
             fw="700"
             lh={1.5}
             mb="xs"
-            style={
-              appointment.isDeleted ? { textDecoration: "line-through" } : {}
-            }
+            style={appointment.isDeleted ? { textDecoration: 'line-through' } : {}}
             component="a"
             href={adminUrl}
             target="_blank"
@@ -70,16 +50,13 @@ export const SpaceAppointment: React.FC<SpaceAppointmentProps> = ({
           <Group gap="xs">
             <IconCalendar size={12} />
             <Text c="dimmed">
-              {localFormatISOTimestamp(appointment.startDateTime)} —{" "}
-              {localFormatISOTimestamp(appointment.endDateTime)}
+              {localFormatISOTimestamp(appointment.startDateTime)} — {localFormatISOTimestamp(appointment.endDateTime)}
             </Text>
           </Group>
           {appointment.locationDetails && (
             <Group gap="xs">
               <IconMapPin size={12} />
-              <Text c="dimmed">
-                {appointment.locationDetails.completeAddress}
-              </Text>
+              <Text c="dimmed">{appointment.locationDetails.completeAddress}</Text>
             </Group>
           )}
         </Stack>
@@ -99,9 +76,7 @@ export const SpaceAppointment: React.FC<SpaceAppointmentProps> = ({
               <Stack gap={0}>
                 <Title order={5}>Video Call</Title>
                 <Text>{appointment.videoCallLink?.url}</Text>
-                {appointment.videoCallLink.additionalInfo && (
-                  <Text>{appointment.videoCallLink.additionalInfo}</Text>
-                )}
+                {appointment.videoCallLink.additionalInfo && <Text>{appointment.videoCallLink.additionalInfo}</Text>}
               </Stack>
             )}
           </Stack>
@@ -113,30 +88,24 @@ export const SpaceAppointment: React.FC<SpaceAppointmentProps> = ({
           <Group gap="xs">
             <IconClock size={12} />
             <Text size="sm">
-              created {relativeFormatISOTimestamp(appointment.created)} by{" "}
-              {appointment.creator?.profile?.name ?? ""}{" "}
-              {appointment.creator?.profile?.lastName ?? ""}
+              created {relativeFormatISOTimestamp(appointment.created)} by {appointment.creator?.profile?.name ?? ''}{' '}
+              {appointment.creator?.profile?.lastName ?? ''}
             </Text>
           </Group>
-          {appointment.modified &&
-            appointment.modified !== appointment.created && (
-              <Group gap="xs">
-                <IconPencil size={12} />
-                <Text size="sm">
-                  edited {relativeFormatISOTimestamp(appointment.modified)}
-                </Text>
-              </Group>
-            )}
+          {appointment.modified && appointment.modified !== appointment.created && (
+            <Group gap="xs">
+              <IconPencil size={12} />
+              <Text size="sm">edited {relativeFormatISOTimestamp(appointment.modified)}</Text>
+            </Group>
+          )}
           {appointment.isDeleted && appointment.deletedAt && (
             <Group gap="xs">
               <IconTrash size={12} />
-              <Text size="sm">
-                deleted {relativeFormatISOTimestamp(appointment.deletedAt)}
-              </Text>
+              <Text size="sm">deleted {relativeFormatISOTimestamp(appointment.deletedAt)}</Text>
             </Group>
           )}
         </Stack>
       </Card.Section>
     </Card>
-  );
-};
+  )
+}

@@ -1,24 +1,20 @@
-import { Badge, Stack, Tabs, rem } from "@mantine/core";
-import {
-  IconMessage,
-  IconMessageReply,
-  IconTopologyRing3,
-} from "@tabler/icons-react";
-import React from "react";
+import { Badge, Stack, Tabs, rem } from '@mantine/core'
+import { IconMessage, IconMessageReply, IconTopologyRing3 } from '@tabler/icons-react'
+import React from 'react'
 
-import { ReportedUserDetailsFragment } from "../../graphql/generated/types";
-import { okunaAdminUrl } from "../../utils";
-import { Comment } from "../comment";
-import { Post } from "../post";
+import { ReportedUserDetailsFragment } from '../../graphql/generated/types'
+import { okunaAdminUrl } from '../../utils'
+import { Comment } from '../comment'
+import { Post } from '../post'
 
-import { User } from ".";
+import { User } from '.'
 
 export type ReportedUserDetailsProps = {
-  user: ReportedUserDetailsFragment;
-};
+  user: ReportedUserDetailsFragment
+}
 
 export const ReportedUser: React.FC<ReportedUserDetailsProps> = ({ user }) => {
-  const iconStyle = { width: rem(12), height: rem(12) };
+  const iconStyle = { width: rem(12), height: rem(12) }
 
   const additionalContent = (
     <Tabs defaultValue="posts">
@@ -71,11 +67,7 @@ export const ReportedUser: React.FC<ReportedUserDetailsProps> = ({ user }) => {
         {user.comments.length > 0 && (
           <Stack>
             {user.comments.map((comment) => (
-              <Comment
-                key={comment.id}
-                comment={comment}
-                withCommentable={false}
-              />
+              <Comment key={comment.id} comment={comment} withCommentable={false} />
             ))}
           </Stack>
         )}
@@ -85,12 +77,7 @@ export const ReportedUser: React.FC<ReportedUserDetailsProps> = ({ user }) => {
         <ul>
           {user.createdSpaces.map((space) => (
             <li>
-              <a
-                href={okunaAdminUrl(
-                  `openbook_communities/community/${space.id}`,
-                )}
-                target="_blank"
-              >
+              <a href={okunaAdminUrl(`openbook_communities/community/${space.id}`)} target="_blank">
                 {space.name}
               </a>
             </li>
@@ -98,7 +85,7 @@ export const ReportedUser: React.FC<ReportedUserDetailsProps> = ({ user }) => {
         </ul>
       </Tabs.Panel>
     </Tabs>
-  );
+  )
 
-  return <User user={user} additionalContent={additionalContent} />;
-};
+  return <User user={user} additionalContent={additionalContent} />
+}
