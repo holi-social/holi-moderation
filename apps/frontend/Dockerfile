@@ -1,4 +1,4 @@
-FROM node:20.11-alpine AS dependencies
+FROM europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/node:20.11-alpine AS dependencies
 
 WORKDIR /code
 COPY package.json yarn.lock .yarnrc.yml ./
@@ -8,7 +8,7 @@ RUN corepack enable \
 
 ###
 
-FROM node:20.11-alpine AS builder
+FROM europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/node:20.11-alpine AS builder
 
 WORKDIR /code
 COPY --from=dependencies /code/node_modules ./node_modules
@@ -22,7 +22,7 @@ RUN corepack enable \
 
 ###
 
-FROM node:20.11-alpine AS development
+FROM europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/node:20.11-alpine AS development
 
 WORKDIR /code
 
@@ -36,7 +36,7 @@ CMD yarn install && yarn run dev
 
 ###
 
-FROM nginx:mainline AS production
+FROM europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/nginx:mainline AS production
 
 COPY --from=builder /code/dist /srv/public
 COPY ./deploy/nginx.conf /etc/nginx/conf.d/default.conf
