@@ -1,6 +1,6 @@
 frontend:lint:
   stage: lint
-  image: node:20.11-alpine
+  image: 'europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/node:20.11-alpine'
   before_script:
     - corepack enable
     - yarn install
@@ -12,7 +12,7 @@ frontend:build:
   stage: build
   needs:
     - "frontend:lint"
-  image: docker:26.1
+  image: 'europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/docker:26.1'
   services:
     - docker:26.1-dind
   variables:

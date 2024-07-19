@@ -36,7 +36,7 @@ deploy:review:db_migrations:
 deploy:review:stop:
   stage: destroy
   image:
-    name: "hashicorp/terraform:1.6.1"
+    name: 'europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/hashicorp/terraform:1.6.1'
     entrypoint: ["/bin/sh", "-c"]
 
   variables:

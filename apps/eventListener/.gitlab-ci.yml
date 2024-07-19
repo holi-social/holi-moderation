@@ -1,6 +1,6 @@
 event_listener:lint:
   stage: lint
-  image: node:20.11-alpine
+  image: 'europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/node:20.11-alpine'
   before_script:
     - corepack enable
     - yarn install
@@ -10,7 +10,7 @@ event_listener:lint:
 
 event_listener:test:
   stage: test
-  image: node:20.11-alpine
+  image: 'europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/node:20.11-alpine'
 
   needs:
     - "event_listener:lint"
