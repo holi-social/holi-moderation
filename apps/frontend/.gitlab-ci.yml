@@ -29,7 +29,6 @@ frontend:build:
     - export VITE_OKUNA_ADMIN_BASE_URL="https://0kuna-adm1n.holi.social/staging/admin"
     - '[ "$CI_COMMIT_BRANCH" == "production" ] && export VITE_OKUNA_ADMIN_BASE_URL="https://0kuna-adm1n.holi.social/production/admin"'
 
-    - cat $GOOGLE_CLOUD_SERVICE_ACCOUNT | docker login -u _json_key --password-stdin https://europe-north1-docker.pkg.dev
     - cd apps/frontend
   script:
     - docker pull $GCR_IMAGE || true

@@ -18,7 +18,6 @@ backend:build:
   variables:
     GCR_IMAGE: europe-north1-docker.pkg.dev/holi-shared/docker/holi-moderation-backend
   before_script:
-    - cat $GOOGLE_CLOUD_SERVICE_ACCOUNT | docker login -u _json_key --password-stdin https://europe-north1-docker.pkg.dev
     - cd apps/backend
   script:
     - docker pull $GCR_IMAGE || true
