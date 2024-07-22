@@ -8,10 +8,11 @@ using docker-compose from the context of this repository
 
 1. copy `.env.local.template` to `.env.local` and set okuna db credentials
 2. ensure direnv reloads the file 
-3. `docker compose up -d`
-4. `docker compose exec backend yarn run typeorm migration:run -d src/typeorm.ts`
-5. install hasura-cli https://hasura.io/docs/latest/hasura-cli/install-hasura-cli
-6. `cd apps/hasura && hasura deploy --admin-secret HASURA_GRAPHQL_ADMIN_SECRET` 
+3. `gcloud auth configure-docker europe-north1-docker.pkg.dev`
+4. `docker compose up -d`
+5. `docker compose exec backend yarn run typeorm migration:run -d src/typeorm.ts`
+6. install hasura-cli https://hasura.io/docs/latest/hasura-cli/install-hasura-cli
+7. `cd apps/hasura && hasura deploy --admin-secret HASURA_GRAPHQL_ADMIN_SECRET`
 
 An initial user account is created for you and a password shown in the backend container log and saved to the [backend/.credentials file](backend/.credentials).
 (`+++ INITIAL USER: moderation@holi.social ...`)
