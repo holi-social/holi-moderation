@@ -12,6 +12,7 @@ const config: TypeOrmModuleOptions = {
   migrations: [`${__dirname}/../migrations/*.{ts,js}`],
   autoLoadEntities: true,
   migrationsRun: true,
+  logging: ['error', 'schema'],
 }
 
 const cliConfig: TypeOrmModuleOptions = {
