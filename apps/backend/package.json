@@ -18,7 +18,9 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "typeorm": "typeorm-ts-node-commonjs"
+    "typeorm": "typeorm-ts-node-commonjs",
+    "makemigrations": "yarn workspace @holi/moderation-backend run typeorm migration:generate -d src/typeorm.ts",
+    "migrate": "yarn workspace @holi/moderation-backend run typeorm migration:run -d src/typeorm.ts"
   },
   "dependencies": {
     "@apollo/server": "^4.10.2",

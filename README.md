@@ -2,17 +2,20 @@
 
 ## How to run
 
-Run either as part of the holi-meta-based mprocs setup (enable in .envrc.local.backends)
-or
-using docker-compose from the context of this repository
+1. Prepare your env file:
+   1. copy `.env.local.template` to `.env.local` and set okuna db credentials
+   2. fill it, with the looked up values from your local okuna and generate some new secrets 
 
-1. copy `.env.local.template` to `.env.local` and set okuna db credentials
-2. ensure direnv reloads the file 
-3. `gcloud auth configure-docker europe-north1-docker.pkg.dev`
-4. `docker compose up -d`
-5. `docker compose exec backend yarn run typeorm migration:run -d src/typeorm.ts`
-6. install hasura-cli https://hasura.io/docs/latest/hasura-cli/install-hasura-cli
-7. `cd apps/hasura && hasura deploy --admin-secret HASURA_GRAPHQL_ADMIN_SECRET`
+Start either as part of the holi-meta-based mprocs setup (enable in .envrc.local.backends)
+**or**
+using docker-compose:
+
+1. `direnv reload`
+2. `gcloud auth configure-docker europe-north1-docker.pkg.dev`
+3. `docker compose up -d`
+
+Optional tools:
+- install hasura-cli https://hasura.io/docs/latest/hasura-cli/install-hasura-cli
 
 An initial user account is created for you and a password shown in the backend container log and saved to the [backend/.credentials file](backend/.credentials).
 (`+++ INITIAL USER: moderation@holi.social ...`)
@@ -21,8 +24,21 @@ You should be able to reach the following endpoints:
 
 - [Hasura Console](http://localhost:8080/console)
 - [Frontend](http://localhost:5173)
-- [Backend GQL Playground](http://localhost:8087/graphql)
+- [Backend Health Check](http://localhost:3001/health)
+- [Backend GQL Playground](http://localhost:3001/graphql/)
 
+
+## How to work on
+
+Do your changes in the code and in the hasura configuration or its console. 
+
+When done, 
+- generate graphql types for the frontend 
+- export the hasura console metadata changes
+- generate the migrations for the moderation entities
+- add those files to git
+
+To apply changes to hasura metadata or run db migrations, simply restart the services or use the dedicated commands.
 
 ## Useful commands
 
@@ -39,12 +55,14 @@ You should be able to reach the following endpoints:
 
 - Generate new moderation service migrations
   ```bash
-  docker compose exec backend yarn run typeorm migration:generate -d src/typeorm.ts migrations/<MigrationName>
+  cd apps/backend
+  yarn makemigrations migrations/<MigrationName>
   ```
 
-- Run  moderation service migrations
+- Run moderation service migrations
   ```bash
-  docker compose exec backend yarn run typeorm migration:run -d src/typeorm.ts
+  cd apps/backend
+  yarn migrate
   ```
 
 - Reload hasura metadata (in case of connection errors, new graphql schema, ...)

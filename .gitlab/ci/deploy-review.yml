@@ -13,26 +13,6 @@ deploy:review:infra:
     - main
     - production
 
-deploy:review:hasura_metadata:
-  extends: .deploy_hasura_metadata
-  dependencies:
-    - "deploy:review:infra"
-  needs:
-    - "deploy:review:infra"
-  except:
-    - main
-    - production
-
-deploy:review:db_migrations:
-  extends: .run_db_migrations
-  dependencies:
-    - "deploy:review:infra"
-  needs:
-    - "deploy:review:infra"
-  except:
-    - main
-    - production
-
 deploy:review:stop:
   stage: destroy
   image:

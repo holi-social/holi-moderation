@@ -41,8 +41,9 @@ resource "google_cloud_run_service" "moderation_hasura" {
     spec {
       service_account_name = google_service_account.moderation.email
 
+      //todo gregor: add new mirrored location?
       containers {
-        image = "docker.io/hasura/graphql-engine:${var.hasura_image_tag}"
+        image = "docker.io/hasura/graphql-engine:v2.41.0.cli-migrations-v3.ubi"
         ports {
           container_port = 8080
         }
