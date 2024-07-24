@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common'
-import { ConfigService } from '@nestjs/config'
 import { JwtService, JwtSignOptions } from '@nestjs/jwt'
 
 import { User } from '../entities/user'
@@ -20,28 +19,22 @@ export type TokenPayload = {
 
 @Injectable()
 export class TokenService {
-  private readonly JWT_SECRET: string
   private readonly JWT_OPTIONS: Omit<JwtSignOptions, 'secret'> = {
     expiresIn: 6 * 60 * 60, // 6 hours
     algorithm: 'HS256',
     audience: 'moderation.holi.social',
   }
 
-  constructor(
-    config: ConfigService,
-    private readonly jwt: JwtService,
-  ) {
-    this.JWT_SECRET = config.get('MODERATION_JWT_SECRET')
-  }
+  constructor(private readonly jwt: JwtService) {}
 
   async signForUser(user: User): Promise<string> {
     const payload = this.payloadForUser(user)
 
-    return this.jwt.signAsync(payload, this.jwtOptions())
+    return this.jwt.signAsync(payload, this.JWT_OPTIONS)
   }
 
   async verify(token: string): Promise<TokenPayload> {
-    return this.jwt.verify<TokenPayload>(token, this.jwtOptions())
+    return this.jwt.verifyAsync<TokenPayload>(token, this.JWT_OPTIONS)
   }
 
   private payloadForUser(user: User): TokenPayload {
@@ -55,9 +48,5 @@ export class TokenService {
         'x-hasura-user-id': user.id,
       },
     }
-  }
-
-  private jwtOptions(): JwtSignOptions {
-    return { secret: this.JWT_SECRET, ...this.JWT_OPTIONS }
   }
 }

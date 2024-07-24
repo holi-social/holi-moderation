@@ -5,13 +5,24 @@ import tseslint from 'typescript-eslint'
 import reactRefresh from 'eslint-plugin-react-refresh'
 import importPlugin from 'eslint-plugin-import'
 import prettierRecommended from 'eslint-plugin-prettier/recommended'
+import jest from 'eslint-plugin-jest'
 
 export default tseslint.config(
   {
-    ignores: ['dist/', 'jest.config.js', 'vite.config.ts', 'eslint.config.mjs', 'tsconfig.json', 'mprocs-start.ts', '**/*.e2e-spec.ts', '**/*.test.ts']
+    ignores: ['dist/', 'jest.config.js', 'vite.config.ts', 'eslint.config.mjs', 'tsconfig.json', 'mprocs-start.ts'],
   },
   eslint.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
+  {
+    files: ["**/*.test.ts"],
+    ...jest.configs['flat/recommended'],
+    rules: {
+      ...jest.configs['flat/recommended'].rules,
+      '@typescript-eslint/unbound-method': 'off',
+      'jest/unbound-method': 'error',
+      '@typescript-eslint/no-floating-promises': 'off',
+    }
+  },
   {
     plugins: {
       'react-refresh': reactRefresh,

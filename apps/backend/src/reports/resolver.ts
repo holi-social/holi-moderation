@@ -57,7 +57,12 @@ export class ReportsResolver {
 
   @Query(() => Report)
   async report(@Args('id', { type: () => UUID }) id: string) {
-    return this.repository.findOneBy({ id })
+    const report = await this.repository.findOneBy({ id })
+    if (report === null) {
+      throw new NotFoundException()
+    }
+
+    return report
   }
 
   @Mutation(() => Report)

@@ -12,7 +12,7 @@ export class AuthService {
    * options used for the password hashing
    * @see https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html#argon2id
    */
-  private readonly HASH_SETTINGS: Argon2Options = {
+  private static HASH_SETTINGS: Argon2Options = {
     memoryCost: 19 * 1024, // 19 MiB
     timeCost: 2,
     parallelism: 1,
@@ -26,7 +26,7 @@ export class AuthService {
       throw new ForbiddenException()
     }
 
-    const passwordMatchesHash = await this.verifyPasswordHash(user.passwordHash, password)
+    const passwordMatchesHash = await AuthService.verifyPasswordHash(user.passwordHash, password)
 
     if (!passwordMatchesHash) {
       throw new ForbiddenException()
@@ -36,7 +36,7 @@ export class AuthService {
   }
 
   async register(email: string, password: string, role: UserRole = UserRole.MODERATOR): Promise<User> {
-    const passwordHash = await this.hashPassword(password)
+    const passwordHash = await AuthService.hashPassword(password)
     const newUser = this.repository.create({
       email,
       passwordHash,
@@ -47,15 +47,15 @@ export class AuthService {
   }
 
   async changePassword(user: User, newPassword: string): Promise<User> {
-    user.passwordHash = await this.hashPassword(newPassword)
+    user.passwordHash = await AuthService.hashPassword(newPassword)
     return this.repository.save(user)
   }
 
-  private async hashPassword(password: string): Promise<string> {
-    return hash(password, this.HASH_SETTINGS)
+  static async hashPassword(password: string): Promise<string> {
+    return hash(password, AuthService.HASH_SETTINGS)
   }
 
-  private async verifyPasswordHash(hash: string, password: string): Promise<boolean> {
-    return verify(hash, password, this.HASH_SETTINGS)
+  static async verifyPasswordHash(hash: string, password: string): Promise<boolean> {
+    return verify(hash, password, AuthService.HASH_SETTINGS)
   }
 }

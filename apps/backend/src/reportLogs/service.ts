@@ -66,11 +66,10 @@ export class ReportLogger {
       report: { id: reportId },
       eventName,
       eventPayload,
-    }
-    if (actor) {
-      eventData['actor'] = { id: actor.id }
+      actor,
     }
 
-    await this.repository.createQueryBuilder().insert().into(ReportEvent).values(eventData).execute()
+    const logEvent = this.repository.create(eventData)
+    await this.repository.save(logEvent)
   }
 }

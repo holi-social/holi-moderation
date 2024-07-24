@@ -785,6 +785,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@golevelup/ts-jest@npm:^0.5.0":
+  version: 0.5.0
+  resolution: "@golevelup/ts-jest@npm:0.5.0"
+  checksum: 10c0/d866129444aca2106fa44a783ba5712303f5588ccb05ee7bbc5094b3e247fa7c2fae30850df785402b596f58bc6216a7ea865772cb630989d3ffba8bf7a77f5a
+  languageName: node
+  linkType: hard
+
 "@google-cloud/paginator@npm:^5.0.0":
   version: 5.0.2
   resolution: "@google-cloud/paginator@npm:5.0.2"
@@ -968,6 +975,7 @@ __metadata:
   resolution: "@holi/moderation-backend@workspace:."
   dependencies:
     "@apollo/server": "npm:^4.10.2"
+    "@golevelup/ts-jest": "npm:^0.5.0"
     "@google-cloud/pubsub": "npm:^4.3.3"
     "@nestjs/apollo": "npm:^12.1.0"
     "@nestjs/cli": "npm:^10.0.0"
