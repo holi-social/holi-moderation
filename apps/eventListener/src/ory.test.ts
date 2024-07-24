@@ -24,7 +24,7 @@ describe('ory service', () => {
       })
     })
 
-    it('should fail when finding multiple identities', () => {
+    it('should fail when finding multiple identities', async () => {
       const identity = {
         listIdentities: jest.fn(() => ({
           data: [{ id: randomUUID() }, { id: randomUUID() }],
@@ -33,7 +33,7 @@ describe('ory service', () => {
 
       const ory = new Ory(identity as unknown as IdentityApi)
 
-      expect(ory.findIdentity('test@holi.social')).rejects.toThrow()
+      await expect(ory.findIdentity('test@holi.social')).rejects.toThrow()
       expect(identity.listIdentities).toHaveBeenCalledWith({
         credentialsIdentifier: 'test@holi.social',
       })
@@ -99,10 +99,10 @@ describe('ory service', () => {
       jest.restoreAllMocks()
     })
 
-    it('should fail when identity is not found', () => {
+    it('should fail when identity is not found', async () => {
       jest.spyOn(Ory.prototype, 'findIdentity').mockResolvedValue(null)
 
-      expect(ory.deactivateUser('test@holi.social')).rejects.toThrow(/^User with email ".+" not found$/)
+      await expect(ory.deactivateUser('test@holi.social')).rejects.toThrow(/^User with email ".+" not found$/)
     })
 
     it('should terminate all sessions and update identity', async () => {
@@ -130,10 +130,10 @@ describe('ory service', () => {
       jest.restoreAllMocks()
     })
 
-    it('should fail when identity is not found', () => {
+    it('should fail when identity is not found', async () => {
       jest.spyOn(Ory.prototype, 'findIdentity').mockResolvedValue(null)
 
-      expect(ory.activateUser('test@holi.social')).rejects.toThrow(/^User with email ".+" not found$/)
+      await expect(ory.activateUser('test@holi.social')).rejects.toThrow(/^User with email ".+" not found$/)
     })
 
     it('should update identity', async () => {

@@ -1,9 +1,11 @@
 import { PubSub } from '@google-cloud/pubsub'
-import { Injectable, OnApplicationBootstrap } from '@nestjs/common'
+import { Injectable, Logger, OnApplicationBootstrap } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 
 @Injectable()
 export class EnsurePubsubTopic implements OnApplicationBootstrap {
+  private readonly logger = new Logger(EnsurePubsubTopic.name)
+
   constructor(
     private readonly pubsub: PubSub,
     private readonly config: ConfigService,
@@ -15,7 +17,7 @@ export class EnsurePubsubTopic implements OnApplicationBootstrap {
         return
       }
 
-      const topicName = this.config.get('PUBSUB_TOPIC_NAME')
+      const topicName = this.config.get<string>('PUBSUB_TOPIC_NAME')
       const topic = this.pubsub.topic(topicName)
 
       const [topicExists] = await topic.exists()
@@ -24,6 +26,8 @@ export class EnsurePubsubTopic implements OnApplicationBootstrap {
       }
 
       await topic.create()
-    } catch {}
+    } catch {
+      this.logger.error('Failed creating the pubsub topic')
+    }
   }
 }

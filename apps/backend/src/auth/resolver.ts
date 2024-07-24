@@ -35,7 +35,7 @@ export class AuthResolver {
   }
 
   @Query(() => TokenValidity)
-  public async verifyToken(): Promise<TokenValidity> {
+  public verifyToken(): TokenValidity {
     return {
       valid: true,
     }
@@ -90,6 +90,7 @@ export class UserResolver {
     return this.repository.save(user)
   }
 
+  @Mutation()
   public async changeOwnPassword(
     @Args('newPassword') newPassword: string,
     @AuthenticatedUser() authenticatedUser?: User,
