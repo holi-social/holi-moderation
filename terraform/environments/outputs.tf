@@ -17,15 +17,9 @@ output "moderation_service_account_email" {
   value = google_service_account.moderation.email
 }
 
-output "backend_db_migrations_job_name" {
-  value = google_cloud_run_v2_job.backend_db_migrations.name
-}
 
 # TODO: What for? Just use the infra-state output. What are you using the output for? Programmatically?
 output "project_id" {
   value = data.terraform_remote_state.holi_infra_state.outputs.shared_project_id
 }
 
-output "hasura_version" {
-  value = var.hasura_image_tag
-}

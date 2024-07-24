@@ -24,41 +24,11 @@
 
     - cd terraform/environments
     - export HASURA_GRAPHQL_ENDPOINT="https://$(terraform output -raw hasura_domain)"
-    - export HASURA_VERSION="$(terraform output -raw hasura_version)"
-    - export MIGRATION_JOB_NAME="$(terraform output -raw backend_db_migrations_job_name)"
     - export PROJECT_ID="$(terraform output -raw project_id)"
 
     - cd ../..
-    - echo -e "export HASURA_GRAPHQL_ENDPOINT=${HASURA_GRAPHQL_ENDPOINT}\nexport MIGRATION_JOB_NAME=${MIGRATION_JOB_NAME}\nexport PROJECT_ID=${PROJECT_ID}\nexport HASURA_VERSION=${HASURA_VERSION}" > .env
+    - echo -e "export HASURA_GRAPHQL_ENDPOINT=${HASURA_GRAPHQL_ENDPOINT}\nexport export PROJECT_ID=${PROJECT_ID}\n" > .env
 
   resource_group: $ENVIRONMENT_ID
   interruptible: false
   allow_failure: false
-
-.deploy_hasura_metadata:
-  stage: deploy
-  image: google/cloud-sdk:477.0.0-slim
-  variables:
-    HASURA_GRAPHQL_ENABLE_TELEMETRY: "false"
-
-  script:
-    - gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
-    - . .env
-
-    - '[ "$CI_ENVIRONMENT_NAME" == "production" ] && export HASURA_ADMIN_SECRET_NAME="MODERATION_HASURA_ADMIN_SECRET_PRODUCTION" || export HASURA_ADMIN_SECRET_NAME="MODERATION_HASURA_ADMIN_SECRET_DEVELOPMENT"'
-    - export HASURA_GRAPHQL_ADMIN_SECRET=$(gcloud secrets versions access latest --secret="${HASURA_ADMIN_SECRET_NAME}")
-
-    - curl -sSLo /usr/local/bin/hasura https://github.com/hasura/graphql-engine/releases/download/${HASURA_VERSION}/cli-hasura-linux-amd64 && chmod +x /usr/local/bin/hasura
-    - cd apps/hasura
-    - hasura metadata apply
-
-.run_db_migrations:
-  stage: deploy
-  image: google/cloud-sdk:477.0.0-slim
-
-  script:
-    - gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
-    - . .env
-    - gcloud run jobs execute "${MIGRATION_JOB_NAME}" --wait --project="${PROJECT_ID}" --region=europe-north1
-
-  interruptible: false

@@ -8,21 +8,3 @@ deploy:staging:infra:
     url: https://staging.moderation.holi.social
   only:
     - main
-
-deploy:staging:hasura_metadata:
-  extends: .deploy_hasura_metadata
-  dependencies:
-    - "deploy:staging:infra"
-  needs:
-    - "deploy:staging:infra"
-  only:
-    - main
-
-deploy:staging:db_migrations:
-  extends: .run_db_migrations
-  dependencies:
-    - "deploy:staging:infra"
-  needs:
-    - "deploy:staging:infra"
-  only:
-    - main

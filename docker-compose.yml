@@ -17,10 +17,10 @@ services:
       - /code/node_modules
     working_dir: /code
     healthcheck:
-        test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://127.0.0.1:3001/health"]
-        interval: 5s
-        timeout: 5s
-        retries: 30
+      test: [ "CMD-SHELL", "wget --no-verbose --tries=1 --spider http://127.0.0.1:3001/health" ]
+      interval: 5s
+      timeout: 5s
+      retries: 30
     depends_on:
       db:
         condition: service_healthy
@@ -62,10 +62,12 @@ services:
       retries: 30
 
   hasura:
-    image: hasura/graphql-engine:v2.38.0
+    image: hasura/graphql-engine:v2.41.0.cli-migrations-v3.ubi
     ports:
       - "8080:8080"
-    restart: always
+    restart: no
+    volumes:
+      - ./apps/hasura/metadata:/hasura-metadata
     environment:
       ## postgres database to store Hasura metadata
       HASURA_GRAPHQL_METADATA_DATABASE_URL: postgres://${MODERATION_DB_USER}:${MODERATION_DB_PASSWORD}@${MODERATION_DB_HOST}:${MODERATION_DB_PORT:-5432}/hasura
@@ -73,11 +75,9 @@ services:
       HASURA_GRAPHQL_ENABLE_CONSOLE: "true" # set to "false" to disable console
       ## enable debugging mode. It is recommended to disable this in production
       HASURA_GRAPHQL_DEV_MODE: "true"
-      # HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
       HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, webhook-log, websocket-log, query-log
       ## uncomment next line to run console offline (i.e load console assets from server instead of CDN)
       # HASURA_GRAPHQL_CONSOLE_ASSETS_DIR: /srv/console-assets
-      ## uncomment next line to set an admin secret
       HASURA_GRAPHQL_ADMIN_SECRET: "${HASURA_GRAPHQL_ADMIN_SECRET}"
       HASURA_GRAPHQL_ENABLE_REMOTE_SCHEMA_PERMISSIONS: "true"
       HASURA_GRAPHQL_UNAUTHORIZED_ROLE: "anonymous"

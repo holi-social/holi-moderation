@@ -2,11 +2,6 @@ import { registerAs } from '@nestjs/config'
 import { TypeOrmModuleOptions } from '@nestjs/typeorm'
 import { DataSource, DataSourceOptions } from 'typeorm'
 
-import { Report } from './reports/entities/report'
-import { ReportEvent } from './reportLogs/entities/reportEvent'
-import { User } from './auth/entities/user'
-import { UserSuspension } from './moderatorActions/entities/userSuspension'
-
 const config: TypeOrmModuleOptions = {
   type: 'postgres',
   host: process.env.MODERATION_DB_HOST,
@@ -16,13 +11,19 @@ const config: TypeOrmModuleOptions = {
   port: parseInt(process.env.MODERATION_DB_PORT),
   migrations: [`${__dirname}/../migrations/*.{ts,js}`],
   autoLoadEntities: true,
+  migrationsRun: true,
 }
 
 const cliConfig: TypeOrmModuleOptions = {
   ...config,
   autoLoadEntities: false,
-  entities: [Report, ReportEvent, User, UserSuspension],
+  entities: ['src/**/entities/*.ts'],
+  /* relate to public interface of your local moderation db
+   * to be able to use typeorm cli commands conveniently */
+  port: 5435,
+  host: '127.0.0.1',
 }
 
 export default registerAs('typeorm', () => config)
+/* typeorm cli magic uses this named export */
 export const dataSource = new DataSource(cliConfig as DataSourceOptions)
