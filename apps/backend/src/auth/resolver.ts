@@ -90,7 +90,7 @@ export class UserResolver {
     return this.repository.save(user)
   }
 
-  @Mutation()
+  @Mutation(() => Success)
   public async changeOwnPassword(
     @Args('newPassword') newPassword: string,
     @AuthenticatedUser() authenticatedUser?: User,
