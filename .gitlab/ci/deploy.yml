@@ -1,7 +1,11 @@
+###
+# JOB TEMPLATE
+###
+
 .deploy_infra:
   stage: deploy
   image:
-    name: 'europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/hashicorp/terraform:1.6.1'
+    name: "europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/hashicorp/terraform:1.6.1"
     entrypoint: ["/bin/sh", "-c"]
   variables:
     ENVIRONMENT_ID: $CI_ENVIRONMENT_NAME
@@ -10,25 +14,87 @@
     - "backend:build"
     - "frontend:build"
     - "event_listener:test"
+    - "hasura:build"
 
   artifacts:
     paths:
       - "terraform/environments/crash.log"
       - "terraform/environments/terraform-*.log"
-      - ".env"
     name: "${CI_JOB_NAME}_${CI_JOB_ID}"
     expire_in: 1 week
 
   script:
     - terraform/environments/scripts/create-or-update-env.sh $ENVIRONMENT_ID $CI_COMMIT_SHA
 
-    - cd terraform/environments
-    - export HASURA_GRAPHQL_ENDPOINT="https://$(terraform output -raw hasura_domain)"
-    - export PROJECT_ID="$(terraform output -raw project_id)"
-
-    - cd ../..
-    - echo -e "export HASURA_GRAPHQL_ENDPOINT=${HASURA_GRAPHQL_ENDPOINT}\nexport export PROJECT_ID=${PROJECT_ID}\n" > .env
-
   resource_group: $ENVIRONMENT_ID
   interruptible: false
   allow_failure: false
+
+###
+# REVIEW ENVIRONMENTS
+###
+
+deploy:review:infra:
+  extends: .deploy_infra
+  environment:
+    name: review-$CI_COMMIT_REF_SLUG
+    url: https://$CI_COMMIT_REF_SLUG.moderation.holi.social
+    on_stop: "deploy:review:stop"
+    auto_stop_in: 1 week
+  when: manual
+  except:
+    - main
+    - production
+
+deploy:review:stop:
+  stage: destroy
+  image:
+    name: 'europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/hashicorp/terraform:1.6.1'
+    entrypoint: ["/bin/sh", "-c"]
+
+  variables:
+    GIT_STRATEGY: none
+
+  environment:
+    name: review-$CI_COMMIT_REF_SLUG
+    action: stop
+
+  dependencies: []
+  script:
+    - export GOOGLE_APPLICATION_CREDENTIALS=${GOOGLE_CLOUD_SERVICE_ACCOUNT}
+    - git clone $CI_REPOSITORY_URL main-clone
+    - cd main-clone
+    - git switch $CI_COMMIT_BRANCH || true
+    - terraform/environments/scripts/destroy-env.sh $CI_ENVIRONMENT_NAME
+  when: manual
+  allow_failure: false
+  except:
+    - main
+    - production
+    - /^noenv.+/
+  resource_group: $CI_ENVIRONMENT_NAME
+  interruptible: false
+
+###
+# STAGING
+###
+
+deploy:staging:infra:
+  extends: .deploy_infra
+  environment:
+    name: staging
+    url: https://staging.moderation.holi.social
+  only:
+    - main
+
+###
+# PRODUCTION
+###
+
+deploy:production:infra:
+  extends: .deploy_infra
+  environment:
+    name: production
+    url: https://moderation.holi.social
+  only:
+    - production

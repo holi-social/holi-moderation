@@ -27,3 +27,8 @@ variable "frontend_image_tag" {
   type     = string
   nullable = false
 }
+
+variable "hasura_image_tag" {
+  type     = string
+  nullable = false
+}
