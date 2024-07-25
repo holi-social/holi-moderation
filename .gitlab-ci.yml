@@ -15,6 +15,4 @@ include:
   - local: "apps/frontend/.gitlab-ci.yml"
   - local: "apps/eventListener/.gitlab-ci.yml"
   - local: "apps/hasura/.gitlab-ci.yml"
-  - local: ".gitlab/ci/deploy-review.yml"
-  - local: ".gitlab/ci/deploy-staging.yml"
-  - local: ".gitlab/ci/deploy-production.yml"
+  - local: ".gitlab/ci/deploy.yml"
