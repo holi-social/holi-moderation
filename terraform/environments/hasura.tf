@@ -42,7 +42,7 @@ resource "google_cloud_run_service" "moderation_hasura" {
       service_account_name = google_service_account.moderation.email
 
       containers {
-        image = "europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/hasura/graphql-engine:v2.41.0.cli-migrations-v3.ubi"
+        image = "europe-north1-docker.pkg.dev/holi-shared/docker/holi-moderation-hasura:${var.hasura_image_tag}"
         ports {
           container_port = 8080
         }
