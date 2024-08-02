@@ -21,14 +21,16 @@ resource "google_storage_bucket_object" "event_listener" {
 }
 
 resource "google_cloudfunctions2_function" "event_listener" {
-  name     = local.eventlistener_name
-  location = local.default_region
+  name         = local.eventlistener_name
+  location     = local.default_region
+  kms_key_name = data.terraform_remote_state.moderation_common_state.outputs.pubsub_kms_key_id
 
   depends_on = [google_service_account.moderation, google_project_iam_member.moderation]
 
   build_config {
-    runtime     = "nodejs20"
-    entry_point = "ModerationEventListener"
+    runtime           = "nodejs20"
+    entry_point       = "ModerationEventListener"
+    docker_repository = data.terraform_remote_state.holi_infra_state.outputs.cloudfunctions_repository_id
 
     source {
       storage_source {
