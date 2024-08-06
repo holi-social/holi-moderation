@@ -1,17 +1,7 @@
-backend:lint:
-  stage: lint
-  image: 'europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/node:20.11-alpine'
-  before_script:
-    - corepack enable
-    - yarn install
-    - yarn workspace @holi/moderation-backend install
-  script:
-    - yarn workspace @holi/moderation-backend run lint
-
-backend:build:
-  stage: build
-  needs:
-    - "backend:lint"
+backend:image:
+  stage: deploy
+  dependencies:
+    - "apps:build"
   image: 'europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/docker:27'
   services:
     - 'docker:27-dind'
@@ -21,7 +11,7 @@ backend:build:
     - cd apps/backend
   script:
     - docker pull $GCR_IMAGE || true
-    - docker build --cache-from $GCR_IMAGE --target=production -t $GCR_IMAGE:latest -t $GCR_IMAGE:$CI_COMMIT_SHA -t $GCR_IMAGE:$CI_COMMIT_REF_SLUG .
+    - docker build --cache-from $GCR_IMAGE -t $GCR_IMAGE:latest -t $GCR_IMAGE:$CI_COMMIT_SHA -t $GCR_IMAGE:$CI_COMMIT_REF_SLUG .
     - docker push $GCR_IMAGE:$CI_COMMIT_SHA
     - docker push $GCR_IMAGE:$CI_COMMIT_REF_SLUG
     - docker push $GCR_IMAGE:latest

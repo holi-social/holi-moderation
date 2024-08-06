@@ -1,7 +1,7 @@
 import { Ory } from '../ory'
-import { UserSuspendedData } from '../types'
+import type { UserSuspendedData } from '../types'
 
-import { HandlerOptions } from './types'
+import type { HandlerOptions } from './types'
 
 export const handleUserSuspended = async (
   event: UserSuspendedData,

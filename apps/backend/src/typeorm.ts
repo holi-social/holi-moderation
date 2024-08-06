@@ -1,6 +1,7 @@
 import { registerAs } from '@nestjs/config'
-import { TypeOrmModuleOptions } from '@nestjs/typeorm'
-import { DataSource, DataSourceOptions } from 'typeorm'
+import type { TypeOrmModuleOptions } from '@nestjs/typeorm'
+import type { DataSourceOptions } from 'typeorm'
+import { DataSource } from 'typeorm'
 
 const config: TypeOrmModuleOptions = {
   type: 'postgres',
@@ -21,7 +22,6 @@ const cliConfig: TypeOrmModuleOptions = {
   entities: ['src/**/entities/*.ts'],
   /* relate to public interface of your local moderation db
    * to be able to use typeorm cli commands conveniently */
-  port: 5435,
   host: '127.0.0.1',
 }
 

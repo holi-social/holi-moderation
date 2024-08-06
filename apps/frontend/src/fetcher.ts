@@ -1,5 +1,6 @@
-import { GraphQLClient, RequestDocument, Variables } from 'graphql-request'
-import { Fetcher } from 'swr'
+import type { RequestDocument, Variables } from 'graphql-request'
+import { GraphQLClient } from 'graphql-request'
+import type { Fetcher } from 'swr'
 
 import { useAuthState } from './state'
 

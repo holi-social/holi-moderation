@@ -1,8 +1,10 @@
 services:
   backend:
-    build:
-      context: apps/backend
-      target: development
+    image: node:20.11-alpine
+    user: "node"
+    working_dir: /home/node/app
+    volumes:
+      - ./:/home/node/app
     env_file:
       - .env
     environment:
@@ -10,12 +12,6 @@ services:
       NODE_ENV: development
       LISTEN_ADDR: "0.0.0.0"
       DEBUG: "true"
-    ports:
-      - 3001:3001
-    volumes:
-      - ./apps/backend:/code
-      - /code/node_modules
-    working_dir: /code
     healthcheck:
       test: [ "CMD-SHELL", "wget --no-verbose --tries=1 --spider http://127.0.0.1:3001/health" ]
       interval: 5s
@@ -24,23 +20,25 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    ports:
+      - 3001:3001
+    command: sh -c "corepack use yarn@4.2.2; corepack yarn workspace @holi/moderation-backend nest start --watch"
 
   frontend:
-    build:
-      context: apps/frontend
-      target: development
-    ports:
-      - 5173:5173
+    image: node:20.11-alpine
+    user: "node"
+    working_dir: /home/node/app
     volumes:
-      - ./apps/frontend:/code
-      - /code/node_modules
-    working_dir: /code
+      - ./:/home/node/app
     environment:
       VITE_OKUNA_ADMIN_BASE_URL: "http://localhost:8000/local/admin"
       VITE_GRAPHQL_URL: "http://localhost:8080/v1/graphql"
       # the admin secret should NEVER be added to the deployed container, only locally to facilitate schema introspection for codegen
       HASURA_GRAPHQL_ADMIN_SECRET: "${HASURA_GRAPHQL_ADMIN_SECRET}"
       INTERNAL_GRAPHQL_URL: "http://hasura:8080/v1/graphql"
+    ports:
+      - 5173:5173
+    command: sh -c "corepack use yarn@4.2.2; corepack yarn workspace @holi/moderation-frontend vite"
 
   db:
     image: postgres:16
@@ -53,8 +51,9 @@ services:
       POSTGRES_PASSWORD: ${MODERATION_DB_PASSWORD}
       POSTGRES_DB: ${MODERATION_DB_NAME}
       POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+      PGPORT: ${MODERATION_DB_PORT}
     ports:
-      - 5435:5432
+      - ${MODERATION_DB_PORT}:${MODERATION_DB_PORT}
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -d ${MODERATION_DB_NAME} -U ${MODERATION_DB_USER}" ]
       interval: 3s
@@ -70,7 +69,7 @@ services:
       - ./apps/hasura/metadata:/hasura-metadata
     environment:
       ## postgres database to store Hasura metadata
-      HASURA_GRAPHQL_METADATA_DATABASE_URL: postgres://${MODERATION_DB_USER}:${MODERATION_DB_PASSWORD}@${MODERATION_DB_HOST}:${MODERATION_DB_PORT:-5432}/hasura
+      HASURA_GRAPHQL_METADATA_DATABASE_URL: postgres://${MODERATION_DB_USER}:${MODERATION_DB_PASSWORD}@${MODERATION_DB_HOST}:${MODERATION_DB_PORT:-5434}/hasura
       ## enable the console served by server
       HASURA_GRAPHQL_ENABLE_CONSOLE: "true" # set to "false" to disable console
       ## enable debugging mode. It is recommended to disable this in production

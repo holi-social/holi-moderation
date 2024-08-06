@@ -1,6 +1,6 @@
 import { randomUUID } from 'crypto'
 
-import { Repository } from 'typeorm'
+import type { Repository } from 'typeorm'
 import { ForbiddenException } from '@nestjs/common'
 
 import { User } from '../entities/user'

@@ -1,17 +1,19 @@
 import { randomUUID } from 'crypto'
 
-import { createMock, DeepMocked } from '@golevelup/ts-jest'
+import type { DeepMocked } from '@golevelup/ts-jest'
+import { createMock } from '@golevelup/ts-jest'
 import { NotFoundException } from '@nestjs/common'
 
-import { User } from '../auth/entities/user'
-import { ReportLogger } from '../reportLogs/service'
-import { createMockRepository, MockRepository } from '../testHelpers'
+import type { User } from '../auth/entities/user'
+import type { ReportLogger } from '../reportLogs/service'
+import type { MockRepository } from '../testHelpers'
+import { createMockRepository } from '../testHelpers'
 
 import { ReportsResolver } from './resolver'
 import { Report } from './entities/report'
 import { ReportStatus } from './entities/reportStatus'
 import { ContentType } from './entities/contentType'
-import { CreateReport } from './schema'
+import type { CreateReport } from './schema'
 
 describe('reports resolver', () => {
   let reportLogger: DeepMocked<ReportLogger>

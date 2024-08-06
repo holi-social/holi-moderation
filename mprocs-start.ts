@@ -46,6 +46,7 @@ const waitForPubsub = (config: any, MAX_ATTEMPTS: number = 20): Promise<void> =>
     const url = `http://${config.host}/v1/projects/${config.projectId}/topics`
     console.log(`Trying to to find pubsub emulator at ${url} ...`)
 
+    let interval: any
     const checkEmulatorStatus = () => {
       http
         .get(url, (res) => {
@@ -63,8 +64,7 @@ const waitForPubsub = (config: any, MAX_ATTEMPTS: number = 20): Promise<void> =>
           attempts++
         })
     }
-
-    const interval = setInterval(checkEmulatorStatus, 1000)
+    interval = setInterval(checkEmulatorStatus, 1000)
   })
 }
 

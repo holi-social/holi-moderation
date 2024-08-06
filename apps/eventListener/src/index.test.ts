@@ -4,7 +4,7 @@ import { CloudEvent } from 'cloudevents'
 
 import { handleUserSuspended } from './handlers/userSuspended'
 import { handleUserSuspensionExpired } from './handlers/userSuspensionExpired'
-import { UserSuspendedEvent, UserSuspensionExpiredEvent } from './types'
+import type { UserSuspendedEvent, UserSuspensionExpiredEvent } from './types'
 
 import { handleEvent } from '.'
 

@@ -9,7 +9,7 @@ import jest from 'eslint-plugin-jest'
 
 export default tseslint.config(
   {
-    ignores: ['dist/', 'jest.config.js', 'vite.config.ts', 'eslint.config.mjs', 'tsconfig.json', 'mprocs-start.ts'],
+    ignores: ['dist/', 'jest.config.js', 'vite.config.ts', 'eslint.config.mjs', 'tsconfig.json', 'mprocs-start.ts', "apps/backend/migrations/*"],
   },
   eslint.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
@@ -53,6 +53,8 @@ export default tseslint.config(
         'newlines-between': 'always'
       }],
       'import/no-duplicates': 'error',
+      /* the tsup build for backend bundling needs consistent type imports */
+      "@typescript-eslint/consistent-type-imports": "error",
       /* added for compatibility, todo review @gregor */
       '@typescript-eslint/no-empty-object-type': 'warn',
       '@typescript-eslint/no-floating-promises': 'warn',

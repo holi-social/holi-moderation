@@ -1,9 +1,9 @@
 import { randomUUID } from 'crypto'
 
-import { DeepPartial } from 'typeorm'
+import type { DeepPartial } from 'typeorm'
 
 import { ReportStatus } from '../reports/entities/reportStatus'
-import { User } from '../auth/entities/user'
+import type { User } from '../auth/entities/user'
 import { createMockRepository } from '../testHelpers'
 
 import { ReportEvent } from './entities/reportEvent'

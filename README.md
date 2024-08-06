@@ -1,14 +1,20 @@
 # holi-moderation
 
+A monorepo containing the whole moderation stack.
+Dockerfiles are only used for deployment. The docker-compose file is the core of its local setup. You can run it via holi-meta mprocs or directly.
+You need Okuna db running to start it.
+
+The yarn monorepo shall orchestrate all the shared tasks on all the packages locally and in the pipeline. (lint, test, build)
+
 ## How to run
 
 1. Prepare your env file:
    1. copy `.env.local.template` to `.env.local` and set okuna db credentials
    2. fill it, with the looked up values from your local okuna and generate some new secrets 
 
-Start either as part of the holi-meta-based mprocs setup (enable in .envrc.local.backends)
+Start either with mprocs (enable in holi-meta/.envrc.local.backends)
 **or**
-using docker-compose:
+using docker-compose (with separate okuna db):
 
 1. `direnv reload`
 2. `gcloud auth configure-docker europe-north1-docker.pkg.dev`
@@ -70,3 +76,8 @@ To apply changes to hasura metadata or run db migrations, simply restart the ser
   cd apps/hasura
   hasura md reload
   ```
+
+## Troubleshooting
+
+Be aware of platform specific node-modules. E.g. @node-rs/argon2 binary fetching dependents on what system installs node_modules.
+If a container installed it, it's for Linux and the backend might not start on a Mac. Try yarn install again.

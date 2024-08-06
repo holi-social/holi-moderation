@@ -2,3 +2,6 @@ dist/
 
 .credentials
 
+# its generated for ci and the local setup, but irrelvant as
+# the root yarn.lock centralizes this for the monorepo
+yarn.lock

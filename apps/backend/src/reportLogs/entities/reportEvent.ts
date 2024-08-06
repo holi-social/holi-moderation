@@ -3,7 +3,7 @@ import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } f
 import { GraphQLJSONObject } from 'graphql-type-json'
 
 import { UUID } from '../../graphql/uuidScalar'
-import { ReportEventPayload, ReportLogEvent } from '../types'
+import { type ReportEventPayload, ReportLogEvent } from '../types'
 import { Report } from '../../reports/entities/report'
 import { User } from '../../auth/entities/user'
 

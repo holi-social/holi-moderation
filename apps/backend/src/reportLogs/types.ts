@@ -1,6 +1,6 @@
 import { registerEnumType } from '@nestjs/graphql'
 
-import { ReportStatus } from '../reports/entities/reportStatus'
+import { type ReportStatus } from '../reports/entities/reportStatus'
 
 export enum ReportLogEvent {
   REPORT_CREATED = 'REPORT_CREATED',

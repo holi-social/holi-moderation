@@ -1,0 +1,8 @@
+apps:test:
+  stage: test
+  needs: ["apps:lint"]
+  image: 'europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/node:20.11-alpine'
+  before_script:
+    - corepack enable
+  script:
+    - corepack yarn test
