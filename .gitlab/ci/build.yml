@@ -1,0 +1,21 @@
+apps:build:
+  stage: build
+  needs: ["apps:test"]
+  image: 'europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/node:20.11-alpine'
+  before_script:
+    - corepack enable
+  script:
+    # build the vite envs to connect the frontend to the backend
+    - export ENVIRONMENT_SLUG="review-$CI_COMMIT_REF_SLUG"
+    - export ENVIRONMENT_SLUG="${ENVIRONMENT_SLUG:0:22}"
+    - export ENVIRONMENT_SLUG="${ENVIRONMENT_SLUG%-}"
+    - export VITE_GRAPHQL_URL="https://${ENVIRONMENT_SLUG}.moderation-data.apis.holi.social/v1/graphql"
+    - '[ "$CI_COMMIT_BRANCH" == "production" ] && export VITE_GRAPHQL_URL="https://moderation-data.apis.holi.social/v1/graphql"'
+    - '[ "$CI_COMMIT_BRANCH" == "main" ] && export VITE_GRAPHQL_URL="https://staging.moderation-data.apis.holi.social/v1/graphql"'
+    - export VITE_OKUNA_ADMIN_BASE_URL="https://0kuna-adm1n.holi.social/staging/admin"
+    - '[ "$CI_COMMIT_BRANCH" == "production" ] && export VITE_OKUNA_ADMIN_BASE_URL="https://0kuna-adm1n.holi.social/production/admin"'
+    - corepack yarn build
+  artifacts:
+    paths:
+      - "apps/*/dist"
+    name: "dist_${CI_JOB_NAME}_${CI_JOB_ID}"

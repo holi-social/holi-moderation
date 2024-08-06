@@ -1,5 +1,7 @@
-hasura:build:
-  stage: build
+hasura:image:
+  stage: deploy
+  dependencies:
+    - "apps:build"
 
   image: europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/docker:26.1
   services:

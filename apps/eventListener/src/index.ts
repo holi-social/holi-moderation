@@ -1,6 +1,6 @@
 import * as functions from '@google-cloud/functions-framework'
 
-import { EventType, PubsubEvent, UserSuspendedData, UserSuspensionExpiredData } from './types'
+import type { EventType, PubsubEvent, UserSuspendedData, UserSuspensionExpiredData } from './types'
 import { handleUserSuspended } from './handlers/userSuspended'
 import { handleUserSuspensionExpired } from './handlers/userSuspensionExpired'
 

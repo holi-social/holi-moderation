@@ -1,4 +1,5 @@
-import { Configuration, Identity, IdentityApi, JsonPatchOpEnum } from '@ory/client'
+import type { Identity } from '@ory/client'
+import { Configuration, IdentityApi, JsonPatchOpEnum } from '@ory/client'
 
 import { envOrFail } from './utils'
 

@@ -1,13 +1,14 @@
 import { randomUUID } from 'crypto'
 
-import { createMock, DeepMocked } from '@golevelup/ts-jest'
+import type { DeepMocked } from '@golevelup/ts-jest'
+import { createMock } from '@golevelup/ts-jest'
 import { ForbiddenError } from '@nestjs/apollo'
 import { NotFoundException } from '@nestjs/common'
 
 import { createMockRepository, type MockRepository } from '../testHelpers'
 
-import { AuthService } from './service/auth'
-import { User } from './entities/user'
+import type { AuthService } from './service/auth'
+import type { User } from './entities/user'
 import { UserResolver } from './resolver'
 import { UserRole } from './entities/userRole'
 

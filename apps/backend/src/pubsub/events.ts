@@ -1,4 +1,4 @@
-import { ContentType } from '../reports/entities/contentType'
+import type { ContentType } from '../reports/entities/contentType'
 
 export type EventType = 'UserSuspended' | 'UserSuspensionExpired' | 'ContentDeleted'
 

@@ -1,6 +1,6 @@
 import { randomUUID } from 'crypto'
 
-import { Identity, JsonPatchOpEnum, type IdentityApi } from '@ory/client'
+import { type Identity, JsonPatchOpEnum, type IdentityApi } from '@ory/client'
 
 import { Ory } from './ory'
 

@@ -2,7 +2,8 @@ import { Group, Text } from '@mantine/core'
 import { modals } from '@mantine/modals'
 
 import { UserAvatar } from './components/avatar'
-import { SuspendUserModal, SuspendUserModalProps } from './components/user/suspensionModal'
+import type { SuspendUserModalProps } from './components/user/suspensionModal'
+import { SuspendUserModal } from './components/user/suspensionModal'
 
 export enum Modals {
   SuspendUser = 'suspendUser',

@@ -11,10 +11,10 @@
     ENVIRONMENT_ID: $CI_ENVIRONMENT_NAME
 
   needs:
-    - "backend:build"
-    - "frontend:build"
-    - "event_listener:test"
-    - "hasura:build"
+    - "apps:build"
+    - "backend:image"
+    - "frontend:image"
+    - "hasura:image"
 
   artifacts:
     paths:

@@ -1,7 +1,7 @@
 import { formatDistanceToNow, parseISO } from 'date-fns'
 
-import { OpenbookAuthUser } from './graphql/generated/schema.types'
-import { UserDetailsFragment } from './graphql/generated/types'
+import type { OpenbookAuthUser } from './graphql/generated/schema.types'
+import type { UserDetailsFragment } from './graphql/generated/types'
 
 export const okunaAdminUrl = (path: string) => `${import.meta.env.VITE_OKUNA_ADMIN_BASE_URL}/${path}`
 

@@ -1,11 +1,13 @@
 import { randomUUID } from 'crypto'
 
-import { Repository } from 'typeorm'
-import { createMock, DeepMocked } from '@golevelup/ts-jest'
+import type { Repository } from 'typeorm'
+import type { DeepMocked } from '@golevelup/ts-jest'
+import { createMock } from '@golevelup/ts-jest'
 import { add } from 'date-fns'
 
-import { Publisher } from '../pubsub/publisher'
-import { createMockRepository, MockRepository } from '../testHelpers'
+import type { Publisher } from '../pubsub/publisher'
+import type { MockRepository } from '../testHelpers'
+import { createMockRepository } from '../testHelpers'
 
 import { UserSuspensions } from './userSuspensions'
 import { UserSuspension } from './entities/userSuspension'

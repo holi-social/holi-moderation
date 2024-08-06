@@ -1,4 +1,4 @@
-import { Ory } from '../ory'
+import type { Ory } from '../ory'
 
 export type HandlerOptions = {
   ory?: Ory

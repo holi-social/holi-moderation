@@ -1,5 +1,6 @@
-import { createMock, DeepMocked, PartialFuncReturn } from '@golevelup/ts-jest'
-import { ObjectLiteral, Repository, SelectQueryBuilder } from 'typeorm'
+import type { DeepMocked, PartialFuncReturn } from '@golevelup/ts-jest'
+import { createMock } from '@golevelup/ts-jest'
+import type { ObjectLiteral, Repository, SelectQueryBuilder } from 'typeorm'
 import { jest } from '@jest/globals'
 
 type MockQueryBuilder<T> = DeepMocked<SelectQueryBuilder<T>>

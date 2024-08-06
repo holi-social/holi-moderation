@@ -1,7 +1,7 @@
 {
   "name": "@holi/moderation",
   "private": true,
-  "packageManager": "yarn@4.2.2",
+  "packageManager": "yarn@4.2.2+sha256.1aa43a5304405be7a7cb9cb5de7b97de9c4e8ddd3273e4dad00d6ae3eb39f0ef",
   "workspaces": [
     "apps/backend",
     "apps/frontend",
@@ -9,9 +9,10 @@
   ],
   "scripts": {
     "start": "npx ts-node mprocs-start.ts",
-    "lint": "yarn workspaces foreach -Ap run lint",
+    "lint": "eslint \"apps/*/{src,test}/**/*.ts\"",
     "test": "yarn workspaces foreach -Ap run test --passWithNoTests",
-    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json}\""
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json}\"",
+    "build": "yarn workspaces foreach -Ap run build"
   },
   "devDependencies": {
     "@eslint/js": "^9.7.0",

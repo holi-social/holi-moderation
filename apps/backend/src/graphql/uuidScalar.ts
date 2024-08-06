@@ -1,4 +1,5 @@
-import { GraphQLScalarType, StringValueNode } from 'graphql'
+import type { StringValueNode } from 'graphql'
+import { GraphQLScalarType } from 'graphql'
 import { validate as validateUUID } from 'uuid'
 
 const assertUUID = (input: string) => {
