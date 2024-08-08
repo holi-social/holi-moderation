@@ -1,4 +1,4 @@
-hasura:image:
+federator:image:
   stage: deploy
   dependencies:
     - "apps:build"
@@ -8,10 +8,10 @@ hasura:image:
     - 'docker:27-dind'
 
   variables:
-    GCR_IMAGE: europe-north1-docker.pkg.dev/holi-shared/docker/holi-moderation-hasura
+    GCR_IMAGE: europe-north1-docker.pkg.dev/holi-shared/docker/holi-moderation-federator
 
   before_script:
-    - cd apps/hasura
+    - cd apps/federator
 
   script:
     - docker pull $GCR_IMAGE || true

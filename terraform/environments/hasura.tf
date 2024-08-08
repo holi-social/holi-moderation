@@ -1,39 +1,38 @@
 locals {
-  # moderation-data.apis.holi.social
-  production_hasura_zone = data.terraform_remote_state.holi_infra_state.outputs.dns_apis_zone_name
-  # TODO Why moderation-data instead of hasura? Why both names?
-  production_hasura_domain = "moderation-data.${data.terraform_remote_state.holi_infra_state.outputs.dns_apis_zone_domain}."
+  # federator.apis.holi.social
+  production_federator_zone   = data.terraform_remote_state.holi_infra_state.outputs.dns_apis_zone_name
+  production_federator_domain = "federator.${data.terraform_remote_state.holi_infra_state.outputs.dns_apis_zone_domain}."
 
-  # ENV.moderation-data.apis.holi.social
-  development_hasura_zone   = data.terraform_remote_state.holi_infra_state.outputs.dns_apis_zone_name
-  development_hasura_domain = "${local.environment_name}.${local.production_hasura_domain}"
+  # ENV.federator.apis.holi.social
+  development_federator_zone   = data.terraform_remote_state.holi_infra_state.outputs.dns_apis_zone_name
+  development_federator_domain = "${local.environment_name}.${local.production_federator_domain}"
 
-  hasura_domain      = local.environment == "production" ? local.production_hasura_domain : local.development_hasura_domain
-  hasura_domain_zone = local.environment == "production" ? local.production_hasura_zone : local.development_hasura_zone
+  federator_domain      = local.environment == "production" ? local.production_federator_domain : local.development_federator_domain
+  federator_domain_zone = local.environment == "production" ? local.production_federator_zone : local.development_federator_zone
 
-  okuna_db_name = data.terraform_remote_state.okuna_environments_state.outputs.database_name
-  hasura_name   = format(local.name_template, "hasura")
+  okuna_db_name  = data.terraform_remote_state.okuna_environments_state.outputs.database_name
+  federator_name = format(local.name_template, "federator")
 }
 
-resource "google_sql_user" "hasura" {
+resource "google_sql_user" "federator_user" {
   project  = data.terraform_remote_state.holi_infra_state.outputs.shared_project_id
   instance = local.db_instance
-  name     = local.hasura_name
+  name     = local.federator_name
   password = data.google_secret_manager_secret_version_access.hasura_metadata_db_password.secret_data
 }
 
-resource "google_sql_database" "hasura" {
+resource "google_sql_database" "federator_db" {
   project  = data.terraform_remote_state.holi_infra_state.outputs.shared_project_id
   instance = local.db_instance
-  name     = local.hasura_name
+  name     = local.federator_name
 
   # on destroy, the user needs to be kept until the db is destroyed
-  depends_on = [google_sql_user.hasura]
+  depends_on = [google_sql_user.federator_user]
 }
 
-resource "google_cloud_run_service" "moderation_hasura" {
+resource "google_cloud_run_service" "moderation_federator" {
   project  = data.terraform_remote_state.holi_infra_state.outputs.shared_project_id
-  name     = local.hasura_name
+  name     = local.federator_name
   location = local.default_region
 
   depends_on = [google_service_account.moderation, google_project_iam_member.moderation]
@@ -45,14 +44,14 @@ resource "google_cloud_run_service" "moderation_hasura" {
       service_account_name = google_service_account.moderation.email
 
       containers {
-        image = "europe-north1-docker.pkg.dev/holi-shared/docker/holi-moderation-hasura:${var.hasura_image_tag}"
+        image = "europe-north1-docker.pkg.dev/holi-shared/docker/holi-moderation-federator:${var.federator_image_tag}"
         ports {
           container_port = 8080
         }
 
         env {
           name  = "HASURA_GRAPHQL_METADATA_DATABASE_URL"
-          value = "postgres://${google_sql_user.hasura.name}:${google_sql_user.hasura.password}@${local.db_host}:5432/${google_sql_database.hasura.name}"
+          value = "postgres://${google_sql_user.federator_user.name}:${google_sql_user.federator_user.password}@${local.db_host}:5432/${google_sql_database.federator_db.name}"
         }
 
         env {
@@ -109,14 +108,13 @@ resource "google_cloud_run_service" "moderation_hasura" {
         }
 
         resources {
-          # TODO: is this amount of CPU/memory really needed?
           limits = {
-            cpu    = local.environment == "production" ? "4000m" : "4000m"
-            memory = local.environment == "production" ? "2048Mi" : "2048Mi"
+            cpu    = local.environment == "production" ? "1000m" : "1000m"
+            memory = local.environment == "production" ? "512Mi" : "512Mi"
           }
           requests = {
-            cpu    = local.environment == "production" ? "4000m" : "4000m"
-            memory = local.environment == "production" ? "2048Mi" : "2048Mi"
+            cpu    = local.environment == "production" ? "1000m" : "1000m"
+            memory = local.environment == "production" ? "512Mi" : "512Mi"
           }
         }
       }
@@ -149,21 +147,21 @@ resource "google_cloud_run_service" "moderation_hasura" {
   }
 }
 
-resource "google_cloud_run_domain_mapping" "hasura_domain" {
-  project  = google_cloud_run_service.moderation_hasura.project
-  location = google_cloud_run_service.moderation_hasura.location
-  name     = trim(local.hasura_domain, ".")
+resource "google_cloud_run_domain_mapping" "federator_domain_mapping" {
+  project  = google_cloud_run_service.moderation_federator.project
+  location = google_cloud_run_service.moderation_federator.location
+  name     = trim(local.federator_domain, ".")
 
   metadata {
-    namespace = google_cloud_run_service.moderation_hasura.project
+    namespace = google_cloud_run_service.moderation_federator.project
   }
 
   spec {
-    route_name = google_cloud_run_service.moderation_hasura.name
+    route_name = google_cloud_run_service.moderation_federator.name
   }
 }
 
-data "google_iam_policy" "hasura" {
+data "google_iam_policy" "federator_policy" {
   binding {
     role = "roles/run.invoker"
     members = [
@@ -172,10 +170,10 @@ data "google_iam_policy" "hasura" {
   }
 }
 
-resource "google_cloud_run_service_iam_policy" "hasura" {
-  location = google_cloud_run_service.moderation_hasura.location
-  project  = google_cloud_run_service.moderation_hasura.project
-  service  = google_cloud_run_service.moderation_hasura.name
+resource "google_cloud_run_service_iam_policy" "federator_service_policy" {
+  location = google_cloud_run_service.moderation_federator.location
+  project  = google_cloud_run_service.moderation_federator.project
+  service  = google_cloud_run_service.moderation_federator.name
 
-  policy_data = data.google_iam_policy.hasura.policy_data
+  policy_data = data.google_iam_policy.federator_policy.policy_data
 }

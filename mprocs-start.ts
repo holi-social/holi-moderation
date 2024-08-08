@@ -12,7 +12,7 @@ if (!process.env.OKUNA_DB_HOST) {
   process.exit()
 }
 
-const SERVICES = ['db', 'hasura', 'frontend', 'backend']
+const SERVICES = ['db', 'federator', 'frontend', 'backend']
 
 const waitForPostgres = (config: any, MAX_ATTEMPTS: number = 20): Promise<void> => {
   return new Promise((resolve, reject) => {

@@ -14,7 +14,7 @@
     - "apps:build"
     - "backend:image"
     - "frontend:image"
-    - "hasura:image"
+    - "federator:image"
 
   artifacts:
     paths:

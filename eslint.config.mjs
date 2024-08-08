@@ -53,7 +53,6 @@ export default tseslint.config(
         'newlines-between': 'always'
       }],
       'import/no-duplicates': 'error',
-      /* the tsup build for backend bundling needs consistent type imports */
       "@typescript-eslint/consistent-type-imports": "error",
       /* added for compatibility, todo review @gregor */
       '@typescript-eslint/no-empty-object-type': 'warn',

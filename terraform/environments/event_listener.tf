@@ -2,25 +2,19 @@ locals {
   eventlistener_name = format(local.name_template, "event-listener")
 }
 
-data "archive_file" "event_listener_build" {
+data "archive_file" "event_listener_artifact" {
   type        = "zip"
-  source_dir  = "${path.module}/../../apps/eventListener"
-  output_path = "function.zip"
-
-  # this isn't necessary for the normal pipeline, but functions as a guardrail when applying locally
-  excludes = concat(
-    tolist(fileset("${path.module}/../../apps/eventListener/dist", "**")),
-    tolist(fileset("${path.module}/../../apps/eventListener/node_modules", "**")),
-  )
+  source_dir  = "${path.module}/../../apps/eventListener/dist"
+  output_path = "index.zip"
 }
 
-resource "google_storage_bucket_object" "event_listener" {
-  name   = "${local.eventlistener_name}/index.zip"
+resource "google_storage_bucket_object" "event_listener_bucket_artifact" {
+  name   = "${local.eventlistener_name}/index-${timestamp()}.zip"
   bucket = data.terraform_remote_state.holi_infra_state.outputs.gcf_sources_upload_bucket_name
-  source = data.archive_file.event_listener_build.output_path
+  source = data.archive_file.event_listener_artifact.output_path
 }
 
-resource "google_cloudfunctions2_function" "event_listener" {
+resource "google_cloudfunctions2_function" "event_listener_function" {
   name         = local.eventlistener_name
   location     = local.default_region
   kms_key_name = data.terraform_remote_state.moderation_common_state.outputs.pubsub_kms_key_id
@@ -35,7 +29,7 @@ resource "google_cloudfunctions2_function" "event_listener" {
     source {
       storage_source {
         bucket = data.terraform_remote_state.holi_infra_state.outputs.gcf_sources_upload_bucket_name
-        object = google_storage_bucket_object.event_listener.name
+        object = google_storage_bucket_object.event_listener_bucket_artifact.name
       }
     }
   }
