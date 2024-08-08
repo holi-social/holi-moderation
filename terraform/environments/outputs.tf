@@ -8,18 +8,11 @@ output "frontend_domain" {
   description = "Moderation frontend domain"
 }
 
-output "hasura_domain" {
+output "federator_domain" {
   value       = trimsuffix(google_dns_record_set.hasura.name, ".")
-  description = "Moderation Hasura domain"
+  description = "Moderation federator domain"
 }
 
 output "moderation_service_account_email" {
   value = google_service_account.moderation.email
 }
-
-
-# TODO: What for? Just use the infra-state output. What are you using the output for? Programmatically?
-output "project_id" {
-  value = data.terraform_remote_state.holi_infra_state.outputs.shared_project_id
-}
-

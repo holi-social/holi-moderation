@@ -28,7 +28,7 @@ An initial user account is created for you and a password shown in the backend c
 
 You should be able to reach the following endpoints:
 
-- [Hasura Console](http://localhost:8080/console)
+- [Federator Hasura Console](http://localhost:8080/console)
 - [Frontend](http://localhost:5173)
 - [Backend Health Check](http://localhost:3001/health)
 - [Backend GQL Playground](http://localhost:3001/graphql/)
@@ -55,8 +55,8 @@ To apply changes to hasura metadata or run db migrations, simply restart the ser
 
 - Export hasura metadata after changes via the Web console:
   ```bash
-  cd apps/hasura
-  hasura metadata export
+  cd apps/federator
+  hasura hasura-metadata export
   ```
 
 - Generate new moderation service migrations
@@ -73,7 +73,7 @@ To apply changes to hasura metadata or run db migrations, simply restart the ser
 
 - Reload hasura metadata (in case of connection errors, new graphql schema, ...)
   ```bash
-  cd apps/hasura
+  cd apps/federator
   hasura md reload
   ```
 

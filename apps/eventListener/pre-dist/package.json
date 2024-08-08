@@ -1,0 +1,9 @@
+{
+  "name": "@holi/moderation-event-listener",
+  "dependencies": {
+    "@google-cloud/functions-framework": "3.4.2"
+  },
+  "scripts": {
+    "gcp-build": ""
+  }
+}

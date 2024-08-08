@@ -45,7 +45,7 @@ services:
     restart: always
     volumes:
       - db_data:/var/lib/postgresql/data
-      - ./apps/hasura/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./apps/federator/init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
       POSTGRES_USER: ${MODERATION_DB_USER}
       POSTGRES_PASSWORD: ${MODERATION_DB_PASSWORD}
@@ -60,15 +60,15 @@ services:
       timeout: 5s
       retries: 30
 
-  hasura:
+  federator:
     image: hasura/graphql-engine:v2.41.0.cli-migrations-v3.ubi
     ports:
       - "8080:8080"
     restart: no
     volumes:
-      - ./apps/hasura/metadata:/hasura-metadata
+      - ./apps/federator/hasura-metadata:/hasura-metadata
     environment:
-      ## postgres database to store Hasura metadata
+      ## postgres database to store Hasura hasura-metadata
       HASURA_GRAPHQL_METADATA_DATABASE_URL: postgres://${MODERATION_DB_USER}:${MODERATION_DB_PASSWORD}@${MODERATION_DB_HOST}:${MODERATION_DB_PORT:-5434}/hasura
       ## enable the console served by server
       HASURA_GRAPHQL_ENABLE_CONSOLE: "true" # set to "false" to disable console

@@ -16,5 +16,5 @@ include:
   - local: ".gitlab/ci/build.yml"
   - local: "apps/backend/.gitlab-ci.yml"
   - local: "apps/frontend/.gitlab-ci.yml"
-  - local: "apps/hasura/.gitlab-ci.yml"
+  - local: "apps/federator/.gitlab-ci.yml"
   - local: ".gitlab/ci/deploy.yml"

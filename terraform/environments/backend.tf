@@ -129,14 +129,13 @@ resource "google_cloud_run_service" "moderation_backend" {
         }
 
         resources {
-          # TODO: is this amount of CPU/memory really needed?
           limits = {
-            cpu    = local.environment == "production" ? "4000m" : "4000m"
-            memory = local.environment == "production" ? "2048Mi" : "2048Mi"
+            cpu    = local.environment == "production" ? "1000m" : "1000m"
+            memory = local.environment == "production" ? "512Mi" : "512Mi"
           }
           requests = {
-            cpu    = local.environment == "production" ? "4000m" : "4000m"
-            memory = local.environment == "production" ? "2048Mi" : "2048Mi"
+            cpu    = local.environment == "production" ? "1000m" : "1000m"
+            memory = local.environment == "production" ? "512Mi" : "512Mi"
           }
         }
       }
@@ -148,7 +147,7 @@ resource "google_cloud_run_service" "moderation_backend" {
     metadata {
       annotations = {
         "autoscaling.knative.dev/minScale" = local.environment == "production" ? "1" : "0"
-        "autoscaling.knative.dev/maxScale" = "1"
+        "autoscaling.knative.dev/maxScale" = "1" //before scaling up, make sure to check how this affects the Cron job
 
         "run.googleapis.com/vpc-access-connector" = data.terraform_remote_state.holi_infra_state.outputs.vpc_access_connector_name
         "run.googleapis.com/vpc-access-egress"    = "private-ranges-only"
