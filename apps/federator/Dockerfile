@@ -2,3 +2,9 @@ FROM europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/hasura/graphql-e
 
 WORKDIR /hasura-metadata
 COPY ./hasura-metadata /hasura-metadata/
+
+COPY ./custom-entrypoint.sh /bin/
+RUN chmod +x /bin/custom-entrypoint.sh
+
+ENTRYPOINT [ "/bin/custom-entrypoint.sh" ]
+CMD ["graphql-engine", "serve"]

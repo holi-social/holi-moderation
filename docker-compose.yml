@@ -52,6 +52,7 @@ services:
       POSTGRES_DB: ${MODERATION_DB_NAME}
       POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
       PGPORT: ${MODERATION_DB_PORT}
+
     ports:
       - ${MODERATION_DB_PORT}:${MODERATION_DB_PORT}
     healthcheck:
@@ -61,7 +62,7 @@ services:
       retries: 30
 
   federator:
-    image: hasura/graphql-engine:v2.41.0.cli-migrations-v3.ubi
+    build: "apps/federator"
     ports:
       - "8080:8080"
     restart: no
@@ -69,7 +70,11 @@ services:
       - ./apps/federator/hasura-metadata:/hasura-metadata
     environment:
       ## postgres database to store Hasura hasura-metadata
-      HASURA_GRAPHQL_METADATA_DATABASE_URL: postgres://${MODERATION_DB_USER}:${MODERATION_DB_PASSWORD}@${MODERATION_DB_HOST}:${MODERATION_DB_PORT:-5434}/hasura
+      HASURA_GRAPHQL_METADATA_DB_USERNAME: ${MODERATION_DB_USER}
+      HASURA_GRAPHQL_METADATA_DB_PASSWORD: ${MODERATION_DB_PASSWORD}
+      HASURA_GRAPHQL_METADATA_DB_HOST: ${MODERATION_DB_HOST}
+      HASURA_GRAPHQL_METADATA_DB_PORT: ${MODERATION_DB_PORT}
+      HASURA_GRAPHQL_METADATA_DB_NAME: ${MODERATION_DB_NAME}
       ## enable the console served by server
       HASURA_GRAPHQL_ENABLE_CONSOLE: "true" # set to "false" to disable console
       ## enable debugging mode. It is recommended to disable this in production
@@ -77,13 +82,17 @@ services:
       HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, webhook-log, websocket-log, query-log
       ## uncomment next line to run console offline (i.e load console assets from server instead of CDN)
       # HASURA_GRAPHQL_CONSOLE_ASSETS_DIR: /srv/console-assets
-      HASURA_GRAPHQL_ADMIN_SECRET: "${HASURA_GRAPHQL_ADMIN_SECRET}"
+      HASURA_GRAPHQL_ADMIN_SECRET: ${HASURA_GRAPHQL_ADMIN_SECRET}
       HASURA_GRAPHQL_ENABLE_REMOTE_SCHEMA_PERMISSIONS: "true"
       HASURA_GRAPHQL_UNAUTHORIZED_ROLE: "anonymous"
       HASURA_GRAPHQL_EXPERIMENTAL_FEATURES: "naming_convention"
       HASURA_GRAPHQL_JWT_SECRET: "{\"type\": \"HS256\", \"key\": \"${MODERATION_JWT_SECRET}\"}"
-      ## VARIABLES FOR METADATA CONFIG
-      OKUNA_DATABASE_URL: postgres://${OKUNA_DB_USER}:${OKUNA_DB_PASSWORD}@${OKUNA_DB_HOST}:${OKUNA_DB_PORT:-5432}/${OKUNA_DB_NAME:-okuna}
+      ## Federated data sources
+      OKUNA_DB_USERNAME: ${OKUNA_DB_USER}
+      OKUNA_DB_PASSWORD: ${OKUNA_DB_PASSWORD}
+      OKUNA_DB_HOST: ${OKUNA_DB_HOST}
+      OKUNA_DB_PORT: ${OKUNA_DB_PORT}
+      OKUNA_DB_NAME: ${OKUNA_DB_NAME}
       BACKEND_GRAPHQL_URL: "http://backend:3001/graphql"
     depends_on:
       backend:

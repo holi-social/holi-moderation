@@ -14,7 +14,7 @@ locals {
 
 resource "google_sql_user" "backend" {
   project  = data.terraform_remote_state.holi_infra_state.outputs.shared_project_id
-  instance = local.db_instance
+  instance = local.shared_db_instance
 
   name     = local.backend_name
   password = data.google_secret_manager_secret_version_access.moderation_db_password.secret_data
@@ -22,7 +22,7 @@ resource "google_sql_user" "backend" {
 
 resource "google_sql_database" "backend" {
   project  = data.terraform_remote_state.holi_infra_state.outputs.shared_project_id
-  instance = local.db_instance
+  instance = local.shared_db_instance
   name     = local.backend_name
 
   # on destroy, the user needs to be kept until the db is destroyed
@@ -60,7 +60,7 @@ resource "google_cloud_run_service" "moderation_backend" {
 
         env {
           name  = "OKUNA_DB_HOST"
-          value = local.db_host
+          value = local.shared_db_host
         }
 
         env {
@@ -68,7 +68,7 @@ resource "google_cloud_run_service" "moderation_backend" {
           value_from {
             secret_key_ref {
               key  = "latest"
-              name = local.environment_name == "production" ? "OKUNA_DB_USERNAME_PRODUCTION" : "OKUNA_DB_USERNAME_DEVELOPMENT"
+              name = data.google_secret_manager_secret_version_access.okuna_db_username.secret
             }
           }
         }
@@ -78,7 +78,7 @@ resource "google_cloud_run_service" "moderation_backend" {
           value_from {
             secret_key_ref {
               key  = "latest"
-              name = local.environment_name == "production" ? "OKUNA_DB_PASSWORD_PRODUCTION" : "OKUNA_DB_PASSWORD_DEVELOPMENT"
+              name = data.google_secret_manager_secret_version_access.okuna_db_password.secret
             }
           }
         }
@@ -90,7 +90,7 @@ resource "google_cloud_run_service" "moderation_backend" {
 
         env {
           name  = "MODERATION_DB_HOST"
-          value = local.db_host
+          value = local.shared_db_host
         }
 
         env {
@@ -103,7 +103,7 @@ resource "google_cloud_run_service" "moderation_backend" {
           value_from {
             secret_key_ref {
               key  = "latest"
-              name = local.environment_name == "production" ? "MODERATION_DB_PASSWORD_PRODUCTION" : "MODERATION_DB_PASSWORD_DEVELOPMENT"
+              name = data.google_secret_manager_secret_version_access.moderation_db_password.secret
             }
           }
         }
@@ -118,7 +118,7 @@ resource "google_cloud_run_service" "moderation_backend" {
           value_from {
             secret_key_ref {
               key  = "latest"
-              name = local.environment_name == "production" ? "MODERATION_JWT_SECRET_PRODUCTION" : "MODERATION_JWT_SECRET_DEVELOPMENT"
+              name = data.google_secret_manager_secret_version_access.jwt_secret.secret
             }
           }
         }

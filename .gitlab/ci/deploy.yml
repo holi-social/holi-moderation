@@ -59,7 +59,8 @@ deploy:review:stop:
     name: review-$CI_COMMIT_REF_SLUG
     action: stop
 
-  dependencies: []
+  needs:
+    - "deploy:review:infra"
   script:
     - git clone $CI_REPOSITORY_URL main-clone
     - cd main-clone
