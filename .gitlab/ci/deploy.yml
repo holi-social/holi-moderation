@@ -60,6 +60,7 @@ deploy:review:stop:
     action: stop
 
   needs:
+    - "apps:build"
     - "deploy:review:infra"
   script:
     - git clone $CI_REPOSITORY_URL main-clone
