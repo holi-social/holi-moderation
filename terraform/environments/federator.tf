@@ -16,14 +16,14 @@ locals {
 
 resource "google_sql_user" "federator_user" {
   project  = data.terraform_remote_state.holi_infra_state.outputs.shared_project_id
-  instance = local.db_instance
+  instance = local.shared_db_instance
   name     = local.federator_name
   password = data.google_secret_manager_secret_version_access.hasura_metadata_db_password.secret_data
 }
 
 resource "google_sql_database" "federator_db" {
   project  = data.terraform_remote_state.holi_infra_state.outputs.shared_project_id
-  instance = local.db_instance
+  instance = local.shared_db_instance
   name     = local.federator_name
 
   # on destroy, the user needs to be kept until the db is destroyed
@@ -50,13 +50,60 @@ resource "google_cloud_run_service" "moderation_federator" {
         }
 
         env {
-          name  = "HASURA_GRAPHQL_METADATA_DATABASE_URL"
-          value = "postgres://${google_sql_user.federator_user.name}:${google_sql_user.federator_user.password}@${local.db_host}:5432/${google_sql_database.federator_db.name}"
+          name  = "HASURA_GRAPHQL_METADATA_DB_USERNAME"
+          value = google_sql_user.federator_user.name
+        }
+        env {
+          name = "HASURA_GRAPHQL_METADATA_DB_PASSWORD"
+          value_from {
+            secret_key_ref {
+              name = data.google_secret_manager_secret_version_access.hasura_metadata_db_password.secret
+              key  = "latest"
+            }
+          }
+        }
+        env {
+          name  = "HASURA_GRAPHQL_METADATA_DB_HOST"
+          value = local.shared_db_host
+        }
+        env {
+          name  = "HASURA_GRAPHQL_METADATA_DB_PORT"
+          value = "5432"
+        }
+        env {
+          name  = "HASURA_GRAPHQL_METADATA_DB_NAME"
+          value = google_sql_database.federator_db.name
         }
 
         env {
-          name  = "OKUNA_DATABASE_URL"
-          value = "postgres://${data.google_secret_manager_secret_version_access.okuna_db_username.secret_data}:${data.google_secret_manager_secret_version_access.okuna_db_password.secret_data}@${local.db_host}:5432/${local.okuna_db_name}"
+          name = "OKUNA_DB_USERNAME"
+          value_from {
+            secret_key_ref {
+              name = data.google_secret_manager_secret_version_access.okuna_db_username.secret
+              key  = "latest"
+            }
+          }
+        }
+        env {
+          name = "OKUNA_DB_PASSWORD"
+          value_from {
+            secret_key_ref {
+              name = data.google_secret_manager_secret_version_access.okuna_db_password.secret
+              key  = "latest"
+            }
+          }
+        }
+        env {
+          name  = "OKUNA_DB_HOST"
+          value = local.shared_db_host
+        }
+        env {
+          name  = "OKUNA_DB_PORT"
+          value = "5432"
+        }
+        env {
+          name  = "OKUNA_DB_NAME"
+          value = local.okuna_db_name
         }
 
         env {
@@ -65,11 +112,13 @@ resource "google_cloud_run_service" "moderation_federator" {
         }
 
         env {
-          name = "HASURA_GRAPHQL_JWT_SECRET"
-          value = jsonencode({
-            "type" = "HS256"
-            "key"  = data.google_secret_manager_secret_version_access.jwt_secret.secret_data
-          })
+          name = "MODERATION_JWT_SECRET"
+          value_from {
+            secret_key_ref {
+              name = data.google_secret_manager_secret_version_access.jwt_secret.secret
+              key  = "latest"
+            }
+          }
         }
 
         env {

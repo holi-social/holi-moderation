@@ -10,8 +10,8 @@ locals {
   default_region = data.terraform_remote_state.holi_infra_state.outputs.default_region
   project        = data.terraform_remote_state.holi_infra_state.outputs.shared_project_id
 
-  db_instance = local.environment == "production" ? data.terraform_remote_state.holi_infra_state.outputs.database_name_production : data.terraform_remote_state.holi_infra_state.outputs.database_name_development
-  db_host     = local.environment == "production" ? data.terraform_remote_state.holi_infra_state.outputs.database_ip_address_production : data.terraform_remote_state.holi_infra_state.outputs.database_ip_address_development
+  shared_db_instance = local.environment == "production" ? data.terraform_remote_state.holi_infra_state.outputs.database_name_production : data.terraform_remote_state.holi_infra_state.outputs.database_name_development
+  shared_db_host     = local.environment == "production" ? data.terraform_remote_state.holi_infra_state.outputs.database_ip_address_production : data.terraform_remote_state.holi_infra_state.outputs.database_ip_address_development
 
   name_generic       = "moderation-${local.environment_name}-${random_id.moderation.hex}"
   name_generic_max30 = "moderation-${substr(local.environment_name, 0, 14)}-${random_id.moderation.hex}"
