@@ -9,9 +9,9 @@ apps:build:
     - export ENVIRONMENT_SLUG="review-$CI_COMMIT_REF_SLUG"
     - export ENVIRONMENT_SLUG="${ENVIRONMENT_SLUG:0:22}"
     - export ENVIRONMENT_SLUG="${ENVIRONMENT_SLUG%-}"
-    - export VITE_GRAPHQL_URL="https://${ENVIRONMENT_SLUG}.moderation-data.apis.holi.social/v1/graphql"
-    - '[ "$CI_COMMIT_BRANCH" == "production" ] && export VITE_GRAPHQL_URL="https://moderation-data.apis.holi.social/v1/graphql"'
-    - '[ "$CI_COMMIT_BRANCH" == "main" ] && export VITE_GRAPHQL_URL="https://staging.moderation-data.apis.holi.social/v1/graphql"'
+    - export VITE_GRAPHQL_URL="https://${ENVIRONMENT_SLUG}.federator.apis.holi.social/v1/graphql"
+    - '[ "$CI_COMMIT_BRANCH" == "production" ] && export VITE_GRAPHQL_URL="https://federator.apis.holi.social/v1/graphql"'
+    - '[ "$CI_COMMIT_BRANCH" == "main" ] && export VITE_GRAPHQL_URL="https://staging.federator.apis.holi.social/v1/graphql"'
     - export VITE_OKUNA_ADMIN_BASE_URL="https://0kuna-adm1n.holi.social/staging/admin"
     - '[ "$CI_COMMIT_BRANCH" == "production" ] && export VITE_OKUNA_ADMIN_BASE_URL="https://0kuna-adm1n.holi.social/production/admin"'
     - corepack yarn build
