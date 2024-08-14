@@ -26,7 +26,7 @@ resource "google_sql_database" "backend" {
   name     = local.backend_name
 
   # on destroy, the user needs to be kept until the db is destroyed
-  depends_on = [google_sql_user.backend]
+  depends_on = [google_sql_user.backend, google_sql_user.federator_user]
 }
 
 resource "google_cloud_run_service" "moderation_backend" {

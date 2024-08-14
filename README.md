@@ -79,5 +79,5 @@ To apply changes to hasura metadata or run db migrations, simply restart the ser
 
 ## Troubleshooting
 
-Be aware of platform specific node-modules. E.g. @node-rs/argon2 binary fetching dependents on what system installs node_modules.
+Be aware of platform specific node-modules. E.g. @node-rs/argon2 binary fetching depends on what arch installs the node_modules.
 If a container installed it, it's for Linux and the backend might not start on a Mac. Try yarn install again.
