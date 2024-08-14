@@ -7,8 +7,6 @@
   image:
     name: "europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/hashicorp/terraform:1.6.6"
     entrypoint: ["/bin/sh", "-c"]
-  variables:
-    ENVIRONMENT_ID: $CI_ENVIRONMENT_NAME
 
   needs:
     - "apps:build"
@@ -17,16 +15,15 @@
     - "federator:image"
 
   artifacts:
+    # make the terraform definitions available to the destroy job
     paths:
-      - "terraform/environments/crash.log"
-      - "terraform/environments/terraform-*.log"
+      - "terraform"
     name: "${CI_JOB_NAME}_${CI_JOB_ID}"
     expire_in: 1 week
 
   script:
-    - terraform/environments/scripts/create-or-update-env.sh $ENVIRONMENT_ID $CI_COMMIT_SHA
-
-  resource_group: $ENVIRONMENT_ID
+    - terraform/environments/scripts/create-or-update-env.sh $CI_ENVIRONMENT_NAME $CI_COMMIT_SHA
+  resource_group: $CI_ENVIRONMENT_NAME
   interruptible: false
   allow_failure: false
 
@@ -52,6 +49,7 @@ deploy:review:stop:
     name: 'europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/hashicorp/terraform:1.6.6'
     entrypoint: ["/bin/sh", "-c"]
 
+  # don't fetch the repo - just work with the artifacts
   variables:
     GIT_STRATEGY: none
 
@@ -60,12 +58,9 @@ deploy:review:stop:
     action: stop
 
   needs:
-    - "apps:build"
-    - "deploy:review:infra"
+    - "apps:build" # all the /dist folders, so that terraform can archive stuff
+    - "deploy:review:infra" # the terraform hcl sources
   script:
-    - git clone $CI_REPOSITORY_URL main-clone
-    - cd main-clone
-    - git switch $CI_COMMIT_BRANCH || true
     - terraform/environments/scripts/destroy-env.sh $CI_ENVIRONMENT_NAME
   when: manual
   allow_failure: false

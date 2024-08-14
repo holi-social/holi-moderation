@@ -1,7 +1,7 @@
 {
   "name": "@holi/moderation-event-listener",
   "main": "dist/index.js",
-  "packageManager": "yarn@4.2.2",
+  "packageManager": "yarn@4.4.0",
   "dependencies": {
     "@google-cloud/functions-framework": "3.4.2",
     "@ory/client": "1.14.2"

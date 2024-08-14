@@ -22,7 +22,9 @@ services:
         condition: service_healthy
     ports:
       - 3001:3001
-    command: sh -c "corepack use yarn@4.2.2; corepack yarn workspace @holi/moderation-backend nest start --watch"
+    restart: no
+    # installs deps for the linux arch as the local node_modules might be for mac
+    command: sh -c "corepack yarn install; corepack yarn workspace @holi/moderation-backend nest start --watch"
 
   frontend:
     image: node:20.11-alpine
@@ -38,11 +40,12 @@ services:
       INTERNAL_GRAPHQL_URL: "http://hasura:8080/v1/graphql"
     ports:
       - 5173:5173
-    command: sh -c "corepack use yarn@4.2.2; corepack yarn workspace @holi/moderation-frontend vite"
+    # installs deps for the linux arch as the local node_modules might be for mac
+    command: sh -c "corepack yarn install; corepack yarn workspace @holi/moderation-frontend dev"
 
   db:
     image: postgres:16
-    restart: always
+    restart: no
     volumes:
       - db_data:/var/lib/postgresql/data
       - ./apps/federator/init.sql:/docker-entrypoint-initdb.d/init.sql
@@ -52,7 +55,6 @@ services:
       POSTGRES_DB: ${MODERATION_DB_NAME}
       POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
       PGPORT: ${MODERATION_DB_PORT}
-
     ports:
       - ${MODERATION_DB_PORT}:${MODERATION_DB_PORT}
     healthcheck:
@@ -62,19 +64,13 @@ services:
       retries: 30
 
   federator:
-    build: "apps/federator"
+    image: hasura/graphql-engine:v2.42.0.cli-migrations-v3.ubi
     ports:
       - "8080:8080"
     restart: no
     volumes:
       - ./apps/federator/hasura-metadata:/hasura-metadata
     environment:
-      ## postgres database to store Hasura hasura-metadata
-      HASURA_GRAPHQL_METADATA_DB_USERNAME: ${MODERATION_DB_USER}
-      HASURA_GRAPHQL_METADATA_DB_PASSWORD: ${MODERATION_DB_PASSWORD}
-      HASURA_GRAPHQL_METADATA_DB_HOST: ${MODERATION_DB_HOST}
-      HASURA_GRAPHQL_METADATA_DB_PORT: ${MODERATION_DB_PORT}
-      HASURA_GRAPHQL_METADATA_DB_NAME: ${MODERATION_DB_NAME}
       ## enable the console served by server
       HASURA_GRAPHQL_ENABLE_CONSOLE: "true" # set to "false" to disable console
       ## enable debugging mode. It is recommended to disable this in production
@@ -86,14 +82,13 @@ services:
       HASURA_GRAPHQL_ENABLE_REMOTE_SCHEMA_PERMISSIONS: "true"
       HASURA_GRAPHQL_UNAUTHORIZED_ROLE: "anonymous"
       HASURA_GRAPHQL_EXPERIMENTAL_FEATURES: "naming_convention"
+      # runtime secrets
       HASURA_GRAPHQL_JWT_SECRET: "{\"type\": \"HS256\", \"key\": \"${MODERATION_JWT_SECRET}\"}"
+      HASURA_GRAPHQL_METADATA_DATABASE_URL: "postgres://${MODERATION_DB_USER}:${MODERATION_DB_PASSWORD}@${MODERATION_DB_HOST}:${MODERATION_DB_PORT}/${MODERATION_DB_NAME}"
+      OKUNA_DATABASE_URL: "postgres://${OKUNA_DB_USER}:${OKUNA_DB_PASSWORD}@${OKUNA_DB_HOST}:${OKUNA_DB_PORT}/${OKUNA_DB_NAME}"
       ## Federated data sources
-      OKUNA_DB_USERNAME: ${OKUNA_DB_USER}
-      OKUNA_DB_PASSWORD: ${OKUNA_DB_PASSWORD}
-      OKUNA_DB_HOST: ${OKUNA_DB_HOST}
-      OKUNA_DB_PORT: ${OKUNA_DB_PORT}
-      OKUNA_DB_NAME: ${OKUNA_DB_NAME}
       BACKEND_GRAPHQL_URL: "http://backend:3001/graphql"
+
     depends_on:
       backend:
         condition: service_healthy

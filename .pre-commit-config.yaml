@@ -17,7 +17,7 @@ repos:
       - id: eslint-holi-moderation
         name: lint packages
         language: system
-        entry: bash -c ". $HOME/.nvm/nvm.sh && yarn run lint"
+        entry: bash -c ". $HOME/.nvm/nvm.sh && corepack yarn run lint"
         pass_filenames: false
         always_run: true
 
