@@ -50,7 +50,7 @@ To apply changes to hasura metadata or run db migrations, simply restart the ser
 
 - Generate GraphQL types for frontend:
   ```bash
-  docker compose exec frontend yarn run gqlgen
+  yarn gqlgen
   ```
 
 - Export hasura metadata after changes via the Web console:

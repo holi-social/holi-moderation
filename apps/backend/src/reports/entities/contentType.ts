@@ -1,5 +1,6 @@
 export enum ContentType {
   POST = 'POST',
+  FEED_POST = 'FEED_POST',
   COMMENT = 'COMMENT',
   CHAT_MESSAGE = 'CHAT_MESSAGE',
   SPACE = 'SPACE',

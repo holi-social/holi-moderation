@@ -29,6 +29,7 @@ import { ReportStatusDropdown } from '../../components/reportStatusDropdown'
 import { ReportTimeline } from '../../components/reportTimeline'
 import { ReportsTable } from '../../components/reportsTable'
 import { showSuspendUser } from '../../modals'
+import { FeedPost } from '../../components/feedpost'
 
 const OkunaLinkButton: React.FC<{ urlPath: string }> = ({ urlPath }) => (
   <ActionIcon variant="default" component="a" href={okunaAdminUrl(urlPath)} target="_blank">
@@ -137,6 +138,17 @@ export const ViewReport: React.FC = () => {
             </Accordion.Control>
             <Accordion.Panel>
               <Post post={report.reportedPost} />
+            </Accordion.Panel>
+          </Accordion.Item>
+        )}
+
+        {report.contentType === 'FEED_POST' && report.reportedFeedPost && (
+          <Accordion.Item value="content">
+            <Accordion.Control icon={<IconFlag />}>
+              <Title order={3}>Reported FeedPost</Title>
+            </Accordion.Control>
+            <Accordion.Panel>
+              <FeedPost feedPost={report.reportedFeedPost} />
             </Accordion.Panel>
           </Accordion.Item>
         )}

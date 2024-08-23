@@ -22,14 +22,16 @@
             userId: UUID!
           }
           type Mutation {
+            changeOwnPassword(newPassword: String!): Success!
             changeReportStatus(newStatus: ReportStatus!, reportId: UUID!): Report!
-            createReport(report: CreateReport!): Report!
             login(email: String!, password: String!): AuthResult!
-            suspendUser(reportId: UUID!, duration: Int, email: String!, reason: String): Success!
+            suspendUser(duration: Int, email: String!, reason: String, reportId: UUID!): Success!
           }
           type Query {
+            isUserSuspended(email: String!): Boolean!
             report(id: UUID!): Report!
             reports(filter: ReportsFilter, pagination: Pagination): [Report!]!
+            users(pagination: Pagination): [User!]!
             verifyToken: TokenValidity!
           }
           type Report {
@@ -44,10 +46,12 @@
             updatedAt: DateTime!
           }
           type ReportEvent {
+            actor: User
             eventName: ReportLogEvent!
             eventPayload: JSONObject!
             id: UUID!
             occurredAt: DateTime!
+            report: Report!
           }
           type Success {
             success: Boolean!
@@ -55,9 +59,17 @@
           type TokenValidity {
             valid: Boolean!
           }
+          type User {
+            createdAt: DateTime!
+            email: String!
+            id: UUID!
+            role: UserRole!
+            updatedAt: DateTime!
+          }
           enum ContentType {
             CHAT_MESSAGE
             COMMENT
+            FEED_POST
             POST
             SPACE
             SPACE_APPOINTMENT
@@ -68,6 +80,7 @@
           enum ReportLogEvent {
             REPORT_CREATED
             STATUS_CHANGED
+            USER_SUSPENDED
           }
           enum ReportStatus {
             ACTION_TAKEN
@@ -75,11 +88,9 @@
             OPEN
             REJECTED
           }
-          input CreateReport {
-            contentId: UUID!
-            contentType: ContentType!
-            details: String!
-            reporterId: UUID!
+          enum UserRole {
+            ADMIN
+            MODERATOR
           }
           input Pagination {
             limit: Int! = 10
@@ -117,7 +128,7 @@
         - definition:
             to_source:
               field_mapping:
-                reporterId: id
+                reporterId: username
               relationship_type: object
               source: okuna
               table:
@@ -194,4 +205,14 @@
                 name: openbook_communities_collaborationtool
                 schema: public
           name: reportedSpaceLinkhubTool
+        - definition:
+            to_source:
+              field_mapping:
+                contentId: id
+              relationship_type: object
+              source: okuna
+              table:
+                name: feed_posts_feedpost
+                schema: public
+          name: reportedFeedPost
       type_name: Report

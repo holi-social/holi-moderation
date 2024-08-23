@@ -32,7 +32,7 @@ select_permissions:
         - commentable_id
         - commenter_id
         - id
-        - language_id
+        - language_code
         - parent_comment_id
       filter: {}
       allow_aggregations: true

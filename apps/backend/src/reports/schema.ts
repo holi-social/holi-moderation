@@ -1,4 +1,4 @@
-import { Field, InputType, PickType, registerEnumType } from '@nestjs/graphql'
+import { Field, InputType, PickType, registerEnumType, ObjectType } from '@nestjs/graphql'
 
 import { UUID } from '../graphql/uuidScalar'
 
@@ -10,11 +10,13 @@ registerEnumType(ContentType, { name: 'ContentType' })
 registerEnumType(ReportStatus, { name: 'ReportStatus' })
 
 @InputType()
-export class CreateReport extends PickType(
-  Report,
-  ['contentType', 'contentId', 'details', 'reporterId'] as const,
-  InputType,
-) {}
+export class ReportSubmission extends PickType(Report, ['contentType', 'contentId', 'details'] as const, InputType) {}
+
+@ObjectType()
+export class ReportConfirmation {
+  @Field()
+  success: boolean
+}
 
 @InputType()
 export class ReportsFilter {

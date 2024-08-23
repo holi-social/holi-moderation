@@ -2,7 +2,7 @@ import { gql } from 'graphql-tag'
 
 import { PostDetails } from '../fragments/post'
 
-export const ViewPostQuery = gql`
+export const viewPostQuery = gql`
   ${PostDetails}
 
   query ViewPost($id: uuid!) {
