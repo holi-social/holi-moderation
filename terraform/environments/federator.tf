@@ -108,7 +108,7 @@ resource "google_cloud_run_service" "moderation_federator" {
 
         env {
           name  = "BACKEND_GRAPHQL_URL"
-          value = "https://${trim(local.backend_domain, ".")}/graphql"
+          value = "https://${trim(local.environment_backend_domain, ".")}/graphql"
         }
 
         env {
