@@ -153,6 +153,10 @@ resource "google_cloud_run_service" "moderation_backend" {
         "run.googleapis.com/vpc-access-egress"    = "private-ranges-only"
         "run.googleapis.com/startup-cpu-boost"    = "true"
       }
+      labels = {
+        "environment_type" = local.environment_type
+        "holi_service"     = "moderation-backend"
+      }
     }
   }
 
