@@ -15,21 +15,16 @@ select_permissions:
   - role: moderator
     permission:
       columns:
-        - geolocation
+        - category_id
+        - created_at
+        - creator_id
+        - description
+        - id
         - image
-        - image_blurhash
-        - language_code
-        - location
+        - priority_duration
         - slug
         - title
         - visibility
-        - priority_duration
-        - description
-        - created_at
-        - category_id
-        - creator_id
-        - id
-        - link_preview_id
       filter: {}
       allow_aggregations: true
     comment: ""
