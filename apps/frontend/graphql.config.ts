@@ -1,12 +1,11 @@
 import type { IGraphQLConfig } from 'graphql-config'
 
-const gqlUrl: string = process.env.INTERNAL_GRAPHQL_URL
 const hasuraAdminSecret: string = process.env.HASURA_GRAPHQL_ADMIN_SECRET
 
 const config: IGraphQLConfig = {
   schema: [
     {
-      [gqlUrl]: {
+      ['http://localhost:8080/v1/graphql']: {
         headers: {
           'x-hasura-admin-secret': hasuraAdminSecret,
         },
@@ -15,10 +14,6 @@ const config: IGraphQLConfig = {
   ],
   extensions: {
     codegen: {
-      // Optional, you can use this to format your generated files.
-      hooks: {
-        afterOneFileWrite: ['eslint --fix'],
-      },
       generates: {
         'src/graphql/generated/schema.types.ts': {
           plugins: ['typescript'],

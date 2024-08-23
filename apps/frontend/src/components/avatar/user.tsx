@@ -1,8 +1,9 @@
 import React from 'react'
-import { Avatar, MantineSize } from '@mantine/core'
+import type { MantineSize } from '@mantine/core'
+import { Avatar } from '@mantine/core'
 
-import { OpenbookAuthUser } from '../../graphql/generated/schema.types'
-import { UserDetailsFragment } from '../../graphql/generated/types'
+import type { UserDetailsFragment } from '../../graphql/generated/types'
+import type { OpenbookAuthUser } from '../../graphql/generated/schema.types.ts'
 import { getInitials, okunaAdminUrl } from '../../utils'
 
 type UserAvatarProps = {
@@ -11,6 +12,8 @@ type UserAvatarProps = {
 }
 
 export const UserAvatar: React.FC<UserAvatarProps> = ({ user, size = 'md' }) => {
+  if (!user) return <Avatar size={size} component="a" href={'###'} target="_blank" alt={'Unknown'} />
+
   const initials = getInitials(`${user.profile?.name ?? ''} ${user.profile?.lastName ?? ''}`)
 
   const adminUrl = okunaAdminUrl(`openbook_auth/user/${user.id}`)

@@ -7,12 +7,13 @@ import { UUID } from '../graphql/uuidScalar'
 import { ReportEvent } from '../reportLogs/entities/reportEvent'
 import { Pagination } from '../graphql/commonSchema'
 import { ReportLogger } from '../reportLogs/service'
-import { AuthenticatedUser } from '../auth/decorators'
+import { AuthenticatedUser, AuthenticatedReporter, ReporterOnly } from '../auth/decorators'
 import { User } from '../auth/entities/user'
+import { Reporter } from '../auth/entities/reporter'
 
 import { ReportStatus } from './entities/reportStatus'
 import { Report } from './entities/report'
-import { CreateReport, ReportsFilter } from './schema'
+import { ReportsFilter, ReportSubmission, ReportConfirmation } from './schema'
 
 @Resolver(() => Report)
 export class ReportsResolver {
@@ -65,20 +66,22 @@ export class ReportsResolver {
     return report
   }
 
-  @Mutation(() => Report)
+  @Mutation(() => ReportConfirmation)
+  @ReporterOnly()
   async createReport(
-    @Args('report', { type: () => CreateReport })
-    input: CreateReport,
+    @Args('input', { type: () => ReportSubmission }) reportSubmission: ReportSubmission,
+    @AuthenticatedReporter() reporter: Reporter,
   ) {
-    const report = await this.repository.save(
-      this.repository.create({
-        ...input,
-      }),
-    )
+    const reportToStore = {
+      ...reportSubmission,
+      reporterId: reporter.id,
+    }
+
+    const report = await this.repository.save(this.repository.create(reportToStore))
 
     await this.reportLogger.logReportCreated(report.id)
 
-    return report
+    return { success: true }
   }
 
   @Mutation(() => Report)

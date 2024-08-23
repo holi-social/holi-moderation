@@ -2,6 +2,7 @@ import { gql } from 'graphql-tag'
 
 import { CommentDetails } from './comment'
 import { PostDetails } from './post'
+import { FeedPostDetails } from './feedPost'
 import { ReportedSpaceDetails } from './reportedSpace'
 import { ReportedUserDetails } from './reportedUser'
 import { ReportedSpaceAppointmentDetails } from './spaceAppointment'
@@ -13,6 +14,7 @@ import { ReportEventDetails } from './reportEvent'
 export const ReportDetails = gql`
   ${UserDetails}
   ${PostDetails}
+  ${FeedPostDetails}
   ${CommentDetails}
   ${ReportedUserDetails}
   ${ReportedSpaceDetails}
@@ -38,6 +40,10 @@ export const ReportDetails = gql`
 
     reportedPost {
       ...PostDetails
+    }
+
+    reportedFeedPost {
+      ...FeedPostDetails
     }
 
     reportedComment {

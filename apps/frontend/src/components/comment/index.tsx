@@ -6,9 +6,11 @@ import { IconMessageReply, IconUser } from '@tabler/icons-react'
 
 import { okunaAdminUrl } from '../../utils'
 import { Post, PostSkeleton } from '../post'
-import { CommentDetailsFragment, ViewPostQuery as ViewPostQueryResponse } from '../../graphql/generated/types'
+import type { CommentDetailsFragment, ViewFeedPostQuery, ViewPostQuery } from '../../graphql/generated/types'
 import { UserAvatar } from '../avatar'
-import { ViewPostQuery } from '../../graphql/queries/viewPost'
+import { viewFeedPostQuery } from '../../graphql/queries/viewFeedPost'
+import { FeedPost } from '../feedpost'
+import { viewPostQuery } from '../../graphql/queries/viewPost.ts'
 
 type CommentProps = {
   comment: CommentDetailsFragment
@@ -18,19 +20,26 @@ type CommentProps = {
 export const Comment: React.FC<CommentProps> = ({ comment, withCommentable = true }) => {
   const commentableIsPost =
     comment.commentableType.appLabel === 'openbook_posts' && comment.commentableType.model === 'post'
+  const commentableIsFeedPost =
+    comment.commentableType.appLabel === 'feed_posts' && comment.commentableType.model === 'feedpost'
 
-  const { data: postResponse, isLoading: postIsLoading } = useSWR<ViewPostQueryResponse>(() => {
+  const { data: postResponse, isLoading: postIsLoading } = useSWR<ViewPostQuery>(() => {
     if (!commentableIsPost) return false
-    return [ViewPostQuery, { id: comment.commentableId }]
+    return [viewPostQuery, { id: comment.commentableId }]
   })
 
-  const post = postResponse?.openbookPostsPostByPk
+  const { data: feedPostResponse, isLoading: feedPostIsLoading } = useSWR<ViewFeedPostQuery>(() => {
+    if (!commentableIsFeedPost) return false
+    return [viewFeedPostQuery, { id: comment.commentableId }]
+  })
+
+  if (postIsLoading || feedPostIsLoading) return <PostSkeleton backgroundColor="gray" />
+  const commentable = postResponse?.openbookPostsPostByPk ?? feedPostResponse?.feedPostsFeedpostByPk
 
   const authorName = (comment.commenter.profile?.name ?? '') + ' ' + (comment.commenter.profile?.lastName ?? '')
-
   const authorAdminUrl = okunaAdminUrl(`openbook_auth/user/${comment.commenter.id}`)
 
-  const commentOnly = (
+  const Comment = (
     <Paper p="md">
       <Group align="start">
         <UserAvatar user={comment.commenter} />
@@ -78,15 +87,16 @@ export const Comment: React.FC<CommentProps> = ({ comment, withCommentable = tru
     </Paper>
   )
 
-  if (!withCommentable) return commentOnly
+  if (!withCommentable) return Comment
 
   return (
     <Grid>
       <Grid.Col span={12}>
-        {!postIsLoading && post ? <Post post={post} backgroundColor="gray" /> : <PostSkeleton backgroundColor="gray" />}
+        {!postIsLoading && commentableIsPost && <Post post={commentable} backgroundColor="gray" />}
+        {!feedPostIsLoading && commentableIsFeedPost && <FeedPost feedPost={commentable} backgroundColor="gray" />}
       </Grid.Col>
       <Grid.Col span={1} />
-      <Grid.Col span={11}>{commentOnly}</Grid.Col>
+      <Grid.Col span={11}>{Comment}</Grid.Col>
     </Grid>
   )
 }

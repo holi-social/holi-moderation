@@ -1,10 +1,11 @@
-import { Blockquote, Button, DefaultMantineColor, Group, Paper, Skeleton, Stack, Text, Tooltip } from '@mantine/core'
+import type { DefaultMantineColor } from '@mantine/core'
+import { Blockquote, Button, Group, Paper, Skeleton, Stack, Text, Tooltip } from '@mantine/core'
 import React from 'react'
 import { formatDistanceToNow, parseISO } from 'date-fns'
 import { IconMessage, IconTopologyRing3, IconUser } from '@tabler/icons-react'
 
 import { okunaAdminUrl } from '../../utils'
-import { PostDetailsFragment } from '../../graphql/generated/types'
+import type { PostDetailsFragment } from '../../graphql/generated/types'
 import { UserAvatar } from '../avatar'
 
 type PostProps = {
