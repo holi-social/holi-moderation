@@ -1,15 +1,11 @@
 locals {
-  # moderation.apis.holi.social
-  production_backend_zone   = data.terraform_remote_state.holi_infra_state.outputs.dns_apis_zone_name
-  production_backend_domain = "moderation.${data.terraform_remote_state.holi_infra_state.outputs.dns_apis_zone_domain}."
+  backend_zone   = data.terraform_remote_state.holi_infra_state.outputs.dns_apis_zone_name
+  backend_domain = "moderation.${data.terraform_remote_state.holi_infra_state.outputs.dns_apis_zone_domain}."
 
-  # ENV.moderation.apis.holi.social
-  development_backend_zone   = data.terraform_remote_state.holi_infra_state.outputs.dns_apis_zone_name
-  development_backend_domain = "${local.environment_name}.${local.production_backend_domain}"
+  environment_backend_zone   = data.terraform_remote_state.holi_infra_state.outputs.dns_apis_zone_name
+  environment_backend_domain = "${local.environment_name}.${local.backend_domain}"
 
-  backend_domain      = local.environment == "production" ? local.production_backend_domain : local.development_backend_domain
-  backend_domain_zone = local.environment == "production" ? local.production_backend_zone : local.development_backend_zone
-  backend_name        = format(local.name_template, "backend")
+  backend_name = format(local.name_template, "backend")
 }
 
 resource "google_sql_user" "backend" {
@@ -171,7 +167,7 @@ resource "google_cloud_run_service" "moderation_backend" {
 resource "google_cloud_run_domain_mapping" "backend_domain" {
   project  = google_cloud_run_service.moderation_backend.project
   location = google_cloud_run_service.moderation_backend.location
-  name     = trim(local.environment == "production" ? local.production_backend_domain : local.development_backend_domain, ".")
+  name     = trim(local.environment_backend_domain, ".")
 
   metadata {
     namespace = google_cloud_run_service.moderation_backend.project
