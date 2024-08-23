@@ -60,4 +60,9 @@ resource "google_cloudfunctions2_function" "event_listener_function" {
     service_account_email = google_service_account.moderation.email
     retry_policy          = "RETRY_POLICY_DO_NOT_RETRY"
   }
+
+  labels = {
+    "environment_type" = local.environment_type
+    "holi_service"     = "moderation-eventlistener"
+  }
 }

@@ -181,6 +181,10 @@ resource "google_cloud_run_service" "moderation_federator" {
         "run.googleapis.com/vpc-access-egress"    = "all-traffic"
         "run.googleapis.com/startup-cpu-boost"    = "true"
       }
+      labels = {
+        "environment_type" = local.environment_type
+        "holi_service"     = "moderation-federator"
+      }
     }
   }
 
