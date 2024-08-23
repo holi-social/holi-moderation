@@ -9,25 +9,34 @@ import jest from 'eslint-plugin-jest'
 
 export default tseslint.config(
   {
-    ignores: ['dist/', 'jest.config.js', 'vite.config.ts', 'eslint.config.mjs', 'tsconfig.json', 'mprocs-start.ts', "apps/backend/migrations/*"],
+    ignores: [
+      'dist/',
+      'jest.config.js',
+      'vite.config.ts',
+      'eslint.config.mjs',
+      'tsconfig.json',
+      'mprocs-start.ts',
+      'apps/backend/migrations/*',
+      '**/generated',
+    ],
   },
   eslint.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
   {
-    files: ["**/*.test.ts"],
+    files: ['**/*.test.ts'],
     ...jest.configs['flat/recommended'],
     rules: {
       ...jest.configs['flat/recommended'].rules,
       '@typescript-eslint/unbound-method': 'off',
       'jest/unbound-method': 'error',
       '@typescript-eslint/no-floating-promises': 'off',
-    }
+    },
   },
   {
     plugins: {
       'react-refresh': reactRefresh,
-      'import': importPlugin
-    }
+      import: importPlugin,
+    },
   },
   {
     languageOptions: {
@@ -38,9 +47,9 @@ export default tseslint.config(
       },
       parserOptions: {
         projectService: true,
-        tsconfigRootDir: import.meta.dirname
-      }
-    }
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
   },
   {
     rules: {
@@ -49,11 +58,14 @@ export default tseslint.config(
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
-      'import/order': ['error', {
-        'newlines-between': 'always'
-      }],
+      'import/order': [
+        'error',
+        {
+          'newlines-between': 'always',
+        },
+      ],
       'import/no-duplicates': 'error',
-      "@typescript-eslint/consistent-type-imports": "error",
+      '@typescript-eslint/consistent-type-imports': 'error',
       /* added for compatibility, todo review @gregor */
       '@typescript-eslint/no-empty-object-type': 'warn',
       '@typescript-eslint/no-floating-promises': 'warn',
@@ -63,8 +75,8 @@ export default tseslint.config(
       '@typescript-eslint/no-redundant-type-constituents': 'warn',
       '@typescript-eslint/require-await': 'warn',
       'no-empty': 'warn',
-      'no-undef': 'warn'
-    }
+      'no-undef': 'warn',
+    },
   },
   prettierRecommended,
 )

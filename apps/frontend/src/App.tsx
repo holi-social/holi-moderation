@@ -1,6 +1,6 @@
 import { MantineProvider } from '@mantine/core'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import { Notifications } from '@mantine/notifications'
+import { Notifications, notifications } from '@mantine/notifications'
 import { ModalsProvider } from '@mantine/modals'
 import { SWRConfig } from 'swr'
 
@@ -66,18 +66,27 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <SWRConfig
-      value={{
-        fetcher: fetcher,
-      }}
-    >
-      <MantineProvider>
-        <Notifications />
-        <ModalsProvider modals={AVAILABLE_MODALS}>
+    <MantineProvider>
+      <Notifications />
+      <ModalsProvider modals={AVAILABLE_MODALS}>
+        <SWRConfig
+          value={{
+            fetcher: fetcher,
+            onError: (error: any) => {
+              notifications.show({
+                title: 'Error',
+                // eslint-disable-next-line
+                message: error.message.substring(0, 350) + '...',
+                color: 'red',
+                autoClose: false,
+              })
+            },
+          }}
+        >
           <RouterProvider router={router} />
-        </ModalsProvider>
-      </MantineProvider>
-    </SWRConfig>
+        </SWRConfig>
+      </ModalsProvider>
+    </MantineProvider>
   )
 }
 

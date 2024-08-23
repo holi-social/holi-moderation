@@ -34,10 +34,16 @@ export class AuthResolver {
     }
   }
 
+  // Hasura requires that any role able to access the GraphQL schema must have some level of permissions
+  // on at least one object type (e.g., tables or views) in the schema
+  // For the Federator to be able to generate a permission for the Anonymous role login() Mutation
+  // we also need to give it something to Query
+  // lets give it this:
   @Query(() => TokenValidity)
   public verifyToken(): TokenValidity {
     return {
-      valid: true,
+      // this is obviously nonsense, but better be safe
+      valid: false,
     }
   }
 }

@@ -28,7 +28,15 @@ export type UserSuspensionExpiredData = {
 }
 
 export type ContentDeletedData = {
-  contentType: 'POST' | 'COMMENT' | 'CHAT_MESSAGE' | 'SPACE' | 'SPACE_TASK' | 'SPACE_APPOINTMENT' | 'SPACE_LINKHUB_TOOL'
+  contentType:
+    | 'POST'
+    | 'FEED_POST'
+    | 'COMMENT'
+    | 'CHAT_MESSAGE'
+    | 'SPACE'
+    | 'SPACE_TASK'
+    | 'SPACE_APPOINTMENT'
+    | 'SPACE_LINKHUB_TOOL'
   contentId: string
   userId: string
   reason?: string

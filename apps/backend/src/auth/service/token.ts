@@ -4,7 +4,7 @@ import { JwtService, JwtSignOptions } from '@nestjs/jwt'
 import { User } from '../entities/user'
 import { UserRole } from '../entities/userRole'
 
-type Role = `${UserRole}`
+type Role = UserRole
 
 export type TokenPayload = {
   sub: string

@@ -12,8 +12,11 @@ import {
 import { Link } from 'react-router-dom'
 import useSWR from 'swr'
 
-import { OpenbookAuthUser, ReportStatus, ReportsFilter } from '../../graphql/generated/schema.types'
-import { ListReportsQueryVariables, ListReportsQuery as ListReportsQueryResponse } from '../../graphql/generated/types'
+import type { OpenbookAuthUser, ReportStatus, ReportsFilter } from '../../graphql/generated/schema.types'
+import type {
+  ListReportsQueryVariables,
+  ListReportsQuery as ListReportsQueryResponse,
+} from '../../graphql/generated/types'
 import ListReportsQuery from '../../graphql/queries/listReports'
 import { formatUser, titleCase } from '../../utils'
 import { ReportStatusDropdown } from '../reportStatusDropdown'

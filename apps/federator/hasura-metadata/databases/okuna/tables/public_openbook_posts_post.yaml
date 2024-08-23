@@ -26,7 +26,7 @@ select_permissions:
         - community_id
         - creator_id
         - id
-        - language_id
+        - language_code
       filter: {}
       allow_aggregations: true
     comment: ""

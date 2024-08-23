@@ -8,12 +8,13 @@ import type { User } from '../auth/entities/user'
 import type { ReportLogger } from '../reportLogs/service'
 import type { MockRepository } from '../testHelpers'
 import { createMockRepository } from '../testHelpers'
+import type { Reporter } from '../auth/entities/reporter'
 
 import { ReportsResolver } from './resolver'
 import { Report } from './entities/report'
 import { ReportStatus } from './entities/reportStatus'
 import { ContentType } from './entities/contentType'
-import type { CreateReport } from './schema'
+import type { ReportSubmission } from './schema'
 
 describe('reports resolver', () => {
   let reportLogger: DeepMocked<ReportLogger>
@@ -106,23 +107,32 @@ describe('reports resolver', () => {
     })
   })
 
-  describe('create report', () => {
-    const reportInput: CreateReport = {
+  describe('createReport', () => {
+    const reportSubmission: ReportSubmission = {
       contentId: randomUUID(),
       contentType: ContentType.POST,
       details: 'bad content',
-      reporterId: randomUUID(),
+    }
+
+    const reporter: Reporter = {
+      id: randomUUID(),
+      email: 'someReporter@email.foo',
     }
 
     it('saves report', async () => {
-      await resolver.createReport(reportInput)
+      await resolver.createReport(reportSubmission, reporter)
 
-      expect(repo.create).toHaveBeenCalledWith(reportInput)
+      expect(repo.create).toHaveBeenCalledWith({
+        contentId: reportSubmission.contentId,
+        contentType: ContentType.POST,
+        details: 'bad content',
+        reporterId: reporter.id,
+      })
       expect(repo.save).toHaveBeenCalled()
     })
 
     it('logs report creation', async () => {
-      await resolver.createReport(reportInput)
+      await resolver.createReport(reportSubmission, reporter)
 
       expect(reportLogger.logReportCreated).toHaveBeenCalled()
     })

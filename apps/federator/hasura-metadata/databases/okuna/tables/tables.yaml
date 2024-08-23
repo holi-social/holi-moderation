@@ -1,4 +1,5 @@
 - "!include public_django_content_type.yaml"
+- "!include public_feed_posts_feedpost.yaml"
 - "!include public_openbook_appointments_appointment.yaml"
 - "!include public_openbook_appointments_appointment_participants.yaml"
 - "!include public_openbook_appointments_locationdetails.yaml"
