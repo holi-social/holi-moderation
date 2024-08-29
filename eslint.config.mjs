@@ -7,6 +7,22 @@ import importPlugin from 'eslint-plugin-import'
 import prettierRecommended from 'eslint-plugin-prettier/recommended'
 import jest from 'eslint-plugin-jest'
 
+const internalToolingRules = {
+  // any is okay
+  '@typescript-eslint/no-unsafe-member-access': 'off',
+  '@typescript-eslint/no-unsafe-assignment': 'off',
+  '@typescript-eslint/no-unsafe-call': 'off',
+  '@typescript-eslint/no-unsafe-argument': 'off',
+
+  // we are sure things are here
+  '@typescript-eslint/no-unnecessary-type-assertion': 'off',
+  '@typescript-eslint/no-extra-non-null-assertion': 'off',
+  'no-undef': 'off',
+
+  // things are equal enough
+  '@typescript-eslint/ no-unsafe-enum-comparison': 'off',
+}
+
 export default tseslint.config(
   {
     ignores: [
@@ -15,7 +31,6 @@ export default tseslint.config(
       'vite.config.ts',
       'eslint.config.mjs',
       'tsconfig.json',
-      'mprocs-start.ts',
       'apps/backend/migrations/*',
       '**/generated',
     ],
@@ -76,6 +91,12 @@ export default tseslint.config(
       '@typescript-eslint/require-await': 'warn',
       'no-empty': 'warn',
       'no-undef': 'warn',
+    },
+  },
+  {
+    files: ['*mprocs*.ts'],
+    rules: {
+      ...internalToolingRules,
     },
   },
   prettierRecommended,

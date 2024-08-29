@@ -1,9 +1,10 @@
-import { v2 as compose } from 'docker-compose'
 import * as path from 'node:path'
-import * as dotenv from 'dotenv'
-import { Client } from 'pg'
 import http from 'http'
 import * as fs from 'node:fs'
+
+import { v2 as compose } from 'docker-compose'
+import * as dotenv from 'dotenv'
+import { Client } from 'pg'
 
 dotenv.config()
 if (!process.env.OKUNA_DB_HOST) {
@@ -23,8 +24,8 @@ const waitForPostgres = (config: any, MAX_ATTEMPTS: number = 20): Promise<void> 
       try {
         await client.connect()
         console.log(`Found ${config.database} db`)
-        await client.end()
         clearInterval(intervalId)
+        await client.end()
         resolve()
       } catch (err: any) {
         if (attempts >= MAX_ATTEMPTS) {
@@ -76,7 +77,7 @@ const replaceDockerInternalHostname = (host: string) => {
   ;['SIGINT', 'SIGUSR1', 'SIGUSR2', 'SIGTERM'].forEach((exitEventType) => {
     process.on(exitEventType, () => {
       console.log('Stopping gracefully ...')
-      compose.downMany(SERVICES, {
+      void compose.downMany(SERVICES, {
         callback: (chunk: Buffer) => {
           process.stdout.write(chunk)
         },

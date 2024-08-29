@@ -9,6 +9,7 @@
   ],
   "scripts": {
     "start": "npx ts-node mprocs-start.ts",
+    "start-fake": "npx ts-node mprocs-start-fake.ts",
     "lint": "eslint \"apps/*/{src,test}/**/*.ts\"",
     "test": "yarn workspaces foreach -Ap run test --passWithNoTests",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json}\"",

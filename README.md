@@ -81,3 +81,10 @@ To apply changes to hasura metadata or run db migrations, simply restart the ser
 
 Be aware of platform specific node-modules. E.g. @node-rs/argon2 binary fetching depends on what arch installs the node_modules.
 If a container installed it, it's for Linux and the backend might not start on a Mac. Try yarn install again.
+
+
+## Useful tricks
+
+Debug a remote Federator in the Hasura Console. You can connect to it from your local apps/federator terminal and debug in the UI.
+hasura console --endpoint https://someThingLikeThisRunningInCloudRun.a.run.app --admin-secret fromPassbolt
+
