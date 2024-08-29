@@ -12,6 +12,8 @@ import { UserRole } from './entities/userRole'
 @Injectable()
 export class CreateInitialUser implements OnApplicationBootstrap {
   readonly USER_EMAIL = 'moderation@holi.social'
+  readonly initialPassword = process.env.INITIAL_USER_PASSWORD ?? crypto.randomBytes(32).toString('hex')
+  readonly shouldOutputCredentials = process.env.NODE_ENV === 'development'
 
   constructor(
     private readonly authService: AuthService,
@@ -24,13 +26,11 @@ export class CreateInitialUser implements OnApplicationBootstrap {
         return
       }
 
-      const password = crypto.randomBytes(32).toString('hex')
-      await this.authService.register(this.USER_EMAIL, password, UserRole.ADMIN)
+      await this.authService.register(this.USER_EMAIL, this.initialPassword, UserRole.ADMIN)
 
-      console.log(`+++ INITIAL USER: ${this.USER_EMAIL} - "${password}".`)
-
-      if (process.env.NODE_ENV === 'development') {
-        fs.writeFileSync('.credentials', JSON.stringify({ email: this.USER_EMAIL, password }))
+      if (this.shouldOutputCredentials) {
+        console.log(`+++ INITIAL USER: ${this.USER_EMAIL} - "${this.initialPassword}".`)
+        fs.writeFileSync('.credentials', JSON.stringify({ email: this.USER_EMAIL, password: this.initialPassword }))
       }
     } catch (e) {
       console.log(e)
