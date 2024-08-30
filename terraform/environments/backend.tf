@@ -128,6 +128,16 @@ resource "google_cloud_run_service" "moderation_backend" {
           value = google_pubsub_topic.moderation.name
         }
 
+        env {
+          name = "INITIAL_USER_PASSWORD"
+          value_from {
+            secret_key_ref {
+              name = "MODERATION_INITIAL_USER_PASSWORD"
+              key  = "latest"
+            }
+          }
+        }
+
         resources {
           limits = {
             cpu    = local.environment == "production" ? "1000m" : "1000m"
