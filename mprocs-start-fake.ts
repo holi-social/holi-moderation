@@ -1,7 +1,7 @@
 import type { IncomingMessage, ServerResponse } from 'http'
 import { createServer } from 'http'
 
-import type { GraphQLSchema } from 'graphql'
+import type { IntrospectionQuery } from 'graphql'
 import { introspectionFromSchema, parse as parseGql } from 'graphql'
 import { NestFactory } from '@nestjs/core'
 import { GraphQLSchemaBuilderModule, GraphQLSchemaFactory } from '@nestjs/graphql'
@@ -9,15 +9,14 @@ import { ReportsResolver } from '@holi/moderation-backend/dist/src/reports/resol
 import { Pagination, Success } from '@holi/moderation-backend/dist/src/graphql/commonSchema'
 import { AuthResolver } from '@holi/moderation-backend/dist/src/auth/resolver'
 
-async function gqlSchemaFrom(types: Array<any>): Promise<GraphQLSchema> {
+async function introSpectionSchemaFor(types: Array<any>): Promise<IntrospectionQuery> {
   const app = await NestFactory.create(GraphQLSchemaBuilderModule)
   await app.init()
-
   const gqlSchemaFactory = app.get(GraphQLSchemaFactory)
   const schema = await gqlSchemaFactory.create(types)
-
   await app.close()
-  return schema
+
+  return introspectionFromSchema(schema)
 }
 
 const buildListener =
@@ -29,6 +28,8 @@ const buildListener =
     })
 
     req.on('end', () => {
+      if (!body) return res.end()
+
       const parsedBody = JSON.parse(body)
       const query = parsedBody.query
       const operationName = parsedBody.operationName
@@ -59,11 +60,11 @@ const COMMON_TYPES = [Pagination, Success]
 
 const RESOLVERS_TO_FAKE = [ReportsResolver]
 
-void gqlSchemaFrom([...RESOLVERS_TO_FAKE, ...COMMON_RESOLVERS, ...COMMON_TYPES]).then((schema) => {
+;(async () => {
+  const introspectionSchema = await introSpectionSchemaFor([...RESOLVERS_TO_FAKE, ...COMMON_RESOLVERS, ...COMMON_TYPES])
+
   const introspectionResponse = {
-    data: {
-      ...introspectionFromSchema(schema),
-    },
+    data: introspectionSchema,
   }
   const createReportResponse = {
     // "moderation_" relates to the unified-api mesh prefix name for the mutation
@@ -77,4 +78,4 @@ void gqlSchemaFrom([...RESOLVERS_TO_FAKE, ...COMMON_RESOLVERS, ...COMMON_TYPES])
   server.listen(PORT, () => {
     console.log(`Fake backend running on http://localhost:${PORT}/graphql`)
   })
-})
+})()
