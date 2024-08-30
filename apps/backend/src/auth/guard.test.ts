@@ -199,4 +199,32 @@ describe('AuthGuard request', () => {
       })
     })
   })
+
+  describe('being the federator', () => {
+    beforeEach(() => {
+      setupReqHeaders({
+        'x-hasura-role': UserRole.ADMIN,
+      })
+    })
+
+    it('locks reporter routes', async () => {
+      decorateRouteAccess(Metadata.REPORTER_ONLY)
+      await expect(authGuard.canActivate(context)).resolves.toBe(false)
+    })
+
+    it('locks admin routes', async () => {
+      decorateRouteAccess(Metadata.ADMIN_ONLY)
+      await expect(authGuard.canActivate(context)).resolves.toBe(false)
+    })
+
+    it('activates public routes', async () => {
+      decorateRouteAccess(Metadata.IS_PUBLIC)
+      await expect(authGuard.canActivate(context)).resolves.toBe(true)
+    })
+
+    it('activates user routes so that the hasura graphql explorer works', async () => {
+      decorateRouteAccess()
+      await expect(authGuard.canActivate(context)).resolves.toBe(true)
+    })
+  })
 })

@@ -48,6 +48,10 @@ export class AuthGuard implements CanActivate {
       }
     }
 
+    if (this.isFederatorRequest(request) && !isReporterRoute && !isPublicRoute && !isAdminRoute) {
+      return true
+    }
+
     const token = this.extractToken(request)
     if (!token) {
       return false
@@ -102,5 +106,13 @@ export class AuthGuard implements CanActivate {
 
   private isReporterRequest(request: ModerationServiceRequest): boolean {
     return 'x-holi-user-id' in request.headers && 'x-holi-user-email' in request.headers
+  }
+
+  private isFederatorRequest(request: Request): boolean {
+    return (
+      !('authorization' in request.headers) &&
+      'x-hasura-role' in request.headers &&
+      request.headers['x-hasura-role'] === UserRole.ADMIN
+    )
   }
 }
