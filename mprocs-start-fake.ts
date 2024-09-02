@@ -9,7 +9,7 @@ import { ReportsResolver } from '@holi/moderation-backend/dist/src/reports/resol
 import { Pagination, Success } from '@holi/moderation-backend/dist/src/graphql/commonSchema'
 import { AuthResolver } from '@holi/moderation-backend/dist/src/auth/resolver'
 
-async function introSpectionSchemaFor(types: Array<any>): Promise<IntrospectionQuery> {
+async function introspectionSchemaFrom(types: Array<any>): Promise<IntrospectionQuery> {
   const app = await NestFactory.create(GraphQLSchemaBuilderModule)
   await app.init()
   const gqlSchemaFactory = app.get(GraphQLSchemaFactory)
@@ -44,7 +44,7 @@ const buildListener =
 
       if ('IntrospectionQuery' === inferredOperationName) {
         res.writeHead(200, { 'Content-Type': 'application/json' })
-        res.end(JSON.stringify(introspectionResponse))
+        res.end(JSON.stringify({ data: introspectionResponse }))
       }
       if ('ReportContent' === inferredOperationName) {
         res.writeHead(200, { 'Content-Type': 'application/json' })
@@ -60,12 +60,13 @@ const COMMON_TYPES = [Pagination, Success]
 
 const RESOLVERS_TO_FAKE = [ReportsResolver]
 
-;(async () => {
-  const introspectionSchema = await introSpectionSchemaFor([...RESOLVERS_TO_FAKE, ...COMMON_RESOLVERS, ...COMMON_TYPES])
+void (async () => {
+  const introspectionResponse = await introspectionSchemaFrom([
+    ...RESOLVERS_TO_FAKE,
+    ...COMMON_RESOLVERS,
+    ...COMMON_TYPES,
+  ])
 
-  const introspectionResponse = {
-    data: introspectionSchema,
-  }
   const createReportResponse = {
     // "moderation_" relates to the unified-api mesh prefix name for the mutation
     moderation_createReport: {
