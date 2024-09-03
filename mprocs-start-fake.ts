@@ -1,7 +1,7 @@
 import type { IncomingMessage, ServerResponse } from 'http'
 import { createServer } from 'http'
 
-import type { GraphQLSchema } from 'graphql'
+import type { IntrospectionQuery } from 'graphql'
 import { introspectionFromSchema, parse as parseGql } from 'graphql'
 import { NestFactory } from '@nestjs/core'
 import { GraphQLSchemaBuilderModule, GraphQLSchemaFactory } from '@nestjs/graphql'
@@ -9,15 +9,14 @@ import { ReportsResolver } from '@holi/moderation-backend/dist/src/reports/resol
 import { Pagination, Success } from '@holi/moderation-backend/dist/src/graphql/commonSchema'
 import { AuthResolver } from '@holi/moderation-backend/dist/src/auth/resolver'
 
-async function gqlSchemaFrom(types: Array<any>): Promise<GraphQLSchema> {
+async function introspectionSchemaFrom(types: Array<any>): Promise<IntrospectionQuery> {
   const app = await NestFactory.create(GraphQLSchemaBuilderModule)
   await app.init()
-
   const gqlSchemaFactory = app.get(GraphQLSchemaFactory)
   const schema = await gqlSchemaFactory.create(types)
-
   await app.close()
-  return schema
+
+  return introspectionFromSchema(schema)
 }
 
 const buildListener =
@@ -29,6 +28,8 @@ const buildListener =
     })
 
     req.on('end', () => {
+      if (!body) return res.end()
+
       const parsedBody = JSON.parse(body)
       const query = parsedBody.query
       const operationName = parsedBody.operationName
@@ -43,7 +44,7 @@ const buildListener =
 
       if ('IntrospectionQuery' === inferredOperationName) {
         res.writeHead(200, { 'Content-Type': 'application/json' })
-        res.end(JSON.stringify(introspectionResponse))
+        res.end(JSON.stringify({ data: introspectionResponse }))
       }
       if ('ReportContent' === inferredOperationName) {
         res.writeHead(200, { 'Content-Type': 'application/json' })
@@ -59,12 +60,13 @@ const COMMON_TYPES = [Pagination, Success]
 
 const RESOLVERS_TO_FAKE = [ReportsResolver]
 
-void gqlSchemaFrom([...RESOLVERS_TO_FAKE, ...COMMON_RESOLVERS, ...COMMON_TYPES]).then((schema) => {
-  const introspectionResponse = {
-    data: {
-      ...introspectionFromSchema(schema),
-    },
-  }
+void (async () => {
+  const introspectionResponse = await introspectionSchemaFrom([
+    ...RESOLVERS_TO_FAKE,
+    ...COMMON_RESOLVERS,
+    ...COMMON_TYPES,
+  ])
+
   const createReportResponse = {
     // "moderation_" relates to the unified-api mesh prefix name for the mutation
     moderation_createReport: {
@@ -77,4 +79,4 @@ void gqlSchemaFrom([...RESOLVERS_TO_FAKE, ...COMMON_RESOLVERS, ...COMMON_TYPES])
   server.listen(PORT, () => {
     console.log(`Fake backend running on http://localhost:${PORT}/graphql`)
   })
-})
+})()
