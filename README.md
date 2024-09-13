@@ -8,9 +8,7 @@ The yarn monorepo shall orchestrate all the shared tasks on all the packages loc
 
 ## How to run
 
-1. Prepare your env file:
-   1. copy `.env.template` to `.env` 
-   2. fill it, with your local okunas db connection details and some new secrets 
+1. Prepare your `.env` file with your local okuna db connection details and some secrets 
 
 Start either with mprocs (enable in holi-meta/.envrc.local.backends)
 **or**
