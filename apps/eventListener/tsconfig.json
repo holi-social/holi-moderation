@@ -8,5 +8,5 @@
     "skipLibCheck": true
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "pre-dist", "test", "**/*spec.ts", "**/*.test.ts", "**/testHelpers.ts"]
+  "exclude": ["node_modules", "pre-dist", "test", "**/*spec.ts", "**/testHelpers.ts"]
 }

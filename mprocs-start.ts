@@ -1,17 +1,11 @@
 import * as path from 'node:path'
 import http from 'http'
-import * as fs from 'node:fs'
 
 import { v2 as compose } from 'docker-compose'
 import * as dotenv from 'dotenv'
 import { Client } from 'pg'
 
 dotenv.config()
-if (!process.env.OKUNA_DB_HOST) {
-  fs.copyFileSync('.env.template', '.env')
-  console.error('.env was created from template, please add your credentials and restart')
-  process.exit()
-}
 
 const SERVICES = ['db', 'federator', 'frontend', 'backend']
 
