@@ -1,4 +1,4 @@
-FROM europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/node:20.11-alpine
+FROM europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/node:20-slim
 
 ARG LISTEN_ADDR="0.0.0.0"
 ARG PORT=3000

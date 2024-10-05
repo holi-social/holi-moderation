@@ -1,6 +1,6 @@
 apps:lint:
   stage: lint
-  image: 'europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/node:20.11-alpine'
+  image: 'europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/node:20-slim'
   before_script:
     - corepack enable
     - corepack yarn install
