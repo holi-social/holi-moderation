@@ -41,7 +41,7 @@ export const Layout: React.FC<PropsWithChildren> = ({ children }) => {
       <AppShell.Header display="flex" style={{ alignContent: 'center', justifyContent: 'space-between' }}>
         <Flex style={{ height: '100%', padding: 10 }} align="center">
           <HoliLogo />
-          <Title ml="lg" order={4}>
+          <Title ml="md" order={5}>
             Backoffice 3000
           </Title>
           <Group ml="xl">
