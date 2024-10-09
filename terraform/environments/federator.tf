@@ -158,12 +158,12 @@ resource "google_cloud_run_service" "moderation_federator" {
 
         resources {
           limits = {
-            cpu    = local.environment == "production" ? "1000m" : "1000m"
-            memory = local.environment == "production" ? "512Mi" : "512Mi"
+            cpu    = local.environment == "production" ? "2000m" : "2000m"
+            memory = local.environment == "production" ? "4Gi" : "4Gi"
           }
           requests = {
-            cpu    = local.environment == "production" ? "1000m" : "1000m"
-            memory = local.environment == "production" ? "512Mi" : "512Mi"
+            cpu    = local.environment == "production" ? "2000m" : "2000m"
+            memory = local.environment == "production" ? "1Gi" : "1Gi"
           }
         }
       }
