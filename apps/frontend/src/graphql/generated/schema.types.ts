@@ -5226,7 +5226,6 @@ export type OpenbookPostsPost = {
   created: Scalars['timestamptz']['output'];
   creatorId: Scalars['uuid']['output'];
   id: Scalars['uuid']['output'];
-  inspirationPostCategoryId?: Maybe<Scalars['uuid']['output']>;
   isClosed: Scalars['Boolean']['output'];
   isDeleted: Scalars['Boolean']['output'];
   isEdited: Scalars['Boolean']['output'];
@@ -5292,7 +5291,6 @@ export type OpenbookPostsPostBoolExp = {
   created?: InputMaybe<TimestamptzComparisonExp>;
   creatorId?: InputMaybe<UuidComparisonExp>;
   id?: InputMaybe<UuidComparisonExp>;
-  inspirationPostCategoryId?: InputMaybe<UuidComparisonExp>;
   isClosed?: InputMaybe<BooleanComparisonExp>;
   isDeleted?: InputMaybe<BooleanComparisonExp>;
   isEdited?: InputMaybe<BooleanComparisonExp>;
@@ -5319,7 +5317,6 @@ export type OpenbookPostsPostInsertInput = {
   created?: InputMaybe<Scalars['timestamptz']['input']>;
   creatorId?: InputMaybe<Scalars['uuid']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
-  inspirationPostCategoryId?: InputMaybe<Scalars['uuid']['input']>;
   isClosed?: InputMaybe<Scalars['Boolean']['input']>;
   isDeleted?: InputMaybe<Scalars['Boolean']['input']>;
   isEdited?: InputMaybe<Scalars['Boolean']['input']>;
@@ -5339,7 +5336,6 @@ export type OpenbookPostsPostMaxFields = {
   created?: Maybe<Scalars['timestamptz']['output']>;
   creatorId?: Maybe<Scalars['uuid']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
-  inspirationPostCategoryId?: Maybe<Scalars['uuid']['output']>;
   languageCode?: Maybe<Scalars['String']['output']>;
   modified?: Maybe<Scalars['timestamptz']['output']>;
   status?: Maybe<Scalars['String']['output']>;
@@ -5353,7 +5349,6 @@ export type OpenbookPostsPostMaxOrderBy = {
   created?: InputMaybe<OrderBy>;
   creatorId?: InputMaybe<OrderBy>;
   id?: InputMaybe<OrderBy>;
-  inspirationPostCategoryId?: InputMaybe<OrderBy>;
   languageCode?: InputMaybe<OrderBy>;
   modified?: InputMaybe<OrderBy>;
   status?: InputMaybe<OrderBy>;
@@ -5367,7 +5362,6 @@ export type OpenbookPostsPostMinFields = {
   created?: Maybe<Scalars['timestamptz']['output']>;
   creatorId?: Maybe<Scalars['uuid']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
-  inspirationPostCategoryId?: Maybe<Scalars['uuid']['output']>;
   languageCode?: Maybe<Scalars['String']['output']>;
   modified?: Maybe<Scalars['timestamptz']['output']>;
   status?: Maybe<Scalars['String']['output']>;
@@ -5381,7 +5375,6 @@ export type OpenbookPostsPostMinOrderBy = {
   created?: InputMaybe<OrderBy>;
   creatorId?: InputMaybe<OrderBy>;
   id?: InputMaybe<OrderBy>;
-  inspirationPostCategoryId?: InputMaybe<OrderBy>;
   languageCode?: InputMaybe<OrderBy>;
   modified?: InputMaybe<OrderBy>;
   status?: InputMaybe<OrderBy>;
@@ -5412,7 +5405,6 @@ export type OpenbookPostsPostOrderBy = {
   created?: InputMaybe<OrderBy>;
   creatorId?: InputMaybe<OrderBy>;
   id?: InputMaybe<OrderBy>;
-  inspirationPostCategoryId?: InputMaybe<OrderBy>;
   isClosed?: InputMaybe<OrderBy>;
   isDeleted?: InputMaybe<OrderBy>;
   isEdited?: InputMaybe<OrderBy>;
@@ -5443,8 +5435,6 @@ export type OpenbookPostsPostSelectColumn =
   | 'creatorId'
   /** column name */
   | 'id'
-  /** column name */
-  | 'inspirationPostCategoryId'
   /** column name */
   | 'isClosed'
   /** column name */
@@ -5503,7 +5493,6 @@ export type OpenbookPostsPostSetInput = {
   created?: InputMaybe<Scalars['timestamptz']['input']>;
   creatorId?: InputMaybe<Scalars['uuid']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
-  inspirationPostCategoryId?: InputMaybe<Scalars['uuid']['input']>;
   isClosed?: InputMaybe<Scalars['Boolean']['input']>;
   isDeleted?: InputMaybe<Scalars['Boolean']['input']>;
   isEdited?: InputMaybe<Scalars['Boolean']['input']>;
@@ -5531,7 +5520,6 @@ export type OpenbookPostsPostStreamCursorValueInput = {
   created?: InputMaybe<Scalars['timestamptz']['input']>;
   creatorId?: InputMaybe<Scalars['uuid']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
-  inspirationPostCategoryId?: InputMaybe<Scalars['uuid']['input']>;
   isClosed?: InputMaybe<Scalars['Boolean']['input']>;
   isDeleted?: InputMaybe<Scalars['Boolean']['input']>;
   isEdited?: InputMaybe<Scalars['Boolean']['input']>;
@@ -5556,8 +5544,6 @@ export type OpenbookPostsPostUpdateColumn =
   | 'creatorId'
   /** column name */
   | 'id'
-  /** column name */
-  | 'inspirationPostCategoryId'
   /** column name */
   | 'isClosed'
   /** column name */
@@ -6326,6 +6312,17 @@ export type Pagination = {
   offset?: Scalars['Int']['input'];
 };
 
+export type Reason =
+  | 'FALSE_IDENTITY'
+  | 'HARASSMENT'
+  | 'HATE_SPEECH'
+  | 'ILLEGAL_ACTIVITY'
+  | 'MISINFORMATION'
+  | 'OTHER'
+  | 'PORNOGRAPHY'
+  | 'PRIVACY_VIOLATION'
+  | 'SPAM';
+
 export type Report = {
   contentId: Scalars['UUID']['output'];
   contentType: ContentType;
@@ -6333,6 +6330,7 @@ export type Report = {
   details: Scalars['String']['output'];
   events: Array<ReportEvent>;
   id: Scalars['UUID']['output'];
+  reason: Reason;
   reportedComment?: Maybe<OpenbookPostsPostcomment>;
   reportedFeedPost?: Maybe<FeedPostsFeedpost>;
   reportedPost?: Maybe<OpenbookPostsPost>;
@@ -6375,6 +6373,7 @@ export type ReportSubmission = {
   contentId: Scalars['UUID']['input'];
   contentType: ContentType;
   details: Scalars['String']['input'];
+  reason: Reason;
 };
 
 export type ReportsFilter = {
