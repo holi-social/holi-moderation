@@ -28,6 +28,7 @@ export const ReportDetails = gql`
     details
     contentType
     status
+    reason
     createdAt
 
     reporter {

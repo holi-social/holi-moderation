@@ -4,13 +4,17 @@ import { UUID } from '../graphql/uuidScalar'
 
 import { ContentType } from './entities/contentType'
 import { ReportStatus } from './entities/reportStatus'
-import { Report } from './entities/report'
+import { Report, Reason } from './entities/report'
 
 registerEnumType(ContentType, { name: 'ContentType' })
 registerEnumType(ReportStatus, { name: 'ReportStatus' })
-
+registerEnumType(Reason, { name: 'Reason' })
 @InputType()
-export class ReportSubmission extends PickType(Report, ['contentType', 'contentId', 'details'] as const, InputType) {}
+export class ReportSubmission extends PickType(
+  Report,
+  ['contentType', 'contentId', 'details', 'reason'] as const,
+  InputType,
+) {}
 
 @ObjectType()
 export class ReportConfirmation {
