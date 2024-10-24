@@ -38,9 +38,9 @@ export class Report {
   @Column('uuid')
   contentId: string
 
-  @Field(() => Reason)
-  @Column({ type: 'enum', enum: Reason, default: Reason.OTHER })
-  reason: Reason
+  @Field(() => Reason, { nullable: true })
+  @Column({ type: 'enum', enum: Reason, default: Reason.OTHER, nullable: true })
+  reason?: Reason
 
   @Field()
   @Column('text')
