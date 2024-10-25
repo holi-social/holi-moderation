@@ -2,6 +2,8 @@ default:
   cache:
     paths:
       - "node_modules/"
+  tags:
+    - 1cpu-4gb # default small, configure more explicitly on specific jobs
 
 stages:
   - lint
