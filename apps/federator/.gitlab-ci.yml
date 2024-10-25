@@ -5,7 +5,7 @@ federator:image:
 
   image: europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/docker:26.1
   services:
-    - 'docker:27-dind'
+    - 'europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/docker:27-dind'
 
   variables:
     GCR_IMAGE: europe-north1-docker.pkg.dev/holi-shared/docker/holi-moderation-federator
