@@ -70,7 +70,7 @@ deploy:review:stop:
   script:
     - terraform/environments/scripts/destroy-env.sh $CI_ENVIRONMENT_NAME
   when: manual
-  allow_failure: false
+  allow_failure: true
   except:
     - main
     - production
