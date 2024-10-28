@@ -7,6 +7,18 @@ import { ReportEvent } from '../../reportLogs/entities/reportEvent'
 import { ContentType } from './contentType'
 import { ReportStatus } from './reportStatus'
 
+export enum Reason {
+  FALSE_IDENTITY = 'FALSE_IDENTITY',
+  PRIVACY_VIOLATION = 'PRIVACY_VIOLATION',
+  MISINFORMATION = 'MISINFORMATION',
+  SPAM = 'SPAM',
+  HARASSMENT = 'HARASSMENT',
+  HATE_SPEECH = 'HATE_SPEECH',
+  PORNOGRAPHY = 'PORNOGRAPHY',
+  ILLEGAL_ACTIVITY = 'ILLEGAL_ACTIVITY',
+  OTHER = 'OTHER',
+}
+
 @ObjectType()
 @Entity()
 export class Report {
@@ -25,6 +37,10 @@ export class Report {
   @Field(() => UUID)
   @Column('uuid')
   contentId: string
+
+  @Field(() => Reason, { nullable: true })
+  @Column({ type: 'enum', enum: Reason, default: Reason.OTHER, nullable: true })
+  reason?: Reason
 
   @Field()
   @Column('text')

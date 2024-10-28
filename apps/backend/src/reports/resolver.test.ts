@@ -11,7 +11,7 @@ import { createMockRepository } from '../testHelpers'
 import type { Reporter } from '../auth/entities/reporter'
 
 import { ReportsResolver } from './resolver'
-import { Report } from './entities/report'
+import { Reason, Report } from './entities/report'
 import { ReportStatus } from './entities/reportStatus'
 import { ContentType } from './entities/contentType'
 import type { ReportSubmission } from './schema'
@@ -112,6 +112,7 @@ describe('reports resolver', () => {
       contentId: randomUUID(),
       contentType: ContentType.POST,
       details: 'bad content',
+      reason: Reason.OTHER,
     }
 
     const reporter: Reporter = {
@@ -127,6 +128,7 @@ describe('reports resolver', () => {
         contentType: ContentType.POST,
         details: 'bad content',
         reporterId: reporter.id,
+        reason: Reason.OTHER,
       })
       expect(repo.save).toHaveBeenCalled()
     })

@@ -110,6 +110,13 @@ export const ViewReport: React.FC = () => {
                 <Text>{report.details}</Text>
               </Grid.Col>
 
+              <Grid.Col span={2}>
+                <Text fw={700}>reason:</Text>
+              </Grid.Col>
+              <Grid.Col span={10} display="flex">
+                <Text>{report.reason}</Text>
+              </Grid.Col>
+
               <Grid.Col span={12}>
                 <Accordion variant="contained">
                   <Accordion.Item value="userReports">
