@@ -15,11 +15,11 @@ federator:image:
     - cd apps/federator
 
   script:
-    - docker pull $GCR_IMAGE || true
-    - docker build --cache-from $GCR_IMAGE -t $GCR_IMAGE:latest -t $GCR_IMAGE:$CI_COMMIT_SHA -t $GCR_IMAGE:$CI_COMMIT_REF_SLUG .
-    - docker push $GCR_IMAGE:$CI_COMMIT_SHA
-    - docker push $GCR_IMAGE:$CI_COMMIT_REF_SLUG
-    - docker push $GCR_IMAGE:latest
+    - docker pull "$GCR_IMAGE" || true
+    - docker build --cache-from "$GCR_IMAGE" -t "$GCR_IMAGE":latest -t "$GCR_IMAGE":"$CI_COMMIT_SHA" -t "$GCR_IMAGE":"$CI_COMMIT_REF_SLUG" .
+    - docker push "$GCR_IMAGE":"$CI_COMMIT_SHA"
+    - docker push "$GCR_IMAGE":"$CI_COMMIT_REF_SLUG"
+    - docker push "$GCR_IMAGE":latest
 
   tags:
     - 4cpu-4gb
