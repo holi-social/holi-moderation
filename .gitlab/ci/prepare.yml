@@ -6,8 +6,8 @@ apps:prepare:
     - corepack enable
   script:
     - corepack yarn install --immutable
-  rules:
-    - if: $CI_COMMIT_BRANCH
+#  rules:
+#    - if: $CI_COMMIT_BRANCH
 #      changes: 
 #      - ../../yarn.lock
 #      - ../../build.trigger
