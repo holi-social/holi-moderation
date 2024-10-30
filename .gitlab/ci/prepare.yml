@@ -9,4 +9,5 @@ apps:prepare:
   rules:
     - if: $CI_COMMIT_BRANCH
       changes: 
-      - yarn.lock
+      - ../../yarn.lock
+      - ../../build.trigger
