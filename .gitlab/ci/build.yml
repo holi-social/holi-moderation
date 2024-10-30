@@ -2,10 +2,9 @@ apps:build:
   stage: build
   needs: ["apps:test"]
   image: 'europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/node:20.11-alpine'
-  before_script:
+  script:
     - corepack enable
     - corepack yarn install --immutable --immutable-cache
-  script:
     # build the vite envs to connect the frontend to the backend
     - export ENVIRONMENT_SLUG="review-$CI_COMMIT_REF_SLUG"
     - export ENVIRONMENT_SLUG="${ENVIRONMENT_SLUG:0:22}"

@@ -4,8 +4,7 @@ apps:lint:
     - job: apps:prepare
       optional: true
   image: 'europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/node:20.11-alpine'
-  before_script:
+  script:
     - corepack enable
     - corepack yarn install --immutable --immutable-cache
-  script:
     - corepack yarn lint
