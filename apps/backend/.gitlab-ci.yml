@@ -7,6 +7,7 @@ backend:image:
     - 'docker:27-dind'
   variables:
     GCR_IMAGE: europe-north1-docker.pkg.dev/holi-shared/docker/holi-moderation-backend
+  cache: []
   before_script:
     - cd apps/backend
   script:

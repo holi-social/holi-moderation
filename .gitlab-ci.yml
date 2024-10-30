@@ -1,11 +1,30 @@
+variables:
+  YARN_CACHE_FOLDER: "$CI_PROJECT_DIR/.yarn/cache"
+  YARN_ENABLE_GLOBAL_CACHE: "false"
+
+.yarn-cache-rw:
+  key:
+    files:
+      - yarn.lock
+  paths:
+    - .yarn/
+  policy: pull-push
+
+.yarn-cache-readonly:
+  key:
+    files:
+      - yarn.lock
+  paths:
+    - .yarn/
+  policy: pull
+
 default:
-  cache:
-    paths:
-      - "node_modules/"
+  cache: !reference [.yarn-cache-readonly]
   tags:
     - 1cpu-4gb # default small, configure more explicitly on specific jobs
 
 stages:
+  - prepare
   - lint
   - test
   - build
