@@ -1,7 +1,7 @@
 apps:lint:
   stage: lint
   needs: 
-    - job: apps:lint
+    - job: apps:prepare
       optional: true
   image: 'europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/node:20.11-alpine'
   before_script:
