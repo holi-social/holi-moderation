@@ -39,6 +39,7 @@ deploy:review:infra:
     on_stop: "deploy:review:stop"
     auto_stop_in: 1 week
   when: manual
+  allow_failure: true
   except:
     - main
     - production
