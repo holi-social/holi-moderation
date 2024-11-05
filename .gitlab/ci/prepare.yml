@@ -14,6 +14,7 @@ apps:prepare:
     - exists:
         - .yarn
       when: never
-    - exists:
+    - if: $CI_COMMIT_BRANCH
+      exists:
       - yarn.lock
       when: always
