@@ -6,6 +6,15 @@ apps:prepare:
     - corepack enable
     - corepack yarn install --immutable
   rules:
+    # Execute step if yarn.lock was changed or cache is missing
+    # Inspired by https://gitlab.com/gitlab-org/gitlab/-/issues/244932#note_1727726890
     - if: $CI_COMMIT_BRANCH
       changes: 
       - yarn.lock
+    - exists:
+        - .yarn
+      when: never
+    - if: $CI_COMMIT_BRANCH
+      exists:
+      - yarn.lock
+      when: always
