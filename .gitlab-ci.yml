@@ -1,11 +1,35 @@
+variables:
+  YARN_CACHE_FOLDER: "$CI_PROJECT_DIR/.yarn/cache"
+  YARN_ENABLE_GLOBAL_CACHE: "false"
+
+.yarn-cache-rw:
+  key:
+    files:
+      - yarn.lock
+  paths:
+    - .yarn/
+  policy: pull-push
+
+.yarn-cache-readonly:
+  key:
+    files:
+      - yarn.lock
+  paths:
+    - .yarn/
+  policy: pull
+
 default:
-  cache:
-    paths:
-      - "node_modules/"
+  cache: !reference [.yarn-cache-readonly]
   tags:
     - 1cpu-4gb # default small, configure more explicitly on specific jobs
+  before_script:
+    - set -ex
+    # env -0 | sort -z | tr '\0' '\n': Sort env output alphabetically, keeping multiline variables intact
+    # egrep: Remove sensitive information from the output of env
+    - env -0 | sort -z | tr '\0' '\n' | egrep -ve '^(DOCKER_AUTH_CONFIG|GOOGLE_APPLICATION_CREDENTIALS)=.*'
 
 stages:
+  - prepare
   - lint
   - test
   - build
@@ -13,6 +37,7 @@ stages:
   - destroy
 
 include:
+  - local: ".gitlab/ci/prepare.yml"
   - local: ".gitlab/ci/lint.yml"
   - local: ".gitlab/ci/test.yml"
   - local: ".gitlab/ci/build.yml"
