@@ -2392,7 +2392,7 @@ __metadata:
     "@eslint/js": "npm:^9.9.1"
     "@types/eslint__js": "npm:^8.42.3"
     "@types/node": "npm:^20.16.5"
-    docker-compose: "npm:^0.24.8"
+    docker-compose: "npm:^1.0.0"
     dotenv: "npm:^16.4.5"
     eslint: "npm:^9.9.1"
     eslint-config-prettier: "npm:^9.1.0"
@@ -6691,12 +6691,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"docker-compose@npm:^0.24.8":
-  version: 0.24.8
-  resolution: "docker-compose@npm:0.24.8"
+"docker-compose@npm:^1.0.0":
+  version: 1.1.0
+  resolution: "docker-compose@npm:1.1.0"
   dependencies:
     yaml: "npm:^2.2.2"
-  checksum: 10c0/1494389e554fed8aabf9fef24210a641cd2442028b1462d7f68186919f5e75045f7bfb4ccaf47c94ed879dcb63e4d82885c389399f531550c4b244920740b2b3
+  checksum: 10c0/4d3e64c847ed042c106bd85c3380f01b1989b12bcd54342f4a009687485912b6b57db2a9870fe4764eaa54ef984c17b4eeab784c264294609951c781a92ce0bf
   languageName: node
   linkType: hard
 
