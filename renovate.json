@@ -7,15 +7,30 @@
     ":enableVulnerabilityAlertsWithLabel('renovatebot/security')",
     ":semanticCommits",
     ":automergePatch",
+    ":automergeMinor",
     ":automergeTesters",
-    ":automergeLinters"
+    ":automergeLinters",
+    ":automergeTypes"
   ],
   "packageRules": [
+    {
+      "matchCurrentVersion": "/^0/",
+      "automerge": false
+    },
     {
       "matchSourceUrls": [
         "https://github.com/hashicorp/terraform"
       ],
       "groupName": "terraform"
+    },
+    {
+      "matchDepTypes": [
+        "devDependencies"
+      ],
+      "matchManagers": [
+        "npm"
+      ],
+      "automerge": true
     }
   ],
   "reviewers": [
