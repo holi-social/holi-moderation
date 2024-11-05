@@ -1,6 +1,6 @@
 services:
   backend:
-    image: node:20.11-alpine
+    image: node:20.18-alpine
     user: "node"
     working_dir: /home/node/app
     volumes:
@@ -27,7 +27,7 @@ services:
     command: sh -c "corepack yarn install; corepack yarn workspace @holi/moderation-backend nest start --watch"
 
   frontend:
-    image: node:20.11-alpine
+    image: node:20.18-alpine
     user: "node"
     working_dir: /home/node/app
     volumes:
