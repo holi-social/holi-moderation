@@ -19,7 +19,7 @@
     "@eslint/js": "^9.9.1",
     "@types/eslint__js": "^8.42.3",
     "@types/node": "^20.16.5",
-    "docker-compose": "^0.24.8",
+    "docker-compose": "^1.0.0",
     "dotenv": "^16.4.5",
     "eslint": "^9.9.1",
     "eslint-config-prettier": "^9.1.0",
