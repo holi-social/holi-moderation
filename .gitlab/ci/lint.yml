@@ -6,5 +6,5 @@ apps:lint:
   image: 'europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/node:20.11-alpine'
   script:
     - corepack enable
-    - corepack yarn install --immutable --immutable-cache
+    - corepack yarn install --immutable
     - corepack yarn lint
