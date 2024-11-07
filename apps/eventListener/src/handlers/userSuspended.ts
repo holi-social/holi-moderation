@@ -3,9 +3,9 @@ import type { UserSuspendedData } from '../types'
 
 import type { HandlerOptions } from './types'
 
-export const handleUserSuspended =  (
+export const handleUserSuspended = async (
   event: UserSuspendedData,
   { ory = Ory.fromEnvironment() }: HandlerOptions | undefined = {},
 ) => {
-  ory.deactivateUser(event.email)
+  await ory.deactivateUser(event.email)
 }

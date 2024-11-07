@@ -26,7 +26,7 @@ describe('AuthGuard request', () => {
   const setupReqHeaders = (reqHeaders: object) => {
     jest.spyOn(GqlExecutionContext, 'create').mockReturnValue({
       getContext: jest.fn().mockReturnValue({ req: { headers: reqHeaders } }),
-    } as any)
+    } as unknown as GqlExecutionContext)
   }
 
   beforeEach(() => {
