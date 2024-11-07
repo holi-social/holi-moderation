@@ -1,10 +1,10 @@
 apps:lint:
   stage: lint
-  needs: 
+  image: 'europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/node:20-slim'
+  needs:
     - job: apps:prepare
       optional: true
   cache: !reference [.yarn-cache-rw]
-  image: 'europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/node:20.11-alpine'
   script:
     - corepack enable
     # If CI Cache is empty because apps:prepare did not run, install filling the cache, otherwise install from the immutable cache

@@ -3,12 +3,12 @@ import { Ory } from '../ory'
 import { handleUserSuspensionExpired } from './userSuspensionExpired'
 
 describe('userSuspensionExpired handler', () => {
-  it('should activate ory identity', () => {
+  it('should activate ory identity', async () => {
     const ory = Ory.withApiKey('')
 
     const activateUser = jest.spyOn(Ory.prototype, 'activateUser').mockImplementation(async () => {})
 
-    handleUserSuspensionExpired(
+    await handleUserSuspensionExpired(
       {
         email: 'test@holi.social',
       },
