@@ -1,6 +1,7 @@
 apps:lint:
   stage: lint
   image: 'europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/node:20-slim'
+  needs:
     - job: apps:prepare
       optional: true
   cache: !reference [.yarn-cache-rw]

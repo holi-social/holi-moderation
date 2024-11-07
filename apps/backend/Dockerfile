@@ -3,10 +3,6 @@ FROM europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/node:20-slim
 ARG LISTEN_ADDR="0.0.0.0"
 ARG PORT=3000
 
-RUN apt-get -y -qq update && apt-get install -y --no-install-recommends wget \
- && apt-get clean \
- && rm -rf /var/lib/apt/lists/*
-
 WORKDIR /home/node/app
 
 # make corepack and newstyle yarn use node_modules
