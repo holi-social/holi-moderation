@@ -2,7 +2,7 @@ import { Ory } from '../ory'
 
 import { handleUserSuspensionExpired } from './userSuspensionExpired'
 
-describe('userSuspensionExpired handler', () => {
+describe('userSuspensionExpired handler',  () => {
   it('should activate ory identity', () => {
     const ory = Ory.withApiKey('')
 
@@ -17,4 +17,4 @@ describe('userSuspensionExpired handler', () => {
 
     expect(activateUser).toHaveBeenCalledWith<[string]>('test@holi.social')
   })
-})
+}) 

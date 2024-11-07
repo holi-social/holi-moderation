@@ -3,7 +3,7 @@ import type { UserSuspendedData } from '../types'
 
 import type { HandlerOptions } from './types'
 
-export const handleUserSuspended = async (
+export const handleUserSuspended =  (
   event: UserSuspendedData,
   { ory = Ory.fromEnvironment() }: HandlerOptions | undefined = {},
 ) => {
