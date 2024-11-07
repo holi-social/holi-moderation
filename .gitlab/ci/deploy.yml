@@ -5,24 +5,21 @@
 .deploy_infra:
   stage: deploy
   image:
-    name: "europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/hashicorp/terraform:1.6.6"
+    name: "europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/hashicorp/terraform:1.9.8"
     entrypoint: ["/bin/sh", "-c"]
-
   needs:
     - "apps:build"
     - "backend:image"
     - "frontend:image"
     - "federator:image"
-
   artifacts:
     # make the terraform definitions available to the destroy job
     paths:
       - "terraform"
     name: "${CI_JOB_NAME}_${CI_JOB_ID}"
     expire_in: 1 week
-
   script:
-    - terraform/environments/scripts/create-or-update-env.sh $CI_ENVIRONMENT_NAME $CI_COMMIT_SHA
+    - terraform/environments/scripts/create-or-update-env.sh "$CI_ENVIRONMENT_NAME" "$CI_COMMIT_SHA"
   resource_group: $CI_ENVIRONMENT_NAME
   interruptible: false
   allow_failure: false
@@ -39,6 +36,7 @@ deploy:review:infra:
     on_stop: "deploy:review:stop"
     auto_stop_in: 1 week
   when: manual
+  allow_failure: true
   except:
     - main
     - production
@@ -46,17 +44,14 @@ deploy:review:infra:
 deploy:review:stop:
   stage: destroy
   image:
-    name: 'europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/hashicorp/terraform:1.6.6'
+    name: 'europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/hashicorp/terraform:1.9.8'
     entrypoint: ["/bin/sh", "-c"]
-
   # don't fetch the repo - just work with the artifacts
   variables:
     GIT_STRATEGY: none
-
   environment:
     name: review-$CI_COMMIT_REF_SLUG
     action: stop
-
   needs:
     - "apps:build" # all the /dist folders, so that terraform can archive stuff
     - "deploy:review:infra" # the terraform hcl sources
@@ -68,9 +63,9 @@ deploy:review:stop:
     when: on_failure
     expire_in: 1 week
   script:
-    - terraform/environments/scripts/destroy-env.sh $CI_ENVIRONMENT_NAME
+    - terraform/environments/scripts/destroy-env.sh "$CI_ENVIRONMENT_NAME"
   when: manual
-  allow_failure: false
+  allow_failure: true
   except:
     - main
     - production

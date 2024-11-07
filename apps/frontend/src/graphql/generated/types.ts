@@ -39,7 +39,7 @@ export type PostDetailsFragment = (
 );
 
 export type ReportDetailsFragment = (
-  Pick<Types.Report, 'id' | 'details' | 'contentType' | 'status' | 'createdAt'>
+  Pick<Types.Report, 'id' | 'details' | 'contentType' | 'status' | 'reason' | 'createdAt'>
   & { reporter?: Types.Maybe<(
     Pick<Types.OpenbookAuthUser, 'id' | 'email' | 'dateJoined'>
     & { profile?: Types.Maybe<Pick<Types.OpenbookAuthUserprofile, 'id' | 'name' | 'lastName' | 'pronouns' | 'avatar' | 'cover' | 'aboutMe' | 'location' | 'url'>> }
@@ -362,7 +362,7 @@ export type ChangeReportStatusMutationVariables = Types.Exact<{
 
 
 export type ChangeReportStatusMutation = { changeReportStatus: (
-    Pick<Types.Report, 'id' | 'details' | 'contentType' | 'status' | 'createdAt'>
+    Pick<Types.Report, 'id' | 'details' | 'contentType' | 'status' | 'reason' | 'createdAt'>
     & { reporter?: Types.Maybe<(
       Pick<Types.OpenbookAuthUser, 'id' | 'email' | 'dateJoined'>
       & { profile?: Types.Maybe<Pick<Types.OpenbookAuthUserprofile, 'id' | 'name' | 'lastName' | 'pronouns' | 'avatar' | 'cover' | 'aboutMe' | 'location' | 'url'>> }
@@ -599,7 +599,7 @@ export type ViewReportQueryVariables = Types.Exact<{
 
 
 export type ViewReportQuery = { report: (
-    Pick<Types.Report, 'id' | 'details' | 'contentType' | 'status' | 'createdAt'>
+    Pick<Types.Report, 'id' | 'details' | 'contentType' | 'status' | 'reason' | 'createdAt'>
     & { reporter?: Types.Maybe<(
       Pick<Types.OpenbookAuthUser, 'id' | 'email' | 'dateJoined'>
       & { profile?: Types.Maybe<Pick<Types.OpenbookAuthUserprofile, 'id' | 'name' | 'lastName' | 'pronouns' | 'avatar' | 'cover' | 'aboutMe' | 'location' | 'url'>> }

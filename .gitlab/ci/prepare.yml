@@ -1,0 +1,15 @@
+apps:prepare:
+  stage: prepare
+  image: 'europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/node:20.18-alpine'
+  cache: !reference [.yarn-cache-rw]
+  script:
+    - corepack enable
+    - corepack yarn install --immutable
+  rules:
+    # Execute step if yarn.lock was changed or cache is missing
+    # Inspired by https://gitlab.com/gitlab-org/gitlab/-/issues/244932#note_1727726890
+    - if: $CI_COMMIT_BRANCH
+      changes: 
+      - yarn.lock
+      - .gitlab-ci.yml
+      - .gitlab/ci/prepare.yml
