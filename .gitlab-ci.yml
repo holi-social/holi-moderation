@@ -19,7 +19,6 @@ variables:
   policy: pull
 
 default:
-  cache: !reference [.yarn-cache-readonly]
   tags:
     - 1cpu-4gb # default small, configure more explicitly on specific jobs
   before_script:

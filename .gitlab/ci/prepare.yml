@@ -11,10 +11,5 @@ apps:prepare:
     - if: $CI_COMMIT_BRANCH
       changes: 
       - yarn.lock
-    - exists:
-        - .yarn
-      when: never
-    - if: $CI_COMMIT_BRANCH
-      exists:
-      - yarn.lock
-      when: always
+      - .gitlab-ci.yml
+      - .gitlab/ci/prepare.yml

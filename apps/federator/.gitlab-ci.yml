@@ -9,7 +9,6 @@ federator:image:
 
   variables:
     GCR_IMAGE: europe-north1-docker.pkg.dev/holi-shared/docker/holi-moderation-federator
-  cache: []
   before_script:
     - cd apps/federator
   script:
