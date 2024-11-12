@@ -1416,9 +1416,9 @@ __metadata:
   linkType: hard
 
 "@golevelup/ts-jest@npm:^0.6.0":
-  version: 0.6.0
-  resolution: "@golevelup/ts-jest@npm:0.6.0"
-  checksum: 10c0/29d87d3cc6a7cbe71facf5a893a095234025328c3cdff8709190f897f60a33e36ec703b49990ba7a654f132111fc88ffb8c2c029d63f4e49ffa9f07c2a4f2d68
+  version: 0.6.1
+  resolution: "@golevelup/ts-jest@npm:0.6.1"
+  checksum: 10c0/dbcb89d5c85ab46829ed778ff1f794b59c99f384f3e50393f8bc14a3ccc310f7026fd503e49eb8c4bbe32b6285c24ed9af89a5e3bea2ab0c5878b4a15ec3d410
   languageName: node
   linkType: hard
 
