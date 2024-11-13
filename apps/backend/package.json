@@ -50,7 +50,7 @@
     "uuid": "10.0.0"
   },
   "devDependencies": {
-    "@golevelup/ts-jest": "^0.5.5",
+    "@golevelup/ts-jest": "^0.6.0",
     "@nestjs/testing": "^10.4.1",
     "@types/express": "^5.0.0",
     "@types/jest": "^29.5.12",

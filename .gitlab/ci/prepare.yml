@@ -1,6 +1,6 @@
 apps:prepare:
   stage: prepare
-  image: 'europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/node:20.18-alpine'
+  image: 'europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/node:20-slim'
   cache: !reference [.yarn-cache-rw]
   script:
     - corepack enable
@@ -11,10 +11,5 @@ apps:prepare:
     - if: $CI_COMMIT_BRANCH
       changes: 
       - yarn.lock
-    - exists:
-        - .yarn
-      when: never
-    - if: $CI_COMMIT_BRANCH
-      exists:
-      - yarn.lock
-      when: always
+      - .gitlab-ci.yml
+      - .gitlab/ci/prepare.yml

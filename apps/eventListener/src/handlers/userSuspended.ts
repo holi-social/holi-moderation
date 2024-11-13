@@ -7,5 +7,5 @@ export const handleUserSuspended = async (
   event: UserSuspendedData,
   { ory = Ory.fromEnvironment() }: HandlerOptions | undefined = {},
 ) => {
-  ory.deactivateUser(event.email)
+  await ory.deactivateUser(event.email)
 }

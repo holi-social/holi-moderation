@@ -1,6 +1,6 @@
 services:
   backend:
-    image: node:20.18-alpine
+    image: node:20-slim
     user: "node"
     working_dir: /home/node/app
     volumes:
@@ -13,7 +13,8 @@ services:
       LISTEN_ADDR: "0.0.0.0"
       DEBUG: "true"
     healthcheck:
-      test: [ "CMD-SHELL", "wget --no-verbose --tries=1 --spider http://127.0.0.1:3001/health" ]
+      # check if the node process on tcp port 3001 -> 0BB9 in hex is open
+      test: [ "CMD-SHELL", "grep -E ':'$$(printf '%04X\n' 3001) /proc/net/tcp" ]
       interval: 5s
       timeout: 5s
       retries: 30
@@ -27,7 +28,7 @@ services:
     command: sh -c "corepack yarn install; corepack yarn workspace @holi/moderation-backend nest start --watch"
 
   frontend:
-    image: node:20.18-alpine
+    image: node:20-slim
     user: "node"
     working_dir: /home/node/app
     volumes:

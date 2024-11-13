@@ -1,6 +1,6 @@
 variables:
-  YARN_CACHE_FOLDER: "$CI_PROJECT_DIR/.yarn/cache"
-  YARN_ENABLE_GLOBAL_CACHE: "false"
+  YARN_CACHE_FOLDER: '$CI_PROJECT_DIR/.yarn/cache'
+  YARN_ENABLE_GLOBAL_CACHE: 'false'
 
 .yarn-cache-rw:
   key:
@@ -19,7 +19,6 @@ variables:
   policy: pull
 
 default:
-  cache: !reference [.yarn-cache-readonly]
   tags:
     - 1cpu-4gb # default small, configure more explicitly on specific jobs
   before_script:
@@ -37,11 +36,11 @@ stages:
   - destroy
 
 include:
-  - local: ".gitlab/ci/prepare.yml"
-  - local: ".gitlab/ci/lint.yml"
-  - local: ".gitlab/ci/test.yml"
-  - local: ".gitlab/ci/build.yml"
-  - local: "apps/backend/.gitlab-ci.yml"
-  - local: "apps/frontend/.gitlab-ci.yml"
-  - local: "apps/federator/.gitlab-ci.yml"
-  - local: ".gitlab/ci/deploy.yml"
+  - local: '.gitlab/ci/prepare.yml'
+  - local: '.gitlab/ci/lint.yml'
+  - local: '.gitlab/ci/test.yml'
+  - local: '.gitlab/ci/build.yml'
+  - local: 'apps/backend/.gitlab-ci.yml'
+  - local: 'apps/frontend/.gitlab-ci.yml'
+  - local: 'apps/federator/.gitlab-ci.yml'
+  - local: '.gitlab/ci/deploy.yml'
