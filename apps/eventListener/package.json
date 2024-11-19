@@ -5,7 +5,7 @@
   "packageManager": "yarn@4.5.1",
   "dependencies": {
     "@google-cloud/functions-framework": "3.4.2",
-    "@ory/client": "1.15.10"
+    "@ory/client": "1.15.12"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
