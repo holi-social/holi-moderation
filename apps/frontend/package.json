@@ -12,12 +12,12 @@
     "gqlgen": "graphql-codegen --config ./graphql.config.ts"
   },
   "dependencies": {
-    "@mantine/core": "7.14.3",
-    "@mantine/dates": "7.14.3",
-    "@mantine/form": "7.14.3",
-    "@mantine/hooks": "7.14.3",
-    "@mantine/modals": "7.14.3",
-    "@mantine/notifications": "7.14.3",
+    "@mantine/core": "7.15.0",
+    "@mantine/dates": "7.15.0",
+    "@mantine/form": "7.15.0",
+    "@mantine/hooks": "7.15.0",
+    "@mantine/modals": "7.15.0",
+    "@mantine/notifications": "7.15.0",
     "@tabler/icons-react": "3.24.0",
     "clsx": "2.1.1",
     "date-fns": "3.6.0",
