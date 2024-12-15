@@ -18,7 +18,7 @@
     "@mantine/hooks": "7.15.1",
     "@mantine/modals": "7.15.1",
     "@mantine/notifications": "7.15.1",
-    "@tabler/icons-react": "3.24.0",
+    "@tabler/icons-react": "3.25.0",
     "clsx": "2.1.1",
     "date-fns": "3.6.0",
     "dayjs": "1.11.13",
