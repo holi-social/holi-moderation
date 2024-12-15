@@ -20,7 +20,7 @@
     "@mantine/notifications": "7.15.1",
     "@tabler/icons-react": "3.24.0",
     "clsx": "2.1.1",
-    "date-fns": "3.6.0",
+    "date-fns": "4.1.0",
     "dayjs": "1.11.13",
     "graphql": "16.10.0",
     "graphql-request": "7.1.2",
