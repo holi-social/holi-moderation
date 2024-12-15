@@ -2463,7 +2463,7 @@ __metadata:
     "@mantine/hooks": "npm:7.15.1"
     "@mantine/modals": "npm:7.15.1"
     "@mantine/notifications": "npm:7.15.1"
-    "@tabler/icons-react": "npm:3.25.0"
+    "@tabler/icons-react": "npm:3.26.0"
     "@types/react": "npm:^18.3.5"
     "@types/react-dom": "npm:^18.3.0"
     "@vitejs/plugin-react-swc": "npm:^3.7.0"
@@ -4117,21 +4117,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tabler/icons-react@npm:3.25.0":
-  version: 3.25.0
-  resolution: "@tabler/icons-react@npm:3.25.0"
+"@tabler/icons-react@npm:3.26.0":
+  version: 3.26.0
+  resolution: "@tabler/icons-react@npm:3.26.0"
   dependencies:
-    "@tabler/icons": "npm:3.25.0"
+    "@tabler/icons": "npm:3.26.0"
   peerDependencies:
     react: ">= 16"
-  checksum: 10c0/137c61238397c7fb95ea09afe9bbb0393b83c00f5aeac83f3d7e646f03acc02080cd40c2fac5ceb4f45e9abea6089fd8f053a8bf1ffbc6bd3e26e5c8847a15e1
+  checksum: 10c0/938d5a4614e740bbc55514d49d9069de35cdfc5ceebbfbe454bf4930396a0425a14c7eeeba24e439b0f9c3f2790e1c9c3c68c959267f0be6751685b88fa8b3ec
   languageName: node
   linkType: hard
 
-"@tabler/icons@npm:3.25.0":
-  version: 3.25.0
-  resolution: "@tabler/icons@npm:3.25.0"
-  checksum: 10c0/a0e10532e78e40acf45d7849ed0300a813bd64d2001c4ed22ebf2ff4b033d79275d5fdd46a661e3822c249fa6dac24722071ddff6c2a1a177817f362443b48a9
+"@tabler/icons@npm:3.26.0":
+  version: 3.26.0
+  resolution: "@tabler/icons@npm:3.26.0"
+  checksum: 10c0/60eee2f656f3b391d22f97fd9949913ed3bf19773e6c27b755f62edb67dc3ef2d347efebf486cca012599787326b2dc6ad94d6bf9a765def87e73119b84c32ae
   languageName: node
   linkType: hard
 
