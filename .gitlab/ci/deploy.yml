@@ -5,7 +5,7 @@
 .deploy_infra:
   stage: deploy
   image:
-    name: "europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/hashicorp/terraform:1.10.2"
+    name: "europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/hashicorp/terraform:1.10.3"
     entrypoint: ["/bin/sh", "-c"]
   needs:
     - "apps:build"
@@ -44,7 +44,7 @@ deploy:review:infra:
 deploy:review:stop:
   stage: destroy
   image:
-    name: 'europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/hashicorp/terraform:1.10.2'
+    name: 'europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/hashicorp/terraform:1.10.3'
     entrypoint: ["/bin/sh", "-c"]
   # don't fetch the repo - just work with the artifacts
   variables:
