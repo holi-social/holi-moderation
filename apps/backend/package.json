@@ -23,7 +23,7 @@
     "migrate": "yarn run typeorm migration:run -d src/typeorm.ts"
   },
   "dependencies": {
-    "@apollo/server": "4.11.2",
+    "@apollo/server": "4.11.3",
     "@google-cloud/pubsub": "4.9.0",
     "@nestjs/apollo": "12.2.2",
     "@nestjs/cli": "10.4.9",
