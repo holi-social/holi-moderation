@@ -2483,7 +2483,7 @@ __metadata:
     js-duration-parser: "npm:1.1.3"
     jwt-decode: "npm:4.0.0"
     mantine-form-zod-resolver: "npm:1.1.0"
-    mantine-react-table: "npm:2.0.0-beta.7"
+    mantine-react-table: "npm:2.0.0-beta.8"
     postcss: "npm:^8.4.43"
     postcss-preset-mantine: "npm:^1.17.0"
     postcss-simple-vars: "npm:^7.0.1"
@@ -4163,15 +4163,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/react-virtual@npm:3.10.8":
-  version: 3.10.8
-  resolution: "@tanstack/react-virtual@npm:3.10.8"
+"@tanstack/react-virtual@npm:3.11.2":
+  version: 3.11.2
+  resolution: "@tanstack/react-virtual@npm:3.11.2"
   dependencies:
-    "@tanstack/virtual-core": "npm:3.10.8"
+    "@tanstack/virtual-core": "npm:3.11.2"
   peerDependencies:
-    react: ^16.8.0 || ^17.0.0 || ^18.0.0
-    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-  checksum: 10c0/b7aec88ef48f604d3e7245b9996ba42f06e6ee2c1a45146cb96814cb3873a4c888bf86d26d10284c847a5ed97e16dc9430c380387abc1231c2e43c00f6ebadff
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+  checksum: 10c0/de446ce517d0855b3d58e79b6a75a37be40b4529baf0a5c3ffa2662dea80aba03409e06545aea27aa9e3a36fc2a2e3005ecbfce16a4659991d66930ea3bd62d4
   languageName: node
   linkType: hard
 
@@ -4182,10 +4182,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/virtual-core@npm:3.10.8":
-  version: 3.10.8
-  resolution: "@tanstack/virtual-core@npm:3.10.8"
-  checksum: 10c0/ddb97cd03d84b343b38a2c14d85e33c788f4af622fccc0fdf997caf4e83e47e8f67b099b854c7dc4337d7662f647625ab3247cd8aa1bc9d4dda701bda83245f6
+"@tanstack/virtual-core@npm:3.11.2":
+  version: 3.11.2
+  resolution: "@tanstack/virtual-core@npm:3.11.2"
+  checksum: 10c0/38f1047127c6b1d07fe95becb7a12e66fb7c59d37ec0359e4ab339f837c6b906e1adff026ebd12849ba851d3f118d491014205c6b3c6ed8568cc232a798aeaaf
   languageName: node
   linkType: hard
 
@@ -10343,13 +10343,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mantine-react-table@npm:2.0.0-beta.7":
-  version: 2.0.0-beta.7
-  resolution: "mantine-react-table@npm:2.0.0-beta.7"
+"mantine-react-table@npm:2.0.0-beta.8":
+  version: 2.0.0-beta.8
+  resolution: "mantine-react-table@npm:2.0.0-beta.8"
   dependencies:
     "@tanstack/match-sorter-utils": "npm:8.19.4"
     "@tanstack/react-table": "npm:8.20.5"
-    "@tanstack/react-virtual": "npm:3.10.8"
+    "@tanstack/react-virtual": "npm:3.11.2"
   peerDependencies:
     "@mantine/core": ^7.9
     "@mantine/dates": ^7.9
@@ -10359,7 +10359,7 @@ __metadata:
     dayjs: ">=1.11"
     react: ">=18.0"
     react-dom: ">=18.0"
-  checksum: 10c0/7252299d3f67e3c3e48761a7d906cda74676b9eaf8a77b9e7f82d29f92c6d5a2a9a141ce5eb8b44f91f69a397340c854e2c7cc7de1b321818437671ad3668150
+  checksum: 10c0/5333476a670621dc2027a419c31319de9f54e539ef3992c86d401a9537cf2d6430654945ee3edd2ebb48b7abd40617a53298f8829b8e5b9ffd7dcbd52c1584f8
   languageName: node
   linkType: hard
 
