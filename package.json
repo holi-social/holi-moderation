@@ -1,7 +1,7 @@
 {
   "name": "@holi/moderation",
   "private": true,
-  "packageManager": "yarn@4.5.3",
+  "packageManager": "yarn@4.6.0",
   "workspaces": [
     "apps/backend",
     "apps/frontend",
@@ -30,7 +30,7 @@
     "prettier": "^3.3.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4",
-    "typescript-eslint": "8.16.0"
+    "typescript-eslint": "8.19.1"
   },
   "prettier": {
     "printWidth": 120,

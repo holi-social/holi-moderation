@@ -2,10 +2,10 @@
   "name": "@holi/moderation-event-listener",
   "main": "dist/index.js",
   "version": "0.1.0",
-  "packageManager": "yarn@4.5.3",
+  "packageManager": "yarn@4.6.0",
   "dependencies": {
-    "@google-cloud/functions-framework": "3.4.2",
-    "@ory/client": "1.15.13"
+    "@google-cloud/functions-framework": "3.4.5",
+    "@ory/client": "1.15.17"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
