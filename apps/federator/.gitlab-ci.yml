@@ -2,7 +2,7 @@ federator:image:
   stage: deploy
   dependencies:
     - "apps:build"
-  image: europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/docker:26.1
+  image: europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/docker:27.4
   services:
     - name: 'europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/docker:27-dind'
       alias: 'docker'
