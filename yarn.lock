@@ -2375,7 +2375,7 @@ __metadata:
     "@nestjs/platform-express": "npm:10.4.15"
     "@nestjs/schedule": "npm:4.1.2"
     "@nestjs/schematics": "npm:^10.1.4"
-    "@nestjs/terminus": "npm:10.2.3"
+    "@nestjs/terminus": "npm:10.3.0"
     "@nestjs/testing": "npm:^10.4.1"
     "@nestjs/typeorm": "npm:10.0.2"
     "@node-rs/argon2": "npm:2.0.2"
@@ -3226,9 +3226,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nestjs/terminus@npm:10.2.3":
-  version: 10.2.3
-  resolution: "@nestjs/terminus@npm:10.2.3"
+"@nestjs/terminus@npm:10.3.0":
+  version: 10.3.0
+  resolution: "@nestjs/terminus@npm:10.3.0"
   dependencies:
     boxen: "npm:5.1.2"
     check-disk-space: "npm:3.4.0"
@@ -3277,7 +3277,7 @@ __metadata:
       optional: true
     typeorm:
       optional: true
-  checksum: 10c0/94fd425990249297177aca573704737b89b162a6df342cf73bd2a248bf4a3cb705eb53b0d1a94c21345c37d67be57295bf2e3d9c834047424ba67c372ff11fa8
+  checksum: 10c0/234b06c3d835905960fc6c277bb889051c7a67c1c8491937349eb03c9a86f53cb76e2c357876a17ad367b96d8cb50df3f6fd140e2b3bde12a3c831ef5a386cd2
   languageName: node
   linkType: hard
 
