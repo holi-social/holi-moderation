@@ -1087,7 +1087,7 @@ export type OpenbookAppointmentsAppointmentParticipantsBoolExp = {
 
 /** unique or primary key constraints on table "openbook_appointments_appointment_participants" */
 export type OpenbookAppointmentsAppointmentParticipantsConstraint =
-  /** unique or primary key constraint on columns "appointment_id", "user_id" */
+  /** unique or primary key constraint on columns "user_id", "appointment_id" */
   | 'openbook_appointments_ap_appointment_id_user_id_08d39e4e_uniq'
   /** unique or primary key constraint on columns "id" */
   | 'openbook_appointments_appointment_participants_pkey';
@@ -2408,8 +2408,6 @@ export type OpenbookAuthUserprofile = {
   avatar?: Maybe<Scalars['String']['output']>;
   avatarBlurhash?: Maybe<Scalars['String']['output']>;
   communityPostsVisible: Scalars['Boolean']['output'];
-  cover?: Maybe<Scalars['String']['output']>;
-  coverBlurhash?: Maybe<Scalars['String']['output']>;
   engagementLevel?: Maybe<Scalars['String']['output']>;
   followersCountVisible: Scalars['Boolean']['output'];
   geolocation?: Maybe<Scalars['geometry']['output']>;
@@ -2455,8 +2453,6 @@ export type OpenbookAuthUserprofileBoolExp = {
   avatar?: InputMaybe<StringComparisonExp>;
   avatarBlurhash?: InputMaybe<StringComparisonExp>;
   communityPostsVisible?: InputMaybe<BooleanComparisonExp>;
-  cover?: InputMaybe<StringComparisonExp>;
-  coverBlurhash?: InputMaybe<StringComparisonExp>;
   engagementLevel?: InputMaybe<StringComparisonExp>;
   followersCountVisible?: InputMaybe<BooleanComparisonExp>;
   geolocation?: InputMaybe<GeometryComparisonExp>;
@@ -2485,8 +2481,6 @@ export type OpenbookAuthUserprofileInsertInput = {
   avatar?: InputMaybe<Scalars['String']['input']>;
   avatarBlurhash?: InputMaybe<Scalars['String']['input']>;
   communityPostsVisible?: InputMaybe<Scalars['Boolean']['input']>;
-  cover?: InputMaybe<Scalars['String']['input']>;
-  coverBlurhash?: InputMaybe<Scalars['String']['input']>;
   engagementLevel?: InputMaybe<Scalars['String']['input']>;
   followersCountVisible?: InputMaybe<Scalars['Boolean']['input']>;
   geolocation?: InputMaybe<Scalars['geometry']['input']>;
@@ -2507,8 +2501,6 @@ export type OpenbookAuthUserprofileMaxFields = {
   aboutMe?: Maybe<Scalars['String']['output']>;
   avatar?: Maybe<Scalars['String']['output']>;
   avatarBlurhash?: Maybe<Scalars['String']['output']>;
-  cover?: Maybe<Scalars['String']['output']>;
-  coverBlurhash?: Maybe<Scalars['String']['output']>;
   engagementLevel?: Maybe<Scalars['String']['output']>;
   geolocationId?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
@@ -2525,8 +2517,6 @@ export type OpenbookAuthUserprofileMinFields = {
   aboutMe?: Maybe<Scalars['String']['output']>;
   avatar?: Maybe<Scalars['String']['output']>;
   avatarBlurhash?: Maybe<Scalars['String']['output']>;
-  cover?: Maybe<Scalars['String']['output']>;
-  coverBlurhash?: Maybe<Scalars['String']['output']>;
   engagementLevel?: Maybe<Scalars['String']['output']>;
   geolocationId?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
@@ -2566,8 +2556,6 @@ export type OpenbookAuthUserprofileOrderBy = {
   avatar?: InputMaybe<OrderBy>;
   avatarBlurhash?: InputMaybe<OrderBy>;
   communityPostsVisible?: InputMaybe<OrderBy>;
-  cover?: InputMaybe<OrderBy>;
-  coverBlurhash?: InputMaybe<OrderBy>;
   engagementLevel?: InputMaybe<OrderBy>;
   followersCountVisible?: InputMaybe<OrderBy>;
   geolocation?: InputMaybe<OrderBy>;
@@ -2599,10 +2587,6 @@ export type OpenbookAuthUserprofileSelectColumn =
   /** column name */
   | 'communityPostsVisible'
   /** column name */
-  | 'cover'
-  /** column name */
-  | 'coverBlurhash'
-  /** column name */
   | 'engagementLevel'
   /** column name */
   | 'followersCountVisible'
@@ -2633,8 +2617,6 @@ export type OpenbookAuthUserprofileSetInput = {
   avatar?: InputMaybe<Scalars['String']['input']>;
   avatarBlurhash?: InputMaybe<Scalars['String']['input']>;
   communityPostsVisible?: InputMaybe<Scalars['Boolean']['input']>;
-  cover?: InputMaybe<Scalars['String']['input']>;
-  coverBlurhash?: InputMaybe<Scalars['String']['input']>;
   engagementLevel?: InputMaybe<Scalars['String']['input']>;
   followersCountVisible?: InputMaybe<Scalars['Boolean']['input']>;
   geolocation?: InputMaybe<Scalars['geometry']['input']>;
@@ -2663,8 +2645,6 @@ export type OpenbookAuthUserprofileStreamCursorValueInput = {
   avatar?: InputMaybe<Scalars['String']['input']>;
   avatarBlurhash?: InputMaybe<Scalars['String']['input']>;
   communityPostsVisible?: InputMaybe<Scalars['Boolean']['input']>;
-  cover?: InputMaybe<Scalars['String']['input']>;
-  coverBlurhash?: InputMaybe<Scalars['String']['input']>;
   engagementLevel?: InputMaybe<Scalars['String']['input']>;
   followersCountVisible?: InputMaybe<Scalars['Boolean']['input']>;
   geolocation?: InputMaybe<Scalars['geometry']['input']>;
@@ -2689,10 +2669,6 @@ export type OpenbookAuthUserprofileUpdateColumn =
   | 'avatarBlurhash'
   /** column name */
   | 'communityPostsVisible'
-  /** column name */
-  | 'cover'
-  /** column name */
-  | 'coverBlurhash'
   /** column name */
   | 'engagementLevel'
   /** column name */
@@ -3736,7 +3712,7 @@ export type OpenbookCommunitiesCommunitymembershipBoolExp = {
 
 /** unique or primary key constraints on table "openbook_communities_communitymembership" */
 export type OpenbookCommunitiesCommunitymembershipConstraint =
-  /** unique or primary key constraint on columns "community_id", "user_id" */
+  /** unique or primary key constraint on columns "user_id", "community_id" */
   | 'openbook_communities_com_user_id_community_id_80ab28ad_uniq'
   /** unique or primary key constraint on columns "id" */
   | 'openbook_communities_communitymembership_pkey';
@@ -4188,7 +4164,7 @@ export type OpenbookCommunitiesOnboardingstepBoolExp = {
 
 /** unique or primary key constraints on table "openbook_communities_onboardingstep" */
 export type OpenbookCommunitiesOnboardingstepConstraint =
-  /** unique or primary key constraint on columns "community_id", "step_number" */
+  /** unique or primary key constraint on columns "step_number", "community_id" */
   | 'openbook_communities_onb_community_id_step_number_bb526f9e_uniq'
   /** unique or primary key constraint on columns "id" */
   | 'openbook_communities_onboardingstep_pkey';
@@ -6330,7 +6306,7 @@ export type Report = {
   details: Scalars['String']['output'];
   events: Array<ReportEvent>;
   id: Scalars['UUID']['output'];
-  reason: Reason;
+  reason?: Maybe<Reason>;
   reportedComment?: Maybe<OpenbookPostsPostcomment>;
   reportedFeedPost?: Maybe<FeedPostsFeedpost>;
   reportedPost?: Maybe<OpenbookPostsPost>;
@@ -6373,7 +6349,7 @@ export type ReportSubmission = {
   contentId: Scalars['UUID']['input'];
   contentType: ContentType;
   details: Scalars['String']['input'];
-  reason: Reason;
+  reason?: InputMaybe<Reason>;
 };
 
 export type ReportsFilter = {
