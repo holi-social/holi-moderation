@@ -1,7 +1,7 @@
 import * as path from 'node:path'
 import http from 'http'
 
-import { v2 as compose } from 'docker-compose'
+import compose from 'docker-compose'
 import * as dotenv from 'dotenv'
 import { Client } from 'pg'
 

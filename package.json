@@ -19,7 +19,7 @@
     "@eslint/js": "^9.9.1",
     "@types/eslint__js": "^8.42.3",
     "@types/node": "^20.16.5",
-    "docker-compose": "^1.0.0",
+    "docker-compose": "^1.1.1",
     "dotenv": "^16.4.5",
     "eslint": "^9.9.1",
     "eslint-config-prettier": "^10.0.0",
@@ -28,7 +28,7 @@
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-react-refresh": "^0.4.11",
     "prettier": "^3.3.3",
-    "ts-node": "^10.9.2",
+    "ts-node": "^11.0.0-beta.1",
     "typescript": "^5.5.4",
     "typescript-eslint": "8.23.0"
   },
