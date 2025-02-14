@@ -65,7 +65,7 @@ services:
       retries: 30
 
   federator:
-    image: hasura/graphql-engine:v2.42.0.cli-migrations-v3.ubi
+    image: hasura/graphql-engine:v2.45.2.cli-migrations-v3.ubi
     ports:
       - "8080:8080"
     restart: no
