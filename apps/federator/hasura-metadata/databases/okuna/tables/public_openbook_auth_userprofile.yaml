@@ -15,8 +15,6 @@ select_permissions:
         - is_of_legal_age
         - avatar
         - avatar_blurhash
-        - cover
-        - cover_blurhash
         - engagement_level
         - geolocation_id
         - last_name

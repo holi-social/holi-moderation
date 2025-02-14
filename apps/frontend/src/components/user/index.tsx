@@ -17,11 +17,6 @@ export const User: React.FC<UserDetailsProps> = ({ user, additionalContent }) =>
 
   return (
     <Card shadow="xs" padding="lg" radius="md" withBorder>
-      {user.profile?.cover && (
-        <Card.Section>
-          <ImageWithPreview src={user.profile.cover} height={120} />
-        </Card.Section>
-      )}
       <Card.Section p="md">
         <Stack>
           <Group>

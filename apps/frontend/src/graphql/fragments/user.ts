@@ -12,7 +12,6 @@ export const UserDetails = gql`
       lastName
       pronouns
       avatar
-      cover
       aboutMe
       location
       url
