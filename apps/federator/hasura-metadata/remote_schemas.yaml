@@ -158,7 +158,7 @@
         - definition:
             to_source:
               field_mapping:
-                contentId: id
+                contentId: username
               relationship_type: object
               source: okuna
               table:
