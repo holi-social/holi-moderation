@@ -1,6 +1,6 @@
 apps:prepare:
   stage: prepare
-  image: 'europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/node:20-slim'
+  image: 'europe-north1-docker.pkg.dev/holi-shared/docker-hub-remote/node:22-slim'
   cache: !reference [.yarn-cache-rw]
   script:
     - corepack enable

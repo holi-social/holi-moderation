@@ -1,7 +1,7 @@
 {
   "name": "@holi/moderation",
   "private": true,
-  "packageManager": "yarn@4.6.0",
+  "packageManager": "yarn@4.7.0",
   "workspaces": [
     "apps/backend",
     "apps/frontend",
@@ -18,7 +18,7 @@
   "devDependencies": {
     "@eslint/js": "^9.9.1",
     "@types/eslint__js": "^8.42.3",
-    "@types/node": "^20.16.5",
+    "@types/node": "^22.0.0",
     "docker-compose": "^1.1.1",
     "dotenv": "^16.4.5",
     "eslint": "^9.9.1",
@@ -30,7 +30,7 @@
     "prettier": "^3.3.3",
     "ts-node": "^11.0.0-beta.1",
     "typescript": "^5.5.4",
-    "typescript-eslint": "8.23.0"
+    "typescript-eslint": "8.25.0"
   },
   "prettier": {
     "printWidth": 120,
