@@ -148,6 +148,26 @@ resource "google_cloud_run_service" "moderation_backend" {
             memory = local.environment == "production" ? "512Mi" : "512Mi"
           }
         }
+
+        startup_probe {
+          timeout_seconds   = 5
+          period_seconds    = 5
+          failure_threshold = 6
+
+          http_get {
+            path = "/health"
+          }
+        }
+
+        liveness_probe {
+          timeout_seconds   = 5
+          period_seconds    = 30
+          failure_threshold = 5
+
+          http_get {
+            path = "/health"
+          }
+        }
       }
 
       container_concurrency = 80
