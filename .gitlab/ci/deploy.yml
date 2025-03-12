@@ -82,8 +82,9 @@ deploy:staging:infra:
   environment:
     name: staging
     url: https://staging.moderation.holi.social
-  only:
-    - main
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+      when: on_success
 
 ###
 # PRODUCTION
@@ -94,5 +95,6 @@ deploy:production:infra:
   environment:
     name: production
     url: https://moderation.holi.social
-  only:
-    - production
+  rules:
+    - if: $CI_COMMIT_BRANCH == "production"
+      when: on_success
