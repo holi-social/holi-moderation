@@ -32,6 +32,26 @@ resource "google_cloud_run_service" "frontend" {
         ports {
           container_port = 80
         }
+
+        startup_probe {
+          http_get {
+            path = "/"
+          }
+
+          period_seconds    = 5
+          timeout_seconds   = 5
+          failure_threshold = 6
+        }
+
+        liveness_probe {
+          http_get {
+            path = "/"
+          }
+
+          period_seconds    = 30
+          timeout_seconds   = 30
+          failure_threshold = 2
+        }
       }
 
       container_concurrency = 80

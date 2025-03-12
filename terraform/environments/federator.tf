@@ -166,6 +166,26 @@ resource "google_cloud_run_service" "moderation_federator" {
             memory = local.environment == "production" ? "1Gi" : "1Gi"
           }
         }
+
+        startup_probe {
+          period_seconds    = 15
+          timeout_seconds   = 10
+          failure_threshold = 6
+
+          http_get {
+            path = "/healthz"
+          }
+        }
+
+        liveness_probe {
+          period_seconds    = 30
+          timeout_seconds   = 5
+          failure_threshold = 2
+
+          http_get {
+            path = "/healthz"
+          }
+        }
       }
 
       container_concurrency = 80
