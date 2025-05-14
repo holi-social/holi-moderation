@@ -6,7 +6,7 @@ default_stages:
 
 repos:
   - repo: https://github.com/gitleaks/gitleaks
-    rev: v8.26.0
+    rev: v8.18.4
     hooks:
       - id: gitleaks
         name: gitleaks - detect hardcoded secrets
@@ -22,13 +22,13 @@ repos:
         always_run: true
 
   - repo: https://github.com/AleksaC/terraform-py
-    rev: v1.11.4
+    rev: v1.9.0
     hooks:
       - id: tf-fmt
       - id: tf-validate
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
+    rev: v4.6.0
     hooks:
       - id: check-yaml
         args: ['--unsafe']
