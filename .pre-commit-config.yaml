@@ -32,3 +32,9 @@ repos:
     hooks:
       - id: check-yaml
         args: ['--unsafe']
+
+  - repo: git@gitlab.holi.team:app/holi-meta.git
+    rev: 345e2cab6704f708a946c08a9eaa1ba769c455fb
+    hooks:
+      - id: scan-comments
+      - id: security-checks
