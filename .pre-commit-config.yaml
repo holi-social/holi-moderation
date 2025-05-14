@@ -6,7 +6,7 @@ default_stages:
 
 repos:
   - repo: https://github.com/gitleaks/gitleaks
-    rev: v8.18.4
+    rev: v8.26.0
     hooks:
       - id: gitleaks
         name: gitleaks - detect hardcoded secrets
@@ -22,19 +22,19 @@ repos:
         always_run: true
 
   - repo: https://github.com/AleksaC/terraform-py
-    rev: v1.9.0
+    rev: v1.11.4
     hooks:
       - id: tf-fmt
       - id: tf-validate
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.6.0
+    rev: v5.0.0
     hooks:
       - id: check-yaml
         args: ['--unsafe']
 
   - repo: git@gitlab.holi.team:app/holi-meta.git
-    rev: 490c0695ab992fb9a2e2ca62dd1bd10690376a1f
+    rev: 345e2cab6704f708a946c08a9eaa1ba769c455fb
     hooks:
       - id: scan-comments
       - id: security-checks
