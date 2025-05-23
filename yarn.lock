@@ -120,9 +120,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@apollo/server@npm:4.11.3":
-  version: 4.11.3
-  resolution: "@apollo/server@npm:4.11.3"
+"@apollo/server@npm:4.12.1":
+  version: 4.12.1
+  resolution: "@apollo/server@npm:4.12.1"
   dependencies:
     "@apollo/cache-control-types": "npm:^1.0.3"
     "@apollo/server-gateway-interface": "npm:^1.1.1"
@@ -150,7 +150,7 @@ __metadata:
     whatwg-mimetype: "npm:^3.0.0"
   peerDependencies:
     graphql: ^16.6.0
-  checksum: 10c0/bba106398d6488b36cc57ba3e901e855b8f0dc6d127fe8642ce3c0a05fea8f69c3e81423ae95e15cb5ad90f92982fe90872fe514be69f1c2b4d6c32d97d4a06f
+  checksum: 10c0/0bbdebd863a6a051929fa5c01a8eef4fce867002f6485c4681d4a9fdadc6677a25475aceaab7d0fca9bb4a713e1ee559ec9469b897bb08bcacb343b69995923d
   languageName: node
   linkType: hard
 
@@ -2428,7 +2428,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@holi/moderation-backend@workspace:apps/backend"
   dependencies:
-    "@apollo/server": "npm:4.11.3"
+    "@apollo/server": "npm:4.12.1"
     "@golevelup/ts-jest": "npm:^0.7.0"
     "@google-cloud/pubsub": "npm:4.10.0"
     "@nestjs/apollo": "npm:12.2.2"
