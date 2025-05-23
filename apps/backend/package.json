@@ -5,7 +5,7 @@
   "author": "",
   "private": true,
   "license": "UNLICENSED",
-  "packageManager": "yarn@4.7.0",
+  "packageManager": "yarn@4.9.1",
   "scripts": {
     "build": "nest build",
     "clean": "rimraf dist",
