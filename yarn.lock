@@ -1432,10 +1432,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@golevelup/ts-jest@npm:^0.6.0":
-  version: 0.6.2
-  resolution: "@golevelup/ts-jest@npm:0.6.2"
-  checksum: 10c0/91fd477a1bd44913178929a9aecf8f5540208cf78a939b74f52c6804069ba1098b6e134d415b02226fb4be0f621ec16a1bcf1904821f254c009accce8c70ef27
+"@golevelup/ts-jest@npm:^0.7.0":
+  version: 0.7.0
+  resolution: "@golevelup/ts-jest@npm:0.7.0"
+  checksum: 10c0/98f8663bca40c42c02cd875259b4a37671f5e931a20c44c64f86f2a9cb98431a0b3e96b14a6b2b07ce6f8407cd40015c127714d95fa6acda7e99f22de1a22199
   languageName: node
   linkType: hard
 
@@ -2411,7 +2411,7 @@ __metadata:
   resolution: "@holi/moderation-backend@workspace:apps/backend"
   dependencies:
     "@apollo/server": "npm:4.11.3"
-    "@golevelup/ts-jest": "npm:^0.6.0"
+    "@golevelup/ts-jest": "npm:^0.7.0"
     "@google-cloud/pubsub": "npm:4.10.0"
     "@nestjs/apollo": "npm:12.2.2"
     "@nestjs/cli": "npm:10.4.9"
