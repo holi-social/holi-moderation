@@ -2479,7 +2479,7 @@ __metadata:
   dependencies:
     "@google-cloud/functions-framework": "npm:3.5.1"
     "@jest/globals": "npm:^29.7.0"
-    "@ory/client": "npm:1.17.2"
+    "@ory/client": "npm:1.20.11"
     "@types/jest": "npm:^29.5.12"
     "@vercel/ncc": "npm:0.38.3"
     jest: "npm:^29.7.0"
@@ -3617,12 +3617,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ory/client@npm:1.17.2":
-  version: 1.17.2
-  resolution: "@ory/client@npm:1.17.2"
+"@ory/client@npm:1.20.11":
+  version: 1.20.11
+  resolution: "@ory/client@npm:1.20.11"
   dependencies:
     axios: "npm:^1.6.1"
-  checksum: 10c0/258545d57ad08091d973d81ee99c3574bf7aeec86e71dd3f4c459179d1959f02362551b93729f3af63a7a4d0d6d0eaa082cb82bcc4a4e64372f5acb29f50403c
+  checksum: 10c0/72c5504836e8d5ebb02e2a03da5bb37ec0bea2855ca448f84ad74ed9634680f091d38487745c0b572772968f711a0e3381a65861dc119db46f3508f59b1f8437
   languageName: node
   linkType: hard
 
