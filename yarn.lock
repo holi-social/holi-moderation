@@ -6940,11 +6940,11 @@ __metadata:
   linkType: hard
 
 "docker-compose@npm:^1.1.1":
-  version: 1.1.1
-  resolution: "docker-compose@npm:1.1.1"
+  version: 1.2.0
+  resolution: "docker-compose@npm:1.2.0"
   dependencies:
     yaml: "npm:^2.2.2"
-  checksum: 10c0/38304757f909a0aeba7c2d78a3ecd83cef7ccbc4ee5ca7a74738fe38e361fe42d46517a943a0c844695829ff9c24e3dd9acea74ffe7b5f39b520daab971081dc
+  checksum: 10c0/0bc4ef187904dba55b76b3450b7b2d65b7ee19afdff0d74ffc6ccb573d7ae63de329f13ad01ffc76ddf702a12060a848287b3ff76477014d5e9b63e0958146dd
   languageName: node
   linkType: hard
 
