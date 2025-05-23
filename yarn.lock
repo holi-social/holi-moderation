@@ -1457,11 +1457,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@google-cloud/functions-framework@npm:3.4.6":
-  version: 3.4.6
-  resolution: "@google-cloud/functions-framework@npm:3.4.6"
+"@google-cloud/functions-framework@npm:3.5.1":
+  version: 3.5.1
+  resolution: "@google-cloud/functions-framework@npm:3.5.1"
   dependencies:
-    "@types/express": "npm:^5.0.0"
+    "@types/express": "npm:^4.17.21"
     body-parser: "npm:^1.18.3"
     cloudevents: "npm:^8.0.2"
     express: "npm:^4.21.2"
@@ -1472,7 +1472,7 @@ __metadata:
   bin:
     functions-framework: build/src/main.js
     functions-framework-nodejs: build/src/main.js
-  checksum: 10c0/dbef84a77a1303b9c5d1ad77e3edadeda1213f3d5e2f9ae535d8a454a12cd95ac6d357cee8d77dd38d4489e5ac01f23177ac6fd6768c85c5df062fa10a1d44e3
+  checksum: 10c0/d8e3baf891a2c7ac0bc46a926ab4702104b19ea34c9fe7356fc6eabd758d9db40b69f4c207cf799ffbef4fb799cb703c8bd7993b287a1d0639eda8c3c68ea760
   languageName: node
   linkType: hard
 
@@ -2477,7 +2477,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@holi/moderation-event-listener@workspace:apps/eventListener"
   dependencies:
-    "@google-cloud/functions-framework": "npm:3.4.6"
+    "@google-cloud/functions-framework": "npm:3.5.1"
     "@jest/globals": "npm:^29.7.0"
     "@ory/client": "npm:1.17.2"
     "@types/jest": "npm:^29.5.12"
@@ -4493,7 +4493,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/express@npm:^4.17.13":
+"@types/express@npm:^4.17.13, @types/express@npm:^4.17.21":
   version: 4.17.22
   resolution: "@types/express@npm:4.17.22"
   dependencies:
