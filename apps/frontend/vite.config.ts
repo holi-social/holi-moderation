@@ -6,4 +6,8 @@ import svgr from 'vite-plugin-svgr'
 export default defineConfig({
   server: { host: true },
   plugins: [react(), svgr()],
+  build: {
+    minify: false,
+    sourcemap: true,
+  },
 })
