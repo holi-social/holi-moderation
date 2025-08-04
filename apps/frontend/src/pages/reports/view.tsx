@@ -38,6 +38,10 @@ const OkunaLinkButton: React.FC<{ urlPath: string }> = ({ urlPath }) => (
 )
 
 const User: React.FC<{ user: OpenbookAuthUser }> = ({ user }) => {
+  if (!user) {
+    return <Text>deleted</Text>
+  }
+
   return (
     <Flex align="center" gap="md">
       {user.profile?.avatar && <Avatar src={user.profile.avatar} />}
