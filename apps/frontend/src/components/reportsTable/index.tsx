@@ -81,6 +81,7 @@ export const ReportsTable: React.FC<ReportsTableProps> = ({ filters, initialTabl
         header: 'Reporter',
         Cell: ({ cell }) => {
           const reporter = cell.getValue<OpenbookAuthUser>()
+          if (!reporter) return
           return <Link to={`/reports/user/${reporter.id}`}>{formatUser(reporter)}</Link>
         },
       },
