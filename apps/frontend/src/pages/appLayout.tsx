@@ -1,10 +1,12 @@
 import { AppShell, Avatar, Button, Flex, Group, Menu, Title } from '@mantine/core'
-import { IconFlag, IconLogout, IconMoon, IconSun, IconUsers } from '@tabler/icons-react'
-import React, { PropsWithChildren, useEffect } from 'react'
+import { IconFlag, IconLogout, IconMoon, IconSun, IconUsers, IconMoodSpark } from '@tabler/icons-react'
+import type { PropsWithChildren } from 'react'
+import React, { useEffect } from 'react'
 import { NavLink as RouterNavLink, useLocation, useNavigate } from 'react-router-dom'
 
 import { HoliLogo } from '../components/holiLogo'
-import { AuthStateLoggedIn, useAuthState } from '../state'
+import type { AuthStateLoggedIn } from '../state'
+import { useAuthState } from '../state'
 import { initialsFromEmail } from '../utils'
 import { useColorScheme } from '../hooks'
 import { RoleGuard } from '../components/auth/roleGuard'
@@ -53,6 +55,15 @@ export const Layout: React.FC<PropsWithChildren> = ({ children }) => {
               color={currentPath.startsWith('/reports') ? 'blue' : 'gray'}
             >
               Reports
+            </Button>
+            <Button
+              leftSection={<IconMoodSpark />}
+              component={RouterNavLink}
+              to="/rewards"
+              variant={currentPath.startsWith('/rewards') ? 'light' : 'subtle'}
+              color={currentPath.startsWith('/rewards') ? 'blue' : 'gray'}
+            >
+              holi Rewards
             </Button>
             <RoleGuard allowedRoles={['ADMIN']}>
               <Button

@@ -14,6 +14,8 @@ export type CommentDetailsFragment = (
   )> }
 );
 
+export type ExternalCounterValueFragment = Pick<Types.ExternalCounterValue, 'createdAt' | 'externalCount'>;
+
 export type FeedPostDetailsFragment = (
   Pick<Types.FeedPostsFeedpost, 'id' | 'title' | 'slug' | 'description' | 'visibility' | 'createdAt' | 'categoryId' | 'linkPreviewId' | 'languageCode'>
   & { creator?: Types.Maybe<(
@@ -532,6 +534,13 @@ export type LoginMutationVariables = Types.Exact<{
 
 export type LoginMutation = { login: Pick<Types.AuthResult, 'userId' | 'email' | 'token'> };
 
+export type UpdateExternalGoodDeedsCountMutationVariables = Types.Exact<{
+  count: Types.Scalars['Int']['input'];
+}>;
+
+
+export type UpdateExternalGoodDeedsCountMutation = { rewards?: Types.Maybe<{ insertExternalCounterValueOne?: Types.Maybe<Pick<Types.ExternalCounterValue, 'createdAt' | 'externalCount'>> }> };
+
 export type SuspendUserMutationVariables = Types.Exact<{
   reportId: Types.Scalars['UUID']['input'];
   email: Types.Scalars['String']['input'];
@@ -560,6 +569,11 @@ export type ListReportsQuery = { reports: Array<(
       & { profile?: Types.Maybe<Pick<Types.OpenbookAuthUserprofile, 'id' | 'name' | 'lastName' | 'pronouns' | 'avatar' | 'aboutMe' | 'location' | 'url'>> }
     )> }
   )> };
+
+export type ListExternalGoodDeedsCountsQueryVariables = Types.Exact<{ [key: string]: never; }>;
+
+
+export type ListExternalGoodDeedsCountsQuery = { rewards?: Types.Maybe<{ externalCounterValue: Array<Pick<Types.ExternalCounterValue, 'createdAt' | 'externalCount'>> }> };
 
 export type ViewFeedPostQueryVariables = Types.Exact<{
   id: Types.Scalars['uuid']['input'];

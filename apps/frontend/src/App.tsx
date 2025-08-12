@@ -1,5 +1,5 @@
 import { MantineProvider } from '@mantine/core'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { RouterProvider, createBrowserRouter, Navigate } from 'react-router-dom'
 import { Notifications, notifications } from '@mantine/notifications'
 import { ModalsProvider } from '@mantine/modals'
 import { SWRConfig } from 'swr'
@@ -16,6 +16,7 @@ import { AVAILABLE_MODALS } from './modals'
 import '@mantine/core/styles.css'
 import 'mantine-react-table/styles.css'
 import '@mantine/notifications/styles.css'
+import { ExternalCount } from './pages/rewards/externalCount'
 
 const router = createBrowserRouter([
   {
@@ -55,6 +56,22 @@ const router = createBrowserRouter([
     element: (
       <Layout>
         <ListUsers />
+      </Layout>
+    ),
+  },
+  {
+    path: '/rewards',
+    element: (
+      <Layout>
+        <Navigate replace to="/rewards/externalCount" />
+      </Layout>
+    ),
+  },
+  {
+    path: '/rewards/externalCount',
+    element: (
+      <Layout>
+        <ExternalCount />
       </Layout>
     ),
   },

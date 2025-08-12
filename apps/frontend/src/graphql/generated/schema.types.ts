@@ -16,8 +16,10 @@ export type Scalars = {
   JSONObject: { input: string; output: string; }
   UUID: { input: string; output: string; }
   bigint: { input: string; output: string; }
+  date: { input: string; output: string; }
   geography: { input: string; output: string; }
   geometry: { input: string; output: string; }
+  jsonb: { input: string; output: string; }
   smallint: { input: string; output: string; }
   timestamptz: { input: string; output: string; }
   uuid: { input: string; output: string; }
@@ -78,6 +80,19 @@ export type CursorOrdering =
   | 'ASC'
   /** descending ordering of the cursor */
   | 'DESC';
+
+/** Boolean expression to compare columns of type "date". All fields are combined with logical 'AND'. */
+export type DateComparisonExp = {
+  _eq?: InputMaybe<Scalars['date']['input']>;
+  _gt?: InputMaybe<Scalars['date']['input']>;
+  _gte?: InputMaybe<Scalars['date']['input']>;
+  _in?: InputMaybe<Array<Scalars['date']['input']>>;
+  _isNull?: InputMaybe<Scalars['Boolean']['input']>;
+  _lt?: InputMaybe<Scalars['date']['input']>;
+  _lte?: InputMaybe<Scalars['date']['input']>;
+  _neq?: InputMaybe<Scalars['date']['input']>;
+  _nin?: InputMaybe<Array<Scalars['date']['input']>>;
+};
 
 /** columns and relationships of "django_content_type" */
 export type DjangoContentType = {
@@ -280,8 +295,189 @@ export type DjangoContentTypeVarianceFields = {
   id?: Maybe<Scalars['Float']['output']>;
 };
 
+/** columns and relationships of "external_counter_value" */
+export type ExternalCounterValue = {
+  createdAt: Scalars['timestamptz']['output'];
+  externalCount: Scalars['Int']['output'];
+};
+
+/** aggregated selection of "external_counter_value" */
+export type ExternalCounterValueAggregate = {
+  aggregate?: Maybe<ExternalCounterValueAggregateFields>;
+  nodes: Array<ExternalCounterValue>;
+};
+
+/** aggregate fields of "external_counter_value" */
+export type ExternalCounterValueAggregateFields = {
+  avg?: Maybe<ExternalCounterValueAvgFields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<ExternalCounterValueMaxFields>;
+  min?: Maybe<ExternalCounterValueMinFields>;
+  stddev?: Maybe<ExternalCounterValueStddevFields>;
+  stddevPop?: Maybe<ExternalCounterValueStddevPopFields>;
+  stddevSamp?: Maybe<ExternalCounterValueStddevSampFields>;
+  sum?: Maybe<ExternalCounterValueSumFields>;
+  varPop?: Maybe<ExternalCounterValueVarPopFields>;
+  varSamp?: Maybe<ExternalCounterValueVarSampFields>;
+  variance?: Maybe<ExternalCounterValueVarianceFields>;
+};
+
+
+/** aggregate fields of "external_counter_value" */
+export type ExternalCounterValueAggregateFieldsCountArgs = {
+  columns?: InputMaybe<Array<ExternalCounterValueSelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** aggregate avg on columns */
+export type ExternalCounterValueAvgFields = {
+  externalCount?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Boolean expression to filter rows from the table "external_counter_value". All fields are combined with a logical 'AND'. */
+export type ExternalCounterValueBoolExp = {
+  _and?: InputMaybe<Array<ExternalCounterValueBoolExp>>;
+  _not?: InputMaybe<ExternalCounterValueBoolExp>;
+  _or?: InputMaybe<Array<ExternalCounterValueBoolExp>>;
+  createdAt?: InputMaybe<TimestamptzComparisonExp>;
+  externalCount?: InputMaybe<IntComparisonExp>;
+};
+
+/** unique or primary key constraints on table "external_counter_value" */
+export type ExternalCounterValueConstraint =
+  /** unique or primary key constraint on columns "created_at" */
+  | 'external_counter_value_pkey';
+
+/** input type for incrementing numeric columns in table "external_counter_value" */
+export type ExternalCounterValueIncInput = {
+  externalCount?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** input type for inserting data into table "external_counter_value" */
+export type ExternalCounterValueInsertInput = {
+  createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  externalCount?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** aggregate max on columns */
+export type ExternalCounterValueMaxFields = {
+  createdAt?: Maybe<Scalars['timestamptz']['output']>;
+  externalCount?: Maybe<Scalars['Int']['output']>;
+};
+
+/** aggregate min on columns */
+export type ExternalCounterValueMinFields = {
+  createdAt?: Maybe<Scalars['timestamptz']['output']>;
+  externalCount?: Maybe<Scalars['Int']['output']>;
+};
+
+/** response of any mutation on the table "external_counter_value" */
+export type ExternalCounterValueMutationResponse = {
+  /** number of rows affected by the mutation */
+  affectedRows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<ExternalCounterValue>;
+};
+
+/** on_conflict condition type for table "external_counter_value" */
+export type ExternalCounterValueOnConflict = {
+  constraint: ExternalCounterValueConstraint;
+  updateColumns?: Array<ExternalCounterValueUpdateColumn>;
+  where?: InputMaybe<ExternalCounterValueBoolExp>;
+};
+
+/** Ordering options when selecting data from "external_counter_value". */
+export type ExternalCounterValueOrderBy = {
+  createdAt?: InputMaybe<OrderBy>;
+  externalCount?: InputMaybe<OrderBy>;
+};
+
+/** primary key columns input for table: external_counter_value */
+export type ExternalCounterValuePkColumnsInput = {
+  createdAt: Scalars['timestamptz']['input'];
+};
+
+/** select columns of table "external_counter_value" */
+export type ExternalCounterValueSelectColumn =
+  /** column name */
+  | 'createdAt'
+  /** column name */
+  | 'externalCount';
+
+/** input type for updating data in table "external_counter_value" */
+export type ExternalCounterValueSetInput = {
+  createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  externalCount?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** aggregate stddev on columns */
+export type ExternalCounterValueStddevFields = {
+  externalCount?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddevPop on columns */
+export type ExternalCounterValueStddevPopFields = {
+  externalCount?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddevSamp on columns */
+export type ExternalCounterValueStddevSampFields = {
+  externalCount?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Streaming cursor of the table "external_counter_value" */
+export type ExternalCounterValueStreamCursorInput = {
+  /** Stream column input with initial value */
+  initialValue: ExternalCounterValueStreamCursorValueInput;
+  /** cursor ordering */
+  ordering?: InputMaybe<CursorOrdering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type ExternalCounterValueStreamCursorValueInput = {
+  createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
+  externalCount?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** aggregate sum on columns */
+export type ExternalCounterValueSumFields = {
+  externalCount?: Maybe<Scalars['Int']['output']>;
+};
+
+/** update columns of table "external_counter_value" */
+export type ExternalCounterValueUpdateColumn =
+  /** column name */
+  | 'createdAt'
+  /** column name */
+  | 'externalCount';
+
+export type ExternalCounterValueUpdates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<ExternalCounterValueIncInput>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<ExternalCounterValueSetInput>;
+  /** filter the rows which have to be updated */
+  where: ExternalCounterValueBoolExp;
+};
+
+/** aggregate varPop on columns */
+export type ExternalCounterValueVarPopFields = {
+  externalCount?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate varSamp on columns */
+export type ExternalCounterValueVarSampFields = {
+  externalCount?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate variance on columns */
+export type ExternalCounterValueVarianceFields = {
+  externalCount?: Maybe<Scalars['Float']['output']>;
+};
+
 /** columns and relationships of "feed_posts_feedpost" */
 export type FeedPostsFeedpost = {
+  aspectRatio?: Maybe<Scalars['String']['output']>;
   categoryId?: Maybe<Scalars['uuid']['output']>;
   createdAt: Scalars['timestamptz']['output'];
   /** An object relationship */
@@ -289,16 +485,26 @@ export type FeedPostsFeedpost = {
   creatorId?: Maybe<Scalars['uuid']['output']>;
   description: Scalars['String']['output'];
   geolocation?: Maybe<Scalars['geometry']['output']>;
+  geolocationGeojson?: Maybe<Scalars['jsonb']['output']>;
   id: Scalars['uuid']['output'];
   image?: Maybe<Scalars['String']['output']>;
   imageBlurhash?: Maybe<Scalars['String']['output']>;
+  imageUrls?: Maybe<Array<Scalars['String']['output']>>;
   languageCode?: Maybe<Scalars['String']['output']>;
   linkPreviewId?: Maybe<Scalars['uuid']['output']>;
   location?: Maybe<Scalars['String']['output']>;
+  pollId?: Maybe<Scalars['uuid']['output']>;
   priorityDuration: Scalars['Int']['output'];
   slug: Scalars['String']['output'];
   title?: Maybe<Scalars['String']['output']>;
+  topicsV2: Array<Scalars['String']['output']>;
   visibility: Scalars['String']['output'];
+};
+
+
+/** columns and relationships of "feed_posts_feedpost" */
+export type FeedPostsFeedpostGeolocationGeojsonArgs = {
+  path?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** aggregated selection of "feed_posts_feedpost" */
@@ -329,6 +535,11 @@ export type FeedPostsFeedpostAggregateFieldsCountArgs = {
   distinct?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type FeedPostsFeedpostAppendInput = {
+  geolocationGeojson?: InputMaybe<Scalars['jsonb']['input']>;
+};
+
 /** aggregate avg on columns */
 export type FeedPostsFeedpostAvgFields = {
   priorityDuration?: Maybe<Scalars['Float']['output']>;
@@ -339,21 +550,26 @@ export type FeedPostsFeedpostBoolExp = {
   _and?: InputMaybe<Array<FeedPostsFeedpostBoolExp>>;
   _not?: InputMaybe<FeedPostsFeedpostBoolExp>;
   _or?: InputMaybe<Array<FeedPostsFeedpostBoolExp>>;
+  aspectRatio?: InputMaybe<StringComparisonExp>;
   categoryId?: InputMaybe<UuidComparisonExp>;
   createdAt?: InputMaybe<TimestamptzComparisonExp>;
   creator?: InputMaybe<OpenbookAuthUserBoolExp>;
   creatorId?: InputMaybe<UuidComparisonExp>;
   description?: InputMaybe<StringComparisonExp>;
   geolocation?: InputMaybe<GeometryComparisonExp>;
+  geolocationGeojson?: InputMaybe<JsonbComparisonExp>;
   id?: InputMaybe<UuidComparisonExp>;
   image?: InputMaybe<StringComparisonExp>;
   imageBlurhash?: InputMaybe<StringComparisonExp>;
+  imageUrls?: InputMaybe<StringArrayComparisonExp>;
   languageCode?: InputMaybe<StringComparisonExp>;
   linkPreviewId?: InputMaybe<UuidComparisonExp>;
   location?: InputMaybe<StringComparisonExp>;
+  pollId?: InputMaybe<UuidComparisonExp>;
   priorityDuration?: InputMaybe<IntComparisonExp>;
   slug?: InputMaybe<StringComparisonExp>;
   title?: InputMaybe<StringComparisonExp>;
+  topicsV2?: InputMaybe<StringArrayComparisonExp>;
   visibility?: InputMaybe<StringComparisonExp>;
 };
 
@@ -364,6 +580,21 @@ export type FeedPostsFeedpostConstraint =
   /** unique or primary key constraint on columns "slug" */
   | 'feed_posts_feedpost_slug_key';
 
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type FeedPostsFeedpostDeleteAtPathInput = {
+  geolocationGeojson?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type FeedPostsFeedpostDeleteElemInput = {
+  geolocationGeojson?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type FeedPostsFeedpostDeleteKeyInput = {
+  geolocationGeojson?: InputMaybe<Scalars['String']['input']>;
+};
+
 /** input type for incrementing numeric columns in table "feed_posts_feedpost" */
 export type FeedPostsFeedpostIncInput = {
   priorityDuration?: InputMaybe<Scalars['Int']['input']>;
@@ -371,26 +602,32 @@ export type FeedPostsFeedpostIncInput = {
 
 /** input type for inserting data into table "feed_posts_feedpost" */
 export type FeedPostsFeedpostInsertInput = {
+  aspectRatio?: InputMaybe<Scalars['String']['input']>;
   categoryId?: InputMaybe<Scalars['uuid']['input']>;
   createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
   creator?: InputMaybe<OpenbookAuthUserObjRelInsertInput>;
   creatorId?: InputMaybe<Scalars['uuid']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   geolocation?: InputMaybe<Scalars['geometry']['input']>;
+  geolocationGeojson?: InputMaybe<Scalars['jsonb']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   image?: InputMaybe<Scalars['String']['input']>;
   imageBlurhash?: InputMaybe<Scalars['String']['input']>;
+  imageUrls?: InputMaybe<Array<Scalars['String']['input']>>;
   languageCode?: InputMaybe<Scalars['String']['input']>;
   linkPreviewId?: InputMaybe<Scalars['uuid']['input']>;
   location?: InputMaybe<Scalars['String']['input']>;
+  pollId?: InputMaybe<Scalars['uuid']['input']>;
   priorityDuration?: InputMaybe<Scalars['Int']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
+  topicsV2?: InputMaybe<Array<Scalars['String']['input']>>;
   visibility?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** aggregate max on columns */
 export type FeedPostsFeedpostMaxFields = {
+  aspectRatio?: Maybe<Scalars['String']['output']>;
   categoryId?: Maybe<Scalars['uuid']['output']>;
   createdAt?: Maybe<Scalars['timestamptz']['output']>;
   creatorId?: Maybe<Scalars['uuid']['output']>;
@@ -398,17 +635,21 @@ export type FeedPostsFeedpostMaxFields = {
   id?: Maybe<Scalars['uuid']['output']>;
   image?: Maybe<Scalars['String']['output']>;
   imageBlurhash?: Maybe<Scalars['String']['output']>;
+  imageUrls?: Maybe<Array<Scalars['String']['output']>>;
   languageCode?: Maybe<Scalars['String']['output']>;
   linkPreviewId?: Maybe<Scalars['uuid']['output']>;
   location?: Maybe<Scalars['String']['output']>;
+  pollId?: Maybe<Scalars['uuid']['output']>;
   priorityDuration?: Maybe<Scalars['Int']['output']>;
   slug?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
+  topicsV2?: Maybe<Array<Scalars['String']['output']>>;
   visibility?: Maybe<Scalars['String']['output']>;
 };
 
 /** aggregate min on columns */
 export type FeedPostsFeedpostMinFields = {
+  aspectRatio?: Maybe<Scalars['String']['output']>;
   categoryId?: Maybe<Scalars['uuid']['output']>;
   createdAt?: Maybe<Scalars['timestamptz']['output']>;
   creatorId?: Maybe<Scalars['uuid']['output']>;
@@ -416,12 +657,15 @@ export type FeedPostsFeedpostMinFields = {
   id?: Maybe<Scalars['uuid']['output']>;
   image?: Maybe<Scalars['String']['output']>;
   imageBlurhash?: Maybe<Scalars['String']['output']>;
+  imageUrls?: Maybe<Array<Scalars['String']['output']>>;
   languageCode?: Maybe<Scalars['String']['output']>;
   linkPreviewId?: Maybe<Scalars['uuid']['output']>;
   location?: Maybe<Scalars['String']['output']>;
+  pollId?: Maybe<Scalars['uuid']['output']>;
   priorityDuration?: Maybe<Scalars['Int']['output']>;
   slug?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
+  topicsV2?: Maybe<Array<Scalars['String']['output']>>;
   visibility?: Maybe<Scalars['String']['output']>;
 };
 
@@ -442,21 +686,26 @@ export type FeedPostsFeedpostOnConflict = {
 
 /** Ordering options when selecting data from "feed_posts_feedpost". */
 export type FeedPostsFeedpostOrderBy = {
+  aspectRatio?: InputMaybe<OrderBy>;
   categoryId?: InputMaybe<OrderBy>;
   createdAt?: InputMaybe<OrderBy>;
   creator?: InputMaybe<OpenbookAuthUserOrderBy>;
   creatorId?: InputMaybe<OrderBy>;
   description?: InputMaybe<OrderBy>;
   geolocation?: InputMaybe<OrderBy>;
+  geolocationGeojson?: InputMaybe<OrderBy>;
   id?: InputMaybe<OrderBy>;
   image?: InputMaybe<OrderBy>;
   imageBlurhash?: InputMaybe<OrderBy>;
+  imageUrls?: InputMaybe<OrderBy>;
   languageCode?: InputMaybe<OrderBy>;
   linkPreviewId?: InputMaybe<OrderBy>;
   location?: InputMaybe<OrderBy>;
+  pollId?: InputMaybe<OrderBy>;
   priorityDuration?: InputMaybe<OrderBy>;
   slug?: InputMaybe<OrderBy>;
   title?: InputMaybe<OrderBy>;
+  topicsV2?: InputMaybe<OrderBy>;
   visibility?: InputMaybe<OrderBy>;
 };
 
@@ -465,8 +714,15 @@ export type FeedPostsFeedpostPkColumnsInput = {
   id: Scalars['uuid']['input'];
 };
 
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type FeedPostsFeedpostPrependInput = {
+  geolocationGeojson?: InputMaybe<Scalars['jsonb']['input']>;
+};
+
 /** select columns of table "feed_posts_feedpost" */
 export type FeedPostsFeedpostSelectColumn =
+  /** column name */
+  | 'aspectRatio'
   /** column name */
   | 'categoryId'
   /** column name */
@@ -478,11 +734,15 @@ export type FeedPostsFeedpostSelectColumn =
   /** column name */
   | 'geolocation'
   /** column name */
+  | 'geolocationGeojson'
+  /** column name */
   | 'id'
   /** column name */
   | 'image'
   /** column name */
   | 'imageBlurhash'
+  /** column name */
+  | 'imageUrls'
   /** column name */
   | 'languageCode'
   /** column name */
@@ -490,30 +750,39 @@ export type FeedPostsFeedpostSelectColumn =
   /** column name */
   | 'location'
   /** column name */
+  | 'pollId'
+  /** column name */
   | 'priorityDuration'
   /** column name */
   | 'slug'
   /** column name */
   | 'title'
   /** column name */
+  | 'topicsV2'
+  /** column name */
   | 'visibility';
 
 /** input type for updating data in table "feed_posts_feedpost" */
 export type FeedPostsFeedpostSetInput = {
+  aspectRatio?: InputMaybe<Scalars['String']['input']>;
   categoryId?: InputMaybe<Scalars['uuid']['input']>;
   createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
   creatorId?: InputMaybe<Scalars['uuid']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   geolocation?: InputMaybe<Scalars['geometry']['input']>;
+  geolocationGeojson?: InputMaybe<Scalars['jsonb']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   image?: InputMaybe<Scalars['String']['input']>;
   imageBlurhash?: InputMaybe<Scalars['String']['input']>;
+  imageUrls?: InputMaybe<Array<Scalars['String']['input']>>;
   languageCode?: InputMaybe<Scalars['String']['input']>;
   linkPreviewId?: InputMaybe<Scalars['uuid']['input']>;
   location?: InputMaybe<Scalars['String']['input']>;
+  pollId?: InputMaybe<Scalars['uuid']['input']>;
   priorityDuration?: InputMaybe<Scalars['Int']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
+  topicsV2?: InputMaybe<Array<Scalars['String']['input']>>;
   visibility?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -542,20 +811,25 @@ export type FeedPostsFeedpostStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type FeedPostsFeedpostStreamCursorValueInput = {
+  aspectRatio?: InputMaybe<Scalars['String']['input']>;
   categoryId?: InputMaybe<Scalars['uuid']['input']>;
   createdAt?: InputMaybe<Scalars['timestamptz']['input']>;
   creatorId?: InputMaybe<Scalars['uuid']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   geolocation?: InputMaybe<Scalars['geometry']['input']>;
+  geolocationGeojson?: InputMaybe<Scalars['jsonb']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   image?: InputMaybe<Scalars['String']['input']>;
   imageBlurhash?: InputMaybe<Scalars['String']['input']>;
+  imageUrls?: InputMaybe<Array<Scalars['String']['input']>>;
   languageCode?: InputMaybe<Scalars['String']['input']>;
   linkPreviewId?: InputMaybe<Scalars['uuid']['input']>;
   location?: InputMaybe<Scalars['String']['input']>;
+  pollId?: InputMaybe<Scalars['uuid']['input']>;
   priorityDuration?: InputMaybe<Scalars['Int']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
+  topicsV2?: InputMaybe<Array<Scalars['String']['input']>>;
   visibility?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -567,6 +841,8 @@ export type FeedPostsFeedpostSumFields = {
 /** update columns of table "feed_posts_feedpost" */
 export type FeedPostsFeedpostUpdateColumn =
   /** column name */
+  | 'aspectRatio'
+  /** column name */
   | 'categoryId'
   /** column name */
   | 'createdAt'
@@ -577,11 +853,15 @@ export type FeedPostsFeedpostUpdateColumn =
   /** column name */
   | 'geolocation'
   /** column name */
+  | 'geolocationGeojson'
+  /** column name */
   | 'id'
   /** column name */
   | 'image'
   /** column name */
   | 'imageBlurhash'
+  /** column name */
+  | 'imageUrls'
   /** column name */
   | 'languageCode'
   /** column name */
@@ -589,17 +869,31 @@ export type FeedPostsFeedpostUpdateColumn =
   /** column name */
   | 'location'
   /** column name */
+  | 'pollId'
+  /** column name */
   | 'priorityDuration'
   /** column name */
   | 'slug'
   /** column name */
   | 'title'
   /** column name */
+  | 'topicsV2'
+  /** column name */
   | 'visibility';
 
 export type FeedPostsFeedpostUpdates = {
+  /** append existing jsonb value of filtered columns with new jsonb value */
+  _append?: InputMaybe<FeedPostsFeedpostAppendInput>;
+  /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+  _deleteAtPath?: InputMaybe<FeedPostsFeedpostDeleteAtPathInput>;
+  /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+  _deleteElem?: InputMaybe<FeedPostsFeedpostDeleteElemInput>;
+  /** delete key/value pair or string element. key/value pairs are matched based on their key value */
+  _deleteKey?: InputMaybe<FeedPostsFeedpostDeleteKeyInput>;
   /** increments the numeric columns with given value of the filtered values */
   _inc?: InputMaybe<FeedPostsFeedpostIncInput>;
+  /** prepend existing jsonb value of filtered columns with new jsonb value */
+  _prepend?: InputMaybe<FeedPostsFeedpostPrependInput>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<FeedPostsFeedpostSetInput>;
   /** filter the rows which have to be updated */
@@ -694,6 +988,34 @@ export type IntComparisonExp = {
   _nin?: InputMaybe<Array<Scalars['Int']['input']>>;
 };
 
+export type JsonbCastExp = {
+  String?: InputMaybe<StringComparisonExp>;
+};
+
+/** Boolean expression to compare columns of type "jsonb". All fields are combined with logical 'AND'. */
+export type JsonbComparisonExp = {
+  _cast?: InputMaybe<JsonbCastExp>;
+  /** is the column contained in the given json value */
+  _containedIn?: InputMaybe<Scalars['jsonb']['input']>;
+  /** does the column contain the given json value at the top level */
+  _contains?: InputMaybe<Scalars['jsonb']['input']>;
+  _eq?: InputMaybe<Scalars['jsonb']['input']>;
+  _gt?: InputMaybe<Scalars['jsonb']['input']>;
+  _gte?: InputMaybe<Scalars['jsonb']['input']>;
+  /** does the string exist as a top-level key in the column */
+  _hasKey?: InputMaybe<Scalars['String']['input']>;
+  /** do all of these strings exist as top-level keys in the column */
+  _hasKeysAll?: InputMaybe<Array<Scalars['String']['input']>>;
+  /** do any of these strings exist as top-level keys in the column */
+  _hasKeysAny?: InputMaybe<Array<Scalars['String']['input']>>;
+  _in?: InputMaybe<Array<Scalars['jsonb']['input']>>;
+  _isNull?: InputMaybe<Scalars['Boolean']['input']>;
+  _lt?: InputMaybe<Scalars['jsonb']['input']>;
+  _lte?: InputMaybe<Scalars['jsonb']['input']>;
+  _neq?: InputMaybe<Scalars['jsonb']['input']>;
+  _nin?: InputMaybe<Array<Scalars['jsonb']['input']>>;
+};
+
 /** columns and relationships of "openbook_appointments_appointment" */
 export type OpenbookAppointmentsAppointment = {
   created: Scalars['timestamptz']['output'];
@@ -704,6 +1026,7 @@ export type OpenbookAppointmentsAppointment = {
   description: Scalars['String']['output'];
   endDateTime: Scalars['timestamptz']['output'];
   geolocation?: Maybe<Scalars['geometry']['output']>;
+  geolocationGeojson?: Maybe<Scalars['jsonb']['output']>;
   id: Scalars['uuid']['output'];
   inviteOnly: Scalars['Boolean']['output'];
   isDeleted: Scalars['Boolean']['output'];
@@ -728,6 +1051,12 @@ export type OpenbookAppointmentsAppointment = {
   /** An object relationship */
   videoCallLink?: Maybe<OpenbookAppointmentsVideocalllink>;
   videoCallLinkId?: Maybe<Scalars['uuid']['output']>;
+};
+
+
+/** columns and relationships of "openbook_appointments_appointment" */
+export type OpenbookAppointmentsAppointmentGeolocationGeojsonArgs = {
+  path?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -783,6 +1112,11 @@ export type OpenbookAppointmentsAppointmentAggregateOrderBy = {
   min?: InputMaybe<OpenbookAppointmentsAppointmentMinOrderBy>;
 };
 
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type OpenbookAppointmentsAppointmentAppendInput = {
+  geolocationGeojson?: InputMaybe<Scalars['jsonb']['input']>;
+};
+
 /** input type for inserting array relation for remote table "openbook_appointments_appointment" */
 export type OpenbookAppointmentsAppointmentArrRelInsertInput = {
   data: Array<OpenbookAppointmentsAppointmentInsertInput>;
@@ -802,6 +1136,7 @@ export type OpenbookAppointmentsAppointmentBoolExp = {
   description?: InputMaybe<StringComparisonExp>;
   endDateTime?: InputMaybe<TimestamptzComparisonExp>;
   geolocation?: InputMaybe<GeometryComparisonExp>;
+  geolocationGeojson?: InputMaybe<JsonbComparisonExp>;
   id?: InputMaybe<UuidComparisonExp>;
   inviteOnly?: InputMaybe<BooleanComparisonExp>;
   isDeleted?: InputMaybe<BooleanComparisonExp>;
@@ -834,6 +1169,21 @@ export type OpenbookAppointmentsAppointmentConstraint =
   /** unique or primary key constraint on columns "video_call_link_id" */
   | 'openbook_appointments_appointment_video_call_link_id_key';
 
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type OpenbookAppointmentsAppointmentDeleteAtPathInput = {
+  geolocationGeojson?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type OpenbookAppointmentsAppointmentDeleteElemInput = {
+  geolocationGeojson?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type OpenbookAppointmentsAppointmentDeleteKeyInput = {
+  geolocationGeojson?: InputMaybe<Scalars['String']['input']>;
+};
+
 /** input type for inserting data into table "openbook_appointments_appointment" */
 export type OpenbookAppointmentsAppointmentInsertInput = {
   created?: InputMaybe<Scalars['timestamptz']['input']>;
@@ -843,6 +1193,7 @@ export type OpenbookAppointmentsAppointmentInsertInput = {
   description?: InputMaybe<Scalars['String']['input']>;
   endDateTime?: InputMaybe<Scalars['timestamptz']['input']>;
   geolocation?: InputMaybe<Scalars['geometry']['input']>;
+  geolocationGeojson?: InputMaybe<Scalars['jsonb']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   inviteOnly?: InputMaybe<Scalars['Boolean']['input']>;
   isDeleted?: InputMaybe<Scalars['Boolean']['input']>;
@@ -978,6 +1329,7 @@ export type OpenbookAppointmentsAppointmentOrderBy = {
   description?: InputMaybe<OrderBy>;
   endDateTime?: InputMaybe<OrderBy>;
   geolocation?: InputMaybe<OrderBy>;
+  geolocationGeojson?: InputMaybe<OrderBy>;
   id?: InputMaybe<OrderBy>;
   inviteOnly?: InputMaybe<OrderBy>;
   isDeleted?: InputMaybe<OrderBy>;
@@ -1287,6 +1639,11 @@ export type OpenbookAppointmentsAppointmentPkColumnsInput = {
   id: Scalars['uuid']['input'];
 };
 
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type OpenbookAppointmentsAppointmentPrependInput = {
+  geolocationGeojson?: InputMaybe<Scalars['jsonb']['input']>;
+};
+
 /** select columns of table "openbook_appointments_appointment" */
 export type OpenbookAppointmentsAppointmentSelectColumn =
   /** column name */
@@ -1301,6 +1658,8 @@ export type OpenbookAppointmentsAppointmentSelectColumn =
   | 'endDateTime'
   /** column name */
   | 'geolocation'
+  /** column name */
+  | 'geolocationGeojson'
   /** column name */
   | 'id'
   /** column name */
@@ -1352,6 +1711,7 @@ export type OpenbookAppointmentsAppointmentSetInput = {
   description?: InputMaybe<Scalars['String']['input']>;
   endDateTime?: InputMaybe<Scalars['timestamptz']['input']>;
   geolocation?: InputMaybe<Scalars['geometry']['input']>;
+  geolocationGeojson?: InputMaybe<Scalars['jsonb']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   inviteOnly?: InputMaybe<Scalars['Boolean']['input']>;
   isDeleted?: InputMaybe<Scalars['Boolean']['input']>;
@@ -1384,6 +1744,7 @@ export type OpenbookAppointmentsAppointmentStreamCursorValueInput = {
   description?: InputMaybe<Scalars['String']['input']>;
   endDateTime?: InputMaybe<Scalars['timestamptz']['input']>;
   geolocation?: InputMaybe<Scalars['geometry']['input']>;
+  geolocationGeojson?: InputMaybe<Scalars['jsonb']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   inviteOnly?: InputMaybe<Scalars['Boolean']['input']>;
   isDeleted?: InputMaybe<Scalars['Boolean']['input']>;
@@ -1415,6 +1776,8 @@ export type OpenbookAppointmentsAppointmentUpdateColumn =
   /** column name */
   | 'geolocation'
   /** column name */
+  | 'geolocationGeojson'
+  /** column name */
   | 'id'
   /** column name */
   | 'inviteOnly'
@@ -1444,6 +1807,16 @@ export type OpenbookAppointmentsAppointmentUpdateColumn =
   | 'videoCallLinkId';
 
 export type OpenbookAppointmentsAppointmentUpdates = {
+  /** append existing jsonb value of filtered columns with new jsonb value */
+  _append?: InputMaybe<OpenbookAppointmentsAppointmentAppendInput>;
+  /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+  _deleteAtPath?: InputMaybe<OpenbookAppointmentsAppointmentDeleteAtPathInput>;
+  /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+  _deleteElem?: InputMaybe<OpenbookAppointmentsAppointmentDeleteElemInput>;
+  /** delete key/value pair or string element. key/value pairs are matched based on their key value */
+  _deleteKey?: InputMaybe<OpenbookAppointmentsAppointmentDeleteKeyInput>;
+  /** prepend existing jsonb value of filtered columns with new jsonb value */
+  _prepend?: InputMaybe<OpenbookAppointmentsAppointmentPrependInput>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<OpenbookAppointmentsAppointmentSetInput>;
   /** filter the rows which have to be updated */
@@ -1458,8 +1831,15 @@ export type OpenbookAppointmentsLocationdetails = {
   completeAddress?: Maybe<Scalars['String']['output']>;
   country?: Maybe<Scalars['String']['output']>;
   geolocation?: Maybe<Scalars['geometry']['output']>;
+  geolocationGeojson?: Maybe<Scalars['jsonb']['output']>;
   id: Scalars['uuid']['output'];
   state?: Maybe<Scalars['String']['output']>;
+};
+
+
+/** columns and relationships of "openbook_appointments_locationdetails" */
+export type OpenbookAppointmentsLocationdetailsGeolocationGeojsonArgs = {
+  path?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** aggregated selection of "openbook_appointments_locationdetails" */
@@ -1482,6 +1862,11 @@ export type OpenbookAppointmentsLocationdetailsAggregateFieldsCountArgs = {
   distinct?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type OpenbookAppointmentsLocationdetailsAppendInput = {
+  geolocationGeojson?: InputMaybe<Scalars['jsonb']['input']>;
+};
+
 /** Boolean expression to filter rows from the table "openbook_appointments_locationdetails". All fields are combined with a logical 'AND'. */
 export type OpenbookAppointmentsLocationdetailsBoolExp = {
   _and?: InputMaybe<Array<OpenbookAppointmentsLocationdetailsBoolExp>>;
@@ -1492,6 +1877,7 @@ export type OpenbookAppointmentsLocationdetailsBoolExp = {
   completeAddress?: InputMaybe<StringComparisonExp>;
   country?: InputMaybe<StringComparisonExp>;
   geolocation?: InputMaybe<GeometryComparisonExp>;
+  geolocationGeojson?: InputMaybe<JsonbComparisonExp>;
   id?: InputMaybe<UuidComparisonExp>;
   state?: InputMaybe<StringComparisonExp>;
 };
@@ -1501,6 +1887,21 @@ export type OpenbookAppointmentsLocationdetailsConstraint =
   /** unique or primary key constraint on columns "id" */
   | 'openbook_appointments_locationdetails_pkey';
 
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type OpenbookAppointmentsLocationdetailsDeleteAtPathInput = {
+  geolocationGeojson?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type OpenbookAppointmentsLocationdetailsDeleteElemInput = {
+  geolocationGeojson?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type OpenbookAppointmentsLocationdetailsDeleteKeyInput = {
+  geolocationGeojson?: InputMaybe<Scalars['String']['input']>;
+};
+
 /** input type for inserting data into table "openbook_appointments_locationdetails" */
 export type OpenbookAppointmentsLocationdetailsInsertInput = {
   appointment?: InputMaybe<OpenbookAppointmentsAppointmentObjRelInsertInput>;
@@ -1508,6 +1909,7 @@ export type OpenbookAppointmentsLocationdetailsInsertInput = {
   completeAddress?: InputMaybe<Scalars['String']['input']>;
   country?: InputMaybe<Scalars['String']['input']>;
   geolocation?: InputMaybe<Scalars['geometry']['input']>;
+  geolocationGeojson?: InputMaybe<Scalars['jsonb']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   state?: InputMaybe<Scalars['String']['input']>;
 };
@@ -1559,6 +1961,7 @@ export type OpenbookAppointmentsLocationdetailsOrderBy = {
   completeAddress?: InputMaybe<OrderBy>;
   country?: InputMaybe<OrderBy>;
   geolocation?: InputMaybe<OrderBy>;
+  geolocationGeojson?: InputMaybe<OrderBy>;
   id?: InputMaybe<OrderBy>;
   state?: InputMaybe<OrderBy>;
 };
@@ -1566,6 +1969,11 @@ export type OpenbookAppointmentsLocationdetailsOrderBy = {
 /** primary key columns input for table: openbook_appointments_locationdetails */
 export type OpenbookAppointmentsLocationdetailsPkColumnsInput = {
   id: Scalars['uuid']['input'];
+};
+
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type OpenbookAppointmentsLocationdetailsPrependInput = {
+  geolocationGeojson?: InputMaybe<Scalars['jsonb']['input']>;
 };
 
 /** select columns of table "openbook_appointments_locationdetails" */
@@ -1579,6 +1987,8 @@ export type OpenbookAppointmentsLocationdetailsSelectColumn =
   /** column name */
   | 'geolocation'
   /** column name */
+  | 'geolocationGeojson'
+  /** column name */
   | 'id'
   /** column name */
   | 'state';
@@ -1589,6 +1999,7 @@ export type OpenbookAppointmentsLocationdetailsSetInput = {
   completeAddress?: InputMaybe<Scalars['String']['input']>;
   country?: InputMaybe<Scalars['String']['input']>;
   geolocation?: InputMaybe<Scalars['geometry']['input']>;
+  geolocationGeojson?: InputMaybe<Scalars['jsonb']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   state?: InputMaybe<Scalars['String']['input']>;
 };
@@ -1607,6 +2018,7 @@ export type OpenbookAppointmentsLocationdetailsStreamCursorValueInput = {
   completeAddress?: InputMaybe<Scalars['String']['input']>;
   country?: InputMaybe<Scalars['String']['input']>;
   geolocation?: InputMaybe<Scalars['geometry']['input']>;
+  geolocationGeojson?: InputMaybe<Scalars['jsonb']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   state?: InputMaybe<Scalars['String']['input']>;
 };
@@ -1622,11 +2034,23 @@ export type OpenbookAppointmentsLocationdetailsUpdateColumn =
   /** column name */
   | 'geolocation'
   /** column name */
+  | 'geolocationGeojson'
+  /** column name */
   | 'id'
   /** column name */
   | 'state';
 
 export type OpenbookAppointmentsLocationdetailsUpdates = {
+  /** append existing jsonb value of filtered columns with new jsonb value */
+  _append?: InputMaybe<OpenbookAppointmentsLocationdetailsAppendInput>;
+  /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+  _deleteAtPath?: InputMaybe<OpenbookAppointmentsLocationdetailsDeleteAtPathInput>;
+  /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+  _deleteElem?: InputMaybe<OpenbookAppointmentsLocationdetailsDeleteElemInput>;
+  /** delete key/value pair or string element. key/value pairs are matched based on their key value */
+  _deleteKey?: InputMaybe<OpenbookAppointmentsLocationdetailsDeleteKeyInput>;
+  /** prepend existing jsonb value of filtered columns with new jsonb value */
+  _prepend?: InputMaybe<OpenbookAppointmentsLocationdetailsPrependInput>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<OpenbookAppointmentsLocationdetailsSetInput>;
   /** filter the rows which have to be updated */
@@ -1784,6 +2208,7 @@ export type OpenbookAppointmentsVideocalllinkUpdates = {
 
 /** columns and relationships of "openbook_auth_user" */
 export type OpenbookAuthUser = {
+  accountType: Scalars['String']['output'];
   areGuidelinesAccepted: Scalars['Boolean']['output'];
   /** An array relationship */
   comments: Array<OpenbookPostsPostcomment>;
@@ -1816,6 +2241,7 @@ export type OpenbookAuthUser = {
   isEmailVerified: Scalars['Boolean']['output'];
   isEmployee: Scalars['Boolean']['output'];
   isModerator: Scalars['Boolean']['output'];
+  isOidc: Scalars['Boolean']['output'];
   isStaff: Scalars['Boolean']['output'];
   isSuperuser: Scalars['Boolean']['output'];
   isVerified: Scalars['Boolean']['output'];
@@ -1830,6 +2256,7 @@ export type OpenbookAuthUser = {
   /** An object relationship */
   profile?: Maybe<OpenbookAuthUserprofile>;
   role?: Maybe<Scalars['String']['output']>;
+  trackingConsentAdPartners?: Maybe<Scalars['Boolean']['output']>;
   trackingConsentAnalytics?: Maybe<Scalars['Boolean']['output']>;
   trackingConsentPersonalization?: Maybe<Scalars['Boolean']['output']>;
   translationLanguageId?: Maybe<Scalars['uuid']['output']>;
@@ -1995,6 +2422,7 @@ export type OpenbookAuthUserBoolExp = {
   _and?: InputMaybe<Array<OpenbookAuthUserBoolExp>>;
   _not?: InputMaybe<OpenbookAuthUserBoolExp>;
   _or?: InputMaybe<Array<OpenbookAuthUserBoolExp>>;
+  accountType?: InputMaybe<StringComparisonExp>;
   areGuidelinesAccepted?: InputMaybe<BooleanComparisonExp>;
   comments?: InputMaybe<OpenbookPostsPostcommentBoolExp>;
   commentsAggregate?: InputMaybe<OpenbookPostsPostcommentAggregateBoolExp>;
@@ -2017,6 +2445,7 @@ export type OpenbookAuthUserBoolExp = {
   isEmailVerified?: InputMaybe<BooleanComparisonExp>;
   isEmployee?: InputMaybe<BooleanComparisonExp>;
   isModerator?: InputMaybe<BooleanComparisonExp>;
+  isOidc?: InputMaybe<BooleanComparisonExp>;
   isStaff?: InputMaybe<BooleanComparisonExp>;
   isSuperuser?: InputMaybe<BooleanComparisonExp>;
   isVerified?: InputMaybe<BooleanComparisonExp>;
@@ -2028,6 +2457,7 @@ export type OpenbookAuthUserBoolExp = {
   postsAggregate?: InputMaybe<OpenbookPostsPostAggregateBoolExp>;
   profile?: InputMaybe<OpenbookAuthUserprofileBoolExp>;
   role?: InputMaybe<StringComparisonExp>;
+  trackingConsentAdPartners?: InputMaybe<BooleanComparisonExp>;
   trackingConsentAnalytics?: InputMaybe<BooleanComparisonExp>;
   trackingConsentPersonalization?: InputMaybe<BooleanComparisonExp>;
   translationLanguageId?: InputMaybe<UuidComparisonExp>;
@@ -2053,6 +2483,7 @@ export type OpenbookAuthUserIncInput = {
 
 /** input type for inserting data into table "openbook_auth_user" */
 export type OpenbookAuthUserInsertInput = {
+  accountType?: InputMaybe<Scalars['String']['input']>;
   areGuidelinesAccepted?: InputMaybe<Scalars['Boolean']['input']>;
   comments?: InputMaybe<OpenbookPostsPostcommentArrRelInsertInput>;
   connectionsCircleId?: InputMaybe<Scalars['uuid']['input']>;
@@ -2070,6 +2501,7 @@ export type OpenbookAuthUserInsertInput = {
   isEmailVerified?: InputMaybe<Scalars['Boolean']['input']>;
   isEmployee?: InputMaybe<Scalars['Boolean']['input']>;
   isModerator?: InputMaybe<Scalars['Boolean']['input']>;
+  isOidc?: InputMaybe<Scalars['Boolean']['input']>;
   isStaff?: InputMaybe<Scalars['Boolean']['input']>;
   isSuperuser?: InputMaybe<Scalars['Boolean']['input']>;
   isVerified?: InputMaybe<Scalars['Boolean']['input']>;
@@ -2080,6 +2512,7 @@ export type OpenbookAuthUserInsertInput = {
   posts?: InputMaybe<OpenbookPostsPostArrRelInsertInput>;
   profile?: InputMaybe<OpenbookAuthUserprofileObjRelInsertInput>;
   role?: InputMaybe<Scalars['String']['input']>;
+  trackingConsentAdPartners?: InputMaybe<Scalars['Boolean']['input']>;
   trackingConsentAnalytics?: InputMaybe<Scalars['Boolean']['input']>;
   trackingConsentPersonalization?: InputMaybe<Scalars['Boolean']['input']>;
   translationLanguageId?: InputMaybe<Scalars['uuid']['input']>;
@@ -2089,6 +2522,7 @@ export type OpenbookAuthUserInsertInput = {
 
 /** aggregate max on columns */
 export type OpenbookAuthUserMaxFields = {
+  accountType?: Maybe<Scalars['String']['output']>;
   connectionsCircleId?: Maybe<Scalars['uuid']['output']>;
   dateJoined?: Maybe<Scalars['timestamptz']['output']>;
   email?: Maybe<Scalars['String']['output']>;
@@ -2107,6 +2541,7 @@ export type OpenbookAuthUserMaxFields = {
 
 /** aggregate min on columns */
 export type OpenbookAuthUserMinFields = {
+  accountType?: Maybe<Scalars['String']['output']>;
   connectionsCircleId?: Maybe<Scalars['uuid']['output']>;
   dateJoined?: Maybe<Scalars['timestamptz']['output']>;
   email?: Maybe<Scalars['String']['output']>;
@@ -2147,6 +2582,7 @@ export type OpenbookAuthUserOnConflict = {
 
 /** Ordering options when selecting data from "openbook_auth_user". */
 export type OpenbookAuthUserOrderBy = {
+  accountType?: InputMaybe<OrderBy>;
   areGuidelinesAccepted?: InputMaybe<OrderBy>;
   commentsAggregate?: InputMaybe<OpenbookPostsPostcommentAggregateOrderBy>;
   connectionsCircleId?: InputMaybe<OrderBy>;
@@ -2164,6 +2600,7 @@ export type OpenbookAuthUserOrderBy = {
   isEmailVerified?: InputMaybe<OrderBy>;
   isEmployee?: InputMaybe<OrderBy>;
   isModerator?: InputMaybe<OrderBy>;
+  isOidc?: InputMaybe<OrderBy>;
   isStaff?: InputMaybe<OrderBy>;
   isSuperuser?: InputMaybe<OrderBy>;
   isVerified?: InputMaybe<OrderBy>;
@@ -2174,6 +2611,7 @@ export type OpenbookAuthUserOrderBy = {
   postsAggregate?: InputMaybe<OpenbookPostsPostAggregateOrderBy>;
   profile?: InputMaybe<OpenbookAuthUserprofileOrderBy>;
   role?: InputMaybe<OrderBy>;
+  trackingConsentAdPartners?: InputMaybe<OrderBy>;
   trackingConsentAnalytics?: InputMaybe<OrderBy>;
   trackingConsentPersonalization?: InputMaybe<OrderBy>;
   translationLanguageId?: InputMaybe<OrderBy>;
@@ -2188,6 +2626,8 @@ export type OpenbookAuthUserPkColumnsInput = {
 
 /** select columns of table "openbook_auth_user" */
 export type OpenbookAuthUserSelectColumn =
+  /** column name */
+  | 'accountType'
   /** column name */
   | 'areGuidelinesAccepted'
   /** column name */
@@ -2213,6 +2653,8 @@ export type OpenbookAuthUserSelectColumn =
   /** column name */
   | 'isModerator'
   /** column name */
+  | 'isOidc'
+  /** column name */
   | 'isStaff'
   /** column name */
   | 'isSuperuser'
@@ -2229,6 +2671,8 @@ export type OpenbookAuthUserSelectColumn =
   /** column name */
   | 'role'
   /** column name */
+  | 'trackingConsentAdPartners'
+  /** column name */
   | 'trackingConsentAnalytics'
   /** column name */
   | 'trackingConsentPersonalization'
@@ -2241,6 +2685,7 @@ export type OpenbookAuthUserSelectColumn =
 
 /** input type for updating data in table "openbook_auth_user" */
 export type OpenbookAuthUserSetInput = {
+  accountType?: InputMaybe<Scalars['String']['input']>;
   areGuidelinesAccepted?: InputMaybe<Scalars['Boolean']['input']>;
   connectionsCircleId?: InputMaybe<Scalars['uuid']['input']>;
   dateJoined?: InputMaybe<Scalars['timestamptz']['input']>;
@@ -2253,6 +2698,7 @@ export type OpenbookAuthUserSetInput = {
   isEmailVerified?: InputMaybe<Scalars['Boolean']['input']>;
   isEmployee?: InputMaybe<Scalars['Boolean']['input']>;
   isModerator?: InputMaybe<Scalars['Boolean']['input']>;
+  isOidc?: InputMaybe<Scalars['Boolean']['input']>;
   isStaff?: InputMaybe<Scalars['Boolean']['input']>;
   isSuperuser?: InputMaybe<Scalars['Boolean']['input']>;
   isVerified?: InputMaybe<Scalars['Boolean']['input']>;
@@ -2261,6 +2707,7 @@ export type OpenbookAuthUserSetInput = {
   lastSeenNotificationTimestamp?: InputMaybe<Scalars['timestamptz']['input']>;
   password?: InputMaybe<Scalars['String']['input']>;
   role?: InputMaybe<Scalars['String']['input']>;
+  trackingConsentAdPartners?: InputMaybe<Scalars['Boolean']['input']>;
   trackingConsentAnalytics?: InputMaybe<Scalars['Boolean']['input']>;
   trackingConsentPersonalization?: InputMaybe<Scalars['Boolean']['input']>;
   translationLanguageId?: InputMaybe<Scalars['uuid']['input']>;
@@ -2293,6 +2740,7 @@ export type OpenbookAuthUserStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type OpenbookAuthUserStreamCursorValueInput = {
+  accountType?: InputMaybe<Scalars['String']['input']>;
   areGuidelinesAccepted?: InputMaybe<Scalars['Boolean']['input']>;
   connectionsCircleId?: InputMaybe<Scalars['uuid']['input']>;
   dateJoined?: InputMaybe<Scalars['timestamptz']['input']>;
@@ -2305,6 +2753,7 @@ export type OpenbookAuthUserStreamCursorValueInput = {
   isEmailVerified?: InputMaybe<Scalars['Boolean']['input']>;
   isEmployee?: InputMaybe<Scalars['Boolean']['input']>;
   isModerator?: InputMaybe<Scalars['Boolean']['input']>;
+  isOidc?: InputMaybe<Scalars['Boolean']['input']>;
   isStaff?: InputMaybe<Scalars['Boolean']['input']>;
   isSuperuser?: InputMaybe<Scalars['Boolean']['input']>;
   isVerified?: InputMaybe<Scalars['Boolean']['input']>;
@@ -2313,6 +2762,7 @@ export type OpenbookAuthUserStreamCursorValueInput = {
   lastSeenNotificationTimestamp?: InputMaybe<Scalars['timestamptz']['input']>;
   password?: InputMaybe<Scalars['String']['input']>;
   role?: InputMaybe<Scalars['String']['input']>;
+  trackingConsentAdPartners?: InputMaybe<Scalars['Boolean']['input']>;
   trackingConsentAnalytics?: InputMaybe<Scalars['Boolean']['input']>;
   trackingConsentPersonalization?: InputMaybe<Scalars['Boolean']['input']>;
   translationLanguageId?: InputMaybe<Scalars['uuid']['input']>;
@@ -2327,6 +2777,8 @@ export type OpenbookAuthUserSumFields = {
 
 /** update columns of table "openbook_auth_user" */
 export type OpenbookAuthUserUpdateColumn =
+  /** column name */
+  | 'accountType'
   /** column name */
   | 'areGuidelinesAccepted'
   /** column name */
@@ -2352,6 +2804,8 @@ export type OpenbookAuthUserUpdateColumn =
   /** column name */
   | 'isModerator'
   /** column name */
+  | 'isOidc'
+  /** column name */
   | 'isStaff'
   /** column name */
   | 'isSuperuser'
@@ -2367,6 +2821,8 @@ export type OpenbookAuthUserUpdateColumn =
   | 'password'
   /** column name */
   | 'role'
+  /** column name */
+  | 'trackingConsentAdPartners'
   /** column name */
   | 'trackingConsentAnalytics'
   /** column name */
@@ -2413,11 +2869,13 @@ export type OpenbookAuthUserprofile = {
   geolocation?: Maybe<Scalars['geometry']['output']>;
   geolocationId?: Maybe<Scalars['String']['output']>;
   id: Scalars['uuid']['output'];
+  interestsV2: Array<Scalars['String']['output']>;
   isOfLegalAge: Scalars['Boolean']['output'];
   lastName?: Maybe<Scalars['String']['output']>;
   location?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
   pronouns?: Maybe<Scalars['String']['output']>;
+  skillsV2: Array<Scalars['String']['output']>;
   url?: Maybe<Scalars['String']['output']>;
   /** An object relationship */
   user: OpenbookAuthUser;
@@ -2458,11 +2916,13 @@ export type OpenbookAuthUserprofileBoolExp = {
   geolocation?: InputMaybe<GeometryComparisonExp>;
   geolocationId?: InputMaybe<StringComparisonExp>;
   id?: InputMaybe<UuidComparisonExp>;
+  interestsV2?: InputMaybe<StringArrayComparisonExp>;
   isOfLegalAge?: InputMaybe<BooleanComparisonExp>;
   lastName?: InputMaybe<StringComparisonExp>;
   location?: InputMaybe<StringComparisonExp>;
   name?: InputMaybe<StringComparisonExp>;
   pronouns?: InputMaybe<StringComparisonExp>;
+  skillsV2?: InputMaybe<StringArrayComparisonExp>;
   url?: InputMaybe<StringComparisonExp>;
   user?: InputMaybe<OpenbookAuthUserBoolExp>;
   userId?: InputMaybe<UuidComparisonExp>;
@@ -2486,11 +2946,13 @@ export type OpenbookAuthUserprofileInsertInput = {
   geolocation?: InputMaybe<Scalars['geometry']['input']>;
   geolocationId?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
+  interestsV2?: InputMaybe<Array<Scalars['String']['input']>>;
   isOfLegalAge?: InputMaybe<Scalars['Boolean']['input']>;
   lastName?: InputMaybe<Scalars['String']['input']>;
   location?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   pronouns?: InputMaybe<Scalars['String']['input']>;
+  skillsV2?: InputMaybe<Array<Scalars['String']['input']>>;
   url?: InputMaybe<Scalars['String']['input']>;
   user?: InputMaybe<OpenbookAuthUserObjRelInsertInput>;
   userId?: InputMaybe<Scalars['uuid']['input']>;
@@ -2504,10 +2966,12 @@ export type OpenbookAuthUserprofileMaxFields = {
   engagementLevel?: Maybe<Scalars['String']['output']>;
   geolocationId?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
+  interestsV2?: Maybe<Array<Scalars['String']['output']>>;
   lastName?: Maybe<Scalars['String']['output']>;
   location?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
   pronouns?: Maybe<Scalars['String']['output']>;
+  skillsV2?: Maybe<Array<Scalars['String']['output']>>;
   url?: Maybe<Scalars['String']['output']>;
   userId?: Maybe<Scalars['uuid']['output']>;
 };
@@ -2520,10 +2984,12 @@ export type OpenbookAuthUserprofileMinFields = {
   engagementLevel?: Maybe<Scalars['String']['output']>;
   geolocationId?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
+  interestsV2?: Maybe<Array<Scalars['String']['output']>>;
   lastName?: Maybe<Scalars['String']['output']>;
   location?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
   pronouns?: Maybe<Scalars['String']['output']>;
+  skillsV2?: Maybe<Array<Scalars['String']['output']>>;
   url?: Maybe<Scalars['String']['output']>;
   userId?: Maybe<Scalars['uuid']['output']>;
 };
@@ -2561,11 +3027,13 @@ export type OpenbookAuthUserprofileOrderBy = {
   geolocation?: InputMaybe<OrderBy>;
   geolocationId?: InputMaybe<OrderBy>;
   id?: InputMaybe<OrderBy>;
+  interestsV2?: InputMaybe<OrderBy>;
   isOfLegalAge?: InputMaybe<OrderBy>;
   lastName?: InputMaybe<OrderBy>;
   location?: InputMaybe<OrderBy>;
   name?: InputMaybe<OrderBy>;
   pronouns?: InputMaybe<OrderBy>;
+  skillsV2?: InputMaybe<OrderBy>;
   url?: InputMaybe<OrderBy>;
   user?: InputMaybe<OpenbookAuthUserOrderBy>;
   userId?: InputMaybe<OrderBy>;
@@ -2597,6 +3065,8 @@ export type OpenbookAuthUserprofileSelectColumn =
   /** column name */
   | 'id'
   /** column name */
+  | 'interestsV2'
+  /** column name */
   | 'isOfLegalAge'
   /** column name */
   | 'lastName'
@@ -2606,6 +3076,8 @@ export type OpenbookAuthUserprofileSelectColumn =
   | 'name'
   /** column name */
   | 'pronouns'
+  /** column name */
+  | 'skillsV2'
   /** column name */
   | 'url'
   /** column name */
@@ -2622,11 +3094,13 @@ export type OpenbookAuthUserprofileSetInput = {
   geolocation?: InputMaybe<Scalars['geometry']['input']>;
   geolocationId?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
+  interestsV2?: InputMaybe<Array<Scalars['String']['input']>>;
   isOfLegalAge?: InputMaybe<Scalars['Boolean']['input']>;
   lastName?: InputMaybe<Scalars['String']['input']>;
   location?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   pronouns?: InputMaybe<Scalars['String']['input']>;
+  skillsV2?: InputMaybe<Array<Scalars['String']['input']>>;
   url?: InputMaybe<Scalars['String']['input']>;
   userId?: InputMaybe<Scalars['uuid']['input']>;
 };
@@ -2650,11 +3124,13 @@ export type OpenbookAuthUserprofileStreamCursorValueInput = {
   geolocation?: InputMaybe<Scalars['geometry']['input']>;
   geolocationId?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
+  interestsV2?: InputMaybe<Array<Scalars['String']['input']>>;
   isOfLegalAge?: InputMaybe<Scalars['Boolean']['input']>;
   lastName?: InputMaybe<Scalars['String']['input']>;
   location?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   pronouns?: InputMaybe<Scalars['String']['input']>;
+  skillsV2?: InputMaybe<Array<Scalars['String']['input']>>;
   url?: InputMaybe<Scalars['String']['input']>;
   userId?: InputMaybe<Scalars['uuid']['input']>;
 };
@@ -2680,6 +3156,8 @@ export type OpenbookAuthUserprofileUpdateColumn =
   /** column name */
   | 'id'
   /** column name */
+  | 'interestsV2'
+  /** column name */
   | 'isOfLegalAge'
   /** column name */
   | 'lastName'
@@ -2689,6 +3167,8 @@ export type OpenbookAuthUserprofileUpdateColumn =
   | 'name'
   /** column name */
   | 'pronouns'
+  /** column name */
+  | 'skillsV2'
   /** column name */
   | 'url'
   /** column name */
@@ -3016,6 +3496,7 @@ export type OpenbookCommunitiesCommunity = {
   /** An aggregate relationship */
   externalLinksAggregate: OpenbookCommunitiesExternallinkAggregate;
   geolocation?: Maybe<Scalars['geometry']['output']>;
+  geolocationGeojson?: Maybe<Scalars['jsonb']['output']>;
   id: Scalars['uuid']['output'];
   invitesEnabled: Scalars['Boolean']['output'];
   isDeleted: Scalars['Boolean']['output'];
@@ -3043,6 +3524,7 @@ export type OpenbookCommunitiesCommunity = {
   /** An aggregate relationship */
   tasksAggregate: OpenbookCommunitiesTaskAggregate;
   title: Scalars['String']['output'];
+  topicsV2: Array<Scalars['String']['output']>;
   type: Scalars['String']['output'];
   userAdjective?: Maybe<Scalars['String']['output']>;
   usersAdjective?: Maybe<Scalars['String']['output']>;
@@ -3086,6 +3568,12 @@ export type OpenbookCommunitiesCommunityExternalLinksAggregateArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Array<OpenbookCommunitiesExternallinkOrderBy>>;
   where?: InputMaybe<OpenbookCommunitiesExternallinkBoolExp>;
+};
+
+
+/** columns and relationships of "openbook_communities_community" */
+export type OpenbookCommunitiesCommunityGeolocationGeojsonArgs = {
+  path?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -3221,6 +3709,11 @@ export type OpenbookCommunitiesCommunityAggregateOrderBy = {
   min?: InputMaybe<OpenbookCommunitiesCommunityMinOrderBy>;
 };
 
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type OpenbookCommunitiesCommunityAppendInput = {
+  geolocationGeojson?: InputMaybe<Scalars['jsonb']['input']>;
+};
+
 /** input type for inserting array relation for remote table "openbook_communities_community" */
 export type OpenbookCommunitiesCommunityArrRelInsertInput = {
   data: Array<OpenbookCommunitiesCommunityInsertInput>;
@@ -3250,6 +3743,7 @@ export type OpenbookCommunitiesCommunityBoolExp = {
   externalLinks?: InputMaybe<OpenbookCommunitiesExternallinkBoolExp>;
   externalLinksAggregate?: InputMaybe<OpenbookCommunitiesExternallinkAggregateBoolExp>;
   geolocation?: InputMaybe<GeometryComparisonExp>;
+  geolocationGeojson?: InputMaybe<JsonbComparisonExp>;
   id?: InputMaybe<UuidComparisonExp>;
   invitesEnabled?: InputMaybe<BooleanComparisonExp>;
   isDeleted?: InputMaybe<BooleanComparisonExp>;
@@ -3267,6 +3761,7 @@ export type OpenbookCommunitiesCommunityBoolExp = {
   tasks?: InputMaybe<OpenbookCommunitiesTaskBoolExp>;
   tasksAggregate?: InputMaybe<OpenbookCommunitiesTaskAggregateBoolExp>;
   title?: InputMaybe<StringComparisonExp>;
+  topicsV2?: InputMaybe<StringArrayComparisonExp>;
   type?: InputMaybe<StringComparisonExp>;
   userAdjective?: InputMaybe<StringComparisonExp>;
   usersAdjective?: InputMaybe<StringComparisonExp>;
@@ -3278,6 +3773,21 @@ export type OpenbookCommunitiesCommunityConstraint =
   | 'openbook_communities_community_name_key'
   /** unique or primary key constraint on columns "id" */
   | 'openbook_communities_community_pkey';
+
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type OpenbookCommunitiesCommunityDeleteAtPathInput = {
+  geolocationGeojson?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type OpenbookCommunitiesCommunityDeleteElemInput = {
+  geolocationGeojson?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type OpenbookCommunitiesCommunityDeleteKeyInput = {
+  geolocationGeojson?: InputMaybe<Scalars['String']['input']>;
+};
 
 /** input type for inserting data into table "openbook_communities_community" */
 export type OpenbookCommunitiesCommunityInsertInput = {
@@ -3296,6 +3806,7 @@ export type OpenbookCommunitiesCommunityInsertInput = {
   description?: InputMaybe<Scalars['String']['input']>;
   externalLinks?: InputMaybe<OpenbookCommunitiesExternallinkArrRelInsertInput>;
   geolocation?: InputMaybe<Scalars['geometry']['input']>;
+  geolocationGeojson?: InputMaybe<Scalars['jsonb']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   invitesEnabled?: InputMaybe<Scalars['Boolean']['input']>;
   isDeleted?: InputMaybe<Scalars['Boolean']['input']>;
@@ -3308,6 +3819,7 @@ export type OpenbookCommunitiesCommunityInsertInput = {
   rules?: InputMaybe<Scalars['String']['input']>;
   tasks?: InputMaybe<OpenbookCommunitiesTaskArrRelInsertInput>;
   title?: InputMaybe<Scalars['String']['input']>;
+  topicsV2?: InputMaybe<Array<Scalars['String']['input']>>;
   type?: InputMaybe<Scalars['String']['input']>;
   userAdjective?: InputMaybe<Scalars['String']['input']>;
   usersAdjective?: InputMaybe<Scalars['String']['input']>;
@@ -3331,6 +3843,7 @@ export type OpenbookCommunitiesCommunityMaxFields = {
   name?: Maybe<Scalars['String']['output']>;
   rules?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
+  topicsV2?: Maybe<Array<Scalars['String']['output']>>;
   type?: Maybe<Scalars['String']['output']>;
   userAdjective?: Maybe<Scalars['String']['output']>;
   usersAdjective?: Maybe<Scalars['String']['output']>;
@@ -3354,6 +3867,7 @@ export type OpenbookCommunitiesCommunityMaxOrderBy = {
   name?: InputMaybe<OrderBy>;
   rules?: InputMaybe<OrderBy>;
   title?: InputMaybe<OrderBy>;
+  topicsV2?: InputMaybe<OrderBy>;
   type?: InputMaybe<OrderBy>;
   userAdjective?: InputMaybe<OrderBy>;
   usersAdjective?: InputMaybe<OrderBy>;
@@ -3377,6 +3891,7 @@ export type OpenbookCommunitiesCommunityMinFields = {
   name?: Maybe<Scalars['String']['output']>;
   rules?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
+  topicsV2?: Maybe<Array<Scalars['String']['output']>>;
   type?: Maybe<Scalars['String']['output']>;
   userAdjective?: Maybe<Scalars['String']['output']>;
   usersAdjective?: Maybe<Scalars['String']['output']>;
@@ -3400,6 +3915,7 @@ export type OpenbookCommunitiesCommunityMinOrderBy = {
   name?: InputMaybe<OrderBy>;
   rules?: InputMaybe<OrderBy>;
   title?: InputMaybe<OrderBy>;
+  topicsV2?: InputMaybe<OrderBy>;
   type?: InputMaybe<OrderBy>;
   userAdjective?: InputMaybe<OrderBy>;
   usersAdjective?: InputMaybe<OrderBy>;
@@ -3444,6 +3960,7 @@ export type OpenbookCommunitiesCommunityOrderBy = {
   description?: InputMaybe<OrderBy>;
   externalLinksAggregate?: InputMaybe<OpenbookCommunitiesExternallinkAggregateOrderBy>;
   geolocation?: InputMaybe<OrderBy>;
+  geolocationGeojson?: InputMaybe<OrderBy>;
   id?: InputMaybe<OrderBy>;
   invitesEnabled?: InputMaybe<OrderBy>;
   isDeleted?: InputMaybe<OrderBy>;
@@ -3456,6 +3973,7 @@ export type OpenbookCommunitiesCommunityOrderBy = {
   rules?: InputMaybe<OrderBy>;
   tasksAggregate?: InputMaybe<OpenbookCommunitiesTaskAggregateOrderBy>;
   title?: InputMaybe<OrderBy>;
+  topicsV2?: InputMaybe<OrderBy>;
   type?: InputMaybe<OrderBy>;
   userAdjective?: InputMaybe<OrderBy>;
   usersAdjective?: InputMaybe<OrderBy>;
@@ -3464,6 +3982,11 @@ export type OpenbookCommunitiesCommunityOrderBy = {
 /** primary key columns input for table: openbook_communities_community */
 export type OpenbookCommunitiesCommunityPkColumnsInput = {
   id: Scalars['uuid']['input'];
+};
+
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type OpenbookCommunitiesCommunityPrependInput = {
+  geolocationGeojson?: InputMaybe<Scalars['jsonb']['input']>;
 };
 
 /** select columns of table "openbook_communities_community" */
@@ -3493,6 +4016,8 @@ export type OpenbookCommunitiesCommunitySelectColumn =
   /** column name */
   | 'geolocation'
   /** column name */
+  | 'geolocationGeojson'
+  /** column name */
   | 'id'
   /** column name */
   | 'invitesEnabled'
@@ -3506,6 +4031,8 @@ export type OpenbookCommunitiesCommunitySelectColumn =
   | 'rules'
   /** column name */
   | 'title'
+  /** column name */
+  | 'topicsV2'
   /** column name */
   | 'type'
   /** column name */
@@ -3541,6 +4068,7 @@ export type OpenbookCommunitiesCommunitySetInput = {
   creatorId?: InputMaybe<Scalars['uuid']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   geolocation?: InputMaybe<Scalars['geometry']['input']>;
+  geolocationGeojson?: InputMaybe<Scalars['jsonb']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   invitesEnabled?: InputMaybe<Scalars['Boolean']['input']>;
   isDeleted?: InputMaybe<Scalars['Boolean']['input']>;
@@ -3548,6 +4076,7 @@ export type OpenbookCommunitiesCommunitySetInput = {
   name?: InputMaybe<Scalars['String']['input']>;
   rules?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
+  topicsV2?: InputMaybe<Array<Scalars['String']['input']>>;
   type?: InputMaybe<Scalars['String']['input']>;
   userAdjective?: InputMaybe<Scalars['String']['input']>;
   usersAdjective?: InputMaybe<Scalars['String']['input']>;
@@ -3575,6 +4104,7 @@ export type OpenbookCommunitiesCommunityStreamCursorValueInput = {
   creatorId?: InputMaybe<Scalars['uuid']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   geolocation?: InputMaybe<Scalars['geometry']['input']>;
+  geolocationGeojson?: InputMaybe<Scalars['jsonb']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   invitesEnabled?: InputMaybe<Scalars['Boolean']['input']>;
   isDeleted?: InputMaybe<Scalars['Boolean']['input']>;
@@ -3582,6 +4112,7 @@ export type OpenbookCommunitiesCommunityStreamCursorValueInput = {
   name?: InputMaybe<Scalars['String']['input']>;
   rules?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
+  topicsV2?: InputMaybe<Array<Scalars['String']['input']>>;
   type?: InputMaybe<Scalars['String']['input']>;
   userAdjective?: InputMaybe<Scalars['String']['input']>;
   usersAdjective?: InputMaybe<Scalars['String']['input']>;
@@ -3614,6 +4145,8 @@ export type OpenbookCommunitiesCommunityUpdateColumn =
   /** column name */
   | 'geolocation'
   /** column name */
+  | 'geolocationGeojson'
+  /** column name */
   | 'id'
   /** column name */
   | 'invitesEnabled'
@@ -3628,6 +4161,8 @@ export type OpenbookCommunitiesCommunityUpdateColumn =
   /** column name */
   | 'title'
   /** column name */
+  | 'topicsV2'
+  /** column name */
   | 'type'
   /** column name */
   | 'userAdjective'
@@ -3635,6 +4170,16 @@ export type OpenbookCommunitiesCommunityUpdateColumn =
   | 'usersAdjective';
 
 export type OpenbookCommunitiesCommunityUpdates = {
+  /** append existing jsonb value of filtered columns with new jsonb value */
+  _append?: InputMaybe<OpenbookCommunitiesCommunityAppendInput>;
+  /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+  _deleteAtPath?: InputMaybe<OpenbookCommunitiesCommunityDeleteAtPathInput>;
+  /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+  _deleteElem?: InputMaybe<OpenbookCommunitiesCommunityDeleteElemInput>;
+  /** delete key/value pair or string element. key/value pairs are matched based on their key value */
+  _deleteKey?: InputMaybe<OpenbookCommunitiesCommunityDeleteKeyInput>;
+  /** prepend existing jsonb value of filtered columns with new jsonb value */
+  _prepend?: InputMaybe<OpenbookCommunitiesCommunityPrependInput>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<OpenbookCommunitiesCommunitySetInput>;
   /** filter the rows which have to be updated */
@@ -4383,6 +4928,7 @@ export type OpenbookCommunitiesOnboardingstepVarianceOrderBy = {
 
 /** columns and relationships of "openbook_communities_task" */
 export type OpenbookCommunitiesTask = {
+  additionalContext?: Maybe<Scalars['String']['output']>;
   communityId: Scalars['uuid']['output'];
   contactEmail?: Maybe<Scalars['String']['output']>;
   contactPhone?: Maybe<Scalars['String']['output']>;
@@ -4392,8 +4938,13 @@ export type OpenbookCommunitiesTask = {
   creatorId?: Maybe<Scalars['uuid']['output']>;
   deletedAt?: Maybe<Scalars['timestamptz']['output']>;
   description: Scalars['String']['output'];
+  duration: Scalars['String']['output'];
   geolocation?: Maybe<Scalars['geometry']['output']>;
+  geolocationGeojson?: Maybe<Scalars['jsonb']['output']>;
   id: Scalars['uuid']['output'];
+  impact?: Maybe<Scalars['String']['output']>;
+  interactionSignupLink?: Maybe<Scalars['String']['output']>;
+  interactionType: Scalars['String']['output'];
   location?: Maybe<Scalars['String']['output']>;
   locationType: Scalars['String']['output'];
   name: Scalars['String']['output'];
@@ -4402,13 +4953,22 @@ export type OpenbookCommunitiesTask = {
   skills: Array<OpenbookCommunitiesTaskSkills>;
   /** An aggregate relationship */
   skillsAggregate: OpenbookCommunitiesTaskSkillsAggregate;
+  skillsV2: Array<Scalars['String']['output']>;
   slotsAvailable: Scalars['Int']['output'];
   slotsTaken: Scalars['Int']['output'];
   /** An object relationship */
   space: OpenbookCommunitiesCommunity;
   thumbnail?: Maybe<Scalars['String']['output']>;
   thumbnailBlurhash?: Maybe<Scalars['String']['output']>;
+  timeframeEndDate?: Maybe<Scalars['date']['output']>;
+  timeframeStartDate?: Maybe<Scalars['date']['output']>;
   visibility: Scalars['String']['output'];
+};
+
+
+/** columns and relationships of "openbook_communities_task" */
+export type OpenbookCommunitiesTaskGeolocationGeojsonArgs = {
+  path?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -4478,6 +5038,11 @@ export type OpenbookCommunitiesTaskAggregateOrderBy = {
   variance?: InputMaybe<OpenbookCommunitiesTaskVarianceOrderBy>;
 };
 
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type OpenbookCommunitiesTaskAppendInput = {
+  geolocationGeojson?: InputMaybe<Scalars['jsonb']['input']>;
+};
+
 /** input type for inserting array relation for remote table "openbook_communities_task" */
 export type OpenbookCommunitiesTaskArrRelInsertInput = {
   data: Array<OpenbookCommunitiesTaskInsertInput>;
@@ -4502,6 +5067,7 @@ export type OpenbookCommunitiesTaskBoolExp = {
   _and?: InputMaybe<Array<OpenbookCommunitiesTaskBoolExp>>;
   _not?: InputMaybe<OpenbookCommunitiesTaskBoolExp>;
   _or?: InputMaybe<Array<OpenbookCommunitiesTaskBoolExp>>;
+  additionalContext?: InputMaybe<StringComparisonExp>;
   communityId?: InputMaybe<UuidComparisonExp>;
   contactEmail?: InputMaybe<StringComparisonExp>;
   contactPhone?: InputMaybe<StringComparisonExp>;
@@ -4510,19 +5076,27 @@ export type OpenbookCommunitiesTaskBoolExp = {
   creatorId?: InputMaybe<UuidComparisonExp>;
   deletedAt?: InputMaybe<TimestamptzComparisonExp>;
   description?: InputMaybe<StringComparisonExp>;
+  duration?: InputMaybe<StringComparisonExp>;
   geolocation?: InputMaybe<GeometryComparisonExp>;
+  geolocationGeojson?: InputMaybe<JsonbComparisonExp>;
   id?: InputMaybe<UuidComparisonExp>;
+  impact?: InputMaybe<StringComparisonExp>;
+  interactionSignupLink?: InputMaybe<StringComparisonExp>;
+  interactionType?: InputMaybe<StringComparisonExp>;
   location?: InputMaybe<StringComparisonExp>;
   locationType?: InputMaybe<StringComparisonExp>;
   name?: InputMaybe<StringComparisonExp>;
   regularity?: InputMaybe<StringComparisonExp>;
   skills?: InputMaybe<OpenbookCommunitiesTaskSkillsBoolExp>;
   skillsAggregate?: InputMaybe<OpenbookCommunitiesTaskSkillsAggregateBoolExp>;
+  skillsV2?: InputMaybe<StringArrayComparisonExp>;
   slotsAvailable?: InputMaybe<IntComparisonExp>;
   slotsTaken?: InputMaybe<IntComparisonExp>;
   space?: InputMaybe<OpenbookCommunitiesCommunityBoolExp>;
   thumbnail?: InputMaybe<StringComparisonExp>;
   thumbnailBlurhash?: InputMaybe<StringComparisonExp>;
+  timeframeEndDate?: InputMaybe<DateComparisonExp>;
+  timeframeStartDate?: InputMaybe<DateComparisonExp>;
   visibility?: InputMaybe<StringComparisonExp>;
 };
 
@@ -4530,6 +5104,21 @@ export type OpenbookCommunitiesTaskBoolExp = {
 export type OpenbookCommunitiesTaskConstraint =
   /** unique or primary key constraint on columns "id" */
   | 'openbook_communities_task_pkey';
+
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type OpenbookCommunitiesTaskDeleteAtPathInput = {
+  geolocationGeojson?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type OpenbookCommunitiesTaskDeleteElemInput = {
+  geolocationGeojson?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type OpenbookCommunitiesTaskDeleteKeyInput = {
+  geolocationGeojson?: InputMaybe<Scalars['String']['input']>;
+};
 
 /** input type for incrementing numeric columns in table "openbook_communities_task" */
 export type OpenbookCommunitiesTaskIncInput = {
@@ -4539,6 +5128,7 @@ export type OpenbookCommunitiesTaskIncInput = {
 
 /** input type for inserting data into table "openbook_communities_task" */
 export type OpenbookCommunitiesTaskInsertInput = {
+  additionalContext?: InputMaybe<Scalars['String']['input']>;
   communityId?: InputMaybe<Scalars['uuid']['input']>;
   contactEmail?: InputMaybe<Scalars['String']['input']>;
   contactPhone?: InputMaybe<Scalars['String']['input']>;
@@ -4547,23 +5137,32 @@ export type OpenbookCommunitiesTaskInsertInput = {
   creatorId?: InputMaybe<Scalars['uuid']['input']>;
   deletedAt?: InputMaybe<Scalars['timestamptz']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
+  duration?: InputMaybe<Scalars['String']['input']>;
   geolocation?: InputMaybe<Scalars['geometry']['input']>;
+  geolocationGeojson?: InputMaybe<Scalars['jsonb']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
+  impact?: InputMaybe<Scalars['String']['input']>;
+  interactionSignupLink?: InputMaybe<Scalars['String']['input']>;
+  interactionType?: InputMaybe<Scalars['String']['input']>;
   location?: InputMaybe<Scalars['String']['input']>;
   locationType?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   regularity?: InputMaybe<Scalars['String']['input']>;
   skills?: InputMaybe<OpenbookCommunitiesTaskSkillsArrRelInsertInput>;
+  skillsV2?: InputMaybe<Array<Scalars['String']['input']>>;
   slotsAvailable?: InputMaybe<Scalars['Int']['input']>;
   slotsTaken?: InputMaybe<Scalars['Int']['input']>;
   space?: InputMaybe<OpenbookCommunitiesCommunityObjRelInsertInput>;
   thumbnail?: InputMaybe<Scalars['String']['input']>;
   thumbnailBlurhash?: InputMaybe<Scalars['String']['input']>;
+  timeframeEndDate?: InputMaybe<Scalars['date']['input']>;
+  timeframeStartDate?: InputMaybe<Scalars['date']['input']>;
   visibility?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** aggregate max on columns */
 export type OpenbookCommunitiesTaskMaxFields = {
+  additionalContext?: Maybe<Scalars['String']['output']>;
   communityId?: Maybe<Scalars['uuid']['output']>;
   contactEmail?: Maybe<Scalars['String']['output']>;
   contactPhone?: Maybe<Scalars['String']['output']>;
@@ -4571,20 +5170,28 @@ export type OpenbookCommunitiesTaskMaxFields = {
   creatorId?: Maybe<Scalars['uuid']['output']>;
   deletedAt?: Maybe<Scalars['timestamptz']['output']>;
   description?: Maybe<Scalars['String']['output']>;
+  duration?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
+  impact?: Maybe<Scalars['String']['output']>;
+  interactionSignupLink?: Maybe<Scalars['String']['output']>;
+  interactionType?: Maybe<Scalars['String']['output']>;
   location?: Maybe<Scalars['String']['output']>;
   locationType?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
   regularity?: Maybe<Scalars['String']['output']>;
+  skillsV2?: Maybe<Array<Scalars['String']['output']>>;
   slotsAvailable?: Maybe<Scalars['Int']['output']>;
   slotsTaken?: Maybe<Scalars['Int']['output']>;
   thumbnail?: Maybe<Scalars['String']['output']>;
   thumbnailBlurhash?: Maybe<Scalars['String']['output']>;
+  timeframeEndDate?: Maybe<Scalars['date']['output']>;
+  timeframeStartDate?: Maybe<Scalars['date']['output']>;
   visibility?: Maybe<Scalars['String']['output']>;
 };
 
 /** order by max() on columns of table "openbook_communities_task" */
 export type OpenbookCommunitiesTaskMaxOrderBy = {
+  additionalContext?: InputMaybe<OrderBy>;
   communityId?: InputMaybe<OrderBy>;
   contactEmail?: InputMaybe<OrderBy>;
   contactPhone?: InputMaybe<OrderBy>;
@@ -4592,20 +5199,28 @@ export type OpenbookCommunitiesTaskMaxOrderBy = {
   creatorId?: InputMaybe<OrderBy>;
   deletedAt?: InputMaybe<OrderBy>;
   description?: InputMaybe<OrderBy>;
+  duration?: InputMaybe<OrderBy>;
   id?: InputMaybe<OrderBy>;
+  impact?: InputMaybe<OrderBy>;
+  interactionSignupLink?: InputMaybe<OrderBy>;
+  interactionType?: InputMaybe<OrderBy>;
   location?: InputMaybe<OrderBy>;
   locationType?: InputMaybe<OrderBy>;
   name?: InputMaybe<OrderBy>;
   regularity?: InputMaybe<OrderBy>;
+  skillsV2?: InputMaybe<OrderBy>;
   slotsAvailable?: InputMaybe<OrderBy>;
   slotsTaken?: InputMaybe<OrderBy>;
   thumbnail?: InputMaybe<OrderBy>;
   thumbnailBlurhash?: InputMaybe<OrderBy>;
+  timeframeEndDate?: InputMaybe<OrderBy>;
+  timeframeStartDate?: InputMaybe<OrderBy>;
   visibility?: InputMaybe<OrderBy>;
 };
 
 /** aggregate min on columns */
 export type OpenbookCommunitiesTaskMinFields = {
+  additionalContext?: Maybe<Scalars['String']['output']>;
   communityId?: Maybe<Scalars['uuid']['output']>;
   contactEmail?: Maybe<Scalars['String']['output']>;
   contactPhone?: Maybe<Scalars['String']['output']>;
@@ -4613,20 +5228,28 @@ export type OpenbookCommunitiesTaskMinFields = {
   creatorId?: Maybe<Scalars['uuid']['output']>;
   deletedAt?: Maybe<Scalars['timestamptz']['output']>;
   description?: Maybe<Scalars['String']['output']>;
+  duration?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
+  impact?: Maybe<Scalars['String']['output']>;
+  interactionSignupLink?: Maybe<Scalars['String']['output']>;
+  interactionType?: Maybe<Scalars['String']['output']>;
   location?: Maybe<Scalars['String']['output']>;
   locationType?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
   regularity?: Maybe<Scalars['String']['output']>;
+  skillsV2?: Maybe<Array<Scalars['String']['output']>>;
   slotsAvailable?: Maybe<Scalars['Int']['output']>;
   slotsTaken?: Maybe<Scalars['Int']['output']>;
   thumbnail?: Maybe<Scalars['String']['output']>;
   thumbnailBlurhash?: Maybe<Scalars['String']['output']>;
+  timeframeEndDate?: Maybe<Scalars['date']['output']>;
+  timeframeStartDate?: Maybe<Scalars['date']['output']>;
   visibility?: Maybe<Scalars['String']['output']>;
 };
 
 /** order by min() on columns of table "openbook_communities_task" */
 export type OpenbookCommunitiesTaskMinOrderBy = {
+  additionalContext?: InputMaybe<OrderBy>;
   communityId?: InputMaybe<OrderBy>;
   contactEmail?: InputMaybe<OrderBy>;
   contactPhone?: InputMaybe<OrderBy>;
@@ -4634,15 +5257,22 @@ export type OpenbookCommunitiesTaskMinOrderBy = {
   creatorId?: InputMaybe<OrderBy>;
   deletedAt?: InputMaybe<OrderBy>;
   description?: InputMaybe<OrderBy>;
+  duration?: InputMaybe<OrderBy>;
   id?: InputMaybe<OrderBy>;
+  impact?: InputMaybe<OrderBy>;
+  interactionSignupLink?: InputMaybe<OrderBy>;
+  interactionType?: InputMaybe<OrderBy>;
   location?: InputMaybe<OrderBy>;
   locationType?: InputMaybe<OrderBy>;
   name?: InputMaybe<OrderBy>;
   regularity?: InputMaybe<OrderBy>;
+  skillsV2?: InputMaybe<OrderBy>;
   slotsAvailable?: InputMaybe<OrderBy>;
   slotsTaken?: InputMaybe<OrderBy>;
   thumbnail?: InputMaybe<OrderBy>;
   thumbnailBlurhash?: InputMaybe<OrderBy>;
+  timeframeEndDate?: InputMaybe<OrderBy>;
+  timeframeStartDate?: InputMaybe<OrderBy>;
   visibility?: InputMaybe<OrderBy>;
 };
 
@@ -4663,6 +5293,7 @@ export type OpenbookCommunitiesTaskOnConflict = {
 
 /** Ordering options when selecting data from "openbook_communities_task". */
 export type OpenbookCommunitiesTaskOrderBy = {
+  additionalContext?: InputMaybe<OrderBy>;
   communityId?: InputMaybe<OrderBy>;
   contactEmail?: InputMaybe<OrderBy>;
   contactPhone?: InputMaybe<OrderBy>;
@@ -4671,18 +5302,26 @@ export type OpenbookCommunitiesTaskOrderBy = {
   creatorId?: InputMaybe<OrderBy>;
   deletedAt?: InputMaybe<OrderBy>;
   description?: InputMaybe<OrderBy>;
+  duration?: InputMaybe<OrderBy>;
   geolocation?: InputMaybe<OrderBy>;
+  geolocationGeojson?: InputMaybe<OrderBy>;
   id?: InputMaybe<OrderBy>;
+  impact?: InputMaybe<OrderBy>;
+  interactionSignupLink?: InputMaybe<OrderBy>;
+  interactionType?: InputMaybe<OrderBy>;
   location?: InputMaybe<OrderBy>;
   locationType?: InputMaybe<OrderBy>;
   name?: InputMaybe<OrderBy>;
   regularity?: InputMaybe<OrderBy>;
   skillsAggregate?: InputMaybe<OpenbookCommunitiesTaskSkillsAggregateOrderBy>;
+  skillsV2?: InputMaybe<OrderBy>;
   slotsAvailable?: InputMaybe<OrderBy>;
   slotsTaken?: InputMaybe<OrderBy>;
   space?: InputMaybe<OpenbookCommunitiesCommunityOrderBy>;
   thumbnail?: InputMaybe<OrderBy>;
   thumbnailBlurhash?: InputMaybe<OrderBy>;
+  timeframeEndDate?: InputMaybe<OrderBy>;
+  timeframeStartDate?: InputMaybe<OrderBy>;
   visibility?: InputMaybe<OrderBy>;
 };
 
@@ -4691,8 +5330,15 @@ export type OpenbookCommunitiesTaskPkColumnsInput = {
   id: Scalars['uuid']['input'];
 };
 
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type OpenbookCommunitiesTaskPrependInput = {
+  geolocationGeojson?: InputMaybe<Scalars['jsonb']['input']>;
+};
+
 /** select columns of table "openbook_communities_task" */
 export type OpenbookCommunitiesTaskSelectColumn =
+  /** column name */
+  | 'additionalContext'
   /** column name */
   | 'communityId'
   /** column name */
@@ -4708,9 +5354,19 @@ export type OpenbookCommunitiesTaskSelectColumn =
   /** column name */
   | 'description'
   /** column name */
+  | 'duration'
+  /** column name */
   | 'geolocation'
   /** column name */
+  | 'geolocationGeojson'
+  /** column name */
   | 'id'
+  /** column name */
+  | 'impact'
+  /** column name */
+  | 'interactionSignupLink'
+  /** column name */
+  | 'interactionType'
   /** column name */
   | 'location'
   /** column name */
@@ -4720,6 +5376,8 @@ export type OpenbookCommunitiesTaskSelectColumn =
   /** column name */
   | 'regularity'
   /** column name */
+  | 'skillsV2'
+  /** column name */
   | 'slotsAvailable'
   /** column name */
   | 'slotsTaken'
@@ -4728,10 +5386,15 @@ export type OpenbookCommunitiesTaskSelectColumn =
   /** column name */
   | 'thumbnailBlurhash'
   /** column name */
+  | 'timeframeEndDate'
+  /** column name */
+  | 'timeframeStartDate'
+  /** column name */
   | 'visibility';
 
 /** input type for updating data in table "openbook_communities_task" */
 export type OpenbookCommunitiesTaskSetInput = {
+  additionalContext?: InputMaybe<Scalars['String']['input']>;
   communityId?: InputMaybe<Scalars['uuid']['input']>;
   contactEmail?: InputMaybe<Scalars['String']['input']>;
   contactPhone?: InputMaybe<Scalars['String']['input']>;
@@ -4739,16 +5402,24 @@ export type OpenbookCommunitiesTaskSetInput = {
   creatorId?: InputMaybe<Scalars['uuid']['input']>;
   deletedAt?: InputMaybe<Scalars['timestamptz']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
+  duration?: InputMaybe<Scalars['String']['input']>;
   geolocation?: InputMaybe<Scalars['geometry']['input']>;
+  geolocationGeojson?: InputMaybe<Scalars['jsonb']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
+  impact?: InputMaybe<Scalars['String']['input']>;
+  interactionSignupLink?: InputMaybe<Scalars['String']['input']>;
+  interactionType?: InputMaybe<Scalars['String']['input']>;
   location?: InputMaybe<Scalars['String']['input']>;
   locationType?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   regularity?: InputMaybe<Scalars['String']['input']>;
+  skillsV2?: InputMaybe<Array<Scalars['String']['input']>>;
   slotsAvailable?: InputMaybe<Scalars['Int']['input']>;
   slotsTaken?: InputMaybe<Scalars['Int']['input']>;
   thumbnail?: InputMaybe<Scalars['String']['input']>;
   thumbnailBlurhash?: InputMaybe<Scalars['String']['input']>;
+  timeframeEndDate?: InputMaybe<Scalars['date']['input']>;
+  timeframeStartDate?: InputMaybe<Scalars['date']['input']>;
   visibility?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -5077,6 +5748,7 @@ export type OpenbookCommunitiesTaskStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type OpenbookCommunitiesTaskStreamCursorValueInput = {
+  additionalContext?: InputMaybe<Scalars['String']['input']>;
   communityId?: InputMaybe<Scalars['uuid']['input']>;
   contactEmail?: InputMaybe<Scalars['String']['input']>;
   contactPhone?: InputMaybe<Scalars['String']['input']>;
@@ -5084,16 +5756,24 @@ export type OpenbookCommunitiesTaskStreamCursorValueInput = {
   creatorId?: InputMaybe<Scalars['uuid']['input']>;
   deletedAt?: InputMaybe<Scalars['timestamptz']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
+  duration?: InputMaybe<Scalars['String']['input']>;
   geolocation?: InputMaybe<Scalars['geometry']['input']>;
+  geolocationGeojson?: InputMaybe<Scalars['jsonb']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
+  impact?: InputMaybe<Scalars['String']['input']>;
+  interactionSignupLink?: InputMaybe<Scalars['String']['input']>;
+  interactionType?: InputMaybe<Scalars['String']['input']>;
   location?: InputMaybe<Scalars['String']['input']>;
   locationType?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   regularity?: InputMaybe<Scalars['String']['input']>;
+  skillsV2?: InputMaybe<Array<Scalars['String']['input']>>;
   slotsAvailable?: InputMaybe<Scalars['Int']['input']>;
   slotsTaken?: InputMaybe<Scalars['Int']['input']>;
   thumbnail?: InputMaybe<Scalars['String']['input']>;
   thumbnailBlurhash?: InputMaybe<Scalars['String']['input']>;
+  timeframeEndDate?: InputMaybe<Scalars['date']['input']>;
+  timeframeStartDate?: InputMaybe<Scalars['date']['input']>;
   visibility?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -5112,6 +5792,8 @@ export type OpenbookCommunitiesTaskSumOrderBy = {
 /** update columns of table "openbook_communities_task" */
 export type OpenbookCommunitiesTaskUpdateColumn =
   /** column name */
+  | 'additionalContext'
+  /** column name */
   | 'communityId'
   /** column name */
   | 'contactEmail'
@@ -5126,9 +5808,19 @@ export type OpenbookCommunitiesTaskUpdateColumn =
   /** column name */
   | 'description'
   /** column name */
+  | 'duration'
+  /** column name */
   | 'geolocation'
   /** column name */
+  | 'geolocationGeojson'
+  /** column name */
   | 'id'
+  /** column name */
+  | 'impact'
+  /** column name */
+  | 'interactionSignupLink'
+  /** column name */
+  | 'interactionType'
   /** column name */
   | 'location'
   /** column name */
@@ -5138,6 +5830,8 @@ export type OpenbookCommunitiesTaskUpdateColumn =
   /** column name */
   | 'regularity'
   /** column name */
+  | 'skillsV2'
+  /** column name */
   | 'slotsAvailable'
   /** column name */
   | 'slotsTaken'
@@ -5146,11 +5840,25 @@ export type OpenbookCommunitiesTaskUpdateColumn =
   /** column name */
   | 'thumbnailBlurhash'
   /** column name */
+  | 'timeframeEndDate'
+  /** column name */
+  | 'timeframeStartDate'
+  /** column name */
   | 'visibility';
 
 export type OpenbookCommunitiesTaskUpdates = {
+  /** append existing jsonb value of filtered columns with new jsonb value */
+  _append?: InputMaybe<OpenbookCommunitiesTaskAppendInput>;
+  /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+  _deleteAtPath?: InputMaybe<OpenbookCommunitiesTaskDeleteAtPathInput>;
+  /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+  _deleteElem?: InputMaybe<OpenbookCommunitiesTaskDeleteElemInput>;
+  /** delete key/value pair or string element. key/value pairs are matched based on their key value */
+  _deleteKey?: InputMaybe<OpenbookCommunitiesTaskDeleteKeyInput>;
   /** increments the numeric columns with given value of the filtered values */
   _inc?: InputMaybe<OpenbookCommunitiesTaskIncInput>;
+  /** prepend existing jsonb value of filtered columns with new jsonb value */
+  _prepend?: InputMaybe<OpenbookCommunitiesTaskPrependInput>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<OpenbookCommunitiesTaskSetInput>;
   /** filter the rows which have to be updated */
@@ -6372,6 +7080,23 @@ export type SmallintComparisonExp = {
 };
 
 /** Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'. */
+export type StringArrayComparisonExp = {
+  /** is the array contained in the given array value */
+  _containedIn?: InputMaybe<Array<Scalars['String']['input']>>;
+  /** does the array contain the given value */
+  _contains?: InputMaybe<Array<Scalars['String']['input']>>;
+  _eq?: InputMaybe<Array<Scalars['String']['input']>>;
+  _gt?: InputMaybe<Array<Scalars['String']['input']>>;
+  _gte?: InputMaybe<Array<Scalars['String']['input']>>;
+  _in?: InputMaybe<Array<Array<Scalars['String']['input']>>>;
+  _isNull?: InputMaybe<Scalars['Boolean']['input']>;
+  _lt?: InputMaybe<Array<Scalars['String']['input']>>;
+  _lte?: InputMaybe<Array<Scalars['String']['input']>>;
+  _neq?: InputMaybe<Array<Scalars['String']['input']>>;
+  _nin?: InputMaybe<Array<Array<Scalars['String']['input']>>>;
+};
+
+/** Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'. */
 export type StringComparisonExp = {
   _eq?: InputMaybe<Scalars['String']['input']>;
   _gt?: InputMaybe<Scalars['String']['input']>;
@@ -6603,6 +7328,7 @@ export type Mutation_Root = {
   insertOpenbookTermsSkillOne?: Maybe<OpenbookTermsSkill>;
   login: AuthResult;
   registerUser: User;
+  rewards?: Maybe<Rewards_Mutation_Frontend>;
   suspendUser: Success;
   /** update data of the table: "django_content_type" */
   updateDjangoContentType?: Maybe<DjangoContentTypeMutationResponse>;
@@ -7261,7 +7987,12 @@ export type Mutation_RootUpdateDjangoContentTypeManyArgs = {
 
 /** mutation root */
 export type Mutation_RootUpdateFeedPostsFeedpostArgs = {
+  _append?: InputMaybe<FeedPostsFeedpostAppendInput>;
+  _deleteAtPath?: InputMaybe<FeedPostsFeedpostDeleteAtPathInput>;
+  _deleteElem?: InputMaybe<FeedPostsFeedpostDeleteElemInput>;
+  _deleteKey?: InputMaybe<FeedPostsFeedpostDeleteKeyInput>;
   _inc?: InputMaybe<FeedPostsFeedpostIncInput>;
+  _prepend?: InputMaybe<FeedPostsFeedpostPrependInput>;
   _set?: InputMaybe<FeedPostsFeedpostSetInput>;
   where: FeedPostsFeedpostBoolExp;
 };
@@ -7269,7 +8000,12 @@ export type Mutation_RootUpdateFeedPostsFeedpostArgs = {
 
 /** mutation root */
 export type Mutation_RootUpdateFeedPostsFeedpostByPkArgs = {
+  _append?: InputMaybe<FeedPostsFeedpostAppendInput>;
+  _deleteAtPath?: InputMaybe<FeedPostsFeedpostDeleteAtPathInput>;
+  _deleteElem?: InputMaybe<FeedPostsFeedpostDeleteElemInput>;
+  _deleteKey?: InputMaybe<FeedPostsFeedpostDeleteKeyInput>;
   _inc?: InputMaybe<FeedPostsFeedpostIncInput>;
+  _prepend?: InputMaybe<FeedPostsFeedpostPrependInput>;
   _set?: InputMaybe<FeedPostsFeedpostSetInput>;
   pkColumns: FeedPostsFeedpostPkColumnsInput;
 };
@@ -7283,6 +8019,11 @@ export type Mutation_RootUpdateFeedPostsFeedpostManyArgs = {
 
 /** mutation root */
 export type Mutation_RootUpdateOpenbookAppointmentsAppointmentArgs = {
+  _append?: InputMaybe<OpenbookAppointmentsAppointmentAppendInput>;
+  _deleteAtPath?: InputMaybe<OpenbookAppointmentsAppointmentDeleteAtPathInput>;
+  _deleteElem?: InputMaybe<OpenbookAppointmentsAppointmentDeleteElemInput>;
+  _deleteKey?: InputMaybe<OpenbookAppointmentsAppointmentDeleteKeyInput>;
+  _prepend?: InputMaybe<OpenbookAppointmentsAppointmentPrependInput>;
   _set?: InputMaybe<OpenbookAppointmentsAppointmentSetInput>;
   where: OpenbookAppointmentsAppointmentBoolExp;
 };
@@ -7290,6 +8031,11 @@ export type Mutation_RootUpdateOpenbookAppointmentsAppointmentArgs = {
 
 /** mutation root */
 export type Mutation_RootUpdateOpenbookAppointmentsAppointmentByPkArgs = {
+  _append?: InputMaybe<OpenbookAppointmentsAppointmentAppendInput>;
+  _deleteAtPath?: InputMaybe<OpenbookAppointmentsAppointmentDeleteAtPathInput>;
+  _deleteElem?: InputMaybe<OpenbookAppointmentsAppointmentDeleteElemInput>;
+  _deleteKey?: InputMaybe<OpenbookAppointmentsAppointmentDeleteKeyInput>;
+  _prepend?: InputMaybe<OpenbookAppointmentsAppointmentPrependInput>;
   _set?: InputMaybe<OpenbookAppointmentsAppointmentSetInput>;
   pkColumns: OpenbookAppointmentsAppointmentPkColumnsInput;
 };
@@ -7325,6 +8071,11 @@ export type Mutation_RootUpdateOpenbookAppointmentsAppointmentParticipantsManyAr
 
 /** mutation root */
 export type Mutation_RootUpdateOpenbookAppointmentsLocationdetailsArgs = {
+  _append?: InputMaybe<OpenbookAppointmentsLocationdetailsAppendInput>;
+  _deleteAtPath?: InputMaybe<OpenbookAppointmentsLocationdetailsDeleteAtPathInput>;
+  _deleteElem?: InputMaybe<OpenbookAppointmentsLocationdetailsDeleteElemInput>;
+  _deleteKey?: InputMaybe<OpenbookAppointmentsLocationdetailsDeleteKeyInput>;
+  _prepend?: InputMaybe<OpenbookAppointmentsLocationdetailsPrependInput>;
   _set?: InputMaybe<OpenbookAppointmentsLocationdetailsSetInput>;
   where: OpenbookAppointmentsLocationdetailsBoolExp;
 };
@@ -7332,6 +8083,11 @@ export type Mutation_RootUpdateOpenbookAppointmentsLocationdetailsArgs = {
 
 /** mutation root */
 export type Mutation_RootUpdateOpenbookAppointmentsLocationdetailsByPkArgs = {
+  _append?: InputMaybe<OpenbookAppointmentsLocationdetailsAppendInput>;
+  _deleteAtPath?: InputMaybe<OpenbookAppointmentsLocationdetailsDeleteAtPathInput>;
+  _deleteElem?: InputMaybe<OpenbookAppointmentsLocationdetailsDeleteElemInput>;
+  _deleteKey?: InputMaybe<OpenbookAppointmentsLocationdetailsDeleteKeyInput>;
+  _prepend?: InputMaybe<OpenbookAppointmentsLocationdetailsPrependInput>;
   _set?: InputMaybe<OpenbookAppointmentsLocationdetailsSetInput>;
   pkColumns: OpenbookAppointmentsLocationdetailsPkColumnsInput;
 };
@@ -7427,6 +8183,11 @@ export type Mutation_RootUpdateOpenbookCommunitiesCollaborationtoolManyArgs = {
 
 /** mutation root */
 export type Mutation_RootUpdateOpenbookCommunitiesCommunityArgs = {
+  _append?: InputMaybe<OpenbookCommunitiesCommunityAppendInput>;
+  _deleteAtPath?: InputMaybe<OpenbookCommunitiesCommunityDeleteAtPathInput>;
+  _deleteElem?: InputMaybe<OpenbookCommunitiesCommunityDeleteElemInput>;
+  _deleteKey?: InputMaybe<OpenbookCommunitiesCommunityDeleteKeyInput>;
+  _prepend?: InputMaybe<OpenbookCommunitiesCommunityPrependInput>;
   _set?: InputMaybe<OpenbookCommunitiesCommunitySetInput>;
   where: OpenbookCommunitiesCommunityBoolExp;
 };
@@ -7434,6 +8195,11 @@ export type Mutation_RootUpdateOpenbookCommunitiesCommunityArgs = {
 
 /** mutation root */
 export type Mutation_RootUpdateOpenbookCommunitiesCommunityByPkArgs = {
+  _append?: InputMaybe<OpenbookCommunitiesCommunityAppendInput>;
+  _deleteAtPath?: InputMaybe<OpenbookCommunitiesCommunityDeleteAtPathInput>;
+  _deleteElem?: InputMaybe<OpenbookCommunitiesCommunityDeleteElemInput>;
+  _deleteKey?: InputMaybe<OpenbookCommunitiesCommunityDeleteKeyInput>;
+  _prepend?: InputMaybe<OpenbookCommunitiesCommunityPrependInput>;
   _set?: InputMaybe<OpenbookCommunitiesCommunitySetInput>;
   pkColumns: OpenbookCommunitiesCommunityPkColumnsInput;
 };
@@ -7509,7 +8275,12 @@ export type Mutation_RootUpdateOpenbookCommunitiesOnboardingstepManyArgs = {
 
 /** mutation root */
 export type Mutation_RootUpdateOpenbookCommunitiesTaskArgs = {
+  _append?: InputMaybe<OpenbookCommunitiesTaskAppendInput>;
+  _deleteAtPath?: InputMaybe<OpenbookCommunitiesTaskDeleteAtPathInput>;
+  _deleteElem?: InputMaybe<OpenbookCommunitiesTaskDeleteElemInput>;
+  _deleteKey?: InputMaybe<OpenbookCommunitiesTaskDeleteKeyInput>;
   _inc?: InputMaybe<OpenbookCommunitiesTaskIncInput>;
+  _prepend?: InputMaybe<OpenbookCommunitiesTaskPrependInput>;
   _set?: InputMaybe<OpenbookCommunitiesTaskSetInput>;
   where: OpenbookCommunitiesTaskBoolExp;
 };
@@ -7517,7 +8288,12 @@ export type Mutation_RootUpdateOpenbookCommunitiesTaskArgs = {
 
 /** mutation root */
 export type Mutation_RootUpdateOpenbookCommunitiesTaskByPkArgs = {
+  _append?: InputMaybe<OpenbookCommunitiesTaskAppendInput>;
+  _deleteAtPath?: InputMaybe<OpenbookCommunitiesTaskDeleteAtPathInput>;
+  _deleteElem?: InputMaybe<OpenbookCommunitiesTaskDeleteElemInput>;
+  _deleteKey?: InputMaybe<OpenbookCommunitiesTaskDeleteKeyInput>;
   _inc?: InputMaybe<OpenbookCommunitiesTaskIncInput>;
+  _prepend?: InputMaybe<OpenbookCommunitiesTaskPrependInput>;
   _set?: InputMaybe<OpenbookCommunitiesTaskSetInput>;
   pkColumns: OpenbookCommunitiesTaskPkColumnsInput;
 };
@@ -7871,6 +8647,7 @@ export type Query_Root = {
   openbookTermsSkillByPk?: Maybe<OpenbookTermsSkill>;
   report: Report;
   reports: Array<Report>;
+  rewards?: Maybe<Rewards_Query>;
   users: Array<User>;
   verifyToken: TokenValidity;
 };
@@ -8310,6 +9087,137 @@ export type Query_RootUsersArgs = {
   pagination?: InputMaybe<Pagination>;
 };
 
+export type Rewards_Mutation_Frontend = {
+  /** delete data from the table: "external_counter_value" */
+  deleteExternalCounterValue?: Maybe<ExternalCounterValueMutationResponse>;
+  /** delete single row from the table: "external_counter_value" */
+  deleteExternalCounterValueByPk?: Maybe<ExternalCounterValue>;
+  /** insert data into the table: "external_counter_value" */
+  insertExternalCounterValue?: Maybe<ExternalCounterValueMutationResponse>;
+  /** insert a single row into the table: "external_counter_value" */
+  insertExternalCounterValueOne?: Maybe<ExternalCounterValue>;
+  /** update data of the table: "external_counter_value" */
+  updateExternalCounterValue?: Maybe<ExternalCounterValueMutationResponse>;
+  /** update single row of the table: "external_counter_value" */
+  updateExternalCounterValueByPk?: Maybe<ExternalCounterValue>;
+  /** update multiples rows of table: "external_counter_value" */
+  updateExternalCounterValueMany?: Maybe<Array<Maybe<ExternalCounterValueMutationResponse>>>;
+};
+
+
+export type Rewards_Mutation_FrontendDeleteExternalCounterValueArgs = {
+  where: ExternalCounterValueBoolExp;
+};
+
+
+export type Rewards_Mutation_FrontendDeleteExternalCounterValueByPkArgs = {
+  createdAt: Scalars['timestamptz']['input'];
+};
+
+
+export type Rewards_Mutation_FrontendInsertExternalCounterValueArgs = {
+  objects: Array<ExternalCounterValueInsertInput>;
+  onConflict?: InputMaybe<ExternalCounterValueOnConflict>;
+};
+
+
+export type Rewards_Mutation_FrontendInsertExternalCounterValueOneArgs = {
+  object: ExternalCounterValueInsertInput;
+  onConflict?: InputMaybe<ExternalCounterValueOnConflict>;
+};
+
+
+export type Rewards_Mutation_FrontendUpdateExternalCounterValueArgs = {
+  _inc?: InputMaybe<ExternalCounterValueIncInput>;
+  _set?: InputMaybe<ExternalCounterValueSetInput>;
+  where: ExternalCounterValueBoolExp;
+};
+
+
+export type Rewards_Mutation_FrontendUpdateExternalCounterValueByPkArgs = {
+  _inc?: InputMaybe<ExternalCounterValueIncInput>;
+  _set?: InputMaybe<ExternalCounterValueSetInput>;
+  pkColumns: ExternalCounterValuePkColumnsInput;
+};
+
+
+export type Rewards_Mutation_FrontendUpdateExternalCounterValueManyArgs = {
+  updates: Array<ExternalCounterValueUpdates>;
+};
+
+export type Rewards_Query = {
+  /** fetch data from the table: "external_counter_value" */
+  externalCounterValue: Array<ExternalCounterValue>;
+  /** fetch aggregated fields from the table: "external_counter_value" */
+  externalCounterValueAggregate: ExternalCounterValueAggregate;
+  /** fetch data from the table: "external_counter_value" using primary key columns */
+  externalCounterValueByPk?: Maybe<ExternalCounterValue>;
+};
+
+
+export type Rewards_QueryExternalCounterValueArgs = {
+  distinctOn?: InputMaybe<Array<ExternalCounterValueSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<ExternalCounterValueOrderBy>>;
+  where?: InputMaybe<ExternalCounterValueBoolExp>;
+};
+
+
+export type Rewards_QueryExternalCounterValueAggregateArgs = {
+  distinctOn?: InputMaybe<Array<ExternalCounterValueSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<ExternalCounterValueOrderBy>>;
+  where?: InputMaybe<ExternalCounterValueBoolExp>;
+};
+
+
+export type Rewards_QueryExternalCounterValueByPkArgs = {
+  createdAt: Scalars['timestamptz']['input'];
+};
+
+export type Rewards_Subscription = {
+  /** fetch data from the table: "external_counter_value" */
+  externalCounterValue: Array<ExternalCounterValue>;
+  /** fetch aggregated fields from the table: "external_counter_value" */
+  externalCounterValueAggregate: ExternalCounterValueAggregate;
+  /** fetch data from the table: "external_counter_value" using primary key columns */
+  externalCounterValueByPk?: Maybe<ExternalCounterValue>;
+  /** fetch data from the table in a streaming manner: "external_counter_value" */
+  externalCounterValueStream: Array<ExternalCounterValue>;
+};
+
+
+export type Rewards_SubscriptionExternalCounterValueArgs = {
+  distinctOn?: InputMaybe<Array<ExternalCounterValueSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<ExternalCounterValueOrderBy>>;
+  where?: InputMaybe<ExternalCounterValueBoolExp>;
+};
+
+
+export type Rewards_SubscriptionExternalCounterValueAggregateArgs = {
+  distinctOn?: InputMaybe<Array<ExternalCounterValueSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<ExternalCounterValueOrderBy>>;
+  where?: InputMaybe<ExternalCounterValueBoolExp>;
+};
+
+
+export type Rewards_SubscriptionExternalCounterValueByPkArgs = {
+  createdAt: Scalars['timestamptz']['input'];
+};
+
+
+export type Rewards_SubscriptionExternalCounterValueStreamArgs = {
+  batchSize: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<ExternalCounterValueStreamCursorInput>>;
+  where?: InputMaybe<ExternalCounterValueBoolExp>;
+};
+
 export type St_D_Within_Geography_Input = {
   distance: Scalars['Float']['input'];
   from: Scalars['geography']['input'];
@@ -8466,6 +9374,7 @@ export type Subscription_Root = {
   openbookTermsSkillByPk?: Maybe<OpenbookTermsSkill>;
   /** fetch data from the table in a streaming manner: "openbook_terms_skill" */
   openbookTermsSkillStream: Array<OpenbookTermsSkill>;
+  rewards?: Maybe<Rewards_Subscription>;
 };
 
 
