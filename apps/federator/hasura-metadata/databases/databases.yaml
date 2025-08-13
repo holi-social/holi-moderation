@@ -9,3 +9,16 @@
   customization:
     naming_convention: graphql-default
   tables: "!include okuna/tables/tables.yaml"
+- name: rewards
+  kind: postgres
+  configuration:
+    connection_info:
+      database_url:
+        from_env: REWARDS_DATABASE_URL
+      isolation_level: read-committed
+      use_prepared_statements: false
+  customization:
+    naming_convention: graphql-default
+    root_fields:
+      namespace: rewards
+  tables: "!include rewards/tables/tables.yaml"

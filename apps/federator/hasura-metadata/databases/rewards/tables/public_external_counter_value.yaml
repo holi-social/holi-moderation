@@ -1,0 +1,10 @@
+table:
+  name: external_counter_value
+  schema: public
+insert_permissions:
+  - role: moderator
+    permission:
+      check: {}
+      columns:
+        - external_count
+    comment: ""
