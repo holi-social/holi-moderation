@@ -12,6 +12,10 @@ locals {
 
   okuna_db_name  = data.terraform_remote_state.okuna_environments_state.outputs.database_name
   federator_name = format(local.name_template, "federator")
+
+  rewards_db_name            = data.terraform_remote_state.rewards.outputs.database_name
+  rewards_db_user            = data.terraform_remote_state.rewards.outputs.database_user
+  rewards_db_password_secret = data.terraform_remote_state.rewards.outputs.database_password_secret
 }
 
 resource "google_sql_user" "federator_user" {
@@ -49,10 +53,12 @@ resource "google_cloud_run_service" "moderation_federator" {
           container_port = 8080
         }
 
+        // HASURA DATABASE CONFIG
         env {
           name  = "HASURA_GRAPHQL_METADATA_DB_USERNAME"
           value = google_sql_user.federator_user.name
         }
+
         env {
           name = "HASURA_GRAPHQL_METADATA_DB_PASSWORD"
           value_from {
@@ -62,19 +68,23 @@ resource "google_cloud_run_service" "moderation_federator" {
             }
           }
         }
+
         env {
           name  = "HASURA_GRAPHQL_METADATA_DB_HOST"
           value = local.shared_db_host
         }
+
         env {
           name  = "HASURA_GRAPHQL_METADATA_DB_PORT"
           value = "5432"
         }
+
         env {
           name  = "HASURA_GRAPHQL_METADATA_DB_NAME"
           value = google_sql_database.federator_db.name
         }
 
+        // OKUNA DATABASE CONNECTION
         env {
           name = "OKUNA_DB_USERNAME"
           value_from {
@@ -84,6 +94,7 @@ resource "google_cloud_run_service" "moderation_federator" {
             }
           }
         }
+
         env {
           name = "OKUNA_DB_PASSWORD"
           value_from {
@@ -93,19 +104,54 @@ resource "google_cloud_run_service" "moderation_federator" {
             }
           }
         }
+
         env {
           name  = "OKUNA_DB_HOST"
           value = local.shared_db_host
         }
+
         env {
           name  = "OKUNA_DB_PORT"
           value = "5432"
         }
+
         env {
           name  = "OKUNA_DB_NAME"
           value = local.okuna_db_name
         }
 
+        // REWARDS DATABASE CONNECTION
+        env {
+          name  = "REWARDS_DB_HOST"
+          value = local.shared_db_host
+        }
+
+        env {
+          name  = "REWARDS_DB_PORT"
+          value = "5432"
+        }
+
+        env {
+          name  = "REWARDS_DB_NAME"
+          value = local.rewards_db_name
+        }
+
+        env {
+          name  = "REWARDS_DB_USER"
+          value = local.rewards_db_user
+        }
+
+        env {
+          name = "REWARDS_DB_PASSWORD"
+          value_from {
+            secret_key_ref {
+              name = local.rewards_db_password_secret
+              key  = "latest"
+            }
+          }
+        }
+
+        // MODERATION BACKEND CONNECTION
         env {
           name  = "BACKEND_GRAPHQL_URL"
           value = "https://${trim(local.backend_domain, ".")}/graphql"
@@ -121,6 +167,7 @@ resource "google_cloud_run_service" "moderation_federator" {
           }
         }
 
+        // HASURA APP CONFIG
         env {
           name  = "HASURA_GRAPHQL_DEV_MODE"
           value = "false"

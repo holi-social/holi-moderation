@@ -42,6 +42,15 @@ data "terraform_remote_state" "okuna_environments_state" {
   }
 }
 
+data "terraform_remote_state" "rewards" {
+  backend   = "gcs"
+  workspace = terraform.workspace == "production" ? "production" : "staging"
+  config = {
+    bucket = "holi-shared-terraform-state"
+    prefix = "rewards-environments"
+  }
+}
+
 provider "google" {
   region  = local.default_region
   project = data.terraform_remote_state.holi_infra_state.outputs.shared_project_id
