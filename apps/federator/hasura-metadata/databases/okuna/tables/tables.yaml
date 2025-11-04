@@ -12,7 +12,5 @@
 - "!include public_openbook_communities_externallink.yaml"
 - "!include public_openbook_communities_onboardingstep.yaml"
 - "!include public_openbook_communities_task.yaml"
-- "!include public_openbook_communities_task_skills.yaml"
 - "!include public_openbook_posts_post.yaml"
 - "!include public_openbook_posts_postcomment.yaml"
-- "!include public_openbook_terms_skill.yaml"
