@@ -4928,7 +4928,6 @@ export type OpenbookCommunitiesOnboardingstepVarianceOrderBy = {
 
 /** columns and relationships of "openbook_communities_task" */
 export type OpenbookCommunitiesTask = {
-  additionalContext?: Maybe<Scalars['String']['output']>;
   communityId: Scalars['uuid']['output'];
   contactEmail?: Maybe<Scalars['String']['output']>;
   contactPhone?: Maybe<Scalars['String']['output']>;
@@ -4949,10 +4948,6 @@ export type OpenbookCommunitiesTask = {
   locationType: Scalars['String']['output'];
   name: Scalars['String']['output'];
   regularity: Scalars['String']['output'];
-  /** An array relationship */
-  skills: Array<OpenbookCommunitiesTaskSkills>;
-  /** An aggregate relationship */
-  skillsAggregate: OpenbookCommunitiesTaskSkillsAggregate;
   skillsV2: Array<Scalars['String']['output']>;
   slotsAvailable: Scalars['Int']['output'];
   slotsTaken: Scalars['Int']['output'];
@@ -4969,26 +4964,6 @@ export type OpenbookCommunitiesTask = {
 /** columns and relationships of "openbook_communities_task" */
 export type OpenbookCommunitiesTaskGeolocationGeojsonArgs = {
   path?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** columns and relationships of "openbook_communities_task" */
-export type OpenbookCommunitiesTaskSkillsArgs = {
-  distinctOn?: InputMaybe<Array<OpenbookCommunitiesTaskSkillsSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  orderBy?: InputMaybe<Array<OpenbookCommunitiesTaskSkillsOrderBy>>;
-  where?: InputMaybe<OpenbookCommunitiesTaskSkillsBoolExp>;
-};
-
-
-/** columns and relationships of "openbook_communities_task" */
-export type OpenbookCommunitiesTaskSkillsAggregateArgs = {
-  distinctOn?: InputMaybe<Array<OpenbookCommunitiesTaskSkillsSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  orderBy?: InputMaybe<Array<OpenbookCommunitiesTaskSkillsOrderBy>>;
-  where?: InputMaybe<OpenbookCommunitiesTaskSkillsBoolExp>;
 };
 
 /** aggregated selection of "openbook_communities_task" */
@@ -5067,7 +5042,6 @@ export type OpenbookCommunitiesTaskBoolExp = {
   _and?: InputMaybe<Array<OpenbookCommunitiesTaskBoolExp>>;
   _not?: InputMaybe<OpenbookCommunitiesTaskBoolExp>;
   _or?: InputMaybe<Array<OpenbookCommunitiesTaskBoolExp>>;
-  additionalContext?: InputMaybe<StringComparisonExp>;
   communityId?: InputMaybe<UuidComparisonExp>;
   contactEmail?: InputMaybe<StringComparisonExp>;
   contactPhone?: InputMaybe<StringComparisonExp>;
@@ -5087,8 +5061,6 @@ export type OpenbookCommunitiesTaskBoolExp = {
   locationType?: InputMaybe<StringComparisonExp>;
   name?: InputMaybe<StringComparisonExp>;
   regularity?: InputMaybe<StringComparisonExp>;
-  skills?: InputMaybe<OpenbookCommunitiesTaskSkillsBoolExp>;
-  skillsAggregate?: InputMaybe<OpenbookCommunitiesTaskSkillsAggregateBoolExp>;
   skillsV2?: InputMaybe<StringArrayComparisonExp>;
   slotsAvailable?: InputMaybe<IntComparisonExp>;
   slotsTaken?: InputMaybe<IntComparisonExp>;
@@ -5128,7 +5100,6 @@ export type OpenbookCommunitiesTaskIncInput = {
 
 /** input type for inserting data into table "openbook_communities_task" */
 export type OpenbookCommunitiesTaskInsertInput = {
-  additionalContext?: InputMaybe<Scalars['String']['input']>;
   communityId?: InputMaybe<Scalars['uuid']['input']>;
   contactEmail?: InputMaybe<Scalars['String']['input']>;
   contactPhone?: InputMaybe<Scalars['String']['input']>;
@@ -5148,7 +5119,6 @@ export type OpenbookCommunitiesTaskInsertInput = {
   locationType?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   regularity?: InputMaybe<Scalars['String']['input']>;
-  skills?: InputMaybe<OpenbookCommunitiesTaskSkillsArrRelInsertInput>;
   skillsV2?: InputMaybe<Array<Scalars['String']['input']>>;
   slotsAvailable?: InputMaybe<Scalars['Int']['input']>;
   slotsTaken?: InputMaybe<Scalars['Int']['input']>;
@@ -5162,7 +5132,6 @@ export type OpenbookCommunitiesTaskInsertInput = {
 
 /** aggregate max on columns */
 export type OpenbookCommunitiesTaskMaxFields = {
-  additionalContext?: Maybe<Scalars['String']['output']>;
   communityId?: Maybe<Scalars['uuid']['output']>;
   contactEmail?: Maybe<Scalars['String']['output']>;
   contactPhone?: Maybe<Scalars['String']['output']>;
@@ -5191,7 +5160,6 @@ export type OpenbookCommunitiesTaskMaxFields = {
 
 /** order by max() on columns of table "openbook_communities_task" */
 export type OpenbookCommunitiesTaskMaxOrderBy = {
-  additionalContext?: InputMaybe<OrderBy>;
   communityId?: InputMaybe<OrderBy>;
   contactEmail?: InputMaybe<OrderBy>;
   contactPhone?: InputMaybe<OrderBy>;
@@ -5220,7 +5188,6 @@ export type OpenbookCommunitiesTaskMaxOrderBy = {
 
 /** aggregate min on columns */
 export type OpenbookCommunitiesTaskMinFields = {
-  additionalContext?: Maybe<Scalars['String']['output']>;
   communityId?: Maybe<Scalars['uuid']['output']>;
   contactEmail?: Maybe<Scalars['String']['output']>;
   contactPhone?: Maybe<Scalars['String']['output']>;
@@ -5249,7 +5216,6 @@ export type OpenbookCommunitiesTaskMinFields = {
 
 /** order by min() on columns of table "openbook_communities_task" */
 export type OpenbookCommunitiesTaskMinOrderBy = {
-  additionalContext?: InputMaybe<OrderBy>;
   communityId?: InputMaybe<OrderBy>;
   contactEmail?: InputMaybe<OrderBy>;
   contactPhone?: InputMaybe<OrderBy>;
@@ -5293,7 +5259,6 @@ export type OpenbookCommunitiesTaskOnConflict = {
 
 /** Ordering options when selecting data from "openbook_communities_task". */
 export type OpenbookCommunitiesTaskOrderBy = {
-  additionalContext?: InputMaybe<OrderBy>;
   communityId?: InputMaybe<OrderBy>;
   contactEmail?: InputMaybe<OrderBy>;
   contactPhone?: InputMaybe<OrderBy>;
@@ -5313,7 +5278,6 @@ export type OpenbookCommunitiesTaskOrderBy = {
   locationType?: InputMaybe<OrderBy>;
   name?: InputMaybe<OrderBy>;
   regularity?: InputMaybe<OrderBy>;
-  skillsAggregate?: InputMaybe<OpenbookCommunitiesTaskSkillsAggregateOrderBy>;
   skillsV2?: InputMaybe<OrderBy>;
   slotsAvailable?: InputMaybe<OrderBy>;
   slotsTaken?: InputMaybe<OrderBy>;
@@ -5337,8 +5301,6 @@ export type OpenbookCommunitiesTaskPrependInput = {
 
 /** select columns of table "openbook_communities_task" */
 export type OpenbookCommunitiesTaskSelectColumn =
-  /** column name */
-  | 'additionalContext'
   /** column name */
   | 'communityId'
   /** column name */
@@ -5394,7 +5356,6 @@ export type OpenbookCommunitiesTaskSelectColumn =
 
 /** input type for updating data in table "openbook_communities_task" */
 export type OpenbookCommunitiesTaskSetInput = {
-  additionalContext?: InputMaybe<Scalars['String']['input']>;
   communityId?: InputMaybe<Scalars['uuid']['input']>;
   contactEmail?: InputMaybe<Scalars['String']['input']>;
   contactPhone?: InputMaybe<Scalars['String']['input']>;
@@ -5421,285 +5382,6 @@ export type OpenbookCommunitiesTaskSetInput = {
   timeframeEndDate?: InputMaybe<Scalars['date']['input']>;
   timeframeStartDate?: InputMaybe<Scalars['date']['input']>;
   visibility?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** columns and relationships of "openbook_communities_task_skills" */
-export type OpenbookCommunitiesTaskSkills = {
-  id: Scalars['bigint']['output'];
-  /** An object relationship */
-  skill: OpenbookTermsSkill;
-  skillId: Scalars['uuid']['output'];
-  taskId: Scalars['uuid']['output'];
-};
-
-/** aggregated selection of "openbook_communities_task_skills" */
-export type OpenbookCommunitiesTaskSkillsAggregate = {
-  aggregate?: Maybe<OpenbookCommunitiesTaskSkillsAggregateFields>;
-  nodes: Array<OpenbookCommunitiesTaskSkills>;
-};
-
-export type OpenbookCommunitiesTaskSkillsAggregateBoolExp = {
-  count?: InputMaybe<OpenbookCommunitiesTaskSkillsAggregateBoolExpCount>;
-};
-
-/** aggregate fields of "openbook_communities_task_skills" */
-export type OpenbookCommunitiesTaskSkillsAggregateFields = {
-  avg?: Maybe<OpenbookCommunitiesTaskSkillsAvgFields>;
-  count: Scalars['Int']['output'];
-  max?: Maybe<OpenbookCommunitiesTaskSkillsMaxFields>;
-  min?: Maybe<OpenbookCommunitiesTaskSkillsMinFields>;
-  stddev?: Maybe<OpenbookCommunitiesTaskSkillsStddevFields>;
-  stddevPop?: Maybe<OpenbookCommunitiesTaskSkillsStddevPopFields>;
-  stddevSamp?: Maybe<OpenbookCommunitiesTaskSkillsStddevSampFields>;
-  sum?: Maybe<OpenbookCommunitiesTaskSkillsSumFields>;
-  varPop?: Maybe<OpenbookCommunitiesTaskSkillsVarPopFields>;
-  varSamp?: Maybe<OpenbookCommunitiesTaskSkillsVarSampFields>;
-  variance?: Maybe<OpenbookCommunitiesTaskSkillsVarianceFields>;
-};
-
-
-/** aggregate fields of "openbook_communities_task_skills" */
-export type OpenbookCommunitiesTaskSkillsAggregateFieldsCountArgs = {
-  columns?: InputMaybe<Array<OpenbookCommunitiesTaskSkillsSelectColumn>>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-/** order by aggregate values of table "openbook_communities_task_skills" */
-export type OpenbookCommunitiesTaskSkillsAggregateOrderBy = {
-  avg?: InputMaybe<OpenbookCommunitiesTaskSkillsAvgOrderBy>;
-  count?: InputMaybe<OrderBy>;
-  max?: InputMaybe<OpenbookCommunitiesTaskSkillsMaxOrderBy>;
-  min?: InputMaybe<OpenbookCommunitiesTaskSkillsMinOrderBy>;
-  stddev?: InputMaybe<OpenbookCommunitiesTaskSkillsStddevOrderBy>;
-  stddevPop?: InputMaybe<OpenbookCommunitiesTaskSkillsStddevPopOrderBy>;
-  stddevSamp?: InputMaybe<OpenbookCommunitiesTaskSkillsStddevSampOrderBy>;
-  sum?: InputMaybe<OpenbookCommunitiesTaskSkillsSumOrderBy>;
-  varPop?: InputMaybe<OpenbookCommunitiesTaskSkillsVarPopOrderBy>;
-  varSamp?: InputMaybe<OpenbookCommunitiesTaskSkillsVarSampOrderBy>;
-  variance?: InputMaybe<OpenbookCommunitiesTaskSkillsVarianceOrderBy>;
-};
-
-/** input type for inserting array relation for remote table "openbook_communities_task_skills" */
-export type OpenbookCommunitiesTaskSkillsArrRelInsertInput = {
-  data: Array<OpenbookCommunitiesTaskSkillsInsertInput>;
-  /** upsert condition */
-  onConflict?: InputMaybe<OpenbookCommunitiesTaskSkillsOnConflict>;
-};
-
-/** aggregate avg on columns */
-export type OpenbookCommunitiesTaskSkillsAvgFields = {
-  id?: Maybe<Scalars['Float']['output']>;
-};
-
-/** order by avg() on columns of table "openbook_communities_task_skills" */
-export type OpenbookCommunitiesTaskSkillsAvgOrderBy = {
-  id?: InputMaybe<OrderBy>;
-};
-
-/** Boolean expression to filter rows from the table "openbook_communities_task_skills". All fields are combined with a logical 'AND'. */
-export type OpenbookCommunitiesTaskSkillsBoolExp = {
-  _and?: InputMaybe<Array<OpenbookCommunitiesTaskSkillsBoolExp>>;
-  _not?: InputMaybe<OpenbookCommunitiesTaskSkillsBoolExp>;
-  _or?: InputMaybe<Array<OpenbookCommunitiesTaskSkillsBoolExp>>;
-  id?: InputMaybe<BigintComparisonExp>;
-  skill?: InputMaybe<OpenbookTermsSkillBoolExp>;
-  skillId?: InputMaybe<UuidComparisonExp>;
-  taskId?: InputMaybe<UuidComparisonExp>;
-};
-
-/** unique or primary key constraints on table "openbook_communities_task_skills" */
-export type OpenbookCommunitiesTaskSkillsConstraint =
-  /** unique or primary key constraint on columns "id" */
-  | 'openbook_communities_task_skills_pkey'
-  /** unique or primary key constraint on columns "task_id", "skill_id" */
-  | 'openbook_communities_task_skills_task_id_skill_id_a0abe98d_uniq';
-
-/** input type for incrementing numeric columns in table "openbook_communities_task_skills" */
-export type OpenbookCommunitiesTaskSkillsIncInput = {
-  id?: InputMaybe<Scalars['bigint']['input']>;
-};
-
-/** input type for inserting data into table "openbook_communities_task_skills" */
-export type OpenbookCommunitiesTaskSkillsInsertInput = {
-  id?: InputMaybe<Scalars['bigint']['input']>;
-  skill?: InputMaybe<OpenbookTermsSkillObjRelInsertInput>;
-  skillId?: InputMaybe<Scalars['uuid']['input']>;
-  taskId?: InputMaybe<Scalars['uuid']['input']>;
-};
-
-/** aggregate max on columns */
-export type OpenbookCommunitiesTaskSkillsMaxFields = {
-  id?: Maybe<Scalars['bigint']['output']>;
-  skillId?: Maybe<Scalars['uuid']['output']>;
-  taskId?: Maybe<Scalars['uuid']['output']>;
-};
-
-/** order by max() on columns of table "openbook_communities_task_skills" */
-export type OpenbookCommunitiesTaskSkillsMaxOrderBy = {
-  id?: InputMaybe<OrderBy>;
-  skillId?: InputMaybe<OrderBy>;
-  taskId?: InputMaybe<OrderBy>;
-};
-
-/** aggregate min on columns */
-export type OpenbookCommunitiesTaskSkillsMinFields = {
-  id?: Maybe<Scalars['bigint']['output']>;
-  skillId?: Maybe<Scalars['uuid']['output']>;
-  taskId?: Maybe<Scalars['uuid']['output']>;
-};
-
-/** order by min() on columns of table "openbook_communities_task_skills" */
-export type OpenbookCommunitiesTaskSkillsMinOrderBy = {
-  id?: InputMaybe<OrderBy>;
-  skillId?: InputMaybe<OrderBy>;
-  taskId?: InputMaybe<OrderBy>;
-};
-
-/** response of any mutation on the table "openbook_communities_task_skills" */
-export type OpenbookCommunitiesTaskSkillsMutationResponse = {
-  /** number of rows affected by the mutation */
-  affectedRows: Scalars['Int']['output'];
-  /** data from the rows affected by the mutation */
-  returning: Array<OpenbookCommunitiesTaskSkills>;
-};
-
-/** on_conflict condition type for table "openbook_communities_task_skills" */
-export type OpenbookCommunitiesTaskSkillsOnConflict = {
-  constraint: OpenbookCommunitiesTaskSkillsConstraint;
-  updateColumns?: Array<OpenbookCommunitiesTaskSkillsUpdateColumn>;
-  where?: InputMaybe<OpenbookCommunitiesTaskSkillsBoolExp>;
-};
-
-/** Ordering options when selecting data from "openbook_communities_task_skills". */
-export type OpenbookCommunitiesTaskSkillsOrderBy = {
-  id?: InputMaybe<OrderBy>;
-  skill?: InputMaybe<OpenbookTermsSkillOrderBy>;
-  skillId?: InputMaybe<OrderBy>;
-  taskId?: InputMaybe<OrderBy>;
-};
-
-/** primary key columns input for table: openbook_communities_task_skills */
-export type OpenbookCommunitiesTaskSkillsPkColumnsInput = {
-  id: Scalars['bigint']['input'];
-};
-
-/** select columns of table "openbook_communities_task_skills" */
-export type OpenbookCommunitiesTaskSkillsSelectColumn =
-  /** column name */
-  | 'id'
-  /** column name */
-  | 'skillId'
-  /** column name */
-  | 'taskId';
-
-/** input type for updating data in table "openbook_communities_task_skills" */
-export type OpenbookCommunitiesTaskSkillsSetInput = {
-  id?: InputMaybe<Scalars['bigint']['input']>;
-  skillId?: InputMaybe<Scalars['uuid']['input']>;
-  taskId?: InputMaybe<Scalars['uuid']['input']>;
-};
-
-/** aggregate stddev on columns */
-export type OpenbookCommunitiesTaskSkillsStddevFields = {
-  id?: Maybe<Scalars['Float']['output']>;
-};
-
-/** order by stddev() on columns of table "openbook_communities_task_skills" */
-export type OpenbookCommunitiesTaskSkillsStddevOrderBy = {
-  id?: InputMaybe<OrderBy>;
-};
-
-/** aggregate stddevPop on columns */
-export type OpenbookCommunitiesTaskSkillsStddevPopFields = {
-  id?: Maybe<Scalars['Float']['output']>;
-};
-
-/** order by stddevPop() on columns of table "openbook_communities_task_skills" */
-export type OpenbookCommunitiesTaskSkillsStddevPopOrderBy = {
-  id?: InputMaybe<OrderBy>;
-};
-
-/** aggregate stddevSamp on columns */
-export type OpenbookCommunitiesTaskSkillsStddevSampFields = {
-  id?: Maybe<Scalars['Float']['output']>;
-};
-
-/** order by stddevSamp() on columns of table "openbook_communities_task_skills" */
-export type OpenbookCommunitiesTaskSkillsStddevSampOrderBy = {
-  id?: InputMaybe<OrderBy>;
-};
-
-/** Streaming cursor of the table "openbook_communities_task_skills" */
-export type OpenbookCommunitiesTaskSkillsStreamCursorInput = {
-  /** Stream column input with initial value */
-  initialValue: OpenbookCommunitiesTaskSkillsStreamCursorValueInput;
-  /** cursor ordering */
-  ordering?: InputMaybe<CursorOrdering>;
-};
-
-/** Initial value of the column from where the streaming should start */
-export type OpenbookCommunitiesTaskSkillsStreamCursorValueInput = {
-  id?: InputMaybe<Scalars['bigint']['input']>;
-  skillId?: InputMaybe<Scalars['uuid']['input']>;
-  taskId?: InputMaybe<Scalars['uuid']['input']>;
-};
-
-/** aggregate sum on columns */
-export type OpenbookCommunitiesTaskSkillsSumFields = {
-  id?: Maybe<Scalars['bigint']['output']>;
-};
-
-/** order by sum() on columns of table "openbook_communities_task_skills" */
-export type OpenbookCommunitiesTaskSkillsSumOrderBy = {
-  id?: InputMaybe<OrderBy>;
-};
-
-/** update columns of table "openbook_communities_task_skills" */
-export type OpenbookCommunitiesTaskSkillsUpdateColumn =
-  /** column name */
-  | 'id'
-  /** column name */
-  | 'skillId'
-  /** column name */
-  | 'taskId';
-
-export type OpenbookCommunitiesTaskSkillsUpdates = {
-  /** increments the numeric columns with given value of the filtered values */
-  _inc?: InputMaybe<OpenbookCommunitiesTaskSkillsIncInput>;
-  /** sets the columns of the filtered rows to the given values */
-  _set?: InputMaybe<OpenbookCommunitiesTaskSkillsSetInput>;
-  /** filter the rows which have to be updated */
-  where: OpenbookCommunitiesTaskSkillsBoolExp;
-};
-
-/** aggregate varPop on columns */
-export type OpenbookCommunitiesTaskSkillsVarPopFields = {
-  id?: Maybe<Scalars['Float']['output']>;
-};
-
-/** order by varPop() on columns of table "openbook_communities_task_skills" */
-export type OpenbookCommunitiesTaskSkillsVarPopOrderBy = {
-  id?: InputMaybe<OrderBy>;
-};
-
-/** aggregate varSamp on columns */
-export type OpenbookCommunitiesTaskSkillsVarSampFields = {
-  id?: Maybe<Scalars['Float']['output']>;
-};
-
-/** order by varSamp() on columns of table "openbook_communities_task_skills" */
-export type OpenbookCommunitiesTaskSkillsVarSampOrderBy = {
-  id?: InputMaybe<OrderBy>;
-};
-
-/** aggregate variance on columns */
-export type OpenbookCommunitiesTaskSkillsVarianceFields = {
-  id?: Maybe<Scalars['Float']['output']>;
-};
-
-/** order by variance() on columns of table "openbook_communities_task_skills" */
-export type OpenbookCommunitiesTaskSkillsVarianceOrderBy = {
-  id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev on columns */
@@ -5748,7 +5430,6 @@ export type OpenbookCommunitiesTaskStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type OpenbookCommunitiesTaskStreamCursorValueInput = {
-  additionalContext?: InputMaybe<Scalars['String']['input']>;
   communityId?: InputMaybe<Scalars['uuid']['input']>;
   contactEmail?: InputMaybe<Scalars['String']['input']>;
   contactPhone?: InputMaybe<Scalars['String']['input']>;
@@ -5791,8 +5472,6 @@ export type OpenbookCommunitiesTaskSumOrderBy = {
 
 /** update columns of table "openbook_communities_task" */
 export type OpenbookCommunitiesTaskUpdateColumn =
-  /** column name */
-  | 'additionalContext'
   /** column name */
   | 'communityId'
   /** column name */
@@ -6698,284 +6377,6 @@ export type OpenbookPostsPostcommentVarianceOrderBy = {
   commentableTypeId?: InputMaybe<OrderBy>;
 };
 
-/** columns and relationships of "openbook_terms_skill" */
-export type OpenbookTermsSkill = {
-  id: Scalars['uuid']['output'];
-  slug: Scalars['String']['output'];
-  title: Scalars['String']['output'];
-  titleDa?: Maybe<Scalars['String']['output']>;
-  titleDe?: Maybe<Scalars['String']['output']>;
-  titleEn?: Maybe<Scalars['String']['output']>;
-  titleEs?: Maybe<Scalars['String']['output']>;
-  titleFr?: Maybe<Scalars['String']['output']>;
-  titleHu?: Maybe<Scalars['String']['output']>;
-  titleIt?: Maybe<Scalars['String']['output']>;
-  titleNl?: Maybe<Scalars['String']['output']>;
-  titlePtBr?: Maybe<Scalars['String']['output']>;
-  titleSv?: Maybe<Scalars['String']['output']>;
-  titleTr?: Maybe<Scalars['String']['output']>;
-};
-
-/** aggregated selection of "openbook_terms_skill" */
-export type OpenbookTermsSkillAggregate = {
-  aggregate?: Maybe<OpenbookTermsSkillAggregateFields>;
-  nodes: Array<OpenbookTermsSkill>;
-};
-
-/** aggregate fields of "openbook_terms_skill" */
-export type OpenbookTermsSkillAggregateFields = {
-  count: Scalars['Int']['output'];
-  max?: Maybe<OpenbookTermsSkillMaxFields>;
-  min?: Maybe<OpenbookTermsSkillMinFields>;
-};
-
-
-/** aggregate fields of "openbook_terms_skill" */
-export type OpenbookTermsSkillAggregateFieldsCountArgs = {
-  columns?: InputMaybe<Array<OpenbookTermsSkillSelectColumn>>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-/** Boolean expression to filter rows from the table "openbook_terms_skill". All fields are combined with a logical 'AND'. */
-export type OpenbookTermsSkillBoolExp = {
-  _and?: InputMaybe<Array<OpenbookTermsSkillBoolExp>>;
-  _not?: InputMaybe<OpenbookTermsSkillBoolExp>;
-  _or?: InputMaybe<Array<OpenbookTermsSkillBoolExp>>;
-  id?: InputMaybe<UuidComparisonExp>;
-  slug?: InputMaybe<StringComparisonExp>;
-  title?: InputMaybe<StringComparisonExp>;
-  titleDa?: InputMaybe<StringComparisonExp>;
-  titleDe?: InputMaybe<StringComparisonExp>;
-  titleEn?: InputMaybe<StringComparisonExp>;
-  titleEs?: InputMaybe<StringComparisonExp>;
-  titleFr?: InputMaybe<StringComparisonExp>;
-  titleHu?: InputMaybe<StringComparisonExp>;
-  titleIt?: InputMaybe<StringComparisonExp>;
-  titleNl?: InputMaybe<StringComparisonExp>;
-  titlePtBr?: InputMaybe<StringComparisonExp>;
-  titleSv?: InputMaybe<StringComparisonExp>;
-  titleTr?: InputMaybe<StringComparisonExp>;
-};
-
-/** unique or primary key constraints on table "openbook_terms_skill" */
-export type OpenbookTermsSkillConstraint =
-  /** unique or primary key constraint on columns "id" */
-  | 'openbook_terms_skill_pkey'
-  /** unique or primary key constraint on columns "slug" */
-  | 'openbook_terms_skill_slug_key';
-
-/** input type for inserting data into table "openbook_terms_skill" */
-export type OpenbookTermsSkillInsertInput = {
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  slug?: InputMaybe<Scalars['String']['input']>;
-  title?: InputMaybe<Scalars['String']['input']>;
-  titleDa?: InputMaybe<Scalars['String']['input']>;
-  titleDe?: InputMaybe<Scalars['String']['input']>;
-  titleEn?: InputMaybe<Scalars['String']['input']>;
-  titleEs?: InputMaybe<Scalars['String']['input']>;
-  titleFr?: InputMaybe<Scalars['String']['input']>;
-  titleHu?: InputMaybe<Scalars['String']['input']>;
-  titleIt?: InputMaybe<Scalars['String']['input']>;
-  titleNl?: InputMaybe<Scalars['String']['input']>;
-  titlePtBr?: InputMaybe<Scalars['String']['input']>;
-  titleSv?: InputMaybe<Scalars['String']['input']>;
-  titleTr?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** aggregate max on columns */
-export type OpenbookTermsSkillMaxFields = {
-  id?: Maybe<Scalars['uuid']['output']>;
-  slug?: Maybe<Scalars['String']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-  titleDa?: Maybe<Scalars['String']['output']>;
-  titleDe?: Maybe<Scalars['String']['output']>;
-  titleEn?: Maybe<Scalars['String']['output']>;
-  titleEs?: Maybe<Scalars['String']['output']>;
-  titleFr?: Maybe<Scalars['String']['output']>;
-  titleHu?: Maybe<Scalars['String']['output']>;
-  titleIt?: Maybe<Scalars['String']['output']>;
-  titleNl?: Maybe<Scalars['String']['output']>;
-  titlePtBr?: Maybe<Scalars['String']['output']>;
-  titleSv?: Maybe<Scalars['String']['output']>;
-  titleTr?: Maybe<Scalars['String']['output']>;
-};
-
-/** aggregate min on columns */
-export type OpenbookTermsSkillMinFields = {
-  id?: Maybe<Scalars['uuid']['output']>;
-  slug?: Maybe<Scalars['String']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-  titleDa?: Maybe<Scalars['String']['output']>;
-  titleDe?: Maybe<Scalars['String']['output']>;
-  titleEn?: Maybe<Scalars['String']['output']>;
-  titleEs?: Maybe<Scalars['String']['output']>;
-  titleFr?: Maybe<Scalars['String']['output']>;
-  titleHu?: Maybe<Scalars['String']['output']>;
-  titleIt?: Maybe<Scalars['String']['output']>;
-  titleNl?: Maybe<Scalars['String']['output']>;
-  titlePtBr?: Maybe<Scalars['String']['output']>;
-  titleSv?: Maybe<Scalars['String']['output']>;
-  titleTr?: Maybe<Scalars['String']['output']>;
-};
-
-/** response of any mutation on the table "openbook_terms_skill" */
-export type OpenbookTermsSkillMutationResponse = {
-  /** number of rows affected by the mutation */
-  affectedRows: Scalars['Int']['output'];
-  /** data from the rows affected by the mutation */
-  returning: Array<OpenbookTermsSkill>;
-};
-
-/** input type for inserting object relation for remote table "openbook_terms_skill" */
-export type OpenbookTermsSkillObjRelInsertInput = {
-  data: OpenbookTermsSkillInsertInput;
-  /** upsert condition */
-  onConflict?: InputMaybe<OpenbookTermsSkillOnConflict>;
-};
-
-/** on_conflict condition type for table "openbook_terms_skill" */
-export type OpenbookTermsSkillOnConflict = {
-  constraint: OpenbookTermsSkillConstraint;
-  updateColumns?: Array<OpenbookTermsSkillUpdateColumn>;
-  where?: InputMaybe<OpenbookTermsSkillBoolExp>;
-};
-
-/** Ordering options when selecting data from "openbook_terms_skill". */
-export type OpenbookTermsSkillOrderBy = {
-  id?: InputMaybe<OrderBy>;
-  slug?: InputMaybe<OrderBy>;
-  title?: InputMaybe<OrderBy>;
-  titleDa?: InputMaybe<OrderBy>;
-  titleDe?: InputMaybe<OrderBy>;
-  titleEn?: InputMaybe<OrderBy>;
-  titleEs?: InputMaybe<OrderBy>;
-  titleFr?: InputMaybe<OrderBy>;
-  titleHu?: InputMaybe<OrderBy>;
-  titleIt?: InputMaybe<OrderBy>;
-  titleNl?: InputMaybe<OrderBy>;
-  titlePtBr?: InputMaybe<OrderBy>;
-  titleSv?: InputMaybe<OrderBy>;
-  titleTr?: InputMaybe<OrderBy>;
-};
-
-/** primary key columns input for table: openbook_terms_skill */
-export type OpenbookTermsSkillPkColumnsInput = {
-  id: Scalars['uuid']['input'];
-};
-
-/** select columns of table "openbook_terms_skill" */
-export type OpenbookTermsSkillSelectColumn =
-  /** column name */
-  | 'id'
-  /** column name */
-  | 'slug'
-  /** column name */
-  | 'title'
-  /** column name */
-  | 'titleDa'
-  /** column name */
-  | 'titleDe'
-  /** column name */
-  | 'titleEn'
-  /** column name */
-  | 'titleEs'
-  /** column name */
-  | 'titleFr'
-  /** column name */
-  | 'titleHu'
-  /** column name */
-  | 'titleIt'
-  /** column name */
-  | 'titleNl'
-  /** column name */
-  | 'titlePtBr'
-  /** column name */
-  | 'titleSv'
-  /** column name */
-  | 'titleTr';
-
-/** input type for updating data in table "openbook_terms_skill" */
-export type OpenbookTermsSkillSetInput = {
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  slug?: InputMaybe<Scalars['String']['input']>;
-  title?: InputMaybe<Scalars['String']['input']>;
-  titleDa?: InputMaybe<Scalars['String']['input']>;
-  titleDe?: InputMaybe<Scalars['String']['input']>;
-  titleEn?: InputMaybe<Scalars['String']['input']>;
-  titleEs?: InputMaybe<Scalars['String']['input']>;
-  titleFr?: InputMaybe<Scalars['String']['input']>;
-  titleHu?: InputMaybe<Scalars['String']['input']>;
-  titleIt?: InputMaybe<Scalars['String']['input']>;
-  titleNl?: InputMaybe<Scalars['String']['input']>;
-  titlePtBr?: InputMaybe<Scalars['String']['input']>;
-  titleSv?: InputMaybe<Scalars['String']['input']>;
-  titleTr?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** Streaming cursor of the table "openbook_terms_skill" */
-export type OpenbookTermsSkillStreamCursorInput = {
-  /** Stream column input with initial value */
-  initialValue: OpenbookTermsSkillStreamCursorValueInput;
-  /** cursor ordering */
-  ordering?: InputMaybe<CursorOrdering>;
-};
-
-/** Initial value of the column from where the streaming should start */
-export type OpenbookTermsSkillStreamCursorValueInput = {
-  id?: InputMaybe<Scalars['uuid']['input']>;
-  slug?: InputMaybe<Scalars['String']['input']>;
-  title?: InputMaybe<Scalars['String']['input']>;
-  titleDa?: InputMaybe<Scalars['String']['input']>;
-  titleDe?: InputMaybe<Scalars['String']['input']>;
-  titleEn?: InputMaybe<Scalars['String']['input']>;
-  titleEs?: InputMaybe<Scalars['String']['input']>;
-  titleFr?: InputMaybe<Scalars['String']['input']>;
-  titleHu?: InputMaybe<Scalars['String']['input']>;
-  titleIt?: InputMaybe<Scalars['String']['input']>;
-  titleNl?: InputMaybe<Scalars['String']['input']>;
-  titlePtBr?: InputMaybe<Scalars['String']['input']>;
-  titleSv?: InputMaybe<Scalars['String']['input']>;
-  titleTr?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** update columns of table "openbook_terms_skill" */
-export type OpenbookTermsSkillUpdateColumn =
-  /** column name */
-  | 'id'
-  /** column name */
-  | 'slug'
-  /** column name */
-  | 'title'
-  /** column name */
-  | 'titleDa'
-  /** column name */
-  | 'titleDe'
-  /** column name */
-  | 'titleEn'
-  /** column name */
-  | 'titleEs'
-  /** column name */
-  | 'titleFr'
-  /** column name */
-  | 'titleHu'
-  /** column name */
-  | 'titleIt'
-  /** column name */
-  | 'titleNl'
-  /** column name */
-  | 'titlePtBr'
-  /** column name */
-  | 'titleSv'
-  /** column name */
-  | 'titleTr';
-
-export type OpenbookTermsSkillUpdates = {
-  /** sets the columns of the filtered rows to the given values */
-  _set?: InputMaybe<OpenbookTermsSkillSetInput>;
-  /** filter the rows which have to be updated */
-  where: OpenbookTermsSkillBoolExp;
-};
-
 /** column ordering options */
 export type OrderBy =
   /** in ascending order, nulls last */
@@ -7237,10 +6638,6 @@ export type Mutation_Root = {
   deleteOpenbookCommunitiesTask?: Maybe<OpenbookCommunitiesTaskMutationResponse>;
   /** delete single row from the table: "openbook_communities_task" */
   deleteOpenbookCommunitiesTaskByPk?: Maybe<OpenbookCommunitiesTask>;
-  /** delete data from the table: "openbook_communities_task_skills" */
-  deleteOpenbookCommunitiesTaskSkills?: Maybe<OpenbookCommunitiesTaskSkillsMutationResponse>;
-  /** delete single row from the table: "openbook_communities_task_skills" */
-  deleteOpenbookCommunitiesTaskSkillsByPk?: Maybe<OpenbookCommunitiesTaskSkills>;
   /** delete data from the table: "openbook_posts_post" */
   deleteOpenbookPostsPost?: Maybe<OpenbookPostsPostMutationResponse>;
   /** delete single row from the table: "openbook_posts_post" */
@@ -7249,10 +6646,6 @@ export type Mutation_Root = {
   deleteOpenbookPostsPostcomment?: Maybe<OpenbookPostsPostcommentMutationResponse>;
   /** delete single row from the table: "openbook_posts_postcomment" */
   deleteOpenbookPostsPostcommentByPk?: Maybe<OpenbookPostsPostcomment>;
-  /** delete data from the table: "openbook_terms_skill" */
-  deleteOpenbookTermsSkill?: Maybe<OpenbookTermsSkillMutationResponse>;
-  /** delete single row from the table: "openbook_terms_skill" */
-  deleteOpenbookTermsSkillByPk?: Maybe<OpenbookTermsSkill>;
   deleteUser: Success;
   /** insert data into the table: "django_content_type" */
   insertDjangoContentType?: Maybe<DjangoContentTypeMutationResponse>;
@@ -7310,10 +6703,6 @@ export type Mutation_Root = {
   insertOpenbookCommunitiesTask?: Maybe<OpenbookCommunitiesTaskMutationResponse>;
   /** insert a single row into the table: "openbook_communities_task" */
   insertOpenbookCommunitiesTaskOne?: Maybe<OpenbookCommunitiesTask>;
-  /** insert data into the table: "openbook_communities_task_skills" */
-  insertOpenbookCommunitiesTaskSkills?: Maybe<OpenbookCommunitiesTaskSkillsMutationResponse>;
-  /** insert a single row into the table: "openbook_communities_task_skills" */
-  insertOpenbookCommunitiesTaskSkillsOne?: Maybe<OpenbookCommunitiesTaskSkills>;
   /** insert data into the table: "openbook_posts_post" */
   insertOpenbookPostsPost?: Maybe<OpenbookPostsPostMutationResponse>;
   /** insert a single row into the table: "openbook_posts_post" */
@@ -7322,10 +6711,6 @@ export type Mutation_Root = {
   insertOpenbookPostsPostcomment?: Maybe<OpenbookPostsPostcommentMutationResponse>;
   /** insert a single row into the table: "openbook_posts_postcomment" */
   insertOpenbookPostsPostcommentOne?: Maybe<OpenbookPostsPostcomment>;
-  /** insert data into the table: "openbook_terms_skill" */
-  insertOpenbookTermsSkill?: Maybe<OpenbookTermsSkillMutationResponse>;
-  /** insert a single row into the table: "openbook_terms_skill" */
-  insertOpenbookTermsSkillOne?: Maybe<OpenbookTermsSkill>;
   login: AuthResult;
   registerUser: User;
   rewards?: Maybe<Rewards_Mutation_Frontend>;
@@ -7414,12 +6799,6 @@ export type Mutation_Root = {
   updateOpenbookCommunitiesTaskByPk?: Maybe<OpenbookCommunitiesTask>;
   /** update multiples rows of table: "openbook_communities_task" */
   updateOpenbookCommunitiesTaskMany?: Maybe<Array<Maybe<OpenbookCommunitiesTaskMutationResponse>>>;
-  /** update data of the table: "openbook_communities_task_skills" */
-  updateOpenbookCommunitiesTaskSkills?: Maybe<OpenbookCommunitiesTaskSkillsMutationResponse>;
-  /** update single row of the table: "openbook_communities_task_skills" */
-  updateOpenbookCommunitiesTaskSkillsByPk?: Maybe<OpenbookCommunitiesTaskSkills>;
-  /** update multiples rows of table: "openbook_communities_task_skills" */
-  updateOpenbookCommunitiesTaskSkillsMany?: Maybe<Array<Maybe<OpenbookCommunitiesTaskSkillsMutationResponse>>>;
   /** update data of the table: "openbook_posts_post" */
   updateOpenbookPostsPost?: Maybe<OpenbookPostsPostMutationResponse>;
   /** update single row of the table: "openbook_posts_post" */
@@ -7432,12 +6811,6 @@ export type Mutation_Root = {
   updateOpenbookPostsPostcommentByPk?: Maybe<OpenbookPostsPostcomment>;
   /** update multiples rows of table: "openbook_posts_postcomment" */
   updateOpenbookPostsPostcommentMany?: Maybe<Array<Maybe<OpenbookPostsPostcommentMutationResponse>>>;
-  /** update data of the table: "openbook_terms_skill" */
-  updateOpenbookTermsSkill?: Maybe<OpenbookTermsSkillMutationResponse>;
-  /** update single row of the table: "openbook_terms_skill" */
-  updateOpenbookTermsSkillByPk?: Maybe<OpenbookTermsSkill>;
-  /** update multiples rows of table: "openbook_terms_skill" */
-  updateOpenbookTermsSkillMany?: Maybe<Array<Maybe<OpenbookTermsSkillMutationResponse>>>;
 };
 
 
@@ -7636,18 +7009,6 @@ export type Mutation_RootDeleteOpenbookCommunitiesTaskByPkArgs = {
 
 
 /** mutation root */
-export type Mutation_RootDeleteOpenbookCommunitiesTaskSkillsArgs = {
-  where: OpenbookCommunitiesTaskSkillsBoolExp;
-};
-
-
-/** mutation root */
-export type Mutation_RootDeleteOpenbookCommunitiesTaskSkillsByPkArgs = {
-  id: Scalars['bigint']['input'];
-};
-
-
-/** mutation root */
 export type Mutation_RootDeleteOpenbookPostsPostArgs = {
   where: OpenbookPostsPostBoolExp;
 };
@@ -7667,18 +7028,6 @@ export type Mutation_RootDeleteOpenbookPostsPostcommentArgs = {
 
 /** mutation root */
 export type Mutation_RootDeleteOpenbookPostsPostcommentByPkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-/** mutation root */
-export type Mutation_RootDeleteOpenbookTermsSkillArgs = {
-  where: OpenbookTermsSkillBoolExp;
-};
-
-
-/** mutation root */
-export type Mutation_RootDeleteOpenbookTermsSkillByPkArgs = {
   id: Scalars['uuid']['input'];
 };
 
@@ -7886,20 +7235,6 @@ export type Mutation_RootInsertOpenbookCommunitiesTaskOneArgs = {
 
 
 /** mutation root */
-export type Mutation_RootInsertOpenbookCommunitiesTaskSkillsArgs = {
-  objects: Array<OpenbookCommunitiesTaskSkillsInsertInput>;
-  onConflict?: InputMaybe<OpenbookCommunitiesTaskSkillsOnConflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsertOpenbookCommunitiesTaskSkillsOneArgs = {
-  object: OpenbookCommunitiesTaskSkillsInsertInput;
-  onConflict?: InputMaybe<OpenbookCommunitiesTaskSkillsOnConflict>;
-};
-
-
-/** mutation root */
 export type Mutation_RootInsertOpenbookPostsPostArgs = {
   objects: Array<OpenbookPostsPostInsertInput>;
   onConflict?: InputMaybe<OpenbookPostsPostOnConflict>;
@@ -7924,20 +7259,6 @@ export type Mutation_RootInsertOpenbookPostsPostcommentArgs = {
 export type Mutation_RootInsertOpenbookPostsPostcommentOneArgs = {
   object: OpenbookPostsPostcommentInsertInput;
   onConflict?: InputMaybe<OpenbookPostsPostcommentOnConflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsertOpenbookTermsSkillArgs = {
-  objects: Array<OpenbookTermsSkillInsertInput>;
-  onConflict?: InputMaybe<OpenbookTermsSkillOnConflict>;
-};
-
-
-/** mutation root */
-export type Mutation_RootInsertOpenbookTermsSkillOneArgs = {
-  object: OpenbookTermsSkillInsertInput;
-  onConflict?: InputMaybe<OpenbookTermsSkillOnConflict>;
 };
 
 
@@ -8306,28 +7627,6 @@ export type Mutation_RootUpdateOpenbookCommunitiesTaskManyArgs = {
 
 
 /** mutation root */
-export type Mutation_RootUpdateOpenbookCommunitiesTaskSkillsArgs = {
-  _inc?: InputMaybe<OpenbookCommunitiesTaskSkillsIncInput>;
-  _set?: InputMaybe<OpenbookCommunitiesTaskSkillsSetInput>;
-  where: OpenbookCommunitiesTaskSkillsBoolExp;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdateOpenbookCommunitiesTaskSkillsByPkArgs = {
-  _inc?: InputMaybe<OpenbookCommunitiesTaskSkillsIncInput>;
-  _set?: InputMaybe<OpenbookCommunitiesTaskSkillsSetInput>;
-  pkColumns: OpenbookCommunitiesTaskSkillsPkColumnsInput;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdateOpenbookCommunitiesTaskSkillsManyArgs = {
-  updates: Array<OpenbookCommunitiesTaskSkillsUpdates>;
-};
-
-
-/** mutation root */
 export type Mutation_RootUpdateOpenbookPostsPostArgs = {
   _set?: InputMaybe<OpenbookPostsPostSetInput>;
   where: OpenbookPostsPostBoolExp;
@@ -8366,26 +7665,6 @@ export type Mutation_RootUpdateOpenbookPostsPostcommentByPkArgs = {
 /** mutation root */
 export type Mutation_RootUpdateOpenbookPostsPostcommentManyArgs = {
   updates: Array<OpenbookPostsPostcommentUpdates>;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdateOpenbookTermsSkillArgs = {
-  _set?: InputMaybe<OpenbookTermsSkillSetInput>;
-  where: OpenbookTermsSkillBoolExp;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdateOpenbookTermsSkillByPkArgs = {
-  _set?: InputMaybe<OpenbookTermsSkillSetInput>;
-  pkColumns: OpenbookTermsSkillPkColumnsInput;
-};
-
-
-/** mutation root */
-export type Mutation_RootUpdateOpenbookTermsSkillManyArgs = {
-  updates: Array<OpenbookTermsSkillUpdates>;
 };
 
 export type OpenbookAppointmentsAppointmentAggregateBoolExpBool_And = {
@@ -8483,13 +7762,6 @@ export type OpenbookCommunitiesTaskAggregateBoolExpCount = {
   arguments?: InputMaybe<Array<OpenbookCommunitiesTaskSelectColumn>>;
   distinct?: InputMaybe<Scalars['Boolean']['input']>;
   filter?: InputMaybe<OpenbookCommunitiesTaskBoolExp>;
-  predicate: IntComparisonExp;
-};
-
-export type OpenbookCommunitiesTaskSkillsAggregateBoolExpCount = {
-  arguments?: InputMaybe<Array<OpenbookCommunitiesTaskSkillsSelectColumn>>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
-  filter?: InputMaybe<OpenbookCommunitiesTaskSkillsBoolExp>;
   predicate: IntComparisonExp;
 };
 
@@ -8621,12 +7893,6 @@ export type Query_Root = {
   openbookCommunitiesTaskAggregate: OpenbookCommunitiesTaskAggregate;
   /** fetch data from the table: "openbook_communities_task" using primary key columns */
   openbookCommunitiesTaskByPk?: Maybe<OpenbookCommunitiesTask>;
-  /** fetch data from the table: "openbook_communities_task_skills" */
-  openbookCommunitiesTaskSkills: Array<OpenbookCommunitiesTaskSkills>;
-  /** fetch aggregated fields from the table: "openbook_communities_task_skills" */
-  openbookCommunitiesTaskSkillsAggregate: OpenbookCommunitiesTaskSkillsAggregate;
-  /** fetch data from the table: "openbook_communities_task_skills" using primary key columns */
-  openbookCommunitiesTaskSkillsByPk?: Maybe<OpenbookCommunitiesTaskSkills>;
   /** fetch data from the table: "openbook_posts_post" */
   openbookPostsPost: Array<OpenbookPostsPost>;
   /** fetch aggregated fields from the table: "openbook_posts_post" */
@@ -8639,12 +7905,6 @@ export type Query_Root = {
   openbookPostsPostcommentAggregate: OpenbookPostsPostcommentAggregate;
   /** fetch data from the table: "openbook_posts_postcomment" using primary key columns */
   openbookPostsPostcommentByPk?: Maybe<OpenbookPostsPostcomment>;
-  /** fetch data from the table: "openbook_terms_skill" */
-  openbookTermsSkill: Array<OpenbookTermsSkill>;
-  /** fetch aggregated fields from the table: "openbook_terms_skill" */
-  openbookTermsSkillAggregate: OpenbookTermsSkillAggregate;
-  /** fetch data from the table: "openbook_terms_skill" using primary key columns */
-  openbookTermsSkillByPk?: Maybe<OpenbookTermsSkill>;
   report: Report;
   reports: Array<Report>;
   rewards?: Maybe<Rewards_Query>;
@@ -8980,29 +8240,6 @@ export type Query_RootOpenbookCommunitiesTaskByPkArgs = {
 };
 
 
-export type Query_RootOpenbookCommunitiesTaskSkillsArgs = {
-  distinctOn?: InputMaybe<Array<OpenbookCommunitiesTaskSkillsSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  orderBy?: InputMaybe<Array<OpenbookCommunitiesTaskSkillsOrderBy>>;
-  where?: InputMaybe<OpenbookCommunitiesTaskSkillsBoolExp>;
-};
-
-
-export type Query_RootOpenbookCommunitiesTaskSkillsAggregateArgs = {
-  distinctOn?: InputMaybe<Array<OpenbookCommunitiesTaskSkillsSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  orderBy?: InputMaybe<Array<OpenbookCommunitiesTaskSkillsOrderBy>>;
-  where?: InputMaybe<OpenbookCommunitiesTaskSkillsBoolExp>;
-};
-
-
-export type Query_RootOpenbookCommunitiesTaskSkillsByPkArgs = {
-  id: Scalars['bigint']['input'];
-};
-
-
 export type Query_RootOpenbookPostsPostArgs = {
   distinctOn?: InputMaybe<Array<OpenbookPostsPostSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -9045,29 +8282,6 @@ export type Query_RootOpenbookPostsPostcommentAggregateArgs = {
 
 
 export type Query_RootOpenbookPostsPostcommentByPkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-export type Query_RootOpenbookTermsSkillArgs = {
-  distinctOn?: InputMaybe<Array<OpenbookTermsSkillSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  orderBy?: InputMaybe<Array<OpenbookTermsSkillOrderBy>>;
-  where?: InputMaybe<OpenbookTermsSkillBoolExp>;
-};
-
-
-export type Query_RootOpenbookTermsSkillAggregateArgs = {
-  distinctOn?: InputMaybe<Array<OpenbookTermsSkillSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  orderBy?: InputMaybe<Array<OpenbookTermsSkillOrderBy>>;
-  where?: InputMaybe<OpenbookTermsSkillBoolExp>;
-};
-
-
-export type Query_RootOpenbookTermsSkillByPkArgs = {
   id: Scalars['uuid']['input'];
 };
 
@@ -9340,14 +8554,6 @@ export type Subscription_Root = {
   openbookCommunitiesTaskAggregate: OpenbookCommunitiesTaskAggregate;
   /** fetch data from the table: "openbook_communities_task" using primary key columns */
   openbookCommunitiesTaskByPk?: Maybe<OpenbookCommunitiesTask>;
-  /** fetch data from the table: "openbook_communities_task_skills" */
-  openbookCommunitiesTaskSkills: Array<OpenbookCommunitiesTaskSkills>;
-  /** fetch aggregated fields from the table: "openbook_communities_task_skills" */
-  openbookCommunitiesTaskSkillsAggregate: OpenbookCommunitiesTaskSkillsAggregate;
-  /** fetch data from the table: "openbook_communities_task_skills" using primary key columns */
-  openbookCommunitiesTaskSkillsByPk?: Maybe<OpenbookCommunitiesTaskSkills>;
-  /** fetch data from the table in a streaming manner: "openbook_communities_task_skills" */
-  openbookCommunitiesTaskSkillsStream: Array<OpenbookCommunitiesTaskSkills>;
   /** fetch data from the table in a streaming manner: "openbook_communities_task" */
   openbookCommunitiesTaskStream: Array<OpenbookCommunitiesTask>;
   /** fetch data from the table: "openbook_posts_post" */
@@ -9366,14 +8572,6 @@ export type Subscription_Root = {
   openbookPostsPostcommentByPk?: Maybe<OpenbookPostsPostcomment>;
   /** fetch data from the table in a streaming manner: "openbook_posts_postcomment" */
   openbookPostsPostcommentStream: Array<OpenbookPostsPostcomment>;
-  /** fetch data from the table: "openbook_terms_skill" */
-  openbookTermsSkill: Array<OpenbookTermsSkill>;
-  /** fetch aggregated fields from the table: "openbook_terms_skill" */
-  openbookTermsSkillAggregate: OpenbookTermsSkillAggregate;
-  /** fetch data from the table: "openbook_terms_skill" using primary key columns */
-  openbookTermsSkillByPk?: Maybe<OpenbookTermsSkill>;
-  /** fetch data from the table in a streaming manner: "openbook_terms_skill" */
-  openbookTermsSkillStream: Array<OpenbookTermsSkill>;
   rewards?: Maybe<Rewards_Subscription>;
 };
 
@@ -9791,36 +8989,6 @@ export type Subscription_RootOpenbookCommunitiesTaskByPkArgs = {
 };
 
 
-export type Subscription_RootOpenbookCommunitiesTaskSkillsArgs = {
-  distinctOn?: InputMaybe<Array<OpenbookCommunitiesTaskSkillsSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  orderBy?: InputMaybe<Array<OpenbookCommunitiesTaskSkillsOrderBy>>;
-  where?: InputMaybe<OpenbookCommunitiesTaskSkillsBoolExp>;
-};
-
-
-export type Subscription_RootOpenbookCommunitiesTaskSkillsAggregateArgs = {
-  distinctOn?: InputMaybe<Array<OpenbookCommunitiesTaskSkillsSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  orderBy?: InputMaybe<Array<OpenbookCommunitiesTaskSkillsOrderBy>>;
-  where?: InputMaybe<OpenbookCommunitiesTaskSkillsBoolExp>;
-};
-
-
-export type Subscription_RootOpenbookCommunitiesTaskSkillsByPkArgs = {
-  id: Scalars['bigint']['input'];
-};
-
-
-export type Subscription_RootOpenbookCommunitiesTaskSkillsStreamArgs = {
-  batchSize: Scalars['Int']['input'];
-  cursor: Array<InputMaybe<OpenbookCommunitiesTaskSkillsStreamCursorInput>>;
-  where?: InputMaybe<OpenbookCommunitiesTaskSkillsBoolExp>;
-};
-
-
 export type Subscription_RootOpenbookCommunitiesTaskStreamArgs = {
   batchSize: Scalars['Int']['input'];
   cursor: Array<InputMaybe<OpenbookCommunitiesTaskStreamCursorInput>>;
@@ -9885,34 +9053,4 @@ export type Subscription_RootOpenbookPostsPostcommentStreamArgs = {
   batchSize: Scalars['Int']['input'];
   cursor: Array<InputMaybe<OpenbookPostsPostcommentStreamCursorInput>>;
   where?: InputMaybe<OpenbookPostsPostcommentBoolExp>;
-};
-
-
-export type Subscription_RootOpenbookTermsSkillArgs = {
-  distinctOn?: InputMaybe<Array<OpenbookTermsSkillSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  orderBy?: InputMaybe<Array<OpenbookTermsSkillOrderBy>>;
-  where?: InputMaybe<OpenbookTermsSkillBoolExp>;
-};
-
-
-export type Subscription_RootOpenbookTermsSkillAggregateArgs = {
-  distinctOn?: InputMaybe<Array<OpenbookTermsSkillSelectColumn>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  orderBy?: InputMaybe<Array<OpenbookTermsSkillOrderBy>>;
-  where?: InputMaybe<OpenbookTermsSkillBoolExp>;
-};
-
-
-export type Subscription_RootOpenbookTermsSkillByPkArgs = {
-  id: Scalars['uuid']['input'];
-};
-
-
-export type Subscription_RootOpenbookTermsSkillStreamArgs = {
-  batchSize: Scalars['Int']['input'];
-  cursor: Array<InputMaybe<OpenbookTermsSkillStreamCursorInput>>;
-  where?: InputMaybe<OpenbookTermsSkillBoolExp>;
 };

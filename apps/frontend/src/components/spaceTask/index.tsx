@@ -14,8 +14,8 @@ import {
   IconWorld,
 } from '@tabler/icons-react'
 
-import { OpenbookCommunitiesTask } from '../../graphql/generated/schema.types'
-import { SpaceTaskDetailsFragment } from '../../graphql/generated/types'
+import type { OpenbookCommunitiesTask } from '../../graphql/generated/schema.types'
+import type { SpaceTaskDetailsFragment } from '../../graphql/generated/types'
 import { formatUser, relativeFormatISOTimestamp, titleCase } from '../../utils'
 import { ImageWithPreview } from '../imageWithPreview'
 
@@ -76,9 +76,9 @@ export const SpaceTask: React.FC<SpaceTaskProps> = ({ task }) => {
           </Group>
           <Group gap="xs">
             <IconAccessible size={14} />
-            {task.skills.map((skill) => (
-              <Badge color="gray" variant="light" key={skill.skill.id}>
-                {skill.skill.title}
+            {task.skillsV2.map((skill) => (
+              <Badge color="gray" variant="light" key={skill}>
+                {skill}
               </Badge>
             ))}
           </Group>

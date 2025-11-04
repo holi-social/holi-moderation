@@ -23,12 +23,7 @@ export const SpaceTaskDetails = gql`
     contactEmail
     contactPhone
 
-    skills {
-      skill {
-        id
-        title
-      }
-    }
+    skillsV2
 
     created
     creator {
