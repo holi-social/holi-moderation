@@ -132,8 +132,8 @@ export type ReportDetailsFragment = (
         & { profile?: Types.Maybe<Pick<Types.OpenbookAuthUserprofile, 'id' | 'name' | 'lastName' | 'pronouns' | 'avatar' | 'aboutMe' | 'location' | 'url'>> }
       )>, videoCallLink?: Types.Maybe<Pick<Types.OpenbookAppointmentsVideocalllink, 'url' | 'additionalInfo'>>, locationDetails?: Types.Maybe<Pick<Types.OpenbookAppointmentsLocationdetails, 'completeAddress'>>, participantsAggregate: { aggregate?: Types.Maybe<Pick<Types.OpenbookAppointmentsAppointmentParticipantsAggregateFields, 'count'>> } }
     )>, tasks: Array<(
-      Pick<Types.OpenbookCommunitiesTask, 'id' | 'name' | 'description' | 'thumbnail' | 'locationType' | 'location' | 'visibility' | 'regularity' | 'slotsAvailable' | 'slotsTaken' | 'contactEmail' | 'contactPhone' | 'created'>
-      & { skills: Array<{ skill: Pick<Types.OpenbookTermsSkill, 'id' | 'title'> }>, creator?: Types.Maybe<(
+      Pick<Types.OpenbookCommunitiesTask, 'id' | 'name' | 'description' | 'thumbnail' | 'locationType' | 'location' | 'visibility' | 'regularity' | 'slotsAvailable' | 'slotsTaken' | 'contactEmail' | 'contactPhone' | 'skillsV2' | 'created'>
+      & { creator?: Types.Maybe<(
         Pick<Types.OpenbookAuthUser, 'id' | 'email' | 'dateJoined'>
         & { profile?: Types.Maybe<Pick<Types.OpenbookAuthUserprofile, 'id' | 'name' | 'lastName' | 'pronouns' | 'avatar' | 'aboutMe' | 'location' | 'url'>> }
       )> }
@@ -163,14 +163,14 @@ export type ReportDetailsFragment = (
       & { profile?: Types.Maybe<Pick<Types.OpenbookAuthUserprofile, 'id' | 'name' | 'lastName' | 'pronouns' | 'avatar' | 'aboutMe' | 'location' | 'url'>> }
     )>, videoCallLink?: Types.Maybe<Pick<Types.OpenbookAppointmentsVideocalllink, 'url' | 'additionalInfo'>>, locationDetails?: Types.Maybe<Pick<Types.OpenbookAppointmentsLocationdetails, 'completeAddress'>>, participantsAggregate: { aggregate?: Types.Maybe<Pick<Types.OpenbookAppointmentsAppointmentParticipantsAggregateFields, 'count'>> } }
   )>, reportedSpaceTask?: Types.Maybe<(
-    Pick<Types.OpenbookCommunitiesTask, 'id' | 'name' | 'description' | 'thumbnail' | 'locationType' | 'location' | 'visibility' | 'regularity' | 'slotsAvailable' | 'slotsTaken' | 'contactEmail' | 'contactPhone' | 'created'>
+    Pick<Types.OpenbookCommunitiesTask, 'id' | 'name' | 'description' | 'thumbnail' | 'locationType' | 'location' | 'visibility' | 'regularity' | 'slotsAvailable' | 'slotsTaken' | 'contactEmail' | 'contactPhone' | 'skillsV2' | 'created'>
     & { space: (
       Pick<Types.OpenbookCommunitiesCommunity, 'id' | 'avatar' | 'cover' | 'name' | 'title' | 'description' | 'location' | 'contactDescription' | 'contactEmail' | 'contactPhone' | 'created'>
       & { onboardingSteps: Array<Pick<Types.OpenbookCommunitiesOnboardingstep, 'stepNumber' | 'text'>>, creator?: Types.Maybe<(
         Pick<Types.OpenbookAuthUser, 'id' | 'email' | 'dateJoined'>
         & { profile?: Types.Maybe<Pick<Types.OpenbookAuthUserprofile, 'id' | 'name' | 'lastName' | 'pronouns' | 'avatar' | 'aboutMe' | 'location' | 'url'>> }
       )>, externalLinks: Array<Pick<Types.OpenbookCommunitiesExternallink, 'id' | 'name' | 'type' | 'url'>>, linkhubToolsAggregate: { aggregate?: Types.Maybe<Pick<Types.OpenbookCommunitiesCollaborationtoolAggregateFields, 'count'>> } }
-    ), skills: Array<{ skill: Pick<Types.OpenbookTermsSkill, 'id' | 'title'> }>, creator?: Types.Maybe<(
+    ), creator?: Types.Maybe<(
       Pick<Types.OpenbookAuthUser, 'id' | 'email' | 'dateJoined'>
       & { profile?: Types.Maybe<Pick<Types.OpenbookAuthUserprofile, 'id' | 'name' | 'lastName' | 'pronouns' | 'avatar' | 'aboutMe' | 'location' | 'url'>> }
     )> }
@@ -215,8 +215,8 @@ export type ReportedSpaceDetailsFragment = (
       & { profile?: Types.Maybe<Pick<Types.OpenbookAuthUserprofile, 'id' | 'name' | 'lastName' | 'pronouns' | 'avatar' | 'aboutMe' | 'location' | 'url'>> }
     )>, videoCallLink?: Types.Maybe<Pick<Types.OpenbookAppointmentsVideocalllink, 'url' | 'additionalInfo'>>, locationDetails?: Types.Maybe<Pick<Types.OpenbookAppointmentsLocationdetails, 'completeAddress'>>, participantsAggregate: { aggregate?: Types.Maybe<Pick<Types.OpenbookAppointmentsAppointmentParticipantsAggregateFields, 'count'>> } }
   )>, tasks: Array<(
-    Pick<Types.OpenbookCommunitiesTask, 'id' | 'name' | 'description' | 'thumbnail' | 'locationType' | 'location' | 'visibility' | 'regularity' | 'slotsAvailable' | 'slotsTaken' | 'contactEmail' | 'contactPhone' | 'created'>
-    & { skills: Array<{ skill: Pick<Types.OpenbookTermsSkill, 'id' | 'title'> }>, creator?: Types.Maybe<(
+    Pick<Types.OpenbookCommunitiesTask, 'id' | 'name' | 'description' | 'thumbnail' | 'locationType' | 'location' | 'visibility' | 'regularity' | 'slotsAvailable' | 'slotsTaken' | 'contactEmail' | 'contactPhone' | 'skillsV2' | 'created'>
+    & { creator?: Types.Maybe<(
       Pick<Types.OpenbookAuthUser, 'id' | 'email' | 'dateJoined'>
       & { profile?: Types.Maybe<Pick<Types.OpenbookAuthUserprofile, 'id' | 'name' | 'lastName' | 'pronouns' | 'avatar' | 'aboutMe' | 'location' | 'url'>> }
     )> }
@@ -323,22 +323,22 @@ export type ReportedSpaceLinkhubToolDetailsFragment = (
 );
 
 export type SpaceTaskDetailsFragment = (
-  Pick<Types.OpenbookCommunitiesTask, 'id' | 'name' | 'description' | 'thumbnail' | 'locationType' | 'location' | 'visibility' | 'regularity' | 'slotsAvailable' | 'slotsTaken' | 'contactEmail' | 'contactPhone' | 'created'>
-  & { skills: Array<{ skill: Pick<Types.OpenbookTermsSkill, 'id' | 'title'> }>, creator?: Types.Maybe<(
+  Pick<Types.OpenbookCommunitiesTask, 'id' | 'name' | 'description' | 'thumbnail' | 'locationType' | 'location' | 'visibility' | 'regularity' | 'slotsAvailable' | 'slotsTaken' | 'contactEmail' | 'contactPhone' | 'skillsV2' | 'created'>
+  & { creator?: Types.Maybe<(
     Pick<Types.OpenbookAuthUser, 'id' | 'email' | 'dateJoined'>
     & { profile?: Types.Maybe<Pick<Types.OpenbookAuthUserprofile, 'id' | 'name' | 'lastName' | 'pronouns' | 'avatar' | 'aboutMe' | 'location' | 'url'>> }
   )> }
 );
 
 export type ReportedSpaceTaskDetailsFragment = (
-  Pick<Types.OpenbookCommunitiesTask, 'id' | 'name' | 'description' | 'thumbnail' | 'locationType' | 'location' | 'visibility' | 'regularity' | 'slotsAvailable' | 'slotsTaken' | 'contactEmail' | 'contactPhone' | 'created'>
+  Pick<Types.OpenbookCommunitiesTask, 'id' | 'name' | 'description' | 'thumbnail' | 'locationType' | 'location' | 'visibility' | 'regularity' | 'slotsAvailable' | 'slotsTaken' | 'contactEmail' | 'contactPhone' | 'skillsV2' | 'created'>
   & { space: (
     Pick<Types.OpenbookCommunitiesCommunity, 'id' | 'avatar' | 'cover' | 'name' | 'title' | 'description' | 'location' | 'contactDescription' | 'contactEmail' | 'contactPhone' | 'created'>
     & { onboardingSteps: Array<Pick<Types.OpenbookCommunitiesOnboardingstep, 'stepNumber' | 'text'>>, creator?: Types.Maybe<(
       Pick<Types.OpenbookAuthUser, 'id' | 'email' | 'dateJoined'>
       & { profile?: Types.Maybe<Pick<Types.OpenbookAuthUserprofile, 'id' | 'name' | 'lastName' | 'pronouns' | 'avatar' | 'aboutMe' | 'location' | 'url'>> }
     )>, externalLinks: Array<Pick<Types.OpenbookCommunitiesExternallink, 'id' | 'name' | 'type' | 'url'>>, linkhubToolsAggregate: { aggregate?: Types.Maybe<Pick<Types.OpenbookCommunitiesCollaborationtoolAggregateFields, 'count'>> } }
-  ), skills: Array<{ skill: Pick<Types.OpenbookTermsSkill, 'id' | 'title'> }>, creator?: Types.Maybe<(
+  ), creator?: Types.Maybe<(
     Pick<Types.OpenbookAuthUser, 'id' | 'email' | 'dateJoined'>
     & { profile?: Types.Maybe<Pick<Types.OpenbookAuthUserprofile, 'id' | 'name' | 'lastName' | 'pronouns' | 'avatar' | 'aboutMe' | 'location' | 'url'>> }
   )> }
@@ -455,8 +455,8 @@ export type ChangeReportStatusMutation = { changeReportStatus: (
           & { profile?: Types.Maybe<Pick<Types.OpenbookAuthUserprofile, 'id' | 'name' | 'lastName' | 'pronouns' | 'avatar' | 'aboutMe' | 'location' | 'url'>> }
         )>, videoCallLink?: Types.Maybe<Pick<Types.OpenbookAppointmentsVideocalllink, 'url' | 'additionalInfo'>>, locationDetails?: Types.Maybe<Pick<Types.OpenbookAppointmentsLocationdetails, 'completeAddress'>>, participantsAggregate: { aggregate?: Types.Maybe<Pick<Types.OpenbookAppointmentsAppointmentParticipantsAggregateFields, 'count'>> } }
       )>, tasks: Array<(
-        Pick<Types.OpenbookCommunitiesTask, 'id' | 'name' | 'description' | 'thumbnail' | 'locationType' | 'location' | 'visibility' | 'regularity' | 'slotsAvailable' | 'slotsTaken' | 'contactEmail' | 'contactPhone' | 'created'>
-        & { skills: Array<{ skill: Pick<Types.OpenbookTermsSkill, 'id' | 'title'> }>, creator?: Types.Maybe<(
+        Pick<Types.OpenbookCommunitiesTask, 'id' | 'name' | 'description' | 'thumbnail' | 'locationType' | 'location' | 'visibility' | 'regularity' | 'slotsAvailable' | 'slotsTaken' | 'contactEmail' | 'contactPhone' | 'skillsV2' | 'created'>
+        & { creator?: Types.Maybe<(
           Pick<Types.OpenbookAuthUser, 'id' | 'email' | 'dateJoined'>
           & { profile?: Types.Maybe<Pick<Types.OpenbookAuthUserprofile, 'id' | 'name' | 'lastName' | 'pronouns' | 'avatar' | 'aboutMe' | 'location' | 'url'>> }
         )> }
@@ -486,14 +486,14 @@ export type ChangeReportStatusMutation = { changeReportStatus: (
         & { profile?: Types.Maybe<Pick<Types.OpenbookAuthUserprofile, 'id' | 'name' | 'lastName' | 'pronouns' | 'avatar' | 'aboutMe' | 'location' | 'url'>> }
       )>, videoCallLink?: Types.Maybe<Pick<Types.OpenbookAppointmentsVideocalllink, 'url' | 'additionalInfo'>>, locationDetails?: Types.Maybe<Pick<Types.OpenbookAppointmentsLocationdetails, 'completeAddress'>>, participantsAggregate: { aggregate?: Types.Maybe<Pick<Types.OpenbookAppointmentsAppointmentParticipantsAggregateFields, 'count'>> } }
     )>, reportedSpaceTask?: Types.Maybe<(
-      Pick<Types.OpenbookCommunitiesTask, 'id' | 'name' | 'description' | 'thumbnail' | 'locationType' | 'location' | 'visibility' | 'regularity' | 'slotsAvailable' | 'slotsTaken' | 'contactEmail' | 'contactPhone' | 'created'>
+      Pick<Types.OpenbookCommunitiesTask, 'id' | 'name' | 'description' | 'thumbnail' | 'locationType' | 'location' | 'visibility' | 'regularity' | 'slotsAvailable' | 'slotsTaken' | 'contactEmail' | 'contactPhone' | 'skillsV2' | 'created'>
       & { space: (
         Pick<Types.OpenbookCommunitiesCommunity, 'id' | 'avatar' | 'cover' | 'name' | 'title' | 'description' | 'location' | 'contactDescription' | 'contactEmail' | 'contactPhone' | 'created'>
         & { onboardingSteps: Array<Pick<Types.OpenbookCommunitiesOnboardingstep, 'stepNumber' | 'text'>>, creator?: Types.Maybe<(
           Pick<Types.OpenbookAuthUser, 'id' | 'email' | 'dateJoined'>
           & { profile?: Types.Maybe<Pick<Types.OpenbookAuthUserprofile, 'id' | 'name' | 'lastName' | 'pronouns' | 'avatar' | 'aboutMe' | 'location' | 'url'>> }
         )>, externalLinks: Array<Pick<Types.OpenbookCommunitiesExternallink, 'id' | 'name' | 'type' | 'url'>>, linkhubToolsAggregate: { aggregate?: Types.Maybe<Pick<Types.OpenbookCommunitiesCollaborationtoolAggregateFields, 'count'>> } }
-      ), skills: Array<{ skill: Pick<Types.OpenbookTermsSkill, 'id' | 'title'> }>, creator?: Types.Maybe<(
+      ), creator?: Types.Maybe<(
         Pick<Types.OpenbookAuthUser, 'id' | 'email' | 'dateJoined'>
         & { profile?: Types.Maybe<Pick<Types.OpenbookAuthUserprofile, 'id' | 'name' | 'lastName' | 'pronouns' | 'avatar' | 'aboutMe' | 'location' | 'url'>> }
       )> }
@@ -704,8 +704,8 @@ export type ViewReportQuery = { report: (
           & { profile?: Types.Maybe<Pick<Types.OpenbookAuthUserprofile, 'id' | 'name' | 'lastName' | 'pronouns' | 'avatar' | 'aboutMe' | 'location' | 'url'>> }
         )>, videoCallLink?: Types.Maybe<Pick<Types.OpenbookAppointmentsVideocalllink, 'url' | 'additionalInfo'>>, locationDetails?: Types.Maybe<Pick<Types.OpenbookAppointmentsLocationdetails, 'completeAddress'>>, participantsAggregate: { aggregate?: Types.Maybe<Pick<Types.OpenbookAppointmentsAppointmentParticipantsAggregateFields, 'count'>> } }
       )>, tasks: Array<(
-        Pick<Types.OpenbookCommunitiesTask, 'id' | 'name' | 'description' | 'thumbnail' | 'locationType' | 'location' | 'visibility' | 'regularity' | 'slotsAvailable' | 'slotsTaken' | 'contactEmail' | 'contactPhone' | 'created'>
-        & { skills: Array<{ skill: Pick<Types.OpenbookTermsSkill, 'id' | 'title'> }>, creator?: Types.Maybe<(
+        Pick<Types.OpenbookCommunitiesTask, 'id' | 'name' | 'description' | 'thumbnail' | 'locationType' | 'location' | 'visibility' | 'regularity' | 'slotsAvailable' | 'slotsTaken' | 'contactEmail' | 'contactPhone' | 'skillsV2' | 'created'>
+        & { creator?: Types.Maybe<(
           Pick<Types.OpenbookAuthUser, 'id' | 'email' | 'dateJoined'>
           & { profile?: Types.Maybe<Pick<Types.OpenbookAuthUserprofile, 'id' | 'name' | 'lastName' | 'pronouns' | 'avatar' | 'aboutMe' | 'location' | 'url'>> }
         )> }
@@ -735,14 +735,14 @@ export type ViewReportQuery = { report: (
         & { profile?: Types.Maybe<Pick<Types.OpenbookAuthUserprofile, 'id' | 'name' | 'lastName' | 'pronouns' | 'avatar' | 'aboutMe' | 'location' | 'url'>> }
       )>, videoCallLink?: Types.Maybe<Pick<Types.OpenbookAppointmentsVideocalllink, 'url' | 'additionalInfo'>>, locationDetails?: Types.Maybe<Pick<Types.OpenbookAppointmentsLocationdetails, 'completeAddress'>>, participantsAggregate: { aggregate?: Types.Maybe<Pick<Types.OpenbookAppointmentsAppointmentParticipantsAggregateFields, 'count'>> } }
     )>, reportedSpaceTask?: Types.Maybe<(
-      Pick<Types.OpenbookCommunitiesTask, 'id' | 'name' | 'description' | 'thumbnail' | 'locationType' | 'location' | 'visibility' | 'regularity' | 'slotsAvailable' | 'slotsTaken' | 'contactEmail' | 'contactPhone' | 'created'>
+      Pick<Types.OpenbookCommunitiesTask, 'id' | 'name' | 'description' | 'thumbnail' | 'locationType' | 'location' | 'visibility' | 'regularity' | 'slotsAvailable' | 'slotsTaken' | 'contactEmail' | 'contactPhone' | 'skillsV2' | 'created'>
       & { space: (
         Pick<Types.OpenbookCommunitiesCommunity, 'id' | 'avatar' | 'cover' | 'name' | 'title' | 'description' | 'location' | 'contactDescription' | 'contactEmail' | 'contactPhone' | 'created'>
         & { onboardingSteps: Array<Pick<Types.OpenbookCommunitiesOnboardingstep, 'stepNumber' | 'text'>>, creator?: Types.Maybe<(
           Pick<Types.OpenbookAuthUser, 'id' | 'email' | 'dateJoined'>
           & { profile?: Types.Maybe<Pick<Types.OpenbookAuthUserprofile, 'id' | 'name' | 'lastName' | 'pronouns' | 'avatar' | 'aboutMe' | 'location' | 'url'>> }
         )>, externalLinks: Array<Pick<Types.OpenbookCommunitiesExternallink, 'id' | 'name' | 'type' | 'url'>>, linkhubToolsAggregate: { aggregate?: Types.Maybe<Pick<Types.OpenbookCommunitiesCollaborationtoolAggregateFields, 'count'>> } }
-      ), skills: Array<{ skill: Pick<Types.OpenbookTermsSkill, 'id' | 'title'> }>, creator?: Types.Maybe<(
+      ), creator?: Types.Maybe<(
         Pick<Types.OpenbookAuthUser, 'id' | 'email' | 'dateJoined'>
         & { profile?: Types.Maybe<Pick<Types.OpenbookAuthUserprofile, 'id' | 'name' | 'lastName' | 'pronouns' | 'avatar' | 'aboutMe' | 'location' | 'url'>> }
       )> }
