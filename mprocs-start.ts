@@ -87,6 +87,14 @@ const replaceDockerInternalHostname = (host: string) => {
     password: process.env.OKUNA_DB_PASSWORD,
   })
 
+  await waitForPostgres({
+    database: 'rewards',
+    host: replaceDockerInternalHostname(process.env.REWARDS_DB_HOST!!),
+    port: process.env.REWARDS_DB_PORT,
+    user: process.env.REWARDS_DB_USER,
+    password: process.env.REWARDS_DB_PASSWORD,
+  })
+
   await waitForPubsub({
     host: replaceDockerInternalHostname(process.env.PUBSUB_EMULATOR_HOST!!),
     topicName: process.env.PUBSUB_TOPIC_NAME,
