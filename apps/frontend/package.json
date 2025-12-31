@@ -21,7 +21,7 @@
     "@tabler/icons-react": "3.33.0",
     "clsx": "2.1.1",
     "date-fns": "4.1.0",
-    "dayjs": "1.11.13",
+    "dayjs": "1.11.19",
     "graphql": "16.11.0",
     "graphql-request": "7.1.2",
     "graphql-tag": "2.12.6",
