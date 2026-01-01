@@ -47,7 +47,7 @@
     "postcss": "^8.4.43",
     "postcss-preset-mantine": "^1.17.0",
     "postcss-simple-vars": "^7.0.1",
-    "rimraf": "6.0.1",
+    "rimraf": "6.1.2",
     "typescript": "^5.5.4",
     "vite": "^6.0.0",
     "vite-plugin-svgr": "^4.2.0"
