@@ -17,7 +17,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",
-    "@types/eslint__js": "^8.42.3",
+    "@types/eslint__js": "^9.0.0",
     "@types/node": "^22.0.0",
     "docker-compose": "^1.1.1",
     "dotenv": "^16.4.5",
