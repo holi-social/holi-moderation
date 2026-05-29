@@ -2,7 +2,7 @@
 # Manual changes might be lost - proceed with caution!
 
 __metadata:
-  version: 8
+  version: 10
   cacheKey: 10c0
 
 "@ampproject/remapping@npm:^2.2.0":
@@ -2481,7 +2481,7 @@ __metadata:
   dependencies:
     "@google-cloud/functions-framework": "npm:3.5.1"
     "@jest/globals": "npm:^29.7.0"
-    "@ory/client": "npm:1.20.23"
+    "@ory/client": "npm:1.22.37"
     "@types/jest": "npm:^29.5.12"
     "@vercel/ncc": "npm:0.38.4"
     jest: "npm:^29.7.0"
@@ -3635,12 +3635,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ory/client@npm:1.20.23":
-  version: 1.20.23
-  resolution: "@ory/client@npm:1.20.23"
+"@ory/client@npm:1.22.37":
+  version: 1.22.37
+  resolution: "@ory/client@npm:1.22.37"
   dependencies:
     axios: "npm:^1.6.1"
-  checksum: 10c0/efd48572fa4156737434623b8c52f1d32d8c26fed137c457adc15924fd614f410b77518a643862101087049b355626d61c688393f51e6e4ecd66b721da8528ac
+  checksum: 10c0/1295876b41e25ea25bfcab52791ab36ab745db8390692f0e9a509e532a8676eb8d712061692383bfb3153bdf86e58758fd45e9953fe8e8a6b8419264d0d2efb2
   languageName: node
   linkType: hard
 
