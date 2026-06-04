@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@apollo/server": "4.12.2",
-    "@google-cloud/pubsub": "4.11.0",
+    "@google-cloud/pubsub": "5.3.1",
     "@nestjs/apollo": "12.2.2",
     "@nestjs/cli": "10.4.9",
     "@nestjs/common": "10.4.20",
